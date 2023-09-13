@@ -1,6 +1,6 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait BigIntMethods {
     #[endpoint]
     fn sqrt_big_uint(&self, a: BigUint) -> BigUint {

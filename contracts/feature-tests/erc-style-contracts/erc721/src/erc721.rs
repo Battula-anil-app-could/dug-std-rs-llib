@@ -1,8 +1,8 @@
 #![no_std]
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait NonFungibleTokens {
     #[init]
     fn init(&self, initial_minted: u64) {

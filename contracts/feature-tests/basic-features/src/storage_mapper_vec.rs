@@ -1,7 +1,7 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Storage mapper test.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait VecMapperFeatures {
     #[view]
     #[storage_mapper("vec_mapper")]

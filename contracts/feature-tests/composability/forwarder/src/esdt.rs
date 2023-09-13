@@ -1,4 +1,4 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 use super::storage;
 
@@ -16,7 +16,7 @@ pub type EsdtTokenDataMultiValue<M> = MultiValue9<
     ManagedVec<M, ManagedBuffer<M>>,
 >;
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ForwarderEsdtModule: storage::ForwarderStorageModule {
     #[view(getFungibleEsdtBalance)]
     fn get_fungible_esdt_balance(&self, token_identifier: &TokenIdentifier) -> BigUint {

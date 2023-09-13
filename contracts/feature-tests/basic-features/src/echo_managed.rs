@@ -1,7 +1,7 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Test endpoint argument and result serialization.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait EchoManagedTypes {
     #[endpoint]
     fn echo_big_uint(&self, bi: BigUint) -> BigUint {

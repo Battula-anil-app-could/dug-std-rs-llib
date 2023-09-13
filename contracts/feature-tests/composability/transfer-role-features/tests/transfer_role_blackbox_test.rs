@@ -1,5 +1,5 @@
-use multiversx_sc::{codec::multi_types::MultiValueVec, types::Address};
-use multiversx_sc_scenario::{
+use dharithri_sc::{codec::multi_types::MultiValueVec, types::Address};
+use dharithri_sc_scenario::{
     api::StaticApi,
     scenario_model::{
         Account, AddressValue, CheckAccount, CheckStateStep, ScCallStep, ScDeployStep,

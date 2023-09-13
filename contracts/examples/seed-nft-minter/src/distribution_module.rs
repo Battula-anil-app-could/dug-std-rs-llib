@@ -1,5 +1,5 @@
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 pub const MAX_DISTRIBUTION_PERCENTAGE: u64 = 100_000; // 100%
 
@@ -11,7 +11,7 @@ pub struct Distribution<M: ManagedTypeApi> {
     pub gas_limit: u64,
 }
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait DistributionModule {
     fn init_distribution(&self, distribution: ManagedVec<Distribution<Self::Api>>) {
         self.validate_distribution(&distribution);

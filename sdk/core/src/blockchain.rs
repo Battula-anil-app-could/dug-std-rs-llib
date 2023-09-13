@@ -19,9 +19,9 @@ use anyhow::{anyhow, Result};
 use itertools::Itertools;
 use reqwest::Client;
 
-pub const MAINNET_GATEWAY: &str = "https://gateway.multiversx.com";
-pub const TESTNET_GATEWAY: &str = "https://testnet-gateway.multiversx.com";
-pub const DEVNET_GATEWAY: &str = "https://devnet-gateway.multiversx.com";
+pub const MAINNET_GATEWAY: &str = "https://gateway.dharithri.com";
+pub const TESTNET_GATEWAY: &str = "https://testnet-gateway.dharithri.com";
+pub const DEVNET_GATEWAY: &str = "https://devnet-gateway.dharithri.com";
 
 // MetachainShardId will be used to identify a shard ID as metachain
 pub const METACHAIN_SHARD_ID: u32 = 0xFFFFFFFF;

@@ -2,11 +2,11 @@
 
 use rust_snippets_generator_test::{ProxyTrait as _, *};
 
-use multiversx_sc_snippets::{
+use dharithri_sc_snippets::{
     env_logger,
     erdrs::wallet::Wallet,
-    multiversx_sc::{codec::multi_types::*, types::*},
-    multiversx_sc_scenario::{
+    dharithri_sc::{codec::multi_types::*, types::*},
+    dharithri_sc_scenario::{
         api::StaticApi,
         bech32,
         scenario_format::interpret_trait::{InterpretableFrom, InterpreterContext},

@@ -1,4 +1,4 @@
-use multiversx_sc::abi::{BuildInfoAbi, ContractCrateBuildAbi, FrameworkBuildAbi};
+use dharithri_sc::abi::{BuildInfoAbi, ContractCrateBuildAbi, FrameworkBuildAbi};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]

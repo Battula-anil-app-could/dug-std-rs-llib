@@ -1,6 +1,6 @@
 use adder::*;
-use multiversx_sc::storage::mappers::SingleValue;
-use multiversx_sc_scenario::{api::StaticApi, num_bigint::BigUint, scenario_model::*, *};
+use dharithri_sc::storage::mappers::SingleValue;
+use dharithri_sc_scenario::{api::StaticApi, num_bigint::BigUint, scenario_model::*, *};
 
 const ADDER_PATH_EXPR: &str = "file:output/adder.wasm";
 

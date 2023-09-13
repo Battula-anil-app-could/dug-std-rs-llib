@@ -1,8 +1,8 @@
 use core::convert::TryFrom;
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ManagedAddressFeatures {
     #[endpoint]
     fn maddress_from_array(&self, array: &[u8; 32]) -> ManagedAddress {

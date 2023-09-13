@@ -1,4 +1,4 @@
-use multiversx_sc_meta::ei;
+use dharithri_sc_meta::ei;
 
 use std::collections::HashSet;
 

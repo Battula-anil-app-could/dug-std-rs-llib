@@ -1,24 +1,24 @@
 [package]
-name = "multiversx-sc"
+name = "dharithri-sc"
 version = "0.43.3"
 edition = "2021"
 
-authors = ["Andrei Marinica <andrei.marinica@multiversx.com>", "MultiversX <contact@multiversx.com>"]
+authors = ["viswanath <contact@dharithri.org>", "dharithri <contact@dharithri.com>"]
 license = "GPL-3.0-only"
 readme = "README.md"
-repository = "https://github.com/multiversx/mx-sdk-rs"
-homepage = "https://multiversx.com/"
-documentation = "https://docs.multiversx.com/"
-description = "MultiversX smart contract API"
-keywords = ["multiversx", "wasm", "webassembly", "blockchain", "contract"]
+repository = "https://github.com/dharithri/mx-sdk-rs"
+homepage = "https://dharithri.com/"
+documentation = "https://docs.dharithri.com/"
+description = "dharithri smart contract API"
+keywords = ["dharithri", "wasm", "webassembly", "blockchain", "contract"]
 categories = ["no-std", "wasm", "cryptography::cryptocurrencies", "development-tools"]
 
 [package.metadata.docs.rs]
 all-features = true
 
 [features]
-num-bigint = ["multiversx-sc-codec/num-bigint"]
-alloc = ["multiversx-sc-codec/alloc"]
+num-bigint = ["dharithri-sc-codec/num-bigint"]
+alloc = ["dharithri-sc-codec/alloc"]
 promises = []
 managed-map = []
 esdt-token-payment-legacy-decode = []
@@ -32,11 +32,11 @@ bitflags = "1.3.2"
 version = "0.2"
 default-features = false
 
-[dependencies.multiversx-sc-derive]
+[dependencies.dharithri-sc-derive]
 version = "=0.43.3"
 path = "../derive"
 
-[dependencies.multiversx-sc-codec]
+[dependencies.dharithri-sc-codec]
 version = "=0.18.1"
 path = "../../data/codec"
 features = ["derive"]

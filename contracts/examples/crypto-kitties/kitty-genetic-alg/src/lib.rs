@@ -1,11 +1,11 @@
 #![no_std]
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 use kitty::{kitty_genes::*, Kitty};
 use random::Random;
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait KittyGeneticAlg {
     #[init]
     fn init(&self) {}

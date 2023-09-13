@@ -21,22 +21,22 @@ fn call_value_init_snippet(mpm: MethodPayableMetadata) -> proc_macro2::TokenStre
     match &mpm {
         MethodPayableMetadata::NotPayable => {
             quote! {
-                multiversx_sc::io::call_value_init::not_payable::<Self::Api>();
+                dharithri_sc::io::call_value_init::not_payable::<Self::Api>();
             }
         },
         MethodPayableMetadata::Egld => {
             quote! {
-                multiversx_sc::io::call_value_init::payable_egld::<Self::Api>();
+                dharithri_sc::io::call_value_init::payable_egld::<Self::Api>();
             }
         },
         MethodPayableMetadata::SingleEsdtToken(token_identifier) => {
             quote! {
-                multiversx_sc::io::call_value_init::payable_single_specific_token::<Self::Api>(#token_identifier);
+                dharithri_sc::io::call_value_init::payable_single_specific_token::<Self::Api>(#token_identifier);
             }
         },
         MethodPayableMetadata::AnyToken => {
             quote! {
-                multiversx_sc::io::call_value_init::payable_any::<Self::Api>();
+                dharithri_sc::io::call_value_init::payable_any::<Self::Api>();
             }
         },
     }
@@ -51,7 +51,7 @@ fn opt_payment_arg_snippet(
         .map(|arg| {
             let pat = &arg.pat;
             quote! {
-                let #pat = multiversx_sc::io::call_value_init::#init_fn_name::<Self::Api>();
+                let #pat = dharithri_sc::io::call_value_init::#init_fn_name::<Self::Api>();
             }
         })
         .unwrap_or_default()

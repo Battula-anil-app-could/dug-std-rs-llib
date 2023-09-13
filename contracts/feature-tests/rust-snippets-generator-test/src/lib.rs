@@ -1,7 +1,7 @@
 #![no_std]
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 // contract to help with snippet generation tests
 // contains endpoints with various types combinations
@@ -12,7 +12,7 @@ multiversx_sc::derive_imports!();
 // Add --overwrite if you want to overwrite existing snippets
 
 // Additionally, we also have to update the interact-rs snippets manually to add relative paths:
-// [dependencies.multiversx-sc-snippets]
+// [dependencies.dharithri-sc-snippets]
 // version = "0.43.3"
 // path = "../../../../framework/snippets"
 
@@ -23,7 +23,7 @@ pub struct MyCoolStruct<M: ManagedTypeApi> {
     pub awesome: BigUint<M>,
 }
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait PayableFeatures {
     #[init]
     fn init(&self) {}

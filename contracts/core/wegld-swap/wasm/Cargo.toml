@@ -1,7 +1,7 @@
 [package]
-name = "multiversx-wegld-swap-sc-wasm"
+name = "dharithri-wegld-swap-sc-wasm"
 version = "0.0.0"
-authors = [ "Dorin Iancu <dorin.iancu@multiversx.com>",]
+authors = [ "Dorin Iancu <dorin.iancu@dharithri.com>",]
 edition = "2021"
 publish = false
 
@@ -20,9 +20,9 @@ lto = true
 debug = false
 panic = "abort"
 
-[dependencies.multiversx-wegld-swap-sc]
+[dependencies.dharithri-wegld-swap-sc]
 path = ".."
 
-[dependencies.multiversx-sc-wasm-adapter]
+[dependencies.dharithri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../framework/wasm-adapter"

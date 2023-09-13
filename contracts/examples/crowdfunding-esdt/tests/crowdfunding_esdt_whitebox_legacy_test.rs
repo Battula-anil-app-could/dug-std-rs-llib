@@ -1,8 +1,8 @@
 #![allow(deprecated)] // TODO: migrate tests
 
 use crowdfunding_esdt::*;
-use multiversx_sc::types::{Address, EgldOrEsdtTokenIdentifier};
-use multiversx_sc_scenario::{
+use dharithri_sc::types::{Address, EgldOrEsdtTokenIdentifier};
+use dharithri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint, testing_framework::*,
     DebugApi,
 };

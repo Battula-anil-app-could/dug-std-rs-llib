@@ -1,4 +1,4 @@
-ALICE="/home/elrond/multiversx-sdk/testwallets/latest/users/alice.pem"
+ALICE="/home/elrond/dharithri-sdk/testwallets/latest/users/alice.pem"
 ADDRESS=$(mxpy data load --key=address-testnet)
 ADDRESS_DECODED=$(mxpy wallet bech32 --decode ${ADDRESS})
 DEPLOY_TRANSACTION=$(mxpy data load --key=deployTransaction-testnet)

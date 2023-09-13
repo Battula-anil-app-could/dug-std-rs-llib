@@ -1,14 +1,14 @@
-use multiversx_price_aggregator_sc::{
+use dharithri_price_aggregator_sc::{
     price_aggregator_data::{OracleStatus, TimestampedPrice, TokenPair},
     staking::ProxyTrait as _,
     ContractObj, PriceAggregator, ProxyTrait as _, MAX_ROUND_DURATION_SECONDS,
 };
-use multiversx_sc::{
+use dharithri_sc::{
     codec::multi_types::MultiValueVec,
     types::{Address, EgldOrEsdtTokenIdentifier},
 };
-use multiversx_sc_modules::pause::ProxyTrait;
-use multiversx_sc_scenario::{
+use dharithri_sc_modules::pause::ProxyTrait;
+use dharithri_sc_scenario::{
     api::StaticApi,
     managed_address, managed_biguint, managed_buffer,
     scenario_model::{Account, AddressValue, ScCallStep, ScDeployStep, SetStateStep, TxExpect},
@@ -20,14 +20,14 @@ const EGLD_TICKER: &[u8] = b"EGLD";
 const NR_ORACLES: usize = 4;
 const OWNER_ADDRESS_EXPR: &str = "address:owner";
 const PRICE_AGGREGATOR_ADDRESS_EXPR: &str = "sc:price-aggregator";
-const PRICE_AGGREGATOR_PATH_EXPR: &str = "file:output/multiversx-price-aggregator-sc.wasm";
+const PRICE_AGGREGATOR_PATH_EXPR: &str = "file:output/dharithri-price-aggregator-sc.wasm";
 const SLASH_AMOUNT: u64 = 10;
 const SLASH_QUORUM: usize = 2;
 const STAKE_AMOUNT: u64 = 20;
 const SUBMISSION_COUNT: usize = 3;
 const USD_TICKER: &[u8] = b"USDC";
 
-type PriceAggregatorContract = ContractInfo<multiversx_price_aggregator_sc::Proxy<StaticApi>>;
+type PriceAggregatorContract = ContractInfo<dharithri_price_aggregator_sc::Proxy<StaticApi>>;
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
@@ -35,7 +35,7 @@ fn world() -> ScenarioWorld {
     blockchain.set_current_dir_from_workspace("contracts/core/price-aggregator");
     blockchain.register_contract(
         PRICE_AGGREGATOR_PATH_EXPR,
-        multiversx_price_aggregator_sc::ContractBuilder,
+        dharithri_price_aggregator_sc::ContractBuilder,
     );
 
     blockchain
@@ -74,7 +74,7 @@ impl PriceAggregatorTestState {
         let price_aggregator_contract = PriceAggregatorContract::new(PRICE_AGGREGATOR_ADDRESS_EXPR);
         let price_aggregator_whitebox = WhiteboxContract::new(
             PRICE_AGGREGATOR_ADDRESS_EXPR,
-            multiversx_price_aggregator_sc::contract_obj,
+            dharithri_price_aggregator_sc::contract_obj,
         );
 
         Self {

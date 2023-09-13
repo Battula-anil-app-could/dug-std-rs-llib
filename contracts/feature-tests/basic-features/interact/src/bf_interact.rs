@@ -8,10 +8,10 @@ use basic_features::{
 use bf_interact_config::Config;
 use bf_interact_state::State;
 use clap::Parser;
-use multiversx_sc_snippets::{
+use dharithri_sc_snippets::{
     env_logger,
-    multiversx_sc::{codec::multi_types::IgnoreValue, types::Address},
-    multiversx_sc_scenario::{
+    dharithri_sc::{codec::multi_types::IgnoreValue, types::Address},
+    dharithri_sc_scenario::{
         api::StaticApi,
         bech32,
         mandos_system::ScenarioRunner,

@@ -1,19 +1,19 @@
 [package]
-name = "multiversx-wegld-swap-sc-meta"
+name = "dharithri-wegld-swap-sc-meta"
 version = "0.0.0"
-authors = [ "Dorin Iancu <dorin.iancu@multiversx.com>",]
+authors = [ "Dorin Iancu <dorin.iancu@dharithri.com>",]
 edition = "2021"
 publish = false
 
 [dev-dependencies]
 
-[dependencies.multiversx-wegld-swap-sc]
+[dependencies.dharithri-wegld-swap-sc]
 path = ".."
 
-[dependencies.multiversx-sc]
+[dependencies.dharithri-sc]
 version = "0.43.3"
 path = "../../../../framework/base"
 
-[dependencies.multiversx-sc-meta]
+[dependencies.dharithri-sc-meta]
 version = "0.43.3"
 path = "../../../../framework/meta"

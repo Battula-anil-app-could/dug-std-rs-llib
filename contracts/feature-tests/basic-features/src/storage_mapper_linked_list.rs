@@ -1,7 +1,7 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Storage mapper test.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait LinkedListMapperFeatures {
     #[view(getListMapper)]
     #[storage_mapper("list_mapper")]

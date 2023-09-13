@@ -1,10 +1,10 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 use crate::types::*;
 use core::num::NonZeroUsize;
 
 /// Test endpoint argument and result serialization.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait EchoTypes {
     #[endpoint]
     fn echo_u64(&self, i: u64) -> u64 {

@@ -1,5 +1,5 @@
-use multiversx_chain_vm::mem_conv;
-use multiversx_sc::api::{ErrorApi, ErrorApiImpl, HandleConstraints};
+use dharithri_chain_vm::mem_conv;
+use dharithri_sc::api::{ErrorApi, ErrorApiImpl, HandleConstraints};
 
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 

@@ -1,7 +1,7 @@
 [package]
 name = "vec-repeat"
 version = "0.0.0"
-authors = ["Claudiu-Marcel Bruda <claudiu.bruda@multiversx.com>"]
+authors = ["kasi <contact@dharithri.org>"]
 edition = "2021"
 publish = false
 
@@ -12,10 +12,10 @@ path = "src/vec_repeat.rs"
 path = "../benchmark-common"
 
 
-[dependencies.multiversx-sc]
+[dependencies.dharithri-sc]
 version = "0.43.3"
 path = "../../../../framework/base"
 
-[dev-dependencies.multiversx-sc-scenario]
+[dev-dependencies.dharithri-sc-scenario]
 version = "0.43.3"
 path = "../../../../framework/scenario"

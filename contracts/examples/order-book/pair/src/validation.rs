@@ -1,5 +1,5 @@
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 use crate::common::{FeeConfig, FeeConfigEnum};
 
@@ -11,7 +11,7 @@ use super::{
     },
 };
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ValidationModule: common::CommonModule {
     fn require_valid_order_input_amount(&self, params: &OrderInputParams<Self::Api>) {
         require!(params.amount != BigUint::zero(), "Amout cannot be zero");

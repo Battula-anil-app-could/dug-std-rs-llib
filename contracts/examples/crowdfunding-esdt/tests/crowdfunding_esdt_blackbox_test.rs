@@ -1,6 +1,6 @@
 use crowdfunding_esdt::*;
-use multiversx_sc::types::EgldOrEsdtTokenIdentifier;
-use multiversx_sc_scenario::{api::StaticApi, scenario_model::*, *};
+use dharithri_sc::types::EgldOrEsdtTokenIdentifier;
+use dharithri_sc_scenario::{api::StaticApi, scenario_model::*, *};
 
 const CF_PATH_EXPR: &str = "file:output/crowdfunding-esdt.wasm";
 

@@ -1,8 +1,8 @@
 use crate::{call_tree::CallState, comp_interact_config::Config, comp_interact_state::State};
 
-use multiversx_sc_snippets::{
-    multiversx_sc::types::Address,
-    multiversx_sc_scenario::{
+use dharithri_sc_snippets::{
+    dharithri_sc::types::Address,
+    dharithri_sc_scenario::{
         scenario_format::interpret_trait::{InterpretableFrom, InterpreterContext},
         scenario_model::BytesValue,
         test_wallets::judy,

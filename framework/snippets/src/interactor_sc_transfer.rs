@@ -1,6 +1,6 @@
 use crate::Interactor;
 use log::info;
-use multiversx_sc_scenario::{scenario::ScenarioRunner, scenario_model::TransferStep};
+use dharithri_sc_scenario::{scenario::ScenarioRunner, scenario_model::TransferStep};
 
 impl Interactor {
     pub async fn transfer(&mut self, transfer_step: TransferStep) -> String {

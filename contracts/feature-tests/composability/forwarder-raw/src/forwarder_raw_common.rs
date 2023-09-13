@@ -1,6 +1,6 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ForwarderRawCommon {
     #[view]
     #[storage_mapper("callback_args")]

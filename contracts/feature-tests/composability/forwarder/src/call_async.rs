@@ -1,5 +1,5 @@
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 #[derive(TopEncode, TopDecode, TypeAbi)]
 pub struct CallbackData<M: ManagedTypeApi> {
@@ -12,7 +12,7 @@ pub struct CallbackData<M: ManagedTypeApi> {
 
 const PERCENTAGE_TOTAL: u64 = 10_000; // 100%
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ForwarderAsyncCallModule {
     #[proxy]
     fn vault_proxy(&self) -> vault::Proxy<Self::Api>;

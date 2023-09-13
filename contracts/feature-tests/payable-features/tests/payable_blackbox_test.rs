@@ -1,4 +1,4 @@
-use multiversx_sc_scenario::{scenario_model::*, *};
+use dharithri_sc_scenario::{scenario_model::*, *};
 
 const PF_PATH_EXPR: &str = "file:output/payable-features.wasm";
 

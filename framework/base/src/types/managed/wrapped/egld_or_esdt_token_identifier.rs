@@ -7,13 +7,13 @@ use crate::{
     types::{ManagedBuffer, ManagedOption, ManagedRef, ManagedType, TokenIdentifier},
 };
 
-use crate as multiversx_sc; // required by the ManagedVecItem derive
+use crate as dharithri_sc; // required by the ManagedVecItem derive
 
 /// Specialized type for handling either EGLD or ESDT token identifiers.
 ///
 /// Equivalent to a structure of the form
 /// ```
-/// # use multiversx_sc::{api::ManagedTypeApi, types::TokenIdentifier};
+/// # use dharithri_sc::{api::ManagedTypeApi, types::TokenIdentifier};
 /// enum EgldOrEsdtTokenIdentifier<M: ManagedTypeApi> {
 ///     Egld,
 ///     Esdt(TokenIdentifier<M>),

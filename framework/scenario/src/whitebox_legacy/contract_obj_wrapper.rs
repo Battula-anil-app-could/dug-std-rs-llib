@@ -3,7 +3,7 @@ use std::{collections::HashMap, path::PathBuf, str::FromStr, sync::Arc};
 use crate::{
     api::DebugApi,
     debug_executor::{contract_instance_wrapped_execution, ContractContainer, StaticVarStack},
-    multiversx_sc::{
+    dharithri_sc::{
         codec::{TopDecode, TopEncode},
         contract_base::{CallableContract, ContractBase},
         types::{heap::Address, EsdtLocalRole},
@@ -12,13 +12,13 @@ use crate::{
     testing_framework::raw_converter::bytes_to_hex,
     ScenarioWorld,
 };
-use multiversx_chain_scenario_format::interpret_trait::InterpretableFrom;
-use multiversx_chain_vm::{
+use dharithri_chain_scenario_format::interpret_trait::InterpretableFrom;
+use dharithri_chain_vm::{
     tx_mock::{TxContext, TxContextStack, TxFunctionName, TxResult},
     types::VMAddress,
     world_mock::EsdtInstanceMetadata,
 };
-use multiversx_sc::types::H256;
+use dharithri_sc::types::H256;
 use num_traits::Zero;
 
 use super::{
@@ -26,7 +26,7 @@ use super::{
     AddressFactory, MandosGenerator, ScQueryMandos,
 };
 
-pub use multiversx_chain_vm::tx_mock::TxTokenTransfer;
+pub use dharithri_chain_vm::tx_mock::TxTokenTransfer;
 
 #[derive(Clone)]
 pub struct ContractObjWrapper<

@@ -1,8 +1,8 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 use super::storage;
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ForwarderSftModule: storage::ForwarderStorageModule {
     #[payable("EGLD")]
     #[endpoint]

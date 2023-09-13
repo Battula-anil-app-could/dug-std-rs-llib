@@ -11,4 +11,4 @@ pub use contract_obj_wrapper::*;
 use mandos_generator::*;
 pub use tx_mandos::*;
 
-pub use multiversx_chain_vm::tx_mock::{TxContextStack, TxResult, TxTokenTransfer};
+pub use dharithri_chain_vm::tx_mock::{TxContextStack, TxResult, TxTokenTransfer};

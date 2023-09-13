@@ -1,4 +1,4 @@
-use multiversx_sc::api::{HandleConstraints, LogApi, LogApiImpl};
+use dharithri_sc::api::{HandleConstraints, LogApi, LogApiImpl};
 
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 

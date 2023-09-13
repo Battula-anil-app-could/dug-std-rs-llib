@@ -1,5 +1,5 @@
-use multiversx_sc::types::BigInt;
-use multiversx_sc_scenario::api::StaticApi;
+use dharithri_sc::types::BigInt;
+use dharithri_sc_scenario::api::StaticApi;
 
 #[test]
 fn test_big_int_add() {

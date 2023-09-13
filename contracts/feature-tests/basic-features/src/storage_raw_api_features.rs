@@ -1,6 +1,6 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait StorageRawApiFeatures {
     #[endpoint]
     fn storage_read_raw(&self, storage_key: ManagedBuffer) -> ManagedBuffer {

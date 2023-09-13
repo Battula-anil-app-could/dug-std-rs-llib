@@ -1,13 +1,13 @@
 #![no_std]
 #![allow(clippy::type_complexity)]
 
-use multiversx_sc::codec::Empty;
+use dharithri_sc::codec::Empty;
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// General test contract.
 /// Used especially for investigating async calls and contract interaction in general.
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait Vault {
     #[init]
     fn init(&self, opt_arg_to_echo: OptionalValue<ManagedBuffer>) -> OptionalValue<ManagedBuffer> {

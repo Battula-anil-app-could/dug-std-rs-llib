@@ -1,8 +1,8 @@
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     mandos_system::ScenarioRunner,
     scenario_model::{AddressValue, ScCallStep, ScDeployStep, TxResponse},
 };
-use multiversx_sdk::data::transaction::Transaction;
+use dharithri_sdk::data::transaction::Transaction;
 
 use crate::Interactor;
 

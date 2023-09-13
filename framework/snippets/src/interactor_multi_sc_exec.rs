@@ -3,8 +3,8 @@ use crate::{
     Interactor, StepBuffer, TransactionSpec,
 };
 
-use multiversx_sc_scenario::scenario_model::TxResponse;
-use multiversx_sdk::data::transaction::Transaction;
+use dharithri_sc_scenario::scenario_model::TxResponse;
+use dharithri_sdk::data::transaction::Transaction;
 
 impl Interactor {
     pub async fn multi_sc_exec(&mut self, mut buffer: StepBuffer<'_>) {

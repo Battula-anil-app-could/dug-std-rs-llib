@@ -1,7 +1,7 @@
 use forwarder_queue::QueuedCallType;
-use multiversx_sc_snippets::{
-    multiversx_sc::types::{EgldOrEsdtTokenIdentifier, TokenIdentifier},
-    multiversx_sc_scenario::{api::StaticApi, num_bigint::BigUint},
+use dharithri_sc_snippets::{
+    dharithri_sc::types::{EgldOrEsdtTokenIdentifier, TokenIdentifier},
+    dharithri_sc_scenario::{api::StaticApi, num_bigint::BigUint},
 };
 use serde::Deserialize;
 use std::{fmt::Debug, io::Read, str::FromStr};

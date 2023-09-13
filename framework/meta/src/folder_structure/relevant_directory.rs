@@ -9,11 +9,11 @@ use super::version_req::VersionReq;
 
 /// Used for retrieving crate versions.
 pub const FRAMEWORK_CRATE_NAMES: &[&str] = &[
-    "multiversx-sc",
-    "multiversx-sc-meta",
-    "multiversx-sc-scenario",
-    "multiversx-sc-wasm-adapter",
-    "multiversx-sc-modules",
+    "dharithri-sc",
+    "dharithri-sc-meta",
+    "dharithri-sc-scenario",
+    "dharithri-sc-wasm-adapter",
+    "dharithri-sc-modules",
     "elrond-wasm",
     "elrond-wasm-debug",
     "elrond-wasm-modules",
@@ -149,7 +149,7 @@ fn populate_directories(path: &Path, ignore: &[String], result: &mut Vec<Relevan
 }
 
 fn is_marked_contract_crate_dir(path: &Path) -> bool {
-    path.join("multiversx.json").is_file() || path.join("elrond.json").is_file()
+    path.join("dharithri.json").is_file() || path.join("elrond.json").is_file()
 }
 
 fn can_continue_recursion(dir_entry: &DirEntry, blacklist: &[String]) -> bool {

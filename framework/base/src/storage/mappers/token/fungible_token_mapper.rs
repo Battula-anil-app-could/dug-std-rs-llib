@@ -100,7 +100,7 @@ where
     ///     },
     /// }
     ///
-    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from multiversx-sc-modules
+    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharithri-sc-modules
     /// and pass None for the opt_callback argument
     pub fn issue(
         &self,
@@ -153,7 +153,7 @@ where
     ///     },
     /// }
     ///
-    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from multiversx-sc-modules
+    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharithri-sc-modules
     /// and pass None for the opt_callback argument
     pub fn issue_and_set_all_roles(
         &self,

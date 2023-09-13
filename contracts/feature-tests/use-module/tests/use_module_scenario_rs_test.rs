@@ -1,7 +1,7 @@
 mod user_builtin {
-    multiversx_sc::imports!();
+    dharithri_sc::imports!();
 
-    #[multiversx_sc::proxy]
+    #[dharithri_sc::proxy]
     pub trait UserBuiltin {
         #[endpoint(SetUserName)]
         fn set_user_name(&self, name: &BoxedBytes) -> BigUint;
@@ -9,9 +9,9 @@ mod user_builtin {
 }
 
 mod dns_mock {
-    multiversx_sc::imports!();
+    dharithri_sc::imports!();
 
-    #[multiversx_sc::contract]
+    #[dharithri_sc::contract]
     pub trait DnsMock {
         #[proxy]
         fn user_builtin_proxy(&self, to: ManagedAddress) -> super::user_builtin::Proxy<Self::Api>;
@@ -29,7 +29,7 @@ mod dns_mock {
     }
 }
 
-use multiversx_sc_scenario::*;
+use dharithri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();

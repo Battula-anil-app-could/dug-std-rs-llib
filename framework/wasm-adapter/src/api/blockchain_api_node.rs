@@ -4,7 +4,7 @@ use crate::api::{
     },
     VmApiImpl,
 };
-use multiversx_sc::{
+use dharithri_sc::{
     api::{BlockchainApi, BlockchainApiImpl, ManagedBufferApiImpl, RawHandle},
     types::heap::{Address, Box, H256},
 };
@@ -343,9 +343,9 @@ impl BlockchainApiImpl for VmApiImpl {
     fn load_esdt_local_roles(
         &self,
         token_id_handle: Self::ManagedBufferHandle,
-    ) -> multiversx_sc::types::EsdtLocalRoleFlags {
+    ) -> dharithri_sc::types::EsdtLocalRoleFlags {
         unsafe {
-            multiversx_sc::types::EsdtLocalRoleFlags::from_bits_unchecked(getESDTLocalRoles(
+            dharithri_sc::types::EsdtLocalRoleFlags::from_bits_unchecked(getESDTLocalRoles(
                 token_id_handle,
             ) as u64)
         }

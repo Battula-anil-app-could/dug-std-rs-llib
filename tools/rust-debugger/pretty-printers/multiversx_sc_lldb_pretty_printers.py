@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 import struct
 
-DEBUG_API_TYPE = "multiversx_sc_scenario::api::impl_vh::vm_hooks_api::VMHooksApi<multiversx_sc_scenario::api::impl_vh::debug_api::DebugApiBackend>"
+DEBUG_API_TYPE = "dharithri_sc_scenario::api::impl_vh::vm_hooks_api::VMHooksApi<dharithri_sc_scenario::api::impl_vh::debug_api::DebugApiBackend>"
 ANY_NUMBER = "[0-9]+"
 ANY_TYPE = ".*"
 SOME_OR_NONE = "(Some|None)"
@@ -16,7 +16,7 @@ NUM_BIG_INT_TYPE = "num_bigint::bigint::BigInt"
 NUM_BIG_UINT_TYPE = "num_bigint::biguint::BigUint"
 
 # 2. SC wasm - Managed basic types
-MOD_PATH = "multiversx_sc::types::managed::basic"
+MOD_PATH = "dharithri_sc::types::managed::basic"
 
 BIG_INT_TYPE = f"{MOD_PATH}::big_int::BigInt<{DEBUG_API_TYPE}>"
 BIG_UINT_TYPE = f"{MOD_PATH}::big_uint::BigUint<{DEBUG_API_TYPE}>"
@@ -24,7 +24,7 @@ BIG_FLOAT_TYPE = f"{MOD_PATH}::big_float::BigFloat<{DEBUG_API_TYPE}>"
 MANAGED_BUFFER_TYPE = f"{MOD_PATH}::managed_buffer::ManagedBuffer<{DEBUG_API_TYPE}>"
 
 # 3. SC wasm - Managed wrapped types
-MOD_PATH = "multiversx_sc::types::managed::wrapped"
+MOD_PATH = "dharithri_sc::types::managed::wrapped"
 
 TOKEN_IDENTIFIER_TYPE = f"{MOD_PATH}::token_identifier::TokenIdentifier<{DEBUG_API_TYPE}>"
 MANAGED_ADDRESS_TYPE = f"{MOD_PATH}::managed_address::ManagedAddress<{DEBUG_API_TYPE}>"
@@ -45,13 +45,13 @@ MANAGED_VEC_TYPE = f"{MOD_PATH}::managed_vec::ManagedVec<{DEBUG_API_TYPE}, {ANY_
 # 4. SC wasm - Managed multi value types
 
 # 5. SC wasm - heap
-MOD_PATH = "multiversx_sc::types::heap"
+MOD_PATH = "dharithri_sc::types::heap"
 
 HEAP_ADDRESS_TYPE = f"{MOD_PATH}::h256_address::Address"
 BOXED_BYTES_TYPE = f"{MOD_PATH}::boxed_bytes::BoxedBytes"
 
-# 6. MultiversX codec - Multi-types
-MOD_PATH = "multiversx_sc_codec::multi_types"
+# 6. dharithri codec - Multi-types
+MOD_PATH = "dharithri_sc_codec::multi_types"
 
 OPTIONAL_VALUE_TYPE = f"{MOD_PATH}::multi_value_optional::OptionalValue<{ANY_TYPE}>::{SOME_OR_NONE}"
 
@@ -477,7 +477,7 @@ ELROND_WASM_TYPE_HANDLERS = [
     # 5. SC wasm - heap
     (HEAP_ADDRESS_TYPE, HeapAddress),
     (BOXED_BYTES_TYPE, BoxedBytes),
-    # 6. MultiversX codec - Multi-types
+    # 6. dharithri codec - Multi-types
     (OPTIONAL_VALUE_TYPE, OptionalValue),
 ]
 
@@ -514,9 +514,9 @@ def __lldb_init_module(debugger: SBDebugger, dict):
         summary_function_name = f"handle{handler_class.__name__}"
         globals()[summary_function_name] = partial(summarize_handler, handler_class)
 
-        summary_command = f'type summary add -x "^{rust_type}$" -F {python_module_name}.{summary_function_name} --category multiversx-sc'
+        summary_command = f'type summary add -x "^{rust_type}$" -F {python_module_name}.{summary_function_name} --category dharithri-sc'
         debugger.HandleCommand(summary_command)
         # print(f"Registered: {summary_command}")
 
     # Enable categories
-    debugger.HandleCommand('type category enable multiversx-sc')
+    debugger.HandleCommand('type category enable dharithri-sc')

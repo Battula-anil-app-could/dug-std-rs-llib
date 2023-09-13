@@ -1,7 +1,7 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Contains all events that can be emitted by the contract.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait BlockchainApiFeatures {
     #[endpoint]
     fn get_caller(&self) -> ManagedAddress {

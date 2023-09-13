@@ -3,7 +3,7 @@ use multisig::{
     multisig_perform::ProxyTrait as _, multisig_propose::ProxyTrait as _, user_role::UserRole,
     ProxyTrait as _,
 };
-use multiversx_sc::{
+use dharithri_sc::{
     codec::{
         multi_types::{MultiValueVec, OptionalValue},
         test_util::top_encode_to_vec_u8_or_panic,
@@ -11,7 +11,7 @@ use multiversx_sc::{
     storage::mappers::SingleValue,
     types::{Address, CodeMetadata, ContractCallNoPayment},
 };
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     api::StaticApi,
     scenario_model::{
         Account, AddressValue, CheckAccount, CheckStateStep, ScCallStep, ScDeployStep, ScQueryStep,

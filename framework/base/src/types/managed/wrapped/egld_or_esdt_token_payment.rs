@@ -9,7 +9,7 @@ use crate::codec::{
     CodecFrom, CodecFromSelf,
 };
 
-use crate as multiversx_sc; // needed by the TypeAbi generated code
+use crate as dharithri_sc; // needed by the TypeAbi generated code
 use crate::derive::TypeAbi;
 
 use super::EsdtTokenPayment;

@@ -19,8 +19,8 @@ pub use interactor_dns::*;
 pub use interactor_sender::*;
 pub use interactor_tx_spec::*;
 pub use log;
-pub use multiversx_sc_scenario::{self, multiversx_sc};
-pub use multiversx_sdk as erdrs; // TODO: remove
-pub use multiversx_sdk as sdk;
+pub use dharithri_sc_scenario::{self, dharithri_sc};
+pub use dharithri_sdk as erdrs; // TODO: remove
+pub use dharithri_sdk as sdk;
 pub use step_buffer::*;
 pub use tokio;

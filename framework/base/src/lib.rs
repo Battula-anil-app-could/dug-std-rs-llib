@@ -12,13 +12,13 @@
 #![allow(incomplete_features)]
 #![feature(slice_partition_dedup)]
 #![feature(is_sorted)]
-pub use multiversx_sc_derive::{self as derive, contract, module, proxy};
+pub use dharithri_sc_derive::{self as derive, contract, module, proxy};
 
 // re-export basic heap types
 extern crate alloc;
 
-/// The current version of `multiversx_sc_codec`, re-exported.
-pub use multiversx_sc_codec as codec;
+/// The current version of `dharithri_sc_codec`, re-exported.
+pub use dharithri_sc_codec as codec;
 
 /// Reexported for convenience.
 pub use crate::codec::arrayvec;

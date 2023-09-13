@@ -3,13 +3,13 @@ name = "seed-nft-minter-meta"
 version = "0.0.0"
 edition = "2021"
 publish = false
-authors = ["Claudiu-Marcel Bruda <claudiu.bruda@multiversx.com>"]
+authors = ["kasi <contact@dharithri.org>"]
 
 [dev-dependencies]
 
 [dependencies.seed-nft-minter]
 path = ".."
 
-[dependencies.multiversx-sc-meta]
+[dependencies.dharithri-sc-meta]
 version = "0.43.3"
 path = "../../../../framework/meta"

@@ -1,6 +1,6 @@
 use super::ScenarioTrace;
 use crate::{
-    multiversx_sc::types::Address, scenario::model::*, scenario_format::serde_raw::ValueSubTree,
+    dharithri_sc::types::Address, scenario::model::*, scenario_format::serde_raw::ValueSubTree,
 };
 use std::collections::HashMap;
 

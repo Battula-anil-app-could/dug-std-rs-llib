@@ -1,6 +1,6 @@
 use factorial::*;
-use multiversx_sc::types::BigUint;
-use multiversx_sc_scenario::api::StaticApi;
+use dharithri_sc::types::BigUint;
+use dharithri_sc_scenario::api::StaticApi;
 
 #[test]
 fn test_factorial() {

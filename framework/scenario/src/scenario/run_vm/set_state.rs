@@ -1,6 +1,6 @@
 use crate::scenario::model::SetStateStep;
 
-use multiversx_chain_vm::{
+use dharithri_chain_vm::{
     types::VMAddress,
     world_mock::{
         AccountData, AccountEsdt, BlockInfo as CrateBlockInfo, BlockchainState, EsdtData,

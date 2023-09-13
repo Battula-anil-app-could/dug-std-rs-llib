@@ -3,8 +3,8 @@
 mod fee;
 use fee::*;
 
-multiversx_sc::imports!();
-#[multiversx_sc::contract]
+dharithri_sc::imports!();
+#[dharithri_sc::contract]
 pub trait EsdtTransferWithFee {
     #[init]
     fn init(&self) {}

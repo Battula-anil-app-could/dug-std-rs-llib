@@ -1,4 +1,4 @@
-use multiversx_sc_meta::{
+use dharithri_sc_meta::{
     template::{
         template_names_from_repo, ContractCreator, ContractCreatorTarget, RepoSource, RepoVersion,
     },
@@ -150,7 +150,7 @@ pub fn cargo_test(target: &ContractCreatorTarget) {
     ];
     if BUILD_CONTRACTS {
         args.push("--features");
-        args.push("multiversx-sc-scenario/run-go-tests");
+        args.push("dharithri-sc-scenario/run-go-tests");
     }
 
     let exit_status = Command::new("cargo")

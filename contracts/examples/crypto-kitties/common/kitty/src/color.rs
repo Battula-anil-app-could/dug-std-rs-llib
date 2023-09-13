@@ -1,4 +1,4 @@
-multiversx_sc::derive_imports!();
+dharithri_sc::derive_imports!();
 
 use random::*;
 

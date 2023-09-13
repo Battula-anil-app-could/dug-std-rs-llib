@@ -12,9 +12,9 @@ use clap::Parser;
 
 use comp_interact_controller::ComposabilityInteract;
 
-use multiversx_sc_snippets::{
+use dharithri_sc_snippets::{
     env_logger,
-    multiversx_sc_scenario::{api::StaticApi, ContractInfo},
+    dharithri_sc_scenario::{api::StaticApi, ContractInfo},
     tokio,
 };
 

@@ -1,9 +1,9 @@
 #![no_std]
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::contract]
-pub trait EgldEsdtSwap: multiversx_sc_modules::pause::PauseModule {
+#[dharithri_sc::contract]
+pub trait EgldEsdtSwap: dharithri_sc_modules::pause::PauseModule {
     #[init]
     fn init(&self, wrapped_egld_token_id: TokenIdentifier) {
         self.wrapped_egld_token_id().set(&wrapped_egld_token_id);

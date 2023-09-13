@@ -1,9 +1,9 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 use super::governance_proposal::GovernanceProposal;
 use crate::governance::ProposalId;
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait GovernanceEventsModule {
     #[event("proposalCreated")]
     fn proposal_created_event(

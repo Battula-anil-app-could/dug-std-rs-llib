@@ -1,7 +1,7 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Various features of heap-allocated types.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait AllocTypeFeatures {
     // H256
 

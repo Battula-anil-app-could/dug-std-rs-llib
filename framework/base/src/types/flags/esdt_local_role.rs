@@ -4,7 +4,7 @@ use crate::{
 };
 
 use super::EsdtLocalRoleFlags;
-use crate as multiversx_sc;
+use crate as dharithri_sc;
 use crate::{derive::TypeAbi, types::ManagedVecItem};
 
 static ESDT_ROLE_NONE: &[u8] = &[];

@@ -1,6 +1,6 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait UniqueIdMapperFeatures {
     #[endpoint]
     fn init_unique_id_mapper(&self, len: usize) {

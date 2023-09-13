@@ -1,5 +1,5 @@
-use multiversx_sc_codec as codec;
-use multiversx_sc_codec_derive::*;
+use dharithri_sc_codec as codec;
+use dharithri_sc_codec_derive::*;
 
 use codec::{test_util::check_top_encode_decode, *};
 

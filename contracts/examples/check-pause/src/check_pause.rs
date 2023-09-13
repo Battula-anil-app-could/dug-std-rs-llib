@@ -1,10 +1,10 @@
 #![no_std]
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-use multiversx_sc_modules::pause;
+use dharithri_sc_modules::pause;
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait CheckPauseContract: pause::PauseModule {
     #[init]
     fn init(&self) {}

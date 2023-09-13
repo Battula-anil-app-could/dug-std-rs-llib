@@ -1,4 +1,4 @@
-use multiversx_sc::api::{
+use dharithri_sc::api::{
     HandleConstraints, StorageReadApi, StorageReadApiImpl, StorageWriteApi, StorageWriteApiImpl,
 };
 

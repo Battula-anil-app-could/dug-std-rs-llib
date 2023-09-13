@@ -1,7 +1,7 @@
 #![no_std]
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 mod storage;
 mod zombie;
@@ -10,7 +10,7 @@ mod zombie_factory;
 mod zombie_feeding;
 mod zombie_helper;
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait CryptoZombies:
     zombie_factory::ZombieFactory
     + zombie_feeding::ZombieFeeding

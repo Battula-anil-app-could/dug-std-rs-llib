@@ -1,12 +1,12 @@
 use core::fmt::Debug;
-use multiversx_sc::{
+use dharithri_sc::{
     api::ManagedTypeApi,
     types::{
         BigInt, BigUint, ManagedAddress, ManagedBuffer, ManagedByteArray, ManagedOption,
         ManagedType, TokenIdentifier,
     },
 };
-use multiversx_sc_scenario::api::StaticApi;
+use dharithri_sc_scenario::api::StaticApi;
 
 fn test_some_for_value<M, T, F>(f: F)
 where

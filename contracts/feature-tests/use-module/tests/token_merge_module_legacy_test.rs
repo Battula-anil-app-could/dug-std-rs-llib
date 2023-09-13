@@ -1,16 +1,16 @@
 #![allow(deprecated)] // TODO: migrate tests
 
-use multiversx_sc::{
+use dharithri_sc::{
     arrayvec::ArrayVec,
     codec::Empty,
     contract_base::ContractBase,
     storage::mappers::StorageTokenWrapper,
     types::{EsdtLocalRole, EsdtTokenPayment, ManagedVec},
 };
-use multiversx_sc_modules::token_merge::{
+use dharithri_sc_modules::token_merge::{
     merged_token_instances::MergedTokenInstances, merged_token_setup::MergedTokenSetupModule,
 };
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint,
     testing_framework::{BlockchainStateWrapper, TxTokenTransfer},
 };

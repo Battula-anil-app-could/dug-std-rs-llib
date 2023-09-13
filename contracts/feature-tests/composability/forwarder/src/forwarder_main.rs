@@ -14,10 +14,10 @@ pub mod roles;
 pub mod sft;
 pub mod storage;
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Test contract for investigating contract calls.
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait Forwarder:
     call_sync::ForwarderSyncCallModule
     + call_async::ForwarderAsyncCallModule

@@ -4,10 +4,10 @@ use crate::{
     scenario_format::serde_raw::StepRaw,
     scenario_model::{Scenario, Step},
 };
-use multiversx_chain_scenario_format::interpret_trait::{InterpretableFrom, InterpreterContext};
+use dharithri_chain_scenario_format::interpret_trait::{InterpretableFrom, InterpreterContext};
 
 use super::{raw_converter::*, ScCallMandos, ScQueryMandos, TxExpectMandos};
-use multiversx_chain_vm::world_mock::AccountData;
+use dharithri_chain_vm::world_mock::AccountData;
 
 pub(crate) struct MandosGenerator<'a> {
     scenario: &'a mut Scenario,

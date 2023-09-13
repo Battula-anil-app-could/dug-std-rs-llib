@@ -1,16 +1,16 @@
 [package]
-name = "multiversx-chain-scenario-format"
+name = "dharithri-chain-scenario-format"
 version = "0.20.0"
 edition = "2021"
 
-authors = ["Andrei Marinica <andrei.marinica@multiversx.com>", "MultiversX <contact@multiversx.com>"]
+authors = ["viswanath <contact@dharithri.org>", "dharithri <contact@dharithri.com>"]
 license = "GPL-3.0-only"
 readme = "README.md"
-repository = "https://github.com/multiversx/mx-sdk-rs"
-homepage = "https://multiversx.com/"
-documentation = "https://docs.multiversx.com/"
-description = "Parser/writer of the MultiversX transaction scenario format"
-keywords = ["multiversx", "blockchain", "contract"]
+repository = "https://github.com/dharithri/mx-sdk-rs"
+homepage = "https://dharithri.com/"
+documentation = "https://docs.dharithri.com/"
+description = "Parser/writer of the dharithri transaction scenario format"
+keywords = ["dharithri", "blockchain", "contract"]
 categories = ["cryptography::cryptocurrencies", "development-tools"]
 
 [dependencies]

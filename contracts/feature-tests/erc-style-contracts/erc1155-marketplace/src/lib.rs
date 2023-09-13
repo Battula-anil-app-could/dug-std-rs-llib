@@ -1,7 +1,7 @@
 #![no_std]
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 const PERCENTAGE_TOTAL: u8 = 100;
 
@@ -24,7 +24,7 @@ pub struct AuctionArgument<M: ManagedTypeApi> {
     pub deadline: u64,
 }
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait Erc1155Marketplace {
     /// `bid_cut_percentage` is the cut that the contract takes from any sucessful bid
     #[init]

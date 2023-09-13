@@ -1,10 +1,10 @@
 #![no_std]
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 const EGLD_DECIMALS: usize = 18;
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait Child {
     #[init]
     fn init(&self) {}

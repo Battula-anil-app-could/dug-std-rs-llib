@@ -1,5 +1,5 @@
 use crate::api::{VMHooksApi, VMHooksApiBackend};
-use multiversx_sc::{
+use dharithri_sc::{
     api::{use_raw_handle, RawHandle, StaticVarApi, StaticVarApiImpl},
     types::LockableStaticBuffer,
 };

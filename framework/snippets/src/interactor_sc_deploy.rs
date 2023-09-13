@@ -1,11 +1,11 @@
 use crate::{mandos_to_erdrs_address, Interactor};
 use log::info;
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     bech32,
     mandos_system::ScenarioRunner,
     scenario_model::{ScDeployStep, SetStateStep, TxResponse},
 };
-use multiversx_sdk::data::{address::Address as ErdrsAddress, transaction::Transaction};
+use dharithri_sdk::data::{address::Address as ErdrsAddress, transaction::Transaction};
 
 const DEPLOY_RECEIVER: [u8; 32] = [0u8; 32];
 

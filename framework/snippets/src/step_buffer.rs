@@ -1,4 +1,4 @@
-use multiversx_sc_scenario::scenario_model::{ScCallStep, ScDeployStep};
+use dharithri_sc_scenario::scenario_model::{ScCallStep, ScDeployStep};
 
 use crate::TransactionSpec;
 

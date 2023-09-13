@@ -1,4 +1,4 @@
-use multiversx_sc::{
+use dharithri_sc::{
     api::{BlockchainApi, BlockchainApiImpl, HandleConstraints, ManagedBufferApiImpl, RawHandle},
     types::{Address, EsdtLocalRoleFlags, H256},
 };

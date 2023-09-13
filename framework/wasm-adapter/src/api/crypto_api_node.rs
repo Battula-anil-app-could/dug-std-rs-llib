@@ -1,5 +1,5 @@
 use super::VmApiImpl;
-use multiversx_sc::{
+use dharithri_sc::{
     api::{CryptoApi, CryptoApiImpl},
     types::MessageHashType,
 };

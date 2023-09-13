@@ -1,8 +1,8 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 const PERCENTAGE_TOTAL: u64 = 10_000; // 100%
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ForwarderTransferExecuteModule {
     #[proxy]
     fn vault_proxy(&self) -> vault::Proxy<Self::Api>;

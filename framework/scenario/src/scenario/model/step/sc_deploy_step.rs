@@ -1,4 +1,4 @@
-use multiversx_sc::types::H256;
+use dharithri_sc::types::H256;
 
 use crate::{
     api::StaticApi,
@@ -10,7 +10,7 @@ use crate::{
     scenario_model::TxResponse,
 };
 
-use crate::multiversx_sc::types::{CodeMetadata, ContractDeploy};
+use crate::dharithri_sc::types::{CodeMetadata, ContractDeploy};
 
 use super::{convert_call_args, TypedScDeploy};
 

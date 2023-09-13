@@ -1,9 +1,9 @@
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 use super::common::{Order, OrderType};
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait EventsModule {
     fn emit_order_event(&self, order: Order<Self::Api>) {
         let caller = self.blockchain().get_caller();

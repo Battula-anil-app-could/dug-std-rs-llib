@@ -1,22 +1,22 @@
 [package]
 name = "multisig"
 version = "1.0.0"
-authors = ["Andrei Marinica <andrei.marinica@multiversx.com>"]
+authors = ["viswanath <contact@dharithri.org>"]
 edition = "2021"
 publish = false
 
 [lib]
 path = "src/multisig.rs"
 
-[dependencies.multiversx-sc]
+[dependencies.dharithri-sc]
 version = "0.43.3"
 path = "../../../framework/base"
 
-[dependencies.multiversx-sc-modules]
+[dependencies.dharithri-sc-modules]
 version = "0.43.3"
 path = "../../../contracts/modules"
 
-[dev-dependencies.multiversx-sc-scenario]
+[dev-dependencies.dharithri-sc-scenario]
 version = "0.43.3"
 path = "../../../framework/scenario"
 
@@ -26,7 +26,7 @@ path = "../adder"
 [dev-dependencies.factorial]
 path = "../factorial"
 
-[dev-dependencies.multiversx-wegld-swap-sc]
+[dev-dependencies.dharithri-wegld-swap-sc]
 version = "0.43.3"
 path = "../../core/wegld-swap"
 

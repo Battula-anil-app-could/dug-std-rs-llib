@@ -29,7 +29,7 @@ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 name = "big-float-features"
 version = "0.0.0"
 dependencies = [
- "multiversx-sc",
+ "dharithri-sc",
 ]
 
 [[package]]
@@ -37,7 +37,7 @@ name = "big-float-features-wasm"
 version = "0.0.0"
 dependencies = [
  "big-float-features",
- "multiversx-sc-wasm-adapter",
+ "dharithri-sc-wasm-adapter",
 ]
 
 [[package]]
@@ -80,27 +80,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7ebdb29d2ea9ed0083cd8cece49bbd968021bd99b0849edb4a9a7ee0fdf6a4e0"
 
 [[package]]
-name = "multiversx-sc"
+name = "dharithri-sc"
 version = "0.43.3"
 dependencies = [
  "bitflags",
  "hashbrown",
  "hex-literal",
- "multiversx-sc-codec",
- "multiversx-sc-derive",
+ "dharithri-sc-codec",
+ "dharithri-sc-derive",
  "num-traits",
 ]
 
 [[package]]
-name = "multiversx-sc-codec"
+name = "dharithri-sc-codec"
 version = "0.18.1"
 dependencies = [
  "arrayvec",
- "multiversx-sc-codec-derive",
+ "dharithri-sc-codec-derive",
 ]
 
 [[package]]
-name = "multiversx-sc-codec-derive"
+name = "dharithri-sc-codec-derive"
 version = "0.18.1"
 dependencies = [
  "hex",
@@ -110,7 +110,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "multiversx-sc-derive"
+name = "dharithri-sc-derive"
 version = "0.43.3"
 dependencies = [
  "hex",
@@ -121,10 +121,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "multiversx-sc-wasm-adapter"
+name = "dharithri-sc-wasm-adapter"
 version = "0.43.3"
 dependencies = [
- "multiversx-sc",
+ "dharithri-sc",
 ]
 
 [[package]]

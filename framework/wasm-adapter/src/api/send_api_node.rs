@@ -1,5 +1,5 @@
 use crate::api::VmApiImpl;
-use multiversx_sc::api::{const_handles, RawHandle, SendApi, SendApiImpl};
+use dharithri_sc::api::{const_handles, RawHandle, SendApi, SendApiImpl};
 
 extern "C" {
     fn managedMultiTransferESDTNFTExecute(

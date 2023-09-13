@@ -1,8 +1,8 @@
 use std::marker::PhantomData;
 
-use multiversx_sc::codec::PanicErrorHandler;
+use dharithri_sc::codec::PanicErrorHandler;
 
-use crate::multiversx_sc::codec::{CodecFrom, TopEncodeMulti};
+use crate::dharithri_sc::codec::{CodecFrom, TopEncodeMulti};
 
 use crate::{
     scenario::model::{AddressValue, U64Value},

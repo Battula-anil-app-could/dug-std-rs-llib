@@ -1,12 +1,12 @@
 #![no_std]
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 const ZERO_ASCII: u8 = b'0';
 const DASH: u8 = b'-';
 const RAND_CHARS_LEN: usize = 6;
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait PayableFeatures {
     #[init]
     fn init(&self) {}

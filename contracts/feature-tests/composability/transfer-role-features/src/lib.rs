@@ -1,11 +1,11 @@
 #![no_std]
 #![allow(clippy::type_complexity)]
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait TransferRoleFeatures:
-    multiversx_sc_modules::transfer_role_proxy::TransferRoleProxyModule
+    dharithri_sc_modules::transfer_role_proxy::TransferRoleProxyModule
 {
     #[init]
     fn init(&self, whitelist: MultiValueEncoded<ManagedAddress>) {

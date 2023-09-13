@@ -53,7 +53,7 @@ fn generate_endpoint_snippet(
     let endpoint_type_tokens = endpoint_type.to_tokens();
 
     quote! {
-        let mut endpoint_abi = multiversx_sc::abi::EndpointAbi{
+        let mut endpoint_abi = dharithri_sc::abi::EndpointAbi{
             docs: &[ #(#endpoint_docs),* ],
             name: #endpoint_name,
             rust_method_name: #rust_method_name,
@@ -62,8 +62,8 @@ fn generate_endpoint_snippet(
             mutability: #mutability_tokens,
             endpoint_type: #endpoint_type_tokens,
             payable_in_tokens: &[ #(#payable_in_tokens),* ],
-            inputs: multiversx_sc::types::heap::Vec::new(),
-            outputs: multiversx_sc::types::heap::Vec::new(),
+            inputs: dharithri_sc::types::heap::Vec::new(),
+            outputs: dharithri_sc::types::heap::Vec::new(),
             labels: &[ #(#label_names),* ],
         };
         #(#input_snippets)*
@@ -142,10 +142,10 @@ fn generate_event_snippet(m: &Method, event_name: &str) -> proc_macro2::TokenStr
         .collect();
 
     quote! {
-        let mut event_abi = multiversx_sc::abi::EventAbi{
+        let mut event_abi = dharithri_sc::abi::EventAbi{
             docs: &[ #(#event_docs),* ],
             identifier: #event_name,
-            inputs: multiversx_sc::types::heap::Vec::new(),
+            inputs: dharithri_sc::types::heap::Vec::new(),
         };
         #(#input_snippets)*
     }
@@ -185,7 +185,7 @@ fn generate_supertrait_snippets(contract: &ContractTrait) -> Vec<proc_macro2::To
 			.map(|supertrait| {
 				let module_path = &supertrait.module_path;
 				quote! {
-					contract_abi.coalesce(<#module_path AbiProvider as multiversx_sc::contract_base::ContractAbiProvider>::abi());
+					contract_abi.coalesce(<#module_path AbiProvider as dharithri_sc::contract_base::ContractAbiProvider>::abi());
 				}
 			})
 			.collect()
@@ -207,23 +207,23 @@ fn generate_abi_method_body(
     };
 
     quote! {
-        let mut contract_abi = multiversx_sc::abi::ContractAbi {
-            build_info: multiversx_sc::abi::BuildInfoAbi {
-                contract_crate: multiversx_sc::abi::ContractCrateBuildAbi {
+        let mut contract_abi = dharithri_sc::abi::ContractAbi {
+            build_info: dharithri_sc::abi::BuildInfoAbi {
+                contract_crate: dharithri_sc::abi::ContractCrateBuildAbi {
                     name: env!("CARGO_PKG_NAME"),
                     version: env!("CARGO_PKG_VERSION"),
                     git_version: "",
                 },
-                framework: multiversx_sc::abi::FrameworkBuildAbi::create(),
+                framework: dharithri_sc::abi::FrameworkBuildAbi::create(),
             },
             docs: &[ #(#contract_docs),* ],
             name: #contract_name,
-            constructors: multiversx_sc::types::heap::Vec::new(),
-            endpoints: multiversx_sc::types::heap::Vec::new(),
-            promise_callbacks: multiversx_sc::types::heap::Vec::new(),
-            events: multiversx_sc::types::heap::Vec::new(),
+            constructors: dharithri_sc::types::heap::Vec::new(),
+            endpoints: dharithri_sc::types::heap::Vec::new(),
+            promise_callbacks: dharithri_sc::types::heap::Vec::new(),
+            events: dharithri_sc::types::heap::Vec::new(),
             has_callback: #has_callbacks,
-            type_descriptions: <multiversx_sc::abi::TypeDescriptionContainerImpl as multiversx_sc::abi::TypeDescriptionContainer>::new(),
+            type_descriptions: <dharithri_sc::abi::TypeDescriptionContainerImpl as dharithri_sc::abi::TypeDescriptionContainer>::new(),
         };
         #(#endpoint_snippets)*
         #(#event_snippets)*
@@ -240,10 +240,10 @@ pub fn generate_abi_provider(
     quote! {
         pub struct AbiProvider {}
 
-        impl multiversx_sc::contract_base::ContractAbiProvider for AbiProvider {
-            type Api = multiversx_sc::api::uncallable::UncallableApi;
+        impl dharithri_sc::contract_base::ContractAbiProvider for AbiProvider {
+            type Api = dharithri_sc::api::uncallable::UncallableApi;
 
-            fn abi() -> multiversx_sc::abi::ContractAbi {
+            fn abi() -> dharithri_sc::abi::ContractAbi {
                 #abi_body
             }
         }

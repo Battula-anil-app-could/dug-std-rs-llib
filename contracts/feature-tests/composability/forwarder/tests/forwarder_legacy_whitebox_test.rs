@@ -1,8 +1,8 @@
 #![allow(deprecated)] // TODO: migrate tests
 
 use forwarder::nft::{Color, ForwarderNftModule};
-use multiversx_sc::{contract_base::ContractBase, types::EsdtLocalRole};
-use multiversx_sc_scenario::{
+use dharithri_sc::{contract_base::ContractBase, types::EsdtLocalRole};
+use dharithri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint,
     testing_framework::BlockchainStateWrapper,
 };

@@ -1,5 +1,5 @@
 use crate::{
-    multiversx_sc::types::CodeMetadata,
+    dharithri_sc::types::CodeMetadata,
     scenario::model::{AddressValue, BigUintValue, BytesValue, U64Value},
     scenario_format::{
         interpret_trait::{InterpretableFrom, InterpreterContext, IntoRaw},

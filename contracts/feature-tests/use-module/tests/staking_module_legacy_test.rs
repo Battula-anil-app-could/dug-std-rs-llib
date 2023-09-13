@@ -1,8 +1,8 @@
 #![allow(deprecated)] // TODO: migrate tests
 
-use multiversx_sc::types::{EgldOrEsdtTokenIdentifier, ManagedVec};
-use multiversx_sc_modules::staking::StakingModule;
-use multiversx_sc_scenario::{
+use dharithri_sc::types::{EgldOrEsdtTokenIdentifier, ManagedVec};
+use dharithri_sc_modules::staking::StakingModule;
+use dharithri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint,
     testing_framework::BlockchainStateWrapper,
 };

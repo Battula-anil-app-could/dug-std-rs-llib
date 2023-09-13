@@ -3,7 +3,7 @@
 use super::{ScCallStep, ScDeployStep, ScQueryStep, TypedScCall, TypedScDeploy, TypedScQuery};
 use crate::{
     api::StaticApi,
-    multiversx_sc::{
+    dharithri_sc::{
         codec::TopEncodeMulti,
         types::{
             ContractCall, ContractCallNoPayment, ContractCallWithEgld,

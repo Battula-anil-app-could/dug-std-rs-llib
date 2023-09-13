@@ -1,9 +1,9 @@
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     mandos_system::{run_list::ScenarioRunnerList, run_trace::ScenarioTraceFile},
-    multiversx_sc::types::Address,
+    dharithri_sc::types::Address,
     scenario_model::AddressValue,
 };
-use multiversx_sdk::{
+use dharithri_sdk::{
     blockchain::CommunicationProxy,
     data::{address::Address as ErdrsAddress, network_config::NetworkConfig},
     wallet::Wallet,

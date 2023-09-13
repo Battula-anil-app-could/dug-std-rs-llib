@@ -5,13 +5,13 @@ use forwarder::call_sync::*;
 use num_traits::ToPrimitive;
 
 use basic_features::BasicFeatures;
-use multiversx_sc::{
+use dharithri_sc::{
     codec::Empty,
     contract_base::ContractBase,
     err_msg,
     types::{Address, BigUint, EsdtLocalRole, EsdtTokenPayment, ManagedVec, TokenIdentifier},
 };
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     api::DebugApi, assert_values_eq, managed_address, managed_biguint, managed_buffer,
     managed_token_id, rust_biguint, testing_framework::*,
 };

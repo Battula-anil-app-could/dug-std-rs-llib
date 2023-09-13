@@ -1,5 +1,5 @@
-use multiversx_sc::types::SparseArray;
-use multiversx_sc_scenario::api::StaticApi;
+use dharithri_sc::types::SparseArray;
+use dharithri_sc_scenario::api::StaticApi;
 
 #[test]
 fn sparse_array_test() {

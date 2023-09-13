@@ -1,11 +1,11 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-use multiversx_sc::api::{use_raw_handle, HandleTypeInfo};
+use dharithri_sc::api::{use_raw_handle, HandleTypeInfo};
 
 use crate::types::*;
 
 /// Storage tests: direct load.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait StorageLoadFeatures {
     #[view]
     #[storage_get("storage_bytes")]
@@ -78,7 +78,7 @@ pub trait StorageLoadFeatures {
     #[endpoint]
     fn load_from_address_raw(&self, address: ManagedAddress, key: ManagedBuffer) -> ManagedBuffer {
         // TODO: maybe wrap this kind of functionality in a StorageRawWrapper
-        use multiversx_sc::api::{
+        use dharithri_sc::api::{
             StaticVarApi, StaticVarApiImpl, StorageReadApi, StorageReadApiImpl,
         };
         let value_handle: <<Self as ContractBase>::Api as HandleTypeInfo>::ManagedBufferHandle =

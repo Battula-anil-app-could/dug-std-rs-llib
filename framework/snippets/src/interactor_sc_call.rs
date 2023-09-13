@@ -1,12 +1,12 @@
 use crate::{address_h256_to_erdrs, mandos_to_erdrs_address, Interactor};
 use log::info;
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     api::StaticApi,
-    multiversx_sc::types::ContractCallWithEgld,
+    dharithri_sc::types::ContractCallWithEgld,
     scenario::ScenarioRunner,
     scenario_model::{ScCallStep, SetStateStep, TxCall, TxResponse},
 };
-use multiversx_sdk::data::transaction::Transaction;
+use dharithri_sdk::data::transaction::Transaction;
 
 impl Interactor {
     pub async fn sc_call<S>(&mut self, mut sc_call_step: S)

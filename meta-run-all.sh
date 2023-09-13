@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cargo install multiversx-sc-meta
+cargo install dharithri-sc-meta
 
 TARGET_DIR=$PWD/target
 

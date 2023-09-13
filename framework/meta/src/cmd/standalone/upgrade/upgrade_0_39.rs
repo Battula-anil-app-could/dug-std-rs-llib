@@ -57,10 +57,10 @@ fn v_0_39_prepare_meta(sc_crate_path: &Path) {
     print_cargo_dep_remove(cargo_toml_path.as_path(), "elrond-wasm-debug");
     deps.remove("elrond-wasm-debug");
 
-    print_cargo_dep_add(cargo_toml_path.as_path(), "multiversx-sc-meta");
+    print_cargo_dep_add(cargo_toml_path.as_path(), "dharithri-sc-meta");
     let mut meta_dep = Table::new();
     meta_dep.insert("version".to_string(), Value::String("0.39.0".to_string()));
-    deps.insert("multiversx-sc-meta".to_string(), Value::Table(meta_dep));
+    deps.insert("dharithri-sc-meta".to_string(), Value::Table(meta_dep));
 
     meta_cargo_toml.save_to_file(&cargo_toml_path);
 }
@@ -86,10 +86,10 @@ fn v_0_39_replace_in_files(sc_crate_path: &Path) {
         sc_crate_path,
         "*Cargo.toml",
         &[
-            Query::substring("elrond-wasm-debug", "multiversx-sc-scenario"),
-            Query::substring("elrond-wasm-modules", "multiversx-sc-modules"),
-            Query::substring("elrond-wasm-node", "multiversx-sc-wasm-adapter"),
-            Query::substring("elrond-wasm", "multiversx-sc"),
+            Query::substring("elrond-wasm-debug", "dharithri-sc-scenario"),
+            Query::substring("elrond-wasm-modules", "dharithri-sc-modules"),
+            Query::substring("elrond-wasm-node", "dharithri-sc-wasm-adapter"),
+            Query::substring("elrond-wasm", "dharithri-sc"),
         ][..],
     );
 
@@ -100,20 +100,20 @@ fn v_0_39_replace_in_files(sc_crate_path: &Path) {
             Query::substring("elrond_codec", "codec"),
             Query::substring(
                 "elrond_wasm_debug::meta::perform",
-                "multiversx_sc_meta::cli_main",
+                "dharithri_sc_meta::cli_main",
             ),
             Query::substring(
                 "elrond_wasm_debug::mandos_go",
-                "multiversx_sc_scenario::run_go",
+                "dharithri_sc_scenario::run_go",
             ),
             Query::substring(
                 "elrond_wasm_debug::mandos_rs",
-                "multiversx_sc_scenario::run_rs",
+                "dharithri_sc_scenario::run_rs",
             ),
-            Query::substring("elrond_wasm_debug", "multiversx_sc_scenario"),
-            Query::substring("elrond_wasm_modules", "multiversx_sc_modules"),
-            Query::substring("elrond_wasm_node", "multiversx_sc_wasm_adapter"),
-            Query::substring("elrond_wasm", "multiversx_sc"),
+            Query::substring("elrond_wasm_debug", "dharithri_sc_scenario"),
+            Query::substring("elrond_wasm_modules", "dharithri_sc_modules"),
+            Query::substring("elrond_wasm_node", "dharithri_sc_wasm_adapter"),
+            Query::substring("elrond_wasm", "dharithri_sc"),
             Query::substring("BlockchainMock", "ScenarioWorld"),
             Query::substring("testing_framework", "whitebox"),
             Query::substring("tx_mock", "whitebox"),

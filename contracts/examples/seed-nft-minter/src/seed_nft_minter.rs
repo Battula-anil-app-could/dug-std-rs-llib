@@ -1,20 +1,20 @@
 #![no_std]
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 mod distribution_module;
 mod nft_module;
 
 use distribution_module::Distribution;
-use multiversx_sc_modules::default_issue_callbacks;
+use dharithri_sc_modules::default_issue_callbacks;
 
 #[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct ExampleAttributes {
     pub creation_timestamp: u64,
 }
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait SeedNftMinter:
     distribution_module::DistributionModule
     + nft_module::NftModule
@@ -122,9 +122,9 @@ pub trait SeedNftMinter:
 }
 
 mod nft_marketplace_proxy {
-    multiversx_sc::imports!();
+    dharithri_sc::imports!();
 
-    #[multiversx_sc::proxy]
+    #[dharithri_sc::proxy]
     pub trait NftMarketplace {
         #[endpoint(claimTokens)]
         fn claim_tokens(

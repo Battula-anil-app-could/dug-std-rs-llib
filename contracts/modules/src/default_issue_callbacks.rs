@@ -1,10 +1,10 @@
-use multiversx_sc::{storage::StorageKey, storage_clear, storage_set};
+use dharithri_sc::{storage::StorageKey, storage_clear, storage_set};
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 // Always keep in sync with the token-related storage mappers. Only modify if really necessary.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait DefaultIssueCallbacksModule {
     #[callback]
     fn default_issue_cb(

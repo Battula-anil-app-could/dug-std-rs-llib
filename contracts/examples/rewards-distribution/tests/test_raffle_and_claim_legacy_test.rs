@@ -1,10 +1,10 @@
 #![allow(deprecated)] // TODO: migrate tests
 
-use multiversx_sc::{
+use dharithri_sc::{
     codec::multi_types::MultiValue2,
     types::{BigUint, EgldOrEsdtTokenIdentifier, MultiValueEncoded, OperationCompletionStatus},
 };
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     managed_token_id, rust_biguint,
     testing_framework::{BlockchainStateWrapper, TxTokenTransfer},
     DebugApi,

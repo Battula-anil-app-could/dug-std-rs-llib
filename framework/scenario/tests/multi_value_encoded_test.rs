@@ -1,8 +1,8 @@
-use multiversx_sc::{
+use dharithri_sc::{
     codec::multi_types::MultiValue5,
     types::{BigUint, MultiValueEncoded},
 };
-use multiversx_sc_scenario::api::StaticApi;
+use dharithri_sc_scenario::api::StaticApi;
 
 #[test]
 fn test_multi_value_encoded_1() {

@@ -1,6 +1,6 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait TokenIdentifierFeatures {
     #[endpoint]
     fn token_identifier_egld(&self) -> EgldOrEsdtTokenIdentifier {

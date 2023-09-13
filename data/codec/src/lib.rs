@@ -7,8 +7,8 @@
 
 extern crate alloc;
 
-#[cfg(feature = "multiversx-sc-codec-derive")]
-pub use multiversx_sc_codec_derive as derive;
+#[cfg(feature = "dharithri-sc-codec-derive")]
+pub use dharithri_sc_codec_derive as derive;
 
 /// Reexport needed by derive.
 pub use alloc::vec::Vec;

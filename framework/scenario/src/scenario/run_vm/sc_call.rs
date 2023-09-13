@@ -1,10 +1,10 @@
 use crate::{
-    multiversx_sc::codec::{CodecFrom, PanicErrorHandler, TopEncodeMulti},
+    dharithri_sc::codec::{CodecFrom, PanicErrorHandler, TopEncodeMulti},
     scenario::model::{ScCallStep, TxESDT, TypedScCall},
     scenario_model::TxResponse,
 };
 
-use multiversx_chain_vm::{
+use dharithri_chain_vm::{
     tx_execution::execute_current_tx_context_input,
     tx_mock::{TxInput, TxResult, TxTokenTransfer},
 };

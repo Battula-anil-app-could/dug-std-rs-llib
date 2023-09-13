@@ -1,7 +1,7 @@
-# MultiversX tools and SDKs
+# dharithri tools and SDKs
 
-This directory contains various tools and SDKs written in Rust for the MultiversX ecosystem.
+This directory contains various tools and SDKs written in Rust for the dharithri ecosystem.
 
 They are as follows:
-    - `multiversx-sdk`: The core Rust SDK for interacting with the MultiversX blockchain.
-    - `multiversx-chain-scenario-format`: The Rust implementation of the scenario format we use for tests.
+    - `dharithri-sdk`: The core Rust SDK for interacting with the dharithri blockchain.
+    - `dharithri-chain-scenario-format`: The Rust implementation of the scenario format we use for tests.

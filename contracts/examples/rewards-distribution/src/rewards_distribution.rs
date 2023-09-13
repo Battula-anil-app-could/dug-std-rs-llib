@@ -1,8 +1,8 @@
 #![no_std]
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
-use multiversx_sc_modules::ongoing_operation::{
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
+use dharithri_sc_modules::ongoing_operation::{
     CONTINUE_OP, DEFAULT_MIN_GAS_TO_SAVE_PROGRESS, STOP_OP,
 };
 
@@ -32,9 +32,9 @@ pub struct RaffleProgress<M: ManagedTypeApi> {
     pub computed_brackets: ManagedVec<M, ComputedBracket<M>>,
 }
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait RewardsDistribution:
-    multiversx_sc_modules::ongoing_operation::OngoingOperationModule
+    dharithri_sc_modules::ongoing_operation::OngoingOperationModule
 {
     #[init]
     fn init(&self, seed_nft_minter_address: ManagedAddress, brackets: ManagedVec<Bracket>) {
@@ -440,9 +440,9 @@ fn ticket_from_storage(position: u64, ticket_id: u64) -> u64 {
 }
 
 mod seed_nft_minter {
-    multiversx_sc::imports!();
+    dharithri_sc::imports!();
 
-    #[multiversx_sc::proxy]
+    #[dharithri_sc::proxy]
     pub trait SeedNftMinter {
         #[endpoint(getNftCount)]
         fn get_nft_count(&self) -> u64;

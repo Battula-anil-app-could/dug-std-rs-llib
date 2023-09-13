@@ -1,9 +1,9 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 use crate::types::*;
 
 /// Storage tests: direct store.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait StorageStoreFeatures {
     #[endpoint]
     #[storage_set("storage_bytes")]

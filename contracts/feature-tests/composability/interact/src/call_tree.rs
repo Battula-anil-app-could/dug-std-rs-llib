@@ -1,6 +1,6 @@
 use std::{cell::RefCell, rc::Rc};
 
-use multiversx_sc_snippets::multiversx_sc::types::Address;
+use dharithri_sc_snippets::dharithri_sc::types::Address;
 
 #[derive(Default, Clone)]
 pub struct CallState {

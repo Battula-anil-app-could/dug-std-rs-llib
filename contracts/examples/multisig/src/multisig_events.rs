@@ -1,9 +1,9 @@
 use crate::{action::ActionFullInfo, user_role::UserRole};
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Contains all events that can be emitted by the contract.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait MultisigEventsModule {
     #[event("startPerformAction")]
     fn start_perform_action_event(&self, data: &ActionFullInfo<Self::Api>);

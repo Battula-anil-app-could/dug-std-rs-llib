@@ -1,5 +1,5 @@
-use multiversx_chain_vm::executor::VMHooks;
-use multiversx_sc::api::HandleConstraints;
+use dharithri_chain_vm::executor::VMHooks;
+use dharithri_sc::api::HandleConstraints;
 
 use crate::debug_executor::StaticVarData;
 

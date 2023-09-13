@@ -1,9 +1,9 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 use crate::types::*;
 
 /// Example of comparing structures in a contract.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait StructEquals {
     #[endpoint]
     fn managed_struct_eq(

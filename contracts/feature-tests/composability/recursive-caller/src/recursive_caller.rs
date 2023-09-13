@@ -1,9 +1,9 @@
 #![no_std]
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Test contract for investigating async calls.
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait RecursiveCaller {
     #[proxy]
     fn vault_proxy(&self) -> vault::Proxy<Self::Api>;

@@ -1,6 +1,6 @@
 use crate::{
     debug_executor::ContractMapRef,
-    multiversx_chain_vm::BlockchainMock,
+    dharithri_chain_vm::BlockchainMock,
     scenario::{model::*, ScenarioRunner},
 };
 

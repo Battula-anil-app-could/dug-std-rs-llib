@@ -68,7 +68,7 @@ checksum = "7ebdb29d2ea9ed0083cd8cece49bbd968021bd99b0849edb4a9a7ee0fdf6a4e0"
 name = "kitty"
 version = "0.0.0"
 dependencies = [
- "multiversx-sc",
+ "dharithri-sc",
  "random",
 ]
 
@@ -78,7 +78,7 @@ version = "0.0.0"
 dependencies = [
  "kitty",
  "kitty-ownership",
- "multiversx-sc",
+ "dharithri-sc",
 ]
 
 [[package]]
@@ -86,7 +86,7 @@ name = "kitty-auction-wasm"
 version = "0.0.0"
 dependencies = [
  "kitty-auction",
- "multiversx-sc-wasm-adapter",
+ "dharithri-sc-wasm-adapter",
 ]
 
 [[package]]
@@ -94,7 +94,7 @@ name = "kitty-genetic-alg"
 version = "0.0.0"
 dependencies = [
  "kitty",
- "multiversx-sc",
+ "dharithri-sc",
  "random",
 ]
 
@@ -104,32 +104,32 @@ version = "0.0.0"
 dependencies = [
  "kitty",
  "kitty-genetic-alg",
- "multiversx-sc",
+ "dharithri-sc",
  "random",
 ]
 
 [[package]]
-name = "multiversx-sc"
+name = "dharithri-sc"
 version = "0.43.3"
 dependencies = [
  "bitflags",
  "hashbrown",
  "hex-literal",
- "multiversx-sc-codec",
- "multiversx-sc-derive",
+ "dharithri-sc-codec",
+ "dharithri-sc-derive",
  "num-traits",
 ]
 
 [[package]]
-name = "multiversx-sc-codec"
+name = "dharithri-sc-codec"
 version = "0.18.1"
 dependencies = [
  "arrayvec",
- "multiversx-sc-codec-derive",
+ "dharithri-sc-codec-derive",
 ]
 
 [[package]]
-name = "multiversx-sc-codec-derive"
+name = "dharithri-sc-codec-derive"
 version = "0.18.1"
 dependencies = [
  "hex",
@@ -139,7 +139,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "multiversx-sc-derive"
+name = "dharithri-sc-derive"
 version = "0.43.3"
 dependencies = [
  "hex",
@@ -150,10 +150,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "multiversx-sc-wasm-adapter"
+name = "dharithri-sc-wasm-adapter"
 version = "0.43.3"
 dependencies = [
- "multiversx-sc",
+ "dharithri-sc",
 ]
 
 [[package]]
@@ -212,7 +212,7 @@ dependencies = [
 name = "random"
 version = "0.0.0"
 dependencies = [
- "multiversx-sc",
+ "dharithri-sc",
 ]
 
 [[package]]

@@ -1,22 +1,22 @@
 #![no_std]
 #![allow(unused_attributes)]
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 mod deposit_info;
 
 use deposit_info::{DepositInfo, Fee};
 
 pub const SECONDS_PER_ROUND: u64 = 6;
-pub use multiversx_sc::api::{ED25519_KEY_BYTE_LEN, ED25519_SIGNATURE_BYTE_LEN};
+pub use dharithri_sc::api::{ED25519_KEY_BYTE_LEN, ED25519_SIGNATURE_BYTE_LEN};
 
 static NON_EXISTENT_KEY_ERR_MSG: &[u8] = b"non-existent key";
 static FEES_NOT_COVERED_ERR_MSG: &[u8] = b"fees not covered";
 static CANNOT_DEPOSIT_FUNDS_ERR_MSG: &[u8] =
     b"cannot deposit funds without covering the fee cost first";
 
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait DigitalCash {
     #[init]
     fn init(&self, fee: BigUint) {

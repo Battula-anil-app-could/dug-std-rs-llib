@@ -1,12 +1,12 @@
 use crate::{address_h256_to_erdrs, Interactor};
 use log::info;
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     api::StaticApi,
     mandos_system::ScenarioRunner,
-    multiversx_sc::{codec::CodecFrom, types::ContractCall},
+    dharithri_sc::{codec::CodecFrom, types::ContractCall},
     scenario_model::{ScQueryStep, TxResponse},
 };
-use multiversx_sdk::data::vm::VmValueRequest;
+use dharithri_sdk::data::vm::VmValueRequest;
 
 impl Interactor {
     pub async fn sc_query<S>(&mut self, mut step: S) -> &mut Self

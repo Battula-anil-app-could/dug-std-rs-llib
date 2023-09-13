@@ -1,18 +1,18 @@
 [package]
 name = "proxy-test-second"
 version = "0.0.0"
-authors = ["Andrei Marinica <andrei.marinica@multiversx.com>"]
+authors = ["viswanath <contact@dharithri.org>"]
 edition = "2021"
 publish = false
 
 [lib]
 path = "src/proxy-test-second.rs"
 
-[dependencies.multiversx-sc]
+[dependencies.dharithri-sc]
 version = "0.43.3"
 path = "../../../../framework/base"
 features = ["alloc"]
 
-[dev-dependencies.multiversx-sc-scenario]
+[dev-dependencies.dharithri-sc-scenario]
 version = "0.43.3"
 path = "../../../../framework/scenario"

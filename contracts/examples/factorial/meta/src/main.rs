@@ -1,3 +1,3 @@
 fn main() {
-    multiversx_sc_meta::cli_main::<factorial::AbiProvider>();
+    dharithri_sc_meta::cli_main::<factorial::AbiProvider>();
 }

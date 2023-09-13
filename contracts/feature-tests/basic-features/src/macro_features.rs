@@ -1,7 +1,7 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-/// Various macros provided by multiversx-sc.
-#[multiversx_sc::module]
+/// Various macros provided by dharithri-sc.
+#[dharithri_sc::module]
 pub trait Macros {
     #[only_owner]
     #[endpoint]

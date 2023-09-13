@@ -1,11 +1,11 @@
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 pub mod curves;
 pub mod utils;
 use utils::{events, owner_endpoints, storage, user_endpoints};
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait BondingCurveModule:
     storage::StorageModule
     + events::EventsModule

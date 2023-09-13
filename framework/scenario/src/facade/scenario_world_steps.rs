@@ -1,9 +1,9 @@
-use multiversx_sc::types::{heap::Address, ContractCall};
+use dharithri_sc::types::{heap::Address, ContractCall};
 
 use crate::{
     api::StaticApi,
     facade::ScenarioWorld,
-    multiversx_sc::codec::{CodecFrom, TopEncodeMulti},
+    dharithri_sc::codec::{CodecFrom, TopEncodeMulti},
     scenario::{model::*, ScenarioRunner},
 };
 

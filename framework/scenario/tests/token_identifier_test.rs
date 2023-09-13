@@ -1,10 +1,10 @@
-use multiversx_sc::types::{
+use dharithri_sc::types::{
     BoxedBytes, EgldOrEsdtTokenIdentifier, EgldOrEsdtTokenPayment, EsdtTokenPayment, ManagedBuffer,
     TokenIdentifier,
 };
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     api::StaticApi, managed_egld_token_id, managed_test_util::check_managed_top_encode_decode,
-    managed_token_id, managed_token_id_wrapped, multiversx_sc,
+    managed_token_id, managed_token_id_wrapped, dharithri_sc,
 };
 
 #[test]

@@ -8,7 +8,7 @@ use multisig::{
     multisig_perform::MultisigPerformModule, multisig_propose::MultisigProposeModule,
     user_role::UserRole, Multisig,
 };
-use multiversx_sc::{
+use dharithri_sc::{
     api::ManagedTypeApi,
     codec::multi_types::OptionalValue,
     storage::mappers::SingleValue,
@@ -16,9 +16,9 @@ use multiversx_sc::{
         Address, BigUint, BoxedBytes, CodeMetadata, ManagedAddress, ManagedBuffer, ManagedVec,
     },
 };
-use multiversx_sc_scenario::{
+use dharithri_sc_scenario::{
     managed_address, managed_biguint,
-    multiversx_chain_vm::types::VMAddress,
+    dharithri_chain_vm::types::VMAddress,
     rust_biguint,
     scenario_model::{
         Account, AddressValue, CheckAccount, CheckStateStep, ScCallStep, ScDeployStep, ScQueryStep,

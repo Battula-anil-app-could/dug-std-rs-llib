@@ -1,7 +1,7 @@
 [package]
-name = "multiversx-price-aggregator-sc-wasm"
+name = "dharithri-price-aggregator-sc-wasm"
 version = "0.0.0"
-authors = [ "Claudiu-Marcel Bruda <claudiu.bruda@multiversx.com>",]
+authors = [ "kasi <contact@dharithri.org>",]
 edition = "2021"
 publish = false
 
@@ -15,10 +15,10 @@ lto = true
 debug = false
 panic = "abort"
 
-[dependencies.multiversx-price-aggregator-sc]
+[dependencies.dharithri-price-aggregator-sc]
 path = ".."
 
-[dependencies.multiversx-sc-wasm-adapter]
+[dependencies.dharithri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../framework/wasm-adapter"
 

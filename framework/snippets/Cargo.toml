@@ -1,16 +1,16 @@
 [package]
-name = "multiversx-sc-snippets"
+name = "dharithri-sc-snippets"
 version = "0.43.3"
 edition = "2021"
 
-authors = ["MultiversX <contact@multiversx.com>"]
+authors = ["dharithri <contact@dharithri.com>"]
 license = "GPL-3.0-only"
 readme = "README.md"
-repository = "https://github.com/multiversx/mx-sdk-rs"
-homepage = "https://multiversx.com/"
-documentation = "https://docs.multiversx.com/"
-description = "MultiversX framework for building smart contract interaction snippets"
-keywords = ["multiversx", "blockchain", "contract", "snippets"]
+repository = "https://github.com/dharithri/mx-sdk-rs"
+homepage = "https://dharithri.com/"
+documentation = "https://docs.dharithri.com/"
+description = "dharithri framework for building smart contract interaction snippets"
+keywords = ["dharithri", "blockchain", "contract", "snippets"]
 categories = ["cryptography::cryptocurrencies"]
 
 [dependencies]
@@ -21,10 +21,10 @@ log = "0.4.17"
 env_logger = "0.8.4"
 futures = "0.3"
 
-[dependencies.multiversx-sc-scenario]
+[dependencies.dharithri-sc-scenario]
 version = "=0.43.3"
 path = "../scenario"
 
-[dependencies.multiversx-sdk]
+[dependencies.dharithri-sdk]
 version = "=0.2.0"
 path = "../../sdk/core"

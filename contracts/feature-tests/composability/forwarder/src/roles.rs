@@ -1,8 +1,8 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 use super::storage;
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ForwarderRolesModule: storage::ForwarderStorageModule {
     #[endpoint(setLocalRoles)]
     fn set_local_roles(

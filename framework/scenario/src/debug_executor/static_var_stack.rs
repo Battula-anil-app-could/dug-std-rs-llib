@@ -1,6 +1,6 @@
 use std::{cell::RefCell, rc::Rc};
 
-use multiversx_sc::types::LockableStaticBuffer;
+use dharithri_sc::types::LockableStaticBuffer;
 
 use super::TxStaticVars;
 

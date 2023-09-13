@@ -7,11 +7,11 @@ mod forwarder_raw_common;
 mod forwarder_raw_deploy_upgrade;
 mod forwarder_raw_sync;
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Test contract for investigating async calls.
 /// TODO: split into modules
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait ForwarderRaw:
     forwarder_raw_alt_init::ForwarderRawAlterativeInit
     + forwarder_raw_common::ForwarderRawCommon

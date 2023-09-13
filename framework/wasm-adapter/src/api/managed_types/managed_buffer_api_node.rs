@@ -1,5 +1,5 @@
 use crate::api::unsafe_buffer;
-use multiversx_sc::{
+use dharithri_sc::{
     api::{InvalidSliceError, ManagedBufferApiImpl},
     types::heap::BoxedBytes,
 };

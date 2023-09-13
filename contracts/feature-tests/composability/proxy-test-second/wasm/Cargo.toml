@@ -1,7 +1,7 @@
 [package]
 name = "proxy-test-second-wasm"
 version = "0.0.0"
-authors = ["Andrei Marinica <andrei.marinica@multiversx.com>"]
+authors = ["viswanath <contact@dharithri.org>"]
 edition = "2021"
 publish = false
 
@@ -18,7 +18,7 @@ panic = "abort"
 [dependencies.proxy-test-second]
 path = ".."
 
-[dependencies.multiversx-sc-wasm-adapter]
+[dependencies.dharithri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../../framework/wasm-adapter"
 

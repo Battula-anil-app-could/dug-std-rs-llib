@@ -1,19 +1,19 @@
 [package]
-name = "multiversx-sc-scenario"
+name = "dharithri-sc-scenario"
 version = "0.43.3"
 edition = "2021"
 
 authors = [
-    "Andrei Marinica <andrei.marinica@multiversx.com>",
-    "MultiversX <contact@multiversx.com>",
+    "viswanath <contact@dharithri.org>",
+    "dharithri <contact@dharithri.com>",
 ]
 license = "GPL-3.0-only"
 readme = "README.md"
-repository = "https://github.com/multiversx/mx-sdk-rs"
-homepage = "https://multiversx.com/"
-documentation = "https://docs.multiversx.com/"
-description = "MultiversX tools for writing and executing scenarios"
-keywords = ["multiversx", "blockchain", "contract", "debug"]
+repository = "https://github.com/dharithri/mx-sdk-rs"
+homepage = "https://dharithri.com/"
+documentation = "https://docs.dharithri.com/"
+description = "dharithri tools for writing and executing scenarios"
+keywords = ["dharithri", "blockchain", "contract", "debug"]
 categories = ["cryptography::cryptocurrencies", "development-tools::debugging"]
 
 [dependencies]
@@ -39,25 +39,25 @@ path = "src/main.rs"
 [features]
 run-go-tests = []
 
-[dependencies.multiversx-sc]
+[dependencies.dharithri-sc]
 version = "=0.43.3"
 path = "../base"
 
-[dependencies.multiversx-sc-meta]
+[dependencies.dharithri-sc-meta]
 version = "=0.43.3"
 path = "../meta"
 
-[dependencies.multiversx-chain-scenario-format]
+[dependencies.dharithri-chain-scenario-format]
 version = "0.20.0"
 path = "../../sdk/scenario-format"
 
 [dependencies.multiversx-chain-vm-executor]
 version = "0.1.0"
 
-[dependencies.multiversx-chain-vm]
+[dependencies.dharithri-chain-vm]
 version = "=0.5.2"
 path = "../../vm"
 
-[dependencies.multiversx-sdk]
+[dependencies.dharithri-sdk]
 version = "=0.2.0"
 path = "../../sdk/core"

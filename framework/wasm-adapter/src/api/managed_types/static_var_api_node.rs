@@ -1,4 +1,4 @@
-use multiversx_sc::{
+use dharithri_sc::{
     api::{const_handles, RawHandle, StaticVarApi, StaticVarApiImpl},
     types::LockableStaticBuffer,
 };

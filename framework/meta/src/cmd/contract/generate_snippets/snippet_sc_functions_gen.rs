@@ -1,6 +1,6 @@
 use std::{fs::File, io::Write};
 
-use multiversx_sc::abi::{ContractAbi, EndpointAbi, EndpointMutabilityAbi, InputAbi, OutputAbi};
+use dharithri_sc::abi::{ContractAbi, EndpointAbi, EndpointMutabilityAbi, InputAbi, OutputAbi};
 
 use super::{snippet_gen_common::write_newline, snippet_type_map::map_abi_type_to_rust_type};
 

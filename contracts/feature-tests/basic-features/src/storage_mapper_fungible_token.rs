@@ -1,8 +1,8 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait FungibleTokenMapperFeatures:
-    multiversx_sc_modules::default_issue_callbacks::DefaultIssueCallbacksModule
+    dharithri_sc_modules::default_issue_callbacks::DefaultIssueCallbacksModule
 {
     #[payable("EGLD")]
     #[endpoint]

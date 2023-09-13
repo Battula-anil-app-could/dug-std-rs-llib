@@ -2,6 +2,6 @@
 
 # cleans all wasm targets
 
-cargo install multiversx-sc-meta
+cargo install dharithri-sc-meta
 
 sc-meta all clean --path ./contracts

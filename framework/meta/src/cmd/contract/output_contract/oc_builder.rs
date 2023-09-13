@@ -1,4 +1,4 @@
-use multiversx_sc::abi::{ContractAbi, EndpointAbi};
+use dharithri_sc::abi::{ContractAbi, EndpointAbi};
 use std::{
     collections::{BTreeSet, HashMap, HashSet},
     fs,
@@ -39,7 +39,7 @@ impl OutputContractBuilder {
         let mut collected_endpoints = Vec::new();
         if external_view {
             collected_endpoints.push(
-                multiversx_sc::external_view_contract::external_view_contract_constructor_abi(),
+                dharithri_sc::external_view_contract::external_view_contract_constructor_abi(),
             )
         }
         (
@@ -154,9 +154,9 @@ fn build_contract_abi(builder: OutputContractBuilder, original_abi: &ContractAbi
     let mut promise_callbacks = Vec::new();
     for endpoint_abi in builder.collected_endpoints {
         match endpoint_abi.endpoint_type {
-            multiversx_sc::abi::EndpointTypeAbi::Init => constructors.push(endpoint_abi),
-            multiversx_sc::abi::EndpointTypeAbi::Endpoint => endpoints.push(endpoint_abi),
-            multiversx_sc::abi::EndpointTypeAbi::PromisesCallback => {
+            dharithri_sc::abi::EndpointTypeAbi::Init => constructors.push(endpoint_abi),
+            dharithri_sc::abi::EndpointTypeAbi::Endpoint => endpoints.push(endpoint_abi),
+            dharithri_sc::abi::EndpointTypeAbi::PromisesCallback => {
                 promise_callbacks.push(endpoint_abi)
             },
         }

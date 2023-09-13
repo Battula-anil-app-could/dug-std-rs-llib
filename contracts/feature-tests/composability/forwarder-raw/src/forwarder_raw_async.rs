@@ -1,6 +1,6 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ForwarderRawAsync: super::forwarder_raw_common::ForwarderRawCommon {
     #[endpoint]
     #[payable("*")]

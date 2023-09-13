@@ -1,4 +1,4 @@
-use multiversx_sc::{
+use dharithri_sc::{
     api::{CryptoApi, CryptoApiImpl, HandleConstraints},
     types::MessageHashType,
 };

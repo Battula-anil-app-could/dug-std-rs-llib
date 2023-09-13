@@ -1,8 +1,8 @@
 use super::scenario_cli::AccountArgs;
-use multiversx_chain_scenario_format::serde_raw::{
+use dharithri_chain_scenario_format::serde_raw::{
     AccountRaw, EsdtFullRaw, EsdtInstanceRaw, EsdtRaw, ScenarioRaw, StepRaw, ValueSubTree,
 };
-use multiversx_sdk::{
+use dharithri_sdk::{
     blockchain::CommunicationProxy,
     data::{address::Address, esdt::EsdtBalance},
 };

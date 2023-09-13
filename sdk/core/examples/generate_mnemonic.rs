@@ -1,4 +1,4 @@
-use multiversx_sdk::wallet::Wallet;
+use dharithri_sdk::wallet::Wallet;
 
 fn main() {
     let mnemonic = Wallet::generate_mnemonic();

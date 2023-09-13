@@ -1,4 +1,4 @@
-use multiversx_sdk::{
+use dharithri_sdk::{
     blockchain::{CommunicationProxy, DEVNET_GATEWAY},
     data::transaction::Transaction,
     wallet::Wallet,

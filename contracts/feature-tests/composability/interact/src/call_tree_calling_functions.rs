@@ -1,9 +1,9 @@
 use std::{cell::RefCell, rc::Rc};
 
 use forwarder_queue::QueuedCallType;
-use multiversx_sc_snippets::{
-    multiversx_sc::types::{EgldOrEsdtTokenIdentifier, EgldOrEsdtTokenPayment, MultiValueEncoded},
-    multiversx_sc_scenario::{
+use dharithri_sc_snippets::{
+    dharithri_sc::types::{EgldOrEsdtTokenIdentifier, EgldOrEsdtTokenPayment, MultiValueEncoded},
+    dharithri_sc_scenario::{
         api::StaticApi,
         bech32,
         num_bigint::BigUint,

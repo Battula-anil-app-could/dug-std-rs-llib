@@ -1,4 +1,4 @@
-use multiversx_sc::api::{EndpointArgumentApi, EndpointArgumentApiImpl, HandleConstraints};
+use dharithri_sc::api::{EndpointArgumentApi, EndpointArgumentApiImpl, HandleConstraints};
 
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 

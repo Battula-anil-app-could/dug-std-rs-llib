@@ -1,6 +1,6 @@
 use crate::{
     api::StaticApi,
-    multiversx_sc::types::{ContractCall, ContractCallWithEgld, EsdtTokenPayment},
+    dharithri_sc::types::{ContractCall, ContractCallWithEgld, EsdtTokenPayment},
     scenario::model::{AddressValue, BigUintValue, BytesValue, U64Value},
     scenario_format::{
         interpret_trait::{InterpretableFrom, InterpreterContext, IntoRaw},

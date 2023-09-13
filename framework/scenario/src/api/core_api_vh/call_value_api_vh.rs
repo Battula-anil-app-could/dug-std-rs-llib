@@ -1,4 +1,4 @@
-use multiversx_sc::api::{CallValueApi, CallValueApiImpl, HandleConstraints};
+use dharithri_sc::api::{CallValueApi, CallValueApiImpl, HandleConstraints};
 
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 

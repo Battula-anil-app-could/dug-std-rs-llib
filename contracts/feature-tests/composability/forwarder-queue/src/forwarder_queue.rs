@@ -1,8 +1,8 @@
 #![no_std]
 #![allow(clippy::type_complexity)]
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
 #[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi, Clone)]
 pub enum QueuedCallType {
@@ -23,7 +23,7 @@ pub struct QueuedCall<M: ManagedTypeApi> {
 }
 
 /// Testing multiple calls per transaction.
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait ForwarderQueue {
     #[init]
     fn init(&self) {}

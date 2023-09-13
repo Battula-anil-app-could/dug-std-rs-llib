@@ -1,5 +1,5 @@
-ALICE="~/multiversx-sdk/testwallets/latest/users/alice.pem"
-BOB="~/multiversx-sdk/testwallets/latest/users/bob.pem"
+ALICE="~/dharithri-sdk/testwallets/latest/users/alice.pem"
+BOB="~/dharithri-sdk/testwallets/latest/users/bob.pem"
 ADDRESS=$(mxpy data load --key=address-testnet-egld-esdt-swap)
 DEPLOY_TRANSACTION=$(mxpy data load --key=deployTransaction-testnet)
 PROXY=https://testnet-gateway.elrond.com

@@ -1,6 +1,6 @@
-multiversx_sc::derive_imports!();
+dharithri_sc::derive_imports!();
 
-/// Copied from multiversx-sc serialization tests.
+/// Copied from dharithri-sc serialization tests.
 #[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]
 pub enum ExampleEnumSimple {
     /// Variant 0 doc comment.

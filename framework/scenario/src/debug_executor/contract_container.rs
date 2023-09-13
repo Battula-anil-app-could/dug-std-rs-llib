@@ -1,6 +1,6 @@
-use multiversx_chain_vm::tx_mock::{TxContextRef, TxFunctionName, TxPanic};
+use dharithri_chain_vm::tx_mock::{TxContextRef, TxFunctionName, TxPanic};
 use multiversx_chain_vm_executor::{BreakpointValue, ExecutorError, Instance, MemLength, MemPtr};
-use multiversx_sc::contract_base::CallableContract;
+use dharithri_sc::contract_base::CallableContract;
 use std::sync::Arc;
 
 use super::{catch_tx_panic, StaticVarStack};

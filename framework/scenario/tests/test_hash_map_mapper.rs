@@ -1,8 +1,8 @@
-use multiversx_sc::storage::{
+use dharithri_sc::storage::{
     mappers::{MapMapper, StorageClearable, StorageMapper},
     StorageKey,
 };
-use multiversx_sc_scenario::api::SingleTxApi;
+use dharithri_sc_scenario::api::SingleTxApi;
 
 fn create_map() -> MapMapper<SingleTxApi, u64, u64> {
     let base_key = StorageKey::new(&b"my_map"[..]);

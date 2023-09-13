@@ -1,7 +1,7 @@
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// ManagedBuffers interacting with the heap.
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait ManagedBufferFeatures {
     #[endpoint]
     fn mbuffer_from_slice(&self, slice: &[u8]) -> ManagedBuffer {

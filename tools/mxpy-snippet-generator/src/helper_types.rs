@@ -1,5 +1,5 @@
 use bech32::FromBase32;
-use multiversx_sc::types::heap::Address;
+use dharithri_sc::types::heap::Address;
 
 use crate::constants::*;
 

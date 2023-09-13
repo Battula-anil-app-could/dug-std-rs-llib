@@ -4,10 +4,10 @@
 mod call_promise_direct;
 mod call_promises;
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Test contract for investigating the new async call framework.
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait PromisesFeatures:
     call_promises::CallPromisesModule + call_promise_direct::CallPromisesDirectModule
 {

@@ -1,5 +1,5 @@
-use multiversx_sc::contract_base::CallableContract;
-use multiversx_sc_scenario::api::DebugApi;
+use dharithri_sc::contract_base::CallableContract;
+use dharithri_sc_scenario::api::DebugApi;
 
 #[test]
 fn test_function_selector() {

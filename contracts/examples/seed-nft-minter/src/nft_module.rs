@@ -1,9 +1,9 @@
 use crate::distribution_module;
 
-multiversx_sc::imports!();
-multiversx_sc::derive_imports!();
+dharithri_sc::imports!();
+dharithri_sc::derive_imports!();
 
-use multiversx_sc_modules::default_issue_callbacks;
+use dharithri_sc_modules::default_issue_callbacks;
 
 const NFT_AMOUNT: u32 = 1;
 const ROYALTIES_MAX: u32 = 10_000; // 100%
@@ -15,7 +15,7 @@ pub struct PriceTag<M: ManagedTypeApi> {
     pub amount: BigUint<M>,
 }
 
-#[multiversx_sc::module]
+#[dharithri_sc::module]
 pub trait NftModule:
     distribution_module::DistributionModule + default_issue_callbacks::DefaultIssueCallbacksModule
 {

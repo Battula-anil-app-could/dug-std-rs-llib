@@ -1,14 +1,14 @@
 [package]
 name = "kitty"
 version = "0.0.0"
-authors = [ "dorin-iancu <dorin.iancu@multiversx.com>",]
+authors = [ "dorin-iancu <dorin.iancu@dharithri.com>",]
 edition = "2021"
 publish = false
 
 [lib]
 path = "src/lib.rs"
 
-[dependencies.multiversx-sc]
+[dependencies.dharithri-sc]
 version = "0.43.3"
 path = "../../../../../framework/base"
 

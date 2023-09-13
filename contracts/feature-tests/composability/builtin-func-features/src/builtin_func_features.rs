@@ -2,10 +2,10 @@
 
 pub mod builtin_func_proxy;
 
-multiversx_sc::imports!();
+dharithri_sc::imports!();
 
 /// Test contract for investigating async calls.
-#[multiversx_sc::contract]
+#[dharithri_sc::contract]
 pub trait BuiltinFuncFeatures {
     #[proxy]
     fn builtin_func_proxy(&self, to: ManagedAddress) -> builtin_func_proxy::Proxy<Self::Api>;

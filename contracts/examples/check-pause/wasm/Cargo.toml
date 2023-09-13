@@ -2,7 +2,7 @@
 name = "check-pause-wasm"
 version = "0.0.0"
 edition = "2021"
-authors = ["Alin Cruceat <alin.cruceat@multiversx.com>"]
+authors = ["Alin Cruceat <alin.cruceat@dharithri.com>"]
 publish = false
 
 [lib]
@@ -23,6 +23,6 @@ panic = "abort"
 [dependencies.check-pause]
 path = ".."
 
-[dependencies.multiversx-sc-wasm-adapter]
+[dependencies.dharithri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../framework/wasm-adapter"

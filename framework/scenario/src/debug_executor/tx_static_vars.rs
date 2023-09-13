@@ -1,4 +1,4 @@
-use multiversx_sc::api::{const_handles, RawHandle};
+use dharithri_sc::api::{const_handles, RawHandle};
 
 #[derive(Debug)]
 pub struct TxStaticVars {

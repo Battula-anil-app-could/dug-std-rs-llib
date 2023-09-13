@@ -1,4 +1,4 @@
-use multiversx_sc_scenario::*;
+use dharithri_sc_scenario::*;
 
 // These tests don't really test any contract, but the testing framework itslef.
 

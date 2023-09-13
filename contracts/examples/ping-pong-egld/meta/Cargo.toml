@@ -8,6 +8,6 @@ publish = false
 [dependencies.ping-pong-egld]
 path = ".."
 
-[dependencies.multiversx-sc-meta]
+[dependencies.dharithri-sc-meta]
 version = "0.43.3"
 path = "../../../../framework/meta"

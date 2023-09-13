@@ -1,8 +1,8 @@
-use multiversx_sc::storage::{
+use dharithri_sc::storage::{
     mappers::{StorageMapper, VecMapper},
     StorageKey,
 };
-use multiversx_sc_scenario::api::SingleTxApi;
+use dharithri_sc_scenario::api::SingleTxApi;
 
 fn create_vec() -> VecMapper<SingleTxApi, u64> {
     let base_key = StorageKey::new(&b"my_queue"[..]);

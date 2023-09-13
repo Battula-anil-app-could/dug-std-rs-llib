@@ -1,10 +1,10 @@
-use multiversx_chain_scenario_format::{
+use dharithri_chain_scenario_format::{
     interpret_trait::{InterpretableFrom, InterpreterContext},
     serde_raw::ScenarioRaw,
 };
 
 use crate::{
-    multiversx_sc::types::Address,
+    dharithri_sc::types::Address,
     scenario::{model::*, ScenarioRunner},
     scenario_format::interpret_trait::IntoRaw,
 };
