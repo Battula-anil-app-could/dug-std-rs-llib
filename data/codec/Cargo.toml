@@ -1,0 +1,31 @@
+[package]
+name = "dharithri-sc-codec"
+version = "0.18.1"
+edition = "2021"
+
+authors = ["viswanath <contact@dharithri.org>", "dharithri <contact@dharithri.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/dharithri/mx-sdk-rs"
+homepage = "https://dharithri.com/"
+documentation = "https://docs.dharithri.com/"
+description = "Lightweight binary serializer/deserializer, written especially for dharithri smart contracts"
+keywords = ["dharithri", "wasm", "webassembly", "blockchain", "contract"]
+categories = ["no-std", "wasm", "cryptography::cryptocurrencies", "development-tools"]
+
+[features]
+derive = ["dharithri-sc-codec-derive"]
+alloc = []
+
+[dependencies.dharithri-sc-codec-derive]
+path = "../codec-derive"
+version = "=0.18.1"
+optional = true
+
+[dependencies]
+arrayvec = { version = "0.7.1", default-features = false }
+num-bigint = { version = "0.4.2", optional = true } # can only be used in std contexts
+
+[dev-dependencies.dharithri-sc-codec-derive]
+path = "../codec-derive"
+version = "=0.18.1"

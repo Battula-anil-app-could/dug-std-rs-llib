@@ -1,0 +1,21 @@
+[package]
+name = "seed-nft-minter"
+version = "0.0.0"
+authors = ["kasi <contact@dharithri.org>"]
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/seed_nft_minter.rs"
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../../framework/base"
+
+[dependencies.dharithri-sc-modules]
+version = "0.43.3"
+path = "../../../contracts/modules"
+
+[dev-dependencies.dharithri-sc-scenario]
+version = "0.43.3"
+path = "../../../framework/scenario"

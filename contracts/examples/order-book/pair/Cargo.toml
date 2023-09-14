@@ -1,0 +1,16 @@
+[package]
+name = "order-book-pair"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../../../framework/base"
+
+[dev-dependencies.dharithri-sc-scenario]
+version = "0.43.3"
+path = "../../../../framework/scenario"

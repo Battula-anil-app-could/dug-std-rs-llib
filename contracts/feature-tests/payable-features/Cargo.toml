@@ -1,0 +1,17 @@
+[package]
+name = "payable-features"
+version = "0.0.0"
+authors = ["viswanath <contact@dharithri.org>"]
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/payable_features.rs"
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../../framework/base"
+
+[dev-dependencies.dharithri-sc-scenario]
+version = "0.43.3"
+path = "../../../framework/scenario"

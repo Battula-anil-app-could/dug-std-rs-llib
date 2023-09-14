@@ -1,0 +1,22 @@
+[package]
+name = "erc1155-marketplace"
+version = "0.0.0"
+authors = ["Dorin Iancu <dorin.iancu@dharithri.com>"]
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+
+[dependencies.erc1155]
+path = "../erc1155"
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../../../framework/base"
+features = ["alloc"]
+
+[dev-dependencies.dharithri-sc-scenario]
+version = "0.43.3"
+path = "../../../../framework/scenario"

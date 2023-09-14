@@ -1,0 +1,18 @@
+[package]
+name = "nft-storage-prepay"
+version = "0.0.0"
+authors = [ "Dorin Iancu <dorin.iancu@dharithri.com>",]
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/nft_storage_prepay.rs"
+
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../../framework/base"
+
+[dev-dependencies.dharithri-sc-scenario]
+version = "0.43.3"
+path = "../../../framework/scenario"

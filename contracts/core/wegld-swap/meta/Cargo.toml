@@ -1,0 +1,19 @@
+[package]
+name = "dharithri-wegld-swap-sc-meta"
+version = "0.0.0"
+authors = [ "Dorin Iancu <dorin.iancu@dharithri.com>",]
+edition = "2021"
+publish = false
+
+[dev-dependencies]
+
+[dependencies.dharithri-wegld-swap-sc]
+path = ".."
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../../../framework/base"
+
+[dependencies.dharithri-sc-meta]
+version = "0.43.3"
+path = "../../../../framework/meta"

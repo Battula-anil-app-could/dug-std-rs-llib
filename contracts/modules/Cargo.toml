@@ -1,0 +1,21 @@
+[package]
+name = "dharithri-sc-modules"
+version = "0.43.3"
+edition = "2021"
+
+authors = ["dharithri <contact@dharithri.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/dharithri/mx-sdk-rs"
+homepage = "https://dharithri.com/"
+documentation = "https://docs.dharithri.com/"
+description = "dharithri WebAssembly standard smart contract modules"
+keywords = ["dharithri", "wasm", "webassembly", "blockchain", "contract"]
+categories = ["no-std", "wasm", "cryptography::cryptocurrencies"]
+
+[features]
+alloc = ["dharithri-sc/alloc"]
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../framework/base"

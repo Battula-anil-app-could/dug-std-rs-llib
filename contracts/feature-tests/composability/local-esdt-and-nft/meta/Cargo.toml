@@ -1,0 +1,12 @@
+[package]
+name = "local-esdt-and-nft-meta"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies.local-esdt-and-nft]
+path = ".."
+
+[dependencies.dharithri-sc-meta]
+version = "0.43.3"
+path = "../../../../../framework/meta"

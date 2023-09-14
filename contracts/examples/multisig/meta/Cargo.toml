@@ -1,0 +1,13 @@
+[package]
+name = "multisig-meta"
+version = "0.0.0"
+authors = ["viswanath <contact@dharithri.org>"]
+edition = "2021"
+publish = false
+
+[dependencies.multisig]
+path = ".."
+
+[dependencies.dharithri-sc-meta]
+version = "0.43.3"
+path = "../../../../framework/meta"

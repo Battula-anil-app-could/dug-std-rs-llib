@@ -1,0 +1,27 @@
+[package]
+name = "dharithri-sc-codec-derive"
+version = "0.18.1"
+edition = "2021"
+
+authors = ["dorin.iancu <dorin.iancu@dharithri.com>", "viswanath <contact@dharithri.org>", "dharithri <contact@dharithri.com>"]
+license = "GPL-3.0-only"
+readme = "README.md"
+repository = "https://github.com/dharithri/mx-sdk-rs"
+homepage = "https://dharithri.com/"
+documentation = "https://docs.dharithri.com/"
+description = "Macro implementations of dharithri-sc-codec #[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]"
+keywords = ["dharithri", "wasm", "webassembly", "blockchain", "contract"]
+categories = ["no-std", "wasm", "cryptography::cryptocurrencies", "development-tools"]
+
+[lib]
+name = "dharithri_sc_codec_derive"
+proc-macro = true
+
+[features]
+default = ["syn/full", "syn/parsing", "syn/extra-traits"]
+
+[dependencies]
+proc-macro2 = "1.0.66"
+quote = "1.0.33"
+syn = "1.0"
+hex = "0.4"

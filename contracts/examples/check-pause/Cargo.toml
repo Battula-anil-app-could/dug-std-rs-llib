@@ -1,0 +1,25 @@
+[package]
+name = "check-pause"
+version = "0.0.0"
+authors = ["Alin Cruceat <alin.cruceat@dharithri.com>"]
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/check_pause.rs"
+
+[dev-dependencies]
+num-bigint = "0.4.2"
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../../framework/base"
+
+[dependencies.dharithri-sc-modules]
+version = "0.43.3"
+path = "../../../contracts/modules"
+
+[dev-dependencies.dharithri-sc-scenario]
+version = "0.43.3"
+path = "../../../framework/scenario"
+

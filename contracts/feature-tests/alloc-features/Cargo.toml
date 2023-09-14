@@ -1,0 +1,21 @@
+[package]
+name = "alloc-features"
+version = "0.0.0"
+authors = ["viswanath <contact@dharithri.org>"]
+edition = "2021"
+publish = false
+
+[lib]
+path = "src/alloc_features_main.rs"
+
+[dependencies.dharithri-sc]
+version = "0.43.3"
+path = "../../../framework/base"
+features = ["alloc"]
+
+[dev-dependencies.dharithri-sc-scenario]
+version = "0.43.3"
+path = "../../../framework/scenario"
+
+[dev-dependencies.esdt-system-sc-mock]
+path = "../esdt-system-sc-mock"
