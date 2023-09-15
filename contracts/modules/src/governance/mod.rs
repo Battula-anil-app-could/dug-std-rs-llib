@@ -1,4 +1,4 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 pub mod governance_configurable;
 pub mod governance_events;
@@ -12,7 +12,7 @@ pub const ALREADY_VOTED_ERR_MSG: &[u8] = b"Already voted for this proposal";
 pub const MIN_FEES_REACHED: &[u8] = b"Propose already reached min threshold for fees";
 pub const MIN_AMOUNT_NOT_REACHED: &[u8] = b"Minimum amount not reached";
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait GovernanceModule:
     governance_configurable::GovernanceConfigurablePropertiesModule
     + governance_events::GovernanceEventsModule
@@ -84,7 +84,7 @@ pub trait GovernanceModule:
         for fee_entry in fees_to_send.iter() {
             let payment = fee_entry.tokens.clone();
 
-            self.send().direct_esdt(
+            self.send().direct_dct(
                 &fee_entry.depositor_addr,
                 &payment.token_identifier,
                 payment.token_nonce,
@@ -100,7 +100,7 @@ pub trait GovernanceModule:
     /// An action has the following format:
     ///     - gas limit for action execution
     ///     - destination address
-    ///     - a vector of ESDT transfers, in the form of ManagedVec<EsdTokenPayment>
+    ///     - a vector of DCT transfers, in the form of ManagedVec<EsdTokenPayment>
     ///     - endpoint to be called on the destination
     ///     - a vector of arguments for the endpoint, in the form of ManagedVec<ManagedBuffer>
     ///
@@ -420,7 +420,7 @@ pub trait GovernanceModule:
 
         for fee_entry in payments.entries.iter() {
             let payment = fee_entry.tokens;
-            self.send().direct_esdt(
+            self.send().direct_dct(
                 &fee_entry.depositor_addr,
                 &payment.token_identifier,
                 payment.token_nonce,
@@ -429,8 +429,8 @@ pub trait GovernanceModule:
         }
     }
 
-    fn require_payment_token_governance_token(&self) -> EsdtTokenPayment {
-        let payment = self.call_value().single_esdt();
+    fn require_payment_token_governance_token(&self) -> DctTokenPayment {
+        let payment = self.call_value().single_dct();
         require!(
             payment.token_identifier == self.governance_token_id().get(),
             "Only Governance token accepted as payment"

@@ -1,5 +1,5 @@
 use crate::api::unsafe_buffer;
-use dharithri_sc::{
+use dharitri_sc::{
     api::{InvalidSliceError, ManagedBufferApiImpl},
     types::heap::BoxedBytes,
 };

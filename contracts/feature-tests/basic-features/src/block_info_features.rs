@@ -1,7 +1,7 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Block info getters.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait BlockInfoFeatures {
     #[view]
     fn get_block_timestamp(&self) -> u64 {

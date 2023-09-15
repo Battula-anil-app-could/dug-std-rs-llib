@@ -22,7 +22,7 @@ impl SendApiImpl for UncallableApi {
         unreachable!()
     }
 
-    fn multi_transfer_esdt_nft_execute(
+    fn multi_transfer_dct_nft_execute(
         &self,
         _to_handle: RawHandle,
         _payments_handle: RawHandle,

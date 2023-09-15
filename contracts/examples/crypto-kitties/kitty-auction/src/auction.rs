@@ -1,6 +1,6 @@
-dharithri_sc::derive_imports!();
+dharitri_sc::derive_imports!();
 
-use dharithri_sc::{
+use dharitri_sc::{
     api::ManagedTypeApi,
     types::{BigUint, ManagedAddress},
 };

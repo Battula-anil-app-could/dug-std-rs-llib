@@ -1,10 +1,10 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use benchmark_common::ExampleStruct;
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait LinkedListRepeat: benchmark_common::BenchmarkCommon {
     #[init]
     fn init(&self) {}

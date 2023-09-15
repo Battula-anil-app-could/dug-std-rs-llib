@@ -7,11 +7,11 @@ use crate::{
     types::{ManagedBuffer, ManagedType},
 };
 
-use super::EgldOrEsdtTokenIdentifier;
+use super::MoaOrDctTokenIdentifier;
 
 /// Specialized type for handling token identifiers.
 /// It wraps a BoxedBytes with the full ASCII name of the token.
-/// EGLD is stored as an empty name.
+/// MOA is stored as an empty name.
 ///
 /// Not yet implemented, but we might add additional restrictions when deserializing as argument.
 #[repr(transparent)]
@@ -41,7 +41,7 @@ impl<M: ManagedTypeApi> ManagedType<M> for TokenIdentifier<M> {
 
 impl<M: ManagedTypeApi> TokenIdentifier<M> {
     #[inline]
-    pub fn from_esdt_bytes<B: Into<ManagedBuffer<M>>>(bytes: B) -> Self {
+    pub fn from_dct_bytes<B: Into<ManagedBuffer<M>>>(bytes: B) -> Self {
         TokenIdentifier {
             buffer: bytes.into(),
         }
@@ -62,7 +62,7 @@ impl<M: ManagedTypeApi> TokenIdentifier<M> {
         self.buffer.to_boxed_bytes()
     }
 
-    pub fn is_valid_esdt_identifier(&self) -> bool {
+    pub fn is_valid_dct_identifier(&self) -> bool {
         M::managed_type_impl().validate_token_identifier(self.buffer.handle.clone())
     }
 
@@ -105,12 +105,12 @@ impl<M: ManagedTypeApi> PartialEq for TokenIdentifier<M> {
 
 impl<M: ManagedTypeApi> Eq for TokenIdentifier<M> {}
 
-impl<M: ManagedTypeApi> PartialEq<EgldOrEsdtTokenIdentifier<M>> for TokenIdentifier<M> {
+impl<M: ManagedTypeApi> PartialEq<MoaOrDctTokenIdentifier<M>> for TokenIdentifier<M> {
     #[inline]
-    fn eq(&self, other: &EgldOrEsdtTokenIdentifier<M>) -> bool {
+    fn eq(&self, other: &MoaOrDctTokenIdentifier<M>) -> bool {
         other.map_ref_or_else(
             || false,
-            |esdt_token_identifier| esdt_token_identifier == self,
+            |dct_token_identifier| dct_token_identifier == self,
         )
     }
 }

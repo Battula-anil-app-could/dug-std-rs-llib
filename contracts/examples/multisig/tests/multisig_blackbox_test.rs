@@ -3,7 +3,7 @@ use multisig::{
     multisig_perform::ProxyTrait as _, multisig_propose::ProxyTrait as _, user_role::UserRole,
     ProxyTrait as _,
 };
-use dharithri_sc::{
+use dharitri_sc::{
     codec::{
         multi_types::{MultiValueVec, OptionalValue},
         test_util::top_encode_to_vec_u8_or_panic,
@@ -11,7 +11,7 @@ use dharithri_sc::{
     storage::mappers::SingleValue,
     types::{Address, CodeMetadata, ContractCallNoPayment},
 };
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     api::StaticApi,
     scenario_model::{
         Account, AddressValue, CheckAccount, CheckStateStep, ScCallStep, ScDeployStep, ScQueryStep,
@@ -152,14 +152,14 @@ impl MultisigTestState {
     fn propose_transfer_execute(
         &mut self,
         to: Address,
-        egld_amount: u64,
+        moa_amount: u64,
         contract_call: ContractCallNoPayment<StaticApi, ()>,
     ) -> usize {
         self.world
             .sc_call_get_result(ScCallStep::new().from(PROPOSER_ADDRESS_EXPR).call(
                 self.multisig_contract.propose_transfer_execute(
                     to,
-                    egld_amount,
+                    moa_amount,
                     contract_call.endpoint_name,
                     contract_call.arg_buffer.into_multi_value_encoded(),
                 ),
@@ -169,14 +169,14 @@ impl MultisigTestState {
     fn propose_async_call(
         &mut self,
         to: Address,
-        egld_amount: u64,
+        moa_amount: u64,
         contract_call: ContractCallNoPayment<StaticApi, ()>,
     ) -> usize {
         self.world
             .sc_call_get_result(ScCallStep::new().from(PROPOSER_ADDRESS_EXPR).call(
                 self.multisig_contract.propose_async_call(
                     to,
-                    egld_amount,
+                    moa_amount,
                     contract_call.endpoint_name,
                     contract_call.arg_buffer.into_multi_value_encoded(),
                 ),
@@ -425,7 +425,7 @@ fn test_transfer_execute_to_user() {
     state.world.sc_call(
         ScCallStep::new()
             .from(PROPOSER_ADDRESS_EXPR)
-            .egld_value(AMOUNT)
+            .moa_value(AMOUNT)
             .call(state.multisig_contract.deposit()),
     );
 

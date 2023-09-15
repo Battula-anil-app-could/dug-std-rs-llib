@@ -8,15 +8,15 @@ publish = false
 name = "format-tests"
 path = "src/format_tests.rs"
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../framework/base"
 
-[dependencies.dharithri-sc-scenario]
+[dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../framework/scenario"
 
-[dependencies.dharithri-chain-vm]
+[dependencies.dharitri-chain-vm]
 version = "0.5.2"
 path = "../../../vm"
 

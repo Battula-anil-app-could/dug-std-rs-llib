@@ -1,14 +1,14 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
-use dharithri_sc::contract_base::ManagedSerializer;
+use dharitri_sc::contract_base::ManagedSerializer;
 
 use crate::bonding_curve::{
     curves::curve_function::CurveFunction,
     utils::{events, storage, structs::BondingCurve},
 };
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
     fn sell_token<T>(&self)
     where
@@ -21,7 +21,7 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
             + PartialEq
             + Default,
     {
-        let (offered_token, nonce, sell_amount) = self.call_value().single_esdt().into_tuple();
+        let (offered_token, nonce, sell_amount) = self.call_value().single_dct().into_tuple();
         let _ = self.check_owned_return_payment_token::<T>(&offered_token, &sell_amount);
 
         let (calculated_price, payment_token) =
@@ -71,7 +71,7 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
             + PartialEq
             + Default,
     {
-        let (offered_token, payment) = self.call_value().egld_or_single_fungible_esdt();
+        let (offered_token, payment) = self.call_value().moa_or_single_fungible_dct();
         let payment_token =
             self.check_owned_return_payment_token::<T>(&requested_token, &requested_amount);
         self.check_given_token(&payment_token, &offered_token);
@@ -99,7 +99,7 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
         match requested_nonce {
             OptionalValue::Some(nonce) => {
                 self.send()
-                    .direct_esdt(&caller, &requested_token, nonce, &requested_amount);
+                    .direct_dct(&caller, &requested_token, nonce, &requested_amount);
                 if self.nonce_amount(&requested_token, nonce).get() - requested_amount.clone() > 0 {
                     self.nonce_amount(&requested_token, nonce)
                         .update(|val| *val -= requested_amount.clone());
@@ -132,7 +132,7 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
     ) {
         let mut nonces = self.token_details(&token).get().token_nonces;
         let mut total_amount = amount;
-        let mut tokens_to_send = ManagedVec::<Self::Api, EsdtTokenPayment<Self::Api>>::new();
+        let mut tokens_to_send = ManagedVec::<Self::Api, DctTokenPayment<Self::Api>>::new();
         loop {
             require!(!nonces.is_empty(), "Insufficient balance");
             let nonce = nonces.get(0);
@@ -150,7 +150,7 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
                 amount_to_send = total_amount.clone();
                 total_amount = BigUint::zero();
             }
-            tokens_to_send.push(EsdtTokenPayment::new(token.clone(), nonce, amount_to_send));
+            tokens_to_send.push(DctTokenPayment::new(token.clone(), nonce, amount_to_send));
             if total_amount == BigUint::zero() {
                 break;
             }
@@ -220,7 +220,7 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
         &self,
         issued_token: &TokenIdentifier,
         amount: &BigUint,
-    ) -> EgldOrEsdtTokenIdentifier
+    ) -> MoaOrDctTokenIdentifier
     where
         T: CurveFunction<Self::Api>
             + TopEncode
@@ -247,8 +247,8 @@ pub trait UserEndpointsModule: storage::StorageModule + events::EventsModule {
 
     fn check_given_token(
         &self,
-        accepted_token: &EgldOrEsdtTokenIdentifier,
-        given_token: &EgldOrEsdtTokenIdentifier,
+        accepted_token: &MoaOrDctTokenIdentifier,
+        given_token: &MoaOrDctTokenIdentifier,
     ) {
         require!(
             given_token == accepted_token,

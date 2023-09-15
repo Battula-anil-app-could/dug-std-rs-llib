@@ -1,11 +1,11 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 pub mod auction;
 use auction::*;
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait KittyAuction {
     #[init]
     fn init(
@@ -147,10 +147,10 @@ pub trait KittyAuction {
         )
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint]
     fn bid(&self, kitty_id: u32) {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
 
         require!(
             self.is_up_for_auction(kitty_id),
@@ -184,7 +184,7 @@ pub trait KittyAuction {
         // refund losing bid
         if !auction.current_winner.is_zero() {
             self.send()
-                .direct_egld(&auction.current_winner, &auction.current_bid);
+                .direct_moa(&auction.current_winner, &auction.current_bid);
         }
 
         // update auction bid and winner
@@ -357,7 +357,7 @@ pub trait KittyAuction {
                     && !auction.current_winner.is_zero()
                 {
                     self.send()
-                        .direct_egld(&auction.kitty_owner, &auction.current_bid);
+                        .direct_moa(&auction.kitty_owner, &auction.current_bid);
                 }
             },
             ManagedAsyncCallResult::Err(_) => {

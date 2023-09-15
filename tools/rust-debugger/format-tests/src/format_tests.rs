@@ -1,13 +1,13 @@
-use dharithri_sc::{
+use dharitri_sc::{
     codec::multi_types::OptionalValue,
-    esdt::ESDTSystemSmartContractProxy,
+    dct::DCTSystemSmartContractProxy,
     types::{
         heap::{Address, BoxedBytes},
-        BigFloat, BigInt, BigUint, EgldOrEsdtTokenIdentifier, EsdtTokenPayment, ManagedAddress,
+        BigFloat, BigInt, BigUint, MoaOrDctTokenIdentifier, DctTokenPayment, ManagedAddress,
         ManagedBuffer, ManagedByteArray, ManagedOption, ManagedType, ManagedVec, TokenIdentifier,
     },
 };
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     api::{DebugHandle, DebugApi},
     num_bigint::{BigInt as RustBigInt, BigUint as RustBigUint},
 };
@@ -65,8 +65,8 @@ fn main() {
     let token_identifier: TokenIdentifier<DebugApi> = TokenIdentifier::from("MYTOK-123456");
     push!(to_check, token_identifier, "\"MYTOK-123456\"");
 
-    let system_sc = ESDTSystemSmartContractProxy::<DebugApi>::new_proxy_obj();
-    let managed_address = system_sc.esdt_system_sc_address();
+    let system_sc = DCTSystemSmartContractProxy::<DebugApi>::new_proxy_obj();
+    let managed_address = system_sc.dct_system_sc_address();
     push!(
         to_check,
         managed_address,
@@ -89,7 +89,7 @@ fn main() {
         ManagedOption::none();
     push!(to_check, managed_option_none, "ManagedOption::none()");
 
-    let payment = EsdtTokenPayment {
+    let payment = DctTokenPayment {
         token_identifier: TokenIdentifier::from("MYTOK-123456"),
         token_nonce: 42,
         amount: BigUint::from(1000u64),
@@ -109,30 +109,30 @@ fn main() {
         "(2) { [0] = 10000000000, [1] = 100000000000000000000 }"
     );
 
-    let mut managed_vec_of_payments: ManagedVec<DebugApi, EsdtTokenPayment<DebugApi>> =
+    let mut managed_vec_of_payments: ManagedVec<DebugApi, DctTokenPayment<DebugApi>> =
         ManagedVec::new();
     managed_vec_of_payments.push(payment.clone());
-    managed_vec_of_payments.push(EsdtTokenPayment::new(
+    managed_vec_of_payments.push(DctTokenPayment::new(
         TokenIdentifier::from("MYTOK-abcdef"),
         100,
         5000u64.into(),
     ));
     push!(to_check, managed_vec_of_payments, "(2) { [0] = { token_identifier: \"MYTOK-123456\", nonce: 42, amount: 1000 }, [1] = { token_identifier: \"MYTOK-abcdef\", nonce: 100, amount: 5000 } }");
 
-    let egld_or_esdt_token_identifier_egld: EgldOrEsdtTokenIdentifier<DebugApi> =
-        EgldOrEsdtTokenIdentifier::egld();
+    let moa_or_dct_token_identifier_moa: MoaOrDctTokenIdentifier<DebugApi> =
+        MoaOrDctTokenIdentifier::moa();
     push!(
         to_check,
-        egld_or_esdt_token_identifier_egld,
-        "EgldOrEsdtTokenIdentifier::egld()"
+        moa_or_dct_token_identifier_moa,
+        "MoaOrDctTokenIdentifier::moa()"
     );
 
-    let egld_or_esdt_token_identifier_esdt: EgldOrEsdtTokenIdentifier<DebugApi> =
-        EgldOrEsdtTokenIdentifier::esdt("MYTOK-123456");
+    let moa_or_dct_token_identifier_dct: MoaOrDctTokenIdentifier<DebugApi> =
+        MoaOrDctTokenIdentifier::dct("MYTOK-123456");
     push!(
         to_check,
-        egld_or_esdt_token_identifier_esdt,
-        "EgldOrEsdtTokenIdentifier::esdt(\"MYTOK-123456\")"
+        moa_or_dct_token_identifier_dct,
+        "MoaOrDctTokenIdentifier::dct(\"MYTOK-123456\")"
     );
 
     // Nested type tests
@@ -173,7 +173,7 @@ fn main() {
         "(3) { [0] = (2) 0x6162, [1] = (4) 0x61626364, [2] = (12) 0x6162636465666768696a6b6c }"
     );
 
-    // 6. dharithri codec - Multi-types
+    // 6. dharitri codec - Multi-types
     let optional_value_some: OptionalValue<BigUint<DebugApi>> =
         OptionalValue::Some(BigUint::from(42u64));
     push!(to_check, optional_value_some, "OptionalValue::Some(42)");

@@ -1,17 +1,17 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
-use dharithri_sc::contract_base::ManagedSerializer;
+use dharitri_sc::contract_base::ManagedSerializer;
 
 #[derive(TopEncode, TopDecode)]
 pub struct FractionalUriInfo<M: ManagedTypeApi> {
-    pub original_payment: EsdtTokenPayment<M>,
+    pub original_payment: DctTokenPayment<M>,
     pub initial_fractional_amount: BigUint<M>,
 }
 
 impl<M: ManagedTypeApi> FractionalUriInfo<M> {
     pub fn new(
-        original_payment: EsdtTokenPayment<M>,
+        original_payment: DctTokenPayment<M>,
         initial_fractional_amount: BigUint<M>,
     ) -> Self {
         Self {

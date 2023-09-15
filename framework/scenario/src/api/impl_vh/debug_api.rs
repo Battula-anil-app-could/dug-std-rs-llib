@@ -1,11 +1,11 @@
 use std::sync::Arc;
 
-use dharithri_chain_vm::{
+use dharitri_chain_vm::{
     executor::{BreakpointValue, VMHooks},
     tx_mock::{TxContext, TxContextRef, TxContextStack, TxPanic},
     vm_hooks::{DebugApiVMHooksHandler, VMHooksDispatcher},
 };
-use dharithri_sc::err_msg;
+use dharitri_sc::err_msg;
 
 use crate::debug_executor::{StaticVarData, StaticVarStack};
 

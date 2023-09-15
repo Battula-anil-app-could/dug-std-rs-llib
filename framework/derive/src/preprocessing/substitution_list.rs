@@ -16,11 +16,11 @@ fn add_managed_type(substitutions: &mut SubstitutionsMap, type_name: &proc_macro
         quote!(#type_name<Self::Api>));
     substitutions.add_substitution(
         quote!(#type_name::),
-        quote!(dharithri_sc::types::#type_name::<Self::Api>::),
+        quote!(dharitri_sc::types::#type_name::<Self::Api>::),
     );
     substitutions.add_substitution(
         quote!(#type_name),
-        quote!(dharithri_sc::types::#type_name<Self::Api>),
+        quote!(dharitri_sc::types::#type_name<Self::Api>),
     );
 }
 
@@ -54,8 +54,8 @@ fn add_managed_types(substitutions: &mut SubstitutionsMap) {
     // types::managed::multi-value
     add_managed_type(substitutions, &quote!(ManagedAsyncCallError));
     add_managed_type_with_generics(substitutions, &quote!(ManagedAsyncCallResult));
-    add_managed_type(substitutions, &quote!(EsdtTokenPaymentMultiArg));
-    add_managed_type(substitutions, &quote!(EsdtTokenPaymentMultiValue));
+    add_managed_type(substitutions, &quote!(DctTokenPaymentMultiArg));
+    add_managed_type(substitutions, &quote!(DctTokenPaymentMultiValue));
     add_managed_type_with_generics(substitutions, &quote!(MultiValueEncodedIterator));
     add_managed_type_with_generics(substitutions, &quote!(MultiValueEncoded));
     add_managed_type_with_generics(substitutions, &quote!(ManagedVarArgs));
@@ -66,10 +66,10 @@ fn add_managed_types(substitutions: &mut SubstitutionsMap) {
     add_managed_type_with_generics(substitutions, &quote!(MultiValueManagedVec));
 
     // types::managed::wrapped
-    add_managed_type(substitutions, &quote!(EgldOrEsdtTokenIdentifier));
-    add_managed_type(substitutions, &quote!(EgldOrEsdtTokenPayment));
-    add_managed_type(substitutions, &quote!(EsdtTokenData));
-    add_managed_type(substitutions, &quote!(EsdtTokenPayment));
+    add_managed_type(substitutions, &quote!(MoaOrDctTokenIdentifier));
+    add_managed_type(substitutions, &quote!(MoaOrDctTokenPayment));
+    add_managed_type(substitutions, &quote!(DctTokenData));
+    add_managed_type(substitutions, &quote!(DctTokenPayment));
     add_managed_type(substitutions, &quote!(ManagedAddress));
     add_managed_type(substitutions, &quote!(ManagedBufferCachedBuilder));
     add_managed_type_with_generics(substitutions, &quote!(ManagedByteArray));

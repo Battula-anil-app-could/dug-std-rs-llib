@@ -5,10 +5,10 @@ use crate::{
     contract_base::SendRawWrapper,
     formatter::SCLowerHex,
     io::{ArgErrorHandler, ArgId, ManagedResultArgLoader},
-    types::{BigUint, EsdtTokenPayment, ManagedBuffer, ManagedBufferCachedBuilder, ManagedVec},
+    types::{BigUint, DctTokenPayment, ManagedBuffer, ManagedBufferCachedBuilder, ManagedVec},
 };
 
-use super::{AsyncCall, ContractCallNoPayment, ContractCallWithEgld};
+use super::{AsyncCall, ContractCallNoPayment, ContractCallWithMoa};
 
 /// Using max u64 to represent maximum possible gas,
 /// so that the value zero is not reserved and can be specified explicitly.
@@ -18,7 +18,7 @@ pub(super) const UNSPECIFIED_GAS_LIMIT: u64 = u64::MAX;
 /// In case of `transfer_execute`, we leave by default a little gas for the calling transaction to finish.
 pub(super) const TRANSFER_EXECUTE_DEFAULT_LEFTOVER: u64 = 100_000;
 
-impl<SA, OriginalResult> ContractCallWithEgld<SA, OriginalResult>
+impl<SA, OriginalResult> ContractCallWithMoa<SA, OriginalResult>
 where
     SA: CallTypeApi + 'static,
 {
@@ -43,7 +43,7 @@ where
     pub(super) fn async_call(self) -> AsyncCall<SA> {
         AsyncCall {
             to: self.basic.to,
-            egld_payment: self.egld_payment,
+            moa_payment: self.moa_payment,
             endpoint_name: self.basic.endpoint_name,
             arg_buffer: self.basic.arg_buffer,
             callback_call: None,
@@ -54,7 +54,7 @@ where
     pub(super) fn async_call_promise(self) -> super::AsyncCallPromises<SA> {
         super::AsyncCallPromises {
             to: self.basic.to,
-            egld_payment: self.egld_payment,
+            moa_payment: self.moa_payment,
             endpoint_name: self.basic.endpoint_name,
             arg_buffer: self.basic.arg_buffer,
             explicit_gas_limit: self.basic.explicit_gas_limit,
@@ -72,7 +72,7 @@ where
         let raw_result = SendRawWrapper::<SA>::new().execute_on_dest_context_raw(
             self.resolve_gas_limit(),
             &self.basic.to,
-            &self.egld_payment,
+            &self.moa_payment,
             &self.basic.endpoint_name,
             &self.basic.arg_buffer,
         );
@@ -105,7 +105,7 @@ where
         let raw_result = SendRawWrapper::<SA>::new().execute_on_same_context_raw(
             self.resolve_gas_limit(),
             &self.basic.to,
-            &self.egld_payment,
+            &self.moa_payment,
             &self.basic.endpoint_name,
             &self.basic.arg_buffer,
         );
@@ -132,24 +132,24 @@ where
         }
     }
 
-    pub(super) fn transfer_execute_egld(self, egld_payment: BigUint<SA>) {
+    pub(super) fn transfer_execute_moa(self, moa_payment: BigUint<SA>) {
         let gas_limit = self.resolve_gas_limit_with_leftover();
 
-        let _ = SendRawWrapper::<SA>::new().direct_egld_execute(
+        let _ = SendRawWrapper::<SA>::new().direct_moa_execute(
             &self.to,
-            &egld_payment,
+            &moa_payment,
             gas_limit,
             &self.endpoint_name,
             &self.arg_buffer,
         );
     }
 
-    pub(super) fn transfer_execute_single_esdt(self, payment: EsdtTokenPayment<SA>) {
+    pub(super) fn transfer_execute_single_dct(self, payment: DctTokenPayment<SA>) {
         let gas_limit = self.resolve_gas_limit_with_leftover();
 
         if payment.token_nonce == 0 {
-            // fungible ESDT
-            let _ = SendRawWrapper::<SA>::new().transfer_esdt_execute(
+            // fungible DCT
+            let _ = SendRawWrapper::<SA>::new().transfer_dct_execute(
                 &self.to,
                 &payment.token_identifier,
                 &payment.amount,
@@ -158,8 +158,8 @@ where
                 &self.arg_buffer,
             );
         } else {
-            // non-fungible/semi-fungible ESDT
-            let _ = SendRawWrapper::<SA>::new().transfer_esdt_nft_execute(
+            // non-fungible/semi-fungible DCT
+            let _ = SendRawWrapper::<SA>::new().transfer_dct_nft_execute(
                 &self.to,
                 &payment.token_identifier,
                 payment.token_nonce,
@@ -171,12 +171,12 @@ where
         }
     }
 
-    pub(super) fn transfer_execute_multi_esdt(
+    pub(super) fn transfer_execute_multi_dct(
         self,
-        payments: ManagedVec<SA, EsdtTokenPayment<SA>>,
+        payments: ManagedVec<SA, DctTokenPayment<SA>>,
     ) {
         let gas_limit = self.resolve_gas_limit_with_leftover();
-        let _ = SendRawWrapper::<SA>::new().multi_esdt_transfer_execute(
+        let _ = SendRawWrapper::<SA>::new().multi_dct_transfer_execute(
             &self.to,
             &payments,
             gas_limit,
@@ -185,11 +185,11 @@ where
         );
     }
 
-    pub(super) fn transfer_execute_esdt(self, payments: ManagedVec<SA, EsdtTokenPayment<SA>>) {
+    pub(super) fn transfer_execute_dct(self, payments: ManagedVec<SA, DctTokenPayment<SA>>) {
         match payments.len() {
-            0 => self.transfer_execute_egld(BigUint::zero()),
-            1 => self.transfer_execute_single_esdt(payments.get(0)),
-            _ => self.transfer_execute_multi_esdt(payments),
+            0 => self.transfer_execute_moa(BigUint::zero()),
+            1 => self.transfer_execute_single_dct(payments.get(0)),
+            _ => self.transfer_execute_multi_dct(payments),
         }
     }
 }

@@ -1,4 +1,4 @@
-use dharithri_chain_scenario_format::{
+use dharitri_chain_scenario_format::{
     interpret_trait::InterpreterContext,
     reconstruct_trait::ReconstructorContext,
     serde_raw::ValueSubTree,

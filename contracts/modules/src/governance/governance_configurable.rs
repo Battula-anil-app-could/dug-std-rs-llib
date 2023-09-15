@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-/// # dharithri smart contract module - Governance
+/// # dharitri smart contract module - Governance
 ///
 /// This is a standard smart contract module, that when added to a smart contract offers governance features:
 /// - proposing actions
@@ -27,7 +27,7 @@ dharithri_sc::imports!();
 /// Please note that although the main contract can modify the module's storage directly, it is not recommended to do so,
 /// as that defeats the whole purpose of having governance. These parameters should only be modified through actions.
 ///
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait GovernanceConfigurablePropertiesModule {
     // endpoints - owner-only
 
@@ -43,8 +43,8 @@ pub trait GovernanceConfigurablePropertiesModule {
         lock_time_after_voting_ends_in_blocks: u64,
     ) {
         require!(
-            governance_token_id.is_valid_esdt_identifier(),
-            "Invalid ESDT token ID provided for governance_token_id"
+            governance_token_id.is_valid_dct_identifier(),
+            "Invalid DCT token ID provided for governance_token_id"
         );
 
         self.governance_token_id()

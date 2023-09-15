@@ -1,4 +1,4 @@
-use dharithri_sc::abi::{ContractAbi, EndpointAbi};
+use dharitri_sc::abi::{ContractAbi, EndpointAbi};
 
 use super::OutputContract;
 

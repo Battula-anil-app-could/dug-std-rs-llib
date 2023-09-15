@@ -1,9 +1,9 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use crate::types::*;
 
 /// Storage tests: direct load from storage to the heap.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait StorageLoadFeatures {
     #[endpoint]
     #[storage_get("vec_u8")]

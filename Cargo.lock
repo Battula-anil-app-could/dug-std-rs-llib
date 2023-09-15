@@ -16,9 +16,9 @@ dependencies = [
 name = "abi-tester"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-meta",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-meta",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -26,15 +26,15 @@ name = "abi-tester-meta"
 version = "0.0.0"
 dependencies = [
  "abi-tester",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
 name = "adder"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -43,7 +43,7 @@ version = "0.0.0"
 dependencies = [
  "adder",
  "clap",
- "dharithri-sc-snippets",
+ "dharitri-sc-snippets",
  "serde",
  "toml 0.7.8",
 ]
@@ -53,7 +53,7 @@ name = "adder-meta"
 version = "0.0.0"
 dependencies = [
  "adder",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -106,9 +106,9 @@ dependencies = [
 name = "alloc-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
- "esdt-system-sc-mock",
+ "dct-system-sc-mock",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -116,7 +116,7 @@ name = "alloc-features-meta"
 version = "0.0.0"
 dependencies = [
  "alloc-features",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -233,10 +233,10 @@ checksum = "8c3c1a368f70d6cf7302d78f8f7093da241fb8e8807c05cc9e51a125895a6d5b"
 name = "basic-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
- "esdt-system-sc-mock",
+ "dct-system-sc-mock",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -245,7 +245,7 @@ version = "0.0.0"
 dependencies = [
  "basic-features",
  "clap",
- "dharithri-sc-snippets",
+ "dharitri-sc-snippets",
  "serde",
  "toml 0.7.8",
 ]
@@ -255,7 +255,7 @@ name = "basic-features-meta"
 version = "0.0.0"
 dependencies = [
  "basic-features",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -268,17 +268,17 @@ checksum = "d86b93f97252c47b41663388e6d155714a9d0c398b99f1005cbc5f978b29f445"
 name = "benchmark-common"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "big-float-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
- "esdt-system-sc-mock",
+ "dct-system-sc-mock",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -286,7 +286,7 @@ name = "big-float-features-meta"
 version = "0.0.0"
 dependencies = [
  "big-float-features",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -349,9 +349,9 @@ checksum = "8d696c370c750c948ada61c69a0ee2cbbb9c50b1019ddb86d9317157a99c2cae"
 name = "bonding-curve-contract"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -359,7 +359,7 @@ name = "bonding-curve-contract-meta"
 version = "0.0.0"
 dependencies = [
  "bonding-curve-contract",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -376,8 +376,8 @@ dependencies = [
 name = "builtin-func-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -385,7 +385,7 @@ name = "builtin-func-features-meta"
 version = "0.0.0"
 dependencies = [
  "builtin-func-features",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -447,9 +447,9 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 name = "check-pause"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
  "num-bigint",
 ]
 
@@ -458,15 +458,15 @@ name = "check-pause-meta"
 version = "0.0.0"
 dependencies = [
  "check-pause",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
 name = "child"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -474,8 +474,8 @@ name = "child-meta"
 version = "0.0.0"
 dependencies = [
  "child",
- "dharithri-sc",
- "dharithri-sc-meta",
+ "dharitri-sc",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -556,7 +556,7 @@ name = "composability-tests"
 version = "0.0.0"
 dependencies = [
  "builtin-func-features",
- "dharithri-sc-scenario",
+ "dharitri-sc-scenario",
  "forwarder",
  "forwarder-queue",
  "forwarder-raw",
@@ -641,11 +641,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "crowdfunding-dct"
+version = "0.0.0"
+dependencies = [
+ "dharitri-sc",
+ "dharitri-sc-scenario",
+ "hex",
+ "num-bigint",
+ "num-traits",
+]
+
+[[package]]
+name = "crowdfunding-dct-meta"
+version = "0.0.0"
+dependencies = [
+ "crowdfunding-dct",
+ "dharitri-sc-meta",
+]
+
+[[package]]
 name = "crowdfunding-erc20"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "erc20",
 ]
 
@@ -654,34 +673,15 @@ name = "crowdfunding-erc20-meta"
 version = "0.0.0"
 dependencies = [
  "crowdfunding-erc20",
- "dharithri-sc-meta",
-]
-
-[[package]]
-name = "crowdfunding-esdt"
-version = "0.0.0"
-dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
- "hex",
- "num-bigint",
- "num-traits",
-]
-
-[[package]]
-name = "crowdfunding-esdt-meta"
-version = "0.0.0"
-dependencies = [
- "crowdfunding-esdt",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
 name = "crypto-bubbles"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -689,7 +689,7 @@ name = "crypto-bubbles-meta"
 version = "0.0.0"
 dependencies = [
  "crypto-bubbles",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -716,8 +716,8 @@ dependencies = [
 name = "crypto-zombies"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
@@ -725,7 +725,7 @@ name = "crypto-zombies-meta"
 version = "0.0.0"
 dependencies = [
  "crypto-zombies",
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
@@ -791,6 +791,48 @@ dependencies = [
 ]
 
 [[package]]
+name = "dct-contract-pair"
+version = "0.0.0"
+dependencies = [
+ "dharitri-sc",
+ "dharitri-sc-scenario",
+ "first-contract",
+ "second-contract",
+]
+
+[[package]]
+name = "dct-system-sc-mock"
+version = "0.0.0"
+dependencies = [
+ "dharitri-sc",
+ "dharitri-sc-scenario",
+]
+
+[[package]]
+name = "dct-system-sc-mock-meta"
+version = "0.0.0"
+dependencies = [
+ "dct-system-sc-mock",
+ "dharitri-sc-meta",
+]
+
+[[package]]
+name = "dct-transfer-with-fee"
+version = "0.0.0"
+dependencies = [
+ "dharitri-sc",
+ "dharitri-sc-scenario",
+]
+
+[[package]]
+name = "dct-transfer-with-fee-meta"
+version = "0.0.0"
+dependencies = [
+ "dct-transfer-with-fee",
+ "dharitri-sc-meta",
+]
+
+[[package]]
 name = "der"
 version = "0.7.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -807,7 +849,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2696e8a945f658fd14dc3b87242e6b80cd0f36ff04ea560fa39082368847946"
 
 [[package]]
-name = "dharithri-chain-scenario-format"
+name = "dharitri-chain-scenario-format"
 version = "0.20.0"
 dependencies = [
  "bech32",
@@ -820,7 +862,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-chain-vm"
+name = "dharitri-chain-vm"
 version = "0.5.2"
 dependencies = [
  "bitflags 1.3.2",
@@ -828,7 +870,7 @@ dependencies = [
  "hex",
  "hex-literal",
  "itertools",
- "multiversx-chain-vm-executor",
+ "dharithri-chain-vm-executor",
  "num-bigint",
  "num-traits",
  "rand",
@@ -838,47 +880,47 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-price-aggregator-sc"
+name = "dharitri-price-aggregator-sc"
 version = "0.43.3"
 dependencies = [
  "arrayvec",
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
-name = "dharithri-price-aggregator-sc-meta"
+name = "dharitri-price-aggregator-sc-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-price-aggregator-sc",
- "dharithri-sc",
- "dharithri-sc-meta",
+ "dharitri-price-aggregator-sc",
+ "dharitri-sc",
+ "dharitri-sc-meta",
 ]
 
 [[package]]
-name = "dharithri-sc"
+name = "dharitri-sc"
 version = "0.43.3"
 dependencies = [
  "bitflags 1.3.2",
- "dharithri-sc-codec",
- "dharithri-sc-derive",
+ "dharitri-sc-codec",
+ "dharitri-sc-derive",
  "hashbrown 0.13.2",
  "hex-literal",
  "num-traits",
 ]
 
 [[package]]
-name = "dharithri-sc-codec"
+name = "dharitri-sc-codec"
 version = "0.18.1"
 dependencies = [
  "arrayvec",
- "dharithri-sc-codec-derive",
+ "dharitri-sc-codec-derive",
  "num-bigint",
 ]
 
 [[package]]
-name = "dharithri-sc-codec-derive"
+name = "dharitri-sc-codec-derive"
 version = "0.18.1"
 dependencies = [
  "hex",
@@ -888,7 +930,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-sc-derive"
+name = "dharitri-sc-derive"
 version = "0.43.3"
 dependencies = [
  "hex",
@@ -899,7 +941,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-sc-meta"
+name = "dharitri-sc-meta"
 version = "0.43.3"
 dependencies = [
  "anyhow",
@@ -908,7 +950,7 @@ dependencies = [
  "common-path",
  "convert_case",
  "copy_dir",
- "dharithri-sc",
+ "dharitri-sc",
  "hex",
  "lazy_static",
  "pathdiff",
@@ -924,29 +966,29 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-sc-modules"
+name = "dharitri-sc-modules"
 version = "0.43.3"
 dependencies = [
- "dharithri-sc",
+ "dharitri-sc",
 ]
 
 [[package]]
-name = "dharithri-sc-scenario"
+name = "dharitri-sc-scenario"
 version = "0.43.3"
 dependencies = [
  "base64 0.13.1",
  "bech32",
  "clap",
  "colored",
- "dharithri-chain-scenario-format",
- "dharithri-chain-vm",
- "dharithri-sc",
- "dharithri-sc-meta",
- "dharithri-sdk",
+ "dharitri-chain-scenario-format",
+ "dharitri-chain-vm",
+ "dharitri-sc",
+ "dharitri-sc-meta",
+ "dharitri-sdk",
  "hex",
  "itertools",
  "log",
- "multiversx-chain-vm-executor",
+ "dharithri-chain-vm-executor",
  "num-bigint",
  "num-traits",
  "pathdiff",
@@ -957,12 +999,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-sc-snippets"
+name = "dharitri-sc-snippets"
 version = "0.43.3"
 dependencies = [
  "base64 0.13.1",
- "dharithri-sc-scenario",
- "dharithri-sdk",
+ "dharitri-sc-scenario",
+ "dharitri-sdk",
  "env_logger",
  "futures",
  "hex",
@@ -971,14 +1013,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-sc-wasm-adapter"
+name = "dharitri-sc-wasm-adapter"
 version = "0.43.3"
 dependencies = [
- "dharithri-sc",
+ "dharitri-sc",
 ]
 
 [[package]]
-name = "dharithri-sdk"
+name = "dharitri-sdk"
 version = "0.2.0"
 dependencies = [
  "anyhow",
@@ -1003,21 +1045,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-wegld-swap-sc"
+name = "dharitri-wegld-swap-sc"
 version = "0.43.3"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
-name = "dharithri-wegld-swap-sc-meta"
+name = "dharitri-wegld-swap-sc-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-meta",
- "dharithri-wegld-swap-sc",
+ "dharitri-sc",
+ "dharitri-sc-meta",
+ "dharitri-wegld-swap-sc",
 ]
 
 [[package]]
@@ -1044,15 +1086,15 @@ dependencies = [
 name = "digital-cash"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "digital-cash-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "digital-cash",
 ]
 
@@ -1098,8 +1140,8 @@ checksum = "a26ae43d7bcc3b814de94796a5e736d4029efb0ee900c12e2d54c993ad1a1e07"
 name = "empty"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "num-bigint",
 ]
 
@@ -1107,7 +1149,7 @@ dependencies = [
 name = "empty-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "empty",
 ]
 
@@ -1170,8 +1212,8 @@ checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
 name = "erc1155"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "erc1155-user-mock",
 ]
 
@@ -1179,8 +1221,8 @@ dependencies = [
 name = "erc1155-marketplace"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "erc1155",
 ]
 
@@ -1188,7 +1230,7 @@ dependencies = [
 name = "erc1155-marketplace-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "erc1155-marketplace",
 ]
 
@@ -1196,7 +1238,7 @@ dependencies = [
 name = "erc1155-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "erc1155",
 ]
 
@@ -1204,15 +1246,15 @@ dependencies = [
 name = "erc1155-user-mock"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "erc1155-user-mock-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "erc1155-user-mock",
 ]
 
@@ -1220,15 +1262,15 @@ dependencies = [
 name = "erc20"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "erc20-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "erc20",
 ]
 
@@ -1236,15 +1278,15 @@ dependencies = [
 name = "erc721"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "erc721-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "erc721",
 ]
 
@@ -1270,60 +1312,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "esdt-contract-pair"
-version = "0.0.0"
-dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
- "first-contract",
- "second-contract",
-]
-
-[[package]]
-name = "esdt-system-sc-mock"
-version = "0.0.0"
-dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
-]
-
-[[package]]
-name = "esdt-system-sc-mock-meta"
-version = "0.0.0"
-dependencies = [
- "dharithri-sc-meta",
- "esdt-system-sc-mock",
-]
-
-[[package]]
-name = "esdt-transfer-with-fee"
-version = "0.0.0"
-dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
-]
-
-[[package]]
-name = "esdt-transfer-with-fee-meta"
-version = "0.0.0"
-dependencies = [
- "dharithri-sc-meta",
- "esdt-transfer-with-fee",
-]
-
-[[package]]
 name = "factorial"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "factorial-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "factorial",
 ]
 
@@ -1331,7 +1331,7 @@ dependencies = [
 name = "factory-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "order-book-factory",
 ]
 
@@ -1351,16 +1351,16 @@ checksum = "d0870c84016d4b481be5c9f323c24f65e31e901ae618f0e80f4308fb00de1d2d"
 name = "first-contract"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "first-contract-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-meta",
+ "dharitri-sc",
+ "dharitri-sc-meta",
  "first-contract",
 ]
 
@@ -1408,15 +1408,15 @@ dependencies = [
 name = "formatted-message-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "formatted-message-features-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "formatted-message-features",
 ]
 
@@ -1424,8 +1424,8 @@ dependencies = [
 name = "forwarder"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "vault",
 ]
 
@@ -1433,7 +1433,7 @@ dependencies = [
 name = "forwarder-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "forwarder",
 ]
 
@@ -1441,9 +1441,9 @@ dependencies = [
 name = "forwarder-queue"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
- "dharithri-sc-wasm-adapter",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
+ "dharitri-sc-wasm-adapter",
  "vault",
 ]
 
@@ -1451,7 +1451,7 @@ dependencies = [
 name = "forwarder-queue-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "forwarder-queue",
 ]
 
@@ -1459,15 +1459,15 @@ dependencies = [
 name = "forwarder-raw"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "forwarder-raw-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "forwarder-raw",
 ]
 
@@ -1475,16 +1475,16 @@ dependencies = [
 name = "fractional-nfts"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "fractional-nfts-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "fractional-nfts",
 ]
 
@@ -1853,8 +1853,8 @@ name = "interact"
 version = "0.0.0"
 dependencies = [
  "clap",
- "dharithri-sc-modules",
- "dharithri-sc-snippets",
+ "dharitri-sc-modules",
+ "dharitri-sc-snippets",
  "forwarder-queue",
  "promises-features",
  "serde",
@@ -1925,7 +1925,7 @@ dependencies = [
 name = "kitty"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
+ "dharitri-sc",
  "random",
 ]
 
@@ -1933,8 +1933,8 @@ dependencies = [
 name = "kitty-auction"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "kitty",
  "kitty-ownership",
 ]
@@ -1943,7 +1943,7 @@ dependencies = [
 name = "kitty-auction-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "kitty-auction",
 ]
 
@@ -1951,8 +1951,8 @@ dependencies = [
 name = "kitty-genetic-alg"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "kitty",
  "random",
 ]
@@ -1961,7 +1961,7 @@ dependencies = [
 name = "kitty-genetic-alg-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "kitty-genetic-alg",
 ]
 
@@ -1969,8 +1969,8 @@ dependencies = [
 name = "kitty-ownership"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "kitty",
  "kitty-genetic-alg",
  "random",
@@ -1980,7 +1980,7 @@ dependencies = [
 name = "kitty-ownership-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "kitty-ownership",
 ]
 
@@ -1988,15 +1988,15 @@ dependencies = [
 name = "large-storage"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "large-storage-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "large-storage",
 ]
 
@@ -2017,15 +2017,15 @@ name = "linked-list-repeat"
 version = "0.0.0"
 dependencies = [
  "benchmark-common",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "linked-list-repeat-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "linked-list-repeat",
 ]
 
@@ -2036,19 +2036,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1a9bad9f94746442c783ca431b22403b519cd7fbeed0533fdd6328b2f2212128"
 
 [[package]]
-name = "local-esdt-and-nft"
+name = "local-dct-and-nft"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
-name = "local-esdt-and-nft-meta"
+name = "local-dct-and-nft-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
- "local-esdt-and-nft",
+ "dharitri-sc-meta",
+ "local-dct-and-nft",
 ]
 
 [[package]]
@@ -2068,11 +2068,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5e6163cb8c49088c2c36f57875e58ccd8c87c7427f7fbd50ea6710b2f3f2e8f"
 
 [[package]]
+name = "lottery-dct"
+version = "0.0.0"
+dependencies = [
+ "dharitri-sc",
+ "dharitri-sc-scenario",
+]
+
+[[package]]
+name = "lottery-dct-meta"
+version = "0.0.0"
+dependencies = [
+ "dharitri-sc-meta",
+ "lottery-dct",
+]
+
+[[package]]
 name = "lottery-erc20"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "erc20",
 ]
 
@@ -2080,40 +2096,24 @@ dependencies = [
 name = "lottery-erc20-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "lottery-erc20",
-]
-
-[[package]]
-name = "lottery-esdt"
-version = "0.0.0"
-dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
-]
-
-[[package]]
-name = "lottery-esdt-meta"
-version = "0.0.0"
-dependencies = [
- "dharithri-sc-meta",
- "lottery-esdt",
 ]
 
 [[package]]
 name = "managed-map-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
- "esdt-system-sc-mock",
+ "dct-system-sc-mock",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "managed-map-features-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "managed-map-features",
 ]
 
@@ -2122,15 +2122,15 @@ name = "map-repeat"
 version = "0.0.0"
 dependencies = [
  "benchmark-common",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "map-repeat-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "map-repeat",
 ]
 
@@ -2170,15 +2170,15 @@ dependencies = [
 name = "multi-contract-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "multi-contract-features-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "multi-contract-features",
 ]
 
@@ -2187,10 +2187,10 @@ name = "multisig"
 version = "1.0.0"
 dependencies = [
  "adder",
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
- "dharithri-wegld-swap-sc",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
+ "dharitri-wegld-swap-sc",
  "factorial",
  "hex",
  "num-bigint",
@@ -2202,9 +2202,9 @@ name = "multisig-interact"
 version = "0.0.0"
 dependencies = [
  "clap",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
- "dharithri-sc-snippets",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
+ "dharitri-sc-snippets",
  "multisig",
  "serde",
  "toml 0.7.8",
@@ -2214,12 +2214,12 @@ dependencies = [
 name = "multisig-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "multisig",
 ]
 
 [[package]]
-name = "multiversx-chain-vm-executor"
+name = "dharithri-chain-vm-executor"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7e14f14947682eb69459676336dd8b678e2317aa9844724220ce73411bc947c3"
@@ -2240,7 +2240,7 @@ name = "mxpy-snippet-generator"
 version = "0.0.0"
 dependencies = [
  "bech32",
- "dharithri-sc",
+ "dharitri-sc",
  "hex",
  "num-bigint",
  "num-traits",
@@ -2268,15 +2268,15 @@ dependencies = [
 name = "nft-minter"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "nft-minter-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "nft-minter",
 ]
 
@@ -2284,15 +2284,15 @@ dependencies = [
 name = "nft-storage-prepay"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "nft-storage-prepay-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "nft-storage-prepay",
 ]
 
@@ -2414,23 +2414,23 @@ dependencies = [
 name = "order-book-factory"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "order-book-pair"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "pair-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "order-book-pair",
 ]
 
@@ -2438,15 +2438,15 @@ dependencies = [
 name = "panic-message-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "panic-message-features-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "panic-message-features",
 ]
 
@@ -2455,16 +2455,16 @@ name = "parent"
 version = "0.0.0"
 dependencies = [
  "child",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "parent-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-meta",
+ "dharitri-sc",
+ "dharitri-sc-meta",
  "parent",
 ]
 
@@ -2518,15 +2518,15 @@ checksum = "8835116a5c179084a830efb3adc117ab007512b535bc1a21c991d3b32a6b44dd"
 name = "payable-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "payable-features-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "payable-features",
 ]
 
@@ -2579,19 +2579,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8b870d8c151b6f2fb93e84a13146138f05d02ed11c7e7c54f8826aaaf7c9f184"
 
 [[package]]
-name = "ping-pong-egld"
+name = "ping-pong-moa"
 version = "0.0.2"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
-name = "ping-pong-egld-meta"
+name = "ping-pong-moa-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
- "ping-pong-egld",
+ "dharitri-sc-meta",
+ "ping-pong-moa",
 ]
 
 [[package]]
@@ -2635,8 +2635,8 @@ dependencies = [
 name = "promises-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "vault",
 ]
 
@@ -2644,7 +2644,7 @@ dependencies = [
 name = "promises-features-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "promises-features",
 ]
 
@@ -2653,15 +2653,15 @@ name = "proxy-pause"
 version = "0.0.0"
 dependencies = [
  "check-pause",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "proxy-pause-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "proxy-pause",
 ]
 
@@ -2669,8 +2669,8 @@ dependencies = [
 name = "proxy-test-first"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "hex-literal",
 ]
 
@@ -2678,7 +2678,7 @@ dependencies = [
 name = "proxy-test-first-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "proxy-test-first",
 ]
 
@@ -2686,15 +2686,15 @@ dependencies = [
 name = "proxy-test-second"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "proxy-test-second-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "proxy-test-second",
 ]
 
@@ -2703,15 +2703,15 @@ name = "queue-repeat"
 version = "0.0.0"
 dependencies = [
  "benchmark-common",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "queue-repeat-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "queue-repeat",
 ]
 
@@ -2777,15 +2777,15 @@ dependencies = [
 name = "random"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
+ "dharitri-sc",
 ]
 
 [[package]]
 name = "recursive-caller"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "vault",
 ]
 
@@ -2793,7 +2793,7 @@ dependencies = [
 name = "recursive-caller-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "recursive-caller",
 ]
 
@@ -2876,16 +2876,16 @@ dependencies = [
 name = "rewards-distribution"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "rewards-distribution-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "rewards-distribution",
 ]
 
@@ -2907,15 +2907,15 @@ dependencies = [
 name = "rust-snippets-generator-test"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "rust-snippets-generator-test-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "rust-snippets-generator-test",
 ]
 
@@ -2925,8 +2925,8 @@ version = "0.0.0"
 dependencies = [
  "adder",
  "basic-features",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
  "forwarder",
  "hex",
  "num-bigint",
@@ -2938,7 +2938,7 @@ dependencies = [
 name = "rust-testing-framework-tester-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "rust-testing-framework-tester",
 ]
 
@@ -3004,16 +3004,16 @@ checksum = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
 name = "second-contract"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "second-contract-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-meta",
+ "dharitri-sc",
+ "dharitri-sc-meta",
  "second-contract",
 ]
 
@@ -3044,16 +3044,16 @@ dependencies = [
 name = "seed-nft-minter"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "seed-nft-minter-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "seed-nft-minter",
 ]
 
@@ -3067,15 +3067,15 @@ checksum = "b0293b4b29daaf487284529cc2f5675b8e57c61f70167ba415a463651fd6a918"
 name = "send-tx-repeat"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "send-tx-repeat-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "send-tx-repeat",
 ]
 
@@ -3148,15 +3148,15 @@ name = "set-repeat"
 version = "0.0.0"
 dependencies = [
  "benchmark-common",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "set-repeat-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "set-repeat",
 ]
 
@@ -3243,15 +3243,15 @@ name = "single-value-repeat"
 version = "0.0.0"
 dependencies = [
  "benchmark-common",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "single-value-repeat-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "single-value-repeat",
 ]
 
@@ -3304,15 +3304,15 @@ dependencies = [
 name = "str-repeat"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "str-repeat-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "str-repeat",
 ]
 
@@ -3438,15 +3438,15 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 name = "token-release"
 version = "0.0.1"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "token-release-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "token-release",
 ]
 
@@ -3578,9 +3578,9 @@ dependencies = [
 name = "transfer-role-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
  "vault",
 ]
 
@@ -3588,7 +3588,7 @@ dependencies = [
 name = "transfer-role-features-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "transfer-role-features",
 ]
 
@@ -3646,17 +3646,17 @@ dependencies = [
 name = "use-module"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-meta",
- "dharithri-sc-modules",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-meta",
+ "dharitri-sc-modules",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "use-module-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "use-module",
 ]
 
@@ -3670,15 +3670,15 @@ checksum = "711b9620af191e0cdc7468a8d14e709c3dcdb115b36f838e601583af800a370a"
 name = "vault"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "vault-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "vault",
 ]
 
@@ -3693,15 +3693,15 @@ name = "vec-repeat"
 version = "0.0.0"
 dependencies = [
  "benchmark-common",
- "dharithri-sc",
- "dharithri-sc-scenario",
+ "dharitri-sc",
+ "dharitri-sc-scenario",
 ]
 
 [[package]]
 name = "vec-repeat-meta"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-meta",
+ "dharitri-sc-meta",
  "vec-repeat",
 ]
 

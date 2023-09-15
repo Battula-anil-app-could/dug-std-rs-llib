@@ -11,7 +11,7 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:TEST-TOKENA": "1000",
                         "str:TEST-SFTABC": {
                             "instances": [
@@ -67,7 +67,7 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:TEST-TOKENA": "1000",
                         "str:TEST-SFTABC": {
                             "instances": [
@@ -84,7 +84,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:TEST-SFTABC": {
                             "instances": [
                                 {

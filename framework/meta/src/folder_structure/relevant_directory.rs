@@ -9,16 +9,16 @@ use super::version_req::VersionReq;
 
 /// Used for retrieving crate versions.
 pub const FRAMEWORK_CRATE_NAMES: &[&str] = &[
-    "dharithri-sc",
-    "dharithri-sc-meta",
-    "dharithri-sc-scenario",
-    "dharithri-sc-wasm-adapter",
-    "dharithri-sc-modules",
-    "elrond-wasm",
-    "elrond-wasm-debug",
-    "elrond-wasm-modules",
-    "elrond-wasm-node",
-    "elrond-interact-snippets",
+    "dharitri-sc",
+    "dharitri-sc-meta",
+    "dharitri-sc-scenario",
+    "dharitri-sc-wasm-adapter",
+    "dharitri-sc-modules",
+    "dharitri-wasm",
+    "dharitri-wasm-debug",
+    "dharitri-wasm-modules",
+    "dharitri-wasm-node",
+    "dharitri-interact-snippets",
 ];
 
 pub const CARGO_TOML_FILE_NAME: &str = "Cargo.toml";
@@ -149,7 +149,7 @@ fn populate_directories(path: &Path, ignore: &[String], result: &mut Vec<Relevan
 }
 
 fn is_marked_contract_crate_dir(path: &Path) -> bool {
-    path.join("dharithri.json").is_file() || path.join("elrond.json").is_file()
+    path.join("dharitri.json").is_file() || path.join("dharitri.json").is_file()
 }
 
 fn can_continue_recursion(dir_entry: &DirEntry, blacklist: &[String]) -> bool {

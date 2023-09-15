@@ -1,9 +1,9 @@
 use crate::action::{Action, CallActionData};
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Contains all events that can be emitted by the contract.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait MultisigProposeModule: crate::multisig_state::MultisigStateModule {
     fn propose_action(&self, action: Action<Self::Api>) -> usize {
         let (caller_id, caller_role) = self.get_caller_id_and_role();
@@ -50,12 +50,12 @@ pub trait MultisigProposeModule: crate::multisig_state::MultisigStateModule {
     fn prepare_call_data(
         &self,
         to: ManagedAddress,
-        egld_amount: BigUint,
+        moa_amount: BigUint,
         opt_function: OptionalValue<ManagedBuffer>,
         arguments: MultiValueEncoded<ManagedBuffer>,
     ) -> CallActionData<Self::Api> {
         require!(
-            egld_amount > 0 || opt_function.is_some(),
+            moa_amount > 0 || opt_function.is_some(),
             "proposed action has no effect"
         );
 
@@ -65,42 +65,42 @@ pub trait MultisigProposeModule: crate::multisig_state::MultisigStateModule {
         };
         CallActionData {
             to,
-            egld_amount,
+            moa_amount,
             endpoint_name,
             arguments: arguments.into_vec_of_buffers(),
         }
     }
 
     /// Propose a transaction in which the contract will perform a transfer-execute call.
-    /// Can send EGLD without calling anything.
+    /// Can send MOA without calling anything.
     /// Can call smart contract endpoints directly.
     /// Doesn't really work with builtin functions.
     #[endpoint(proposeTransferExecute)]
     fn propose_transfer_execute(
         &self,
         to: ManagedAddress,
-        egld_amount: BigUint,
+        moa_amount: BigUint,
         opt_function: OptionalValue<ManagedBuffer>,
         arguments: MultiValueEncoded<ManagedBuffer>,
     ) -> usize {
-        let call_data = self.prepare_call_data(to, egld_amount, opt_function, arguments);
+        let call_data = self.prepare_call_data(to, moa_amount, opt_function, arguments);
         self.propose_action(Action::SendTransferExecute(call_data))
     }
 
     /// Propose a transaction in which the contract will perform a transfer-execute call.
     /// Can call smart contract endpoints directly.
-    /// Can use ESDTTransfer/ESDTNFTTransfer/MultiESDTTransfer to send tokens, while also optionally calling endpoints.
+    /// Can use DCTTransfer/DCTNFTTransfer/MultiDCTTransfer to send tokens, while also optionally calling endpoints.
     /// Works well with builtin functions.
-    /// Cannot simply send EGLD directly without calling anything.
+    /// Cannot simply send MOA directly without calling anything.
     #[endpoint(proposeAsyncCall)]
     fn propose_async_call(
         &self,
         to: ManagedAddress,
-        egld_amount: BigUint,
+        moa_amount: BigUint,
         opt_function: OptionalValue<ManagedBuffer>,
         arguments: MultiValueEncoded<ManagedBuffer>,
     ) -> usize {
-        let call_data = self.prepare_call_data(to, egld_amount, opt_function, arguments);
+        let call_data = self.prepare_call_data(to, moa_amount, opt_function, arguments);
         self.propose_action(Action::SendAsyncCall(call_data))
     }
 

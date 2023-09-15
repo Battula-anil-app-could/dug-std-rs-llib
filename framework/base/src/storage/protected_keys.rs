@@ -1,2 +1,2 @@
-pub static ELROND_REWARD_KEY: &[u8] = b"ELRONDreward";
-pub static ELROND_ESDT_LOCAL_ROLES_KEY: &[u8] = b"ELRONDroleesdt";
+pub static DHARITRI_REWARD_KEY: &[u8] = b"DHARITRIreward";
+pub static DHARITRI_DCT_LOCAL_ROLES_KEY: &[u8] = b"DHARITRIroledct";

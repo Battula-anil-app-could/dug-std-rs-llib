@@ -9,7 +9,7 @@ TOKEN_ID=""
 TOKEN_ID_HEX="0x$(echo -n ${TOKEN_ID} | xxd -p -u | tr -d '\n')"
 TOKEN_AMOUNT_PER_TX=100
 
-PROXY="https://testnet-gateway.elrond.com"
+PROXY="https://testnet-gateway.dharitri.com"
 CHAIN_ID="T"
 
 SC_WITH_ROLE_ADDRESS_BECH32=
@@ -18,9 +18,9 @@ SC_WITH_ROLE_ADDRESS_HEX="0x$(mxpy wallet bech32 --decode ${SC_WITH_ROLE_ADDRESS
 SC_DEST_ADDRESS_BECH32=
 SC_DEST_ADDRESS_HEX="0x$(mxpy wallet bech32 --decode ${SC_DEST_ADDRESS_BECH32})"
 
-ESDT_SYSTEM_SC_ADDRESS=erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls8a5w6u
-ESDT_TRANSFER_FUNC_NAME="ESDTTransfer"
-ESDT_MULTI_TRANSFER_FUNC_NAME="MultiESDTNFTTransfer"
+DCT_SYSTEM_SC_ADDRESS=erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqzllls8a5w6u
+DCT_TRANSFER_FUNC_NAME="DCTTransfer"
+DCT_MULTI_TRANSFER_FUNC_NAME="MultiDCTNFTTransfer"
 TRANSFER_ROLE_NAME_HEX=0x455344545472616E73666572526F6C65
 
 FORWARD_FUNC_NAME_ASCII="forwardPayments"
@@ -45,7 +45,7 @@ deployVault() {
 }
 
 setSpecialRoleForSc() {
-    mxpy --verbose contract call ${ESDT_SYSTEM_SC_ADDRESS} \
+    mxpy --verbose contract call ${DCT_SYSTEM_SC_ADDRESS} \
     --proxy=${PROXY} --chain=${CHAIN_ID} --send \
     --recall-nonce --pem=${USER_PEM} \
     --gas-limit=100000000 \
@@ -58,7 +58,7 @@ transferSingleToUser() {
     --proxy=${PROXY} --chain=${CHAIN_ID} --send \
     --recall-nonce --pem=${USER_PEM} \
     --gas-limit=100000000 \
-    --function=${ESDT_TRANSFER_FUNC_NAME} \
+    --function=${DCT_TRANSFER_FUNC_NAME} \
     --arguments ${TOKEN_ID_HEX} ${TOKEN_AMOUNT_PER_TX} \
     ${FORWARD_FUNC_NAME_HEX} ${RECEIVER_ADDRESS_HEX} str:enjoy
 }
@@ -68,7 +68,7 @@ transferMultipleToUser() {
     --proxy=${PROXY} --chain=${CHAIN_ID} --send \
     --recall-nonce --pem=${USER_PEM} \
     --gas-limit=100000000 \
-    --function=${ESDT_MULTI_TRANSFER_FUNC_NAME} \
+    --function=${DCT_MULTI_TRANSFER_FUNC_NAME} \
     --arguments ${SC_WITH_ROLE_ADDRESS_HEX} 2 \
     ${TOKEN_ID_HEX} 0 ${TOKEN_AMOUNT_PER_TX} \
     ${TOKEN_ID_HEX} 0 ${TOKEN_AMOUNT_PER_TX} \
@@ -80,7 +80,7 @@ transferSingleToSmartContractSuccess() {
     --proxy=${PROXY} --chain=${CHAIN_ID} --send \
     --recall-nonce --pem=${USER_PEM} \
     --gas-limit=100000000 \
-    --function=${ESDT_TRANSFER_FUNC_NAME} \
+    --function=${DCT_TRANSFER_FUNC_NAME} \
     --arguments ${TOKEN_ID_HEX} ${TOKEN_AMOUNT_PER_TX} \
     ${FORWARD_FUNC_NAME_HEX} ${SC_DEST_ADDRESS_HEX} \
     ${ACCEPT_FUNDS_FUNC_NAME_HEX}
@@ -91,7 +91,7 @@ transferSingleToSmartContractFail() {
     --proxy=${PROXY} --chain=${CHAIN_ID} --send \
     --recall-nonce --pem=${USER_PEM} \
     --gas-limit=100000000 \
-    --function=${ESDT_TRANSFER_FUNC_NAME} \
+    --function=${DCT_TRANSFER_FUNC_NAME} \
     --arguments ${TOKEN_ID_HEX} ${TOKEN_AMOUNT_PER_TX} \
     ${FORWARD_FUNC_NAME_HEX} ${SC_DEST_ADDRESS_HEX} \
     ${ACCEPT_FUNDS_FUNC_NAME_HEX} str:evil_argument
@@ -102,7 +102,7 @@ transferToWalletDirectlyError() {
     --proxy=${PROXY} --chain=${CHAIN_ID} --send \
     --recall-nonce --pem=${USER_PEM} \
     --gas-limit=100000000 \
-    --function=${ESDT_TRANSFER_FUNC_NAME} \
+    --function=${DCT_TRANSFER_FUNC_NAME} \
     --arguments ${TOKEN_ID_HEX} ${TOKEN_AMOUNT_PER_TX} str:enjoy
 }
 
@@ -111,7 +111,7 @@ transferMultiToScSuccess() {
     --proxy=${PROXY} --chain=${CHAIN_ID} --send \
     --recall-nonce --pem=${USER_PEM} \
     --gas-limit=100000000 \
-    --function=${ESDT_MULTI_TRANSFER_FUNC_NAME} \
+    --function=${DCT_MULTI_TRANSFER_FUNC_NAME} \
     --arguments ${SC_WITH_ROLE_ADDRESS_HEX} 2 \
     ${TOKEN_ID_HEX} 0 ${TOKEN_AMOUNT_PER_TX} \
     ${TOKEN_ID_HEX} 0 ${TOKEN_AMOUNT_PER_TX} \
@@ -123,7 +123,7 @@ transferMultiToScFail() {
     --proxy=${PROXY} --chain=${CHAIN_ID} --send \
     --recall-nonce --pem=${USER_PEM} \
     --gas-limit=100000000 \
-    --function=${ESDT_MULTI_TRANSFER_FUNC_NAME} \
+    --function=${DCT_MULTI_TRANSFER_FUNC_NAME} \
     --arguments ${SC_WITH_ROLE_ADDRESS_HEX} 2 \
     ${TOKEN_ID_HEX} 0 ${TOKEN_AMOUNT_PER_TX} \
     ${TOKEN_ID_HEX} 0 ${TOKEN_AMOUNT_PER_TX} \

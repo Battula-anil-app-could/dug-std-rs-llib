@@ -2,40 +2,40 @@ use core::marker::PhantomData;
 
 use crate::{
     api::{
-        CallTypeApi, ESDT_MULTI_TRANSFER_FUNC_NAME, ESDT_NFT_TRANSFER_FUNC_NAME,
-        ESDT_TRANSFER_FUNC_NAME,
+        CallTypeApi, DCT_MULTI_TRANSFER_FUNC_NAME, DCT_NFT_TRANSFER_FUNC_NAME,
+        DCT_TRANSFER_FUNC_NAME,
     },
     contract_base::BlockchainWrapper,
-    types::{BigUint, EsdtTokenPayment, ManagedVec},
+    types::{BigUint, DctTokenPayment, ManagedVec},
 };
 
 use super::{
-    contract_call_no_payment::ContractCallNoPayment, ContractCallWithEgld, ManagedArgBuffer,
+    contract_call_no_payment::ContractCallNoPayment, ContractCallWithMoa, ManagedArgBuffer,
 };
 
-impl<SA, OriginalResult> ContractCallWithEgld<SA, OriginalResult>
+impl<SA, OriginalResult> ContractCallWithMoa<SA, OriginalResult>
 where
     SA: CallTypeApi + 'static,
 {
-    /// If this is an ESDT call, it converts it to a regular call to ESDTTransfer.
-    /// Async calls require this step, but not `transfer_esdt_execute`.
-    pub fn convert_to_esdt_transfer_call(
+    /// If this is an DCT call, it converts it to a regular call to DCTTransfer.
+    /// Async calls require this step, but not `transfer_dct_execute`.
+    pub fn convert_to_dct_transfer_call(
         self,
-        payments: ManagedVec<SA, EsdtTokenPayment<SA>>,
+        payments: ManagedVec<SA, DctTokenPayment<SA>>,
     ) -> Self {
         match payments.len() {
             0 => self,
-            1 => self.convert_to_single_transfer_esdt_call(payments.get(0)),
-            _ => self.convert_to_multi_transfer_esdt_call(payments),
+            1 => self.convert_to_single_transfer_dct_call(payments.get(0)),
+            _ => self.convert_to_multi_transfer_dct_call(payments),
         }
     }
 
-    pub(super) fn convert_to_single_transfer_esdt_call(
+    pub(super) fn convert_to_single_transfer_dct_call(
         self,
-        payment: EsdtTokenPayment<SA>,
+        payment: DctTokenPayment<SA>,
     ) -> Self {
         if payment.token_nonce == 0 {
-            // fungible ESDT
+            // fungible DCT
             let mut new_arg_buffer = ManagedArgBuffer::new();
             new_arg_buffer.push_arg(&payment.token_identifier);
             new_arg_buffer.push_arg(&payment.amount);
@@ -43,20 +43,20 @@ where
                 new_arg_buffer.push_arg(&self.basic.endpoint_name);
             }
 
-            ContractCallWithEgld {
+            ContractCallWithMoa {
                 basic: ContractCallNoPayment {
                     _phantom: PhantomData,
                     to: self.basic.to,
-                    endpoint_name: ESDT_TRANSFER_FUNC_NAME.into(),
+                    endpoint_name: DCT_TRANSFER_FUNC_NAME.into(),
                     arg_buffer: new_arg_buffer.concat(self.basic.arg_buffer),
                     explicit_gas_limit: self.basic.explicit_gas_limit,
                     _return_type: PhantomData,
                 },
-                egld_payment: BigUint::zero(),
+                moa_payment: BigUint::zero(),
             }
         } else {
             // NFT
-            // `ESDTNFTTransfer` takes 4 arguments:
+            // `DCTNFTTransfer` takes 4 arguments:
             // arg0 - token identifier
             // arg1 - nonce
             // arg2 - quantity to transfer
@@ -73,23 +73,23 @@ where
             // nft transfer is sent to self, sender = receiver
             let recipient_addr = BlockchainWrapper::<SA>::new().get_sc_address();
 
-            ContractCallWithEgld {
+            ContractCallWithMoa {
                 basic: ContractCallNoPayment {
                     _phantom: PhantomData,
                     to: recipient_addr,
-                    endpoint_name: ESDT_NFT_TRANSFER_FUNC_NAME.into(),
+                    endpoint_name: DCT_NFT_TRANSFER_FUNC_NAME.into(),
                     arg_buffer: new_arg_buffer.concat(self.basic.arg_buffer),
                     explicit_gas_limit: self.basic.explicit_gas_limit,
                     _return_type: PhantomData,
                 },
-                egld_payment: BigUint::zero(),
+                moa_payment: BigUint::zero(),
             }
         }
     }
 
-    fn convert_to_multi_transfer_esdt_call(
+    fn convert_to_multi_transfer_dct_call(
         self,
-        payments: ManagedVec<SA, EsdtTokenPayment<SA>>,
+        payments: ManagedVec<SA, DctTokenPayment<SA>>,
     ) -> Self {
         let mut new_arg_buffer = ManagedArgBuffer::new();
         new_arg_buffer.push_arg(self.basic.to);
@@ -107,16 +107,16 @@ where
         // multi transfer is sent to self, sender = receiver
         let recipient_addr = BlockchainWrapper::<SA>::new().get_sc_address();
 
-        ContractCallWithEgld {
+        ContractCallWithMoa {
             basic: ContractCallNoPayment {
                 _phantom: PhantomData,
                 to: recipient_addr,
-                endpoint_name: ESDT_MULTI_TRANSFER_FUNC_NAME.into(),
+                endpoint_name: DCT_MULTI_TRANSFER_FUNC_NAME.into(),
                 arg_buffer: new_arg_buffer.concat(self.basic.arg_buffer),
                 explicit_gas_limit: self.basic.explicit_gas_limit,
                 _return_type: PhantomData,
             },
-            egld_payment: BigUint::zero(),
+            moa_payment: BigUint::zero(),
         }
     }
 }

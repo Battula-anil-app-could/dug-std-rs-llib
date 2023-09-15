@@ -1,5 +1,5 @@
-use dharithri_sc::types::SparseArray;
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc::types::SparseArray;
+use dharitri_sc_scenario::api::StaticApi;
 
 #[test]
 fn sparse_array_test() {

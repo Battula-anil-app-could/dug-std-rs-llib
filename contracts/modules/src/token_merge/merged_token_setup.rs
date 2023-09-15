@@ -1,4 +1,4 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use super::{
     custom_merged_token_attributes::MergedTokenAttributesCreator,
@@ -8,15 +8,15 @@ use super::{
 const NFT_AMOUNT: u64 = 1;
 pub static DIFFERENT_CREATOR_ERR_MSG: &[u8] = b"All merged tokens must have the same creator";
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait MergedTokenSetupModule {
     #[only_owner]
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint(issueMergedToken)]
     fn issue_merged_token(&self, token_display_name: ManagedBuffer, token_ticker: ManagedBuffer) {
-        let payment_amount = self.call_value().egld_value();
+        let payment_amount = self.call_value().moa_value();
         self.merged_token().issue_and_set_all_roles(
-            EsdtTokenType::NonFungible,
+            DctTokenType::NonFungible,
             payment_amount.clone_value(),
             token_display_name,
             token_ticker,
@@ -48,7 +48,7 @@ pub trait MergedTokenSetupModule {
         merged_token_id: TokenIdentifier,
         merged_instances: &MergedTokenInstances<Self::Api>,
         attr_creator: &AttributesCreator,
-    ) -> EsdtTokenPayment<Self::Api> {
+    ) -> DctTokenPayment<Self::Api> {
         let nft_amount = BigUint::from(NFT_AMOUNT);
         let empty_buffer = ManagedBuffer::new();
 
@@ -59,7 +59,7 @@ pub trait MergedTokenSetupModule {
         let uri = self.create_uri_for_merged_token(merged_instances);
         let attributes =
             attr_creator.get_merged_token_attributes(self, &merged_token_id, merged_instances);
-        let merged_token_nonce = self.send().esdt_nft_create(
+        let merged_token_nonce = self.send().dct_nft_create(
             &merged_token_id,
             &nft_amount,
             &empty_buffer,
@@ -69,7 +69,7 @@ pub trait MergedTokenSetupModule {
             &ManagedVec::from_single_item(uri),
         );
 
-        EsdtTokenPayment::new(merged_token_id, merged_token_nonce, nft_amount)
+        DctTokenPayment::new(merged_token_id, merged_token_nonce, nft_amount)
     }
 
     fn create_uri_for_merged_token(
@@ -90,11 +90,11 @@ pub trait MergedTokenSetupModule {
     fn collect_token_data(
         &self,
         merged_instances: &MergedTokenInstances<Self::Api>,
-    ) -> ArrayVec<EsdtTokenData<Self::Api>, MAX_MERGED_TOKENS> {
+    ) -> ArrayVec<DctTokenData<Self::Api>, MAX_MERGED_TOKENS> {
         let mut all_token_data = ArrayVec::new();
         let own_sc_address = self.blockchain().get_sc_address();
         for inst in merged_instances.get_instances() {
-            let token_data = self.blockchain().get_esdt_token_data(
+            let token_data = self.blockchain().get_dct_token_data(
                 &own_sc_address,
                 &inst.token_identifier,
                 inst.token_nonce,
@@ -109,7 +109,7 @@ pub trait MergedTokenSetupModule {
 
     fn require_all_parts_same_creator(
         &self,
-        all_token_data: &ArrayVec<EsdtTokenData<Self::Api>, MAX_MERGED_TOKENS>,
+        all_token_data: &ArrayVec<DctTokenData<Self::Api>, MAX_MERGED_TOKENS>,
     ) {
         if all_token_data.is_empty() {
             return;
@@ -126,7 +126,7 @@ pub trait MergedTokenSetupModule {
 
     fn get_max_royalties(
         &self,
-        all_token_data: &ArrayVec<EsdtTokenData<Self::Api>, MAX_MERGED_TOKENS>,
+        all_token_data: &ArrayVec<DctTokenData<Self::Api>, MAX_MERGED_TOKENS>,
     ) -> BigUint {
         let zero = BigUint::zero();
         let mut max_ref = &zero;

@@ -1,4 +1,4 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Standard smart contract module that when added to a smart contract manages a list of users.
 ///
@@ -8,7 +8,7 @@ dharithri_sc::imports!();
 /// It provides a bi-directional map:
 /// * from user address to a unique user id
 /// * from user id to address
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait UsersModule {
     /// Each user gets a user id. This is in order to be able to iterate over their data.
     /// This is a mapping from user address to user id.

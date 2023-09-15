@@ -1,4 +1,4 @@
-use dharithri_sc::{
+use dharitri_sc::{
     api::{CryptoApi, CryptoApiImpl, HandleConstraints},
     types::MessageHashType,
 };

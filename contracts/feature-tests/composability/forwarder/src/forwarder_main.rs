@@ -8,16 +8,16 @@ pub mod call_transf_exec;
 pub mod contract_change_owner;
 pub mod contract_deploy;
 pub mod contract_upgrade;
-pub mod esdt;
+pub mod dct;
 pub mod nft;
 pub mod roles;
 pub mod sft;
 pub mod storage;
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Test contract for investigating contract calls.
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait Forwarder:
     call_sync::ForwarderSyncCallModule
     + call_async::ForwarderAsyncCallModule
@@ -25,7 +25,7 @@ pub trait Forwarder:
     + contract_change_owner::ChangeOwnerModule
     + contract_deploy::DeployContractModule
     + contract_upgrade::UpgradeContractModule
-    + esdt::ForwarderEsdtModule
+    + dct::ForwarderDctModule
     + sft::ForwarderSftModule
     + nft::ForwarderNftModule
     + roles::ForwarderRolesModule
@@ -35,7 +35,7 @@ pub trait Forwarder:
     fn init(&self) {}
 
     #[endpoint]
-    fn send_egld(&self, to: &ManagedAddress, amount: &BigUint) {
-        self.send().direct_egld(to, amount);
+    fn send_moa(&self, to: &ManagedAddress, amount: &BigUint) {
+        self.send().direct_moa(to, amount);
     }
 }

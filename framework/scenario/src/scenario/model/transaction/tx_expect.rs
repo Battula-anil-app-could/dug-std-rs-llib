@@ -7,7 +7,7 @@ use crate::{
     },
     scenario_model::Checkable,
 };
-use dharithri_chain_vm::tx_mock::result_values_to_string;
+use dharitri_chain_vm::tx_mock::result_values_to_string;
 
 const USER_ERROR_CODE: u64 = 4;
 

@@ -55,7 +55,7 @@ pub fn generate_body_with_result(
         syn::ReturnType::Type(_, _) => {
             quote! {
                 let result = #mbody;
-                dharithri_sc::io::finish_multi::<Self::Api, _>(&result);
+                dharitri_sc::io::finish_multi::<Self::Api, _>(&result);
             }
         },
     }

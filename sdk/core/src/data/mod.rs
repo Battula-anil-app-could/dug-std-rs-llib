@@ -1,7 +1,7 @@
 pub mod account;
 pub mod account_storage;
 pub mod address;
-pub mod esdt;
+pub mod dct;
 pub mod hyperblock;
 pub mod network_config;
 pub mod network_economics;

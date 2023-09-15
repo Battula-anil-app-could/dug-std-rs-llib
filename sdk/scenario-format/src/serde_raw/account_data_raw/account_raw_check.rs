@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::serde_raw::{CheckBytesValueRaw, CheckEsdtMapRaw, CheckStorageRaw};
+use crate::serde_raw::{CheckBytesValueRaw, CheckDctMapRaw, CheckStorageRaw};
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -18,8 +18,8 @@ pub struct CheckAccountRaw {
     pub balance: CheckBytesValueRaw,
 
     #[serde(default)]
-    #[serde(skip_serializing_if = "CheckEsdtMapRaw::is_unspecified")]
-    pub esdt: CheckEsdtMapRaw,
+    #[serde(skip_serializing_if = "CheckDctMapRaw::is_unspecified")]
+    pub dct: CheckDctMapRaw,
 
     #[serde(default)]
     #[serde(skip_serializing_if = "CheckBytesValueRaw::is_unspecified")]

@@ -11,7 +11,7 @@
                 "address:an_account": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:TOKEN-123456": "1,000"
                     }
                 }
@@ -65,7 +65,7 @@
             "tx": {
                 "from": "address:an_account",
                 "to": "sc:msg-features",
-                "esdtValue": [
+                "dctValue": [
                     {
                         "tokenIdentifier": "str:TOKEN-123456",
                         "value": "1,000"
@@ -79,7 +79,7 @@
             "expect": {
                 "out": [],
                 "status": "4",
-                "message": "str:Got token TOKEN-123456, with nonce 0, amount 1000. I prefer EGLD. ERROR!",
+                "message": "str:Got token TOKEN-123456, with nonce 0, amount 1000. I prefer MOA. ERROR!",
                 "logs": "*",
                 "gas": "*",
                 "refund": "*"
@@ -91,7 +91,7 @@
             "tx": {
                 "from": "address:an_account",
                 "to": "sc:msg-features",
-                "esdtValue": [
+                "dctValue": [
                     {
                         "tokenIdentifier": "str:TOKEN-123456",
                         "value": "1,000"
@@ -105,7 +105,7 @@
             "expect": {
                 "out": [],
                 "status": "4",
-                "message": "str:Got token TOKEN-123456, with nonce 0, amount 1000. I prefer EGLD. ERROR!",
+                "message": "str:Got token TOKEN-123456, with nonce 0, amount 1000. I prefer MOA. ERROR!",
                 "logs": "*",
                 "gas": "*",
                 "refund": "*"

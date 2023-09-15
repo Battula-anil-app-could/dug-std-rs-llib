@@ -13,7 +13,7 @@
             "gitVersion": "<git version here>"
         },
         "framework": {
-            "name": "dharithri-sc",
+            "name": "dharitri-sc",
             "version": "0.43.3"
         }
     },
@@ -30,7 +30,7 @@
             "Contract constructor."
         ],
         "payableInTokens": [
-            "EGLD"
+            "MOA"
         ],
         "inputs": [
             {
@@ -231,32 +231,32 @@
             ]
         },
         {
-            "name": "esdt_local_role",
+            "name": "dct_local_role",
             "mutability": "mutable",
             "inputs": [],
             "outputs": [
                 {
-                    "type": "EsdtLocalRole"
+                    "type": "DctLocalRole"
                 }
             ]
         },
         {
-            "name": "esdt_token_payment",
+            "name": "dct_token_payment",
             "mutability": "mutable",
             "inputs": [],
             "outputs": [
                 {
-                    "type": "EsdtTokenPayment"
+                    "type": "DctTokenPayment"
                 }
             ]
         },
         {
-            "name": "esdt_token_data",
+            "name": "dct_token_data",
             "mutability": "mutable",
             "inputs": [],
             "outputs": [
                 {
-                    "type": "EsdtTokenData"
+                    "type": "DctTokenData"
                 }
             ]
         },
@@ -364,10 +364,10 @@
             ]
         },
         {
-            "name": "payable_egld",
+            "name": "payable_moa",
             "mutability": "mutable",
             "payableInTokens": [
-                "EGLD"
+                "MOA"
             ],
             "inputs": [],
             "outputs": []
@@ -540,7 +540,7 @@
                 }
             ]
         },
-        "EsdtLocalRole": {
+        "DctLocalRole": {
             "type": "enum",
             "variants": [
                 {
@@ -581,12 +581,12 @@
                 }
             ]
         },
-        "EsdtTokenData": {
+        "DctTokenData": {
             "type": "struct",
             "fields": [
                 {
                     "name": "token_type",
-                    "type": "EsdtTokenType"
+                    "type": "DctTokenType"
                 },
                 {
                     "name": "amount",
@@ -622,7 +622,7 @@
                 }
             ]
         },
-        "EsdtTokenPayment": {
+        "DctTokenPayment": {
             "type": "struct",
             "fields": [
                 {
@@ -639,7 +639,7 @@
                 }
             ]
         },
-        "EsdtTokenType": {
+        "DctTokenType": {
             "type": "enum",
             "variants": [
                 {

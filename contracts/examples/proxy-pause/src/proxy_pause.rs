@@ -1,11 +1,11 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 mod pause_proxy {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
-    #[dharithri_sc::proxy]
+    #[dharitri_sc::proxy]
     pub trait Pausable {
         #[endpoint]
         fn pause(&self);
@@ -15,7 +15,7 @@ mod pause_proxy {
     }
 }
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait PauseProxy {
     #[init]
     fn init(&self) {

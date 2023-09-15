@@ -1,11 +1,11 @@
 use crate::{mandos_to_erdrs_address, Interactor};
 use log::info;
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     bech32,
     mandos_system::ScenarioRunner,
     scenario_model::{ScDeployStep, SetStateStep, TxResponse},
 };
-use dharithri_sdk::data::{address::Address as ErdrsAddress, transaction::Transaction};
+use dharitri_sdk::data::{address::Address as ErdrsAddress, transaction::Transaction};
 
 const DEPLOY_RECEIVER: [u8; 32] = [0u8; 32];
 
@@ -13,7 +13,7 @@ impl Interactor {
     pub(crate) fn sc_deploy_to_blockchain_tx(&self, sc_deploy_step: &ScDeployStep) -> Transaction {
         Transaction {
             nonce: 0,
-            value: sc_deploy_step.tx.egld_value.value.to_string(),
+            value: sc_deploy_step.tx.moa_value.value.to_string(),
             sender: mandos_to_erdrs_address(&sc_deploy_step.tx.from),
             receiver: ErdrsAddress::from_bytes(DEPLOY_RECEIVER),
             gas_price: self.network_config.min_gas_price,

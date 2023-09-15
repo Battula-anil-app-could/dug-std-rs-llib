@@ -1,6 +1,6 @@
 use core::cmp::Ordering;
 
-use dharithri_sc::api::{BigIntApiImpl, Sign};
+use dharitri_sc::api::{BigIntApiImpl, Sign};
 
 extern "C" {
     fn bigIntNew(value: i64) -> i32;

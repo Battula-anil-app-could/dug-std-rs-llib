@@ -12,7 +12,7 @@ path = "src/interactor_main.rs"
 [dependencies.rust-snippets-generator-test]
 path = ".."
 
-[dependencies.dharithri-sc-snippets]
+[dependencies.dharitri-sc-snippets]
 version = "0.43.3"
 path = "../../../../framework/snippets"
 

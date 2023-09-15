@@ -1,7 +1,7 @@
 mod user_builtin {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
-    #[dharithri_sc::proxy]
+    #[dharitri_sc::proxy]
     pub trait UserBuiltin {
         #[endpoint(SetUserName)]
         fn set_user_name(&self, name: &BoxedBytes) -> BigUint;
@@ -9,17 +9,17 @@ mod user_builtin {
 }
 
 mod dns_mock {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
-    #[dharithri_sc::contract]
+    #[dharitri_sc::contract]
     pub trait DnsMock {
         #[proxy]
         fn user_builtin_proxy(&self, to: ManagedAddress) -> super::user_builtin::Proxy<Self::Api>;
 
-        #[payable("EGLD")]
+        #[payable("MOA")]
         #[endpoint]
         fn register(&self, name: BoxedBytes) {
-            let _payment = self.call_value().egld_value();
+            let _payment = self.call_value().moa_value();
             let address = self.blockchain().get_caller();
             self.user_builtin_proxy(address)
                 .set_user_name(&name)
@@ -29,14 +29,14 @@ mod dns_mock {
     }
 }
 
-use dharithri_sc_scenario::*;
+use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
     blockchain.register_contract("file:output/use-module.wasm", use_module::ContractBuilder);
 
     blockchain.register_contract(
-        "file:test-wasm/elrond-wasm-sc-dns.wasm",
+        "file:test-wasm/dharitri-wasm-sc-dns.wasm",
         dns_mock::ContractBuilder,
     );
 

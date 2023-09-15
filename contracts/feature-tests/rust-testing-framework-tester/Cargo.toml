@@ -1,11 +1,11 @@
 [package]
 name = "rust-testing-framework-tester"
 version = "0.0.0"
-authors = ["Dorin Iancu <dorin.iancu@dharithri.com>"]
+authors = ["Dorin Iancu <dorin.iancu@dharitri.com>"]
 edition = "2021"
 publish = false
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../framework/base"
 features = [ "alloc" ]
@@ -16,7 +16,7 @@ path = "../../examples/adder"
 [dev-dependencies.basic-features]
 path = "../../feature-tests/basic-features"
 
-[dev-dependencies.dharithri-sc-scenario]
+[dev-dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../framework/scenario"
 

@@ -6,14 +6,14 @@ use crate::{
     api::{
         BlockchainApi, BlockchainApiImpl, CallTypeApi, StorageReadApi,
         CHANGE_OWNER_BUILTIN_FUNC_NAME, CLAIM_DEVELOPER_REWARDS_FUNC_NAME,
-        ESDT_LOCAL_BURN_FUNC_NAME, ESDT_LOCAL_MINT_FUNC_NAME, ESDT_NFT_ADD_QUANTITY_FUNC_NAME,
-        ESDT_NFT_ADD_URI_FUNC_NAME, ESDT_NFT_BURN_FUNC_NAME, ESDT_NFT_CREATE_FUNC_NAME,
-        ESDT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME,
+        DCT_LOCAL_BURN_FUNC_NAME, DCT_LOCAL_MINT_FUNC_NAME, DCT_NFT_ADD_QUANTITY_FUNC_NAME,
+        DCT_NFT_ADD_URI_FUNC_NAME, DCT_NFT_BURN_FUNC_NAME, DCT_NFT_CREATE_FUNC_NAME,
+        DCT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME,
     },
     codec,
-    esdt::ESDTSystemSmartContractProxy,
+    dct::DCTSystemSmartContractProxy,
     types::{
-        BigUint, ContractCall, ContractCallNoPayment, EgldOrEsdtTokenIdentifier, EsdtTokenPayment,
+        BigUint, ContractCall, ContractCallNoPayment, MoaOrDctTokenIdentifier, DctTokenPayment,
         ManagedAddress, ManagedArgBuffer, ManagedBuffer, ManagedType, ManagedVec, TokenIdentifier,
     },
 };
@@ -24,7 +24,7 @@ const PERCENTAGE_TOTAL: u64 = 10_000;
 
 use super::SendRawWrapper;
 
-/// API that groups methods that either send EGLD or ESDT, or that call other contracts.
+/// API that groups methods that either send MOA or DCT, or that call other contracts.
 // pub trait SendApi: Clone + Sized {
 
 #[derive(Default)]
@@ -54,11 +54,11 @@ where
     ///
     /// Use the methods of this proxy to launch contract calls to the system SC.
     #[inline]
-    pub fn esdt_system_sc_proxy(&self) -> ESDTSystemSmartContractProxy<A> {
-        ESDTSystemSmartContractProxy::new_proxy_obj()
+    pub fn dct_system_sc_proxy(&self) -> DCTSystemSmartContractProxy<A> {
+        DCTSystemSmartContractProxy::new_proxy_obj()
     }
 
-    /// Convenient way to quickly instance a minimal contract call (with no EGLD, no arguments, etc.)
+    /// Convenient way to quickly instance a minimal contract call (with no MOA, no arguments, etc.)
     ///
     /// You can further configure this contract call by chaining methods to it.
     #[inline]
@@ -70,39 +70,39 @@ where
         ContractCallNoPayment::new(to, endpoint_name)
     }
 
-    /// Sends EGLD to a given address, directly.
-    /// Used especially for sending EGLD to regular accounts.
+    /// Sends MOA to a given address, directly.
+    /// Used especially for sending MOA to regular accounts.
     #[inline]
-    pub fn direct_egld(&self, to: &ManagedAddress<A>, amount: &BigUint<A>) {
-        self.send_raw_wrapper().direct_egld(to, amount, Empty)
+    pub fn direct_moa(&self, to: &ManagedAddress<A>, amount: &BigUint<A>) {
+        self.send_raw_wrapper().direct_moa(to, amount, Empty)
     }
 
-    /// Sends EGLD to a given address, directly.
-    /// Used especially for sending EGLD to regular accounts.
+    /// Sends MOA to a given address, directly.
+    /// Used especially for sending MOA to regular accounts.
     ///
     /// If the amount is 0, it returns without error.
-    pub fn direct_non_zero_egld(&self, to: &ManagedAddress<A>, amount: &BigUint<A>) {
+    pub fn direct_non_zero_moa(&self, to: &ManagedAddress<A>, amount: &BigUint<A>) {
         if amount == &0 {
             return;
         }
 
-        self.direct_egld(to, amount)
+        self.direct_moa(to, amount)
     }
 
-    /// Sends either EGLD, ESDT or NFT to the target address,
+    /// Sends either MOA, DCT or NFT to the target address,
     /// depending on the token identifier and nonce
     #[inline]
     pub fn direct(
         &self,
         to: &ManagedAddress<A>,
-        token: &EgldOrEsdtTokenIdentifier<A>,
+        token: &MoaOrDctTokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
     ) {
         self.direct_with_gas_limit(to, token, nonce, amount, 0, Empty, &[]);
     }
 
-    /// Sends either EGLD, ESDT or NFT to the target address,
+    /// Sends either MOA, DCT or NFT to the target address,
     /// depending on the token identifier and nonce.
     ///
     /// If the amount is 0, it returns without error.
@@ -110,18 +110,18 @@ where
     pub fn direct_non_zero(
         &self,
         to: &ManagedAddress<A>,
-        token: &EgldOrEsdtTokenIdentifier<A>,
+        token: &MoaOrDctTokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
     ) {
         self.direct_non_zero_with_gas_limit(to, token, nonce, amount, 0, Empty, &[]);
     }
 
-    /// Sends a single ESDT transfer, and calls an endpoint at the destination.
+    /// Sends a single DCT transfer, and calls an endpoint at the destination.
     ///
-    /// Avoid if possible, use a contract call with ESDT transfer instead, and call `.transfer_execute()` on it.
+    /// Avoid if possible, use a contract call with DCT transfer instead, and call `.transfer_execute()` on it.
     #[allow(clippy::too_many_arguments)]
-    pub fn direct_esdt_with_gas_limit<D>(
+    pub fn direct_dct_with_gas_limit<D>(
         &self,
         to: &ManagedAddress<A>,
         token_identifier: &TokenIdentifier<A>,
@@ -134,7 +134,7 @@ where
         D: Into<ManagedBuffer<A>>,
     {
         if nonce == 0 {
-            let _ = self.send_raw_wrapper().transfer_esdt_execute(
+            let _ = self.send_raw_wrapper().transfer_dct_execute(
                 to,
                 token_identifier,
                 amount,
@@ -143,7 +143,7 @@ where
                 &arguments.into(),
             );
         } else {
-            let _ = self.send_raw_wrapper().transfer_esdt_nft_execute(
+            let _ = self.send_raw_wrapper().transfer_dct_nft_execute(
                 to,
                 token_identifier,
                 nonce,
@@ -155,13 +155,13 @@ where
         }
     }
 
-    /// Sends a single ESDT transfer, and calls an endpoint at the destination.
+    /// Sends a single DCT transfer, and calls an endpoint at the destination.
     ///
     /// If the amount is 0, it returns without error.
     ///
-    /// Avoid if possible, use a contract call with ESDT transfer instead, and call `.transfer_execute()` on it.
+    /// Avoid if possible, use a contract call with DCT transfer instead, and call `.transfer_execute()` on it.
     #[allow(clippy::too_many_arguments)]
-    pub fn direct_non_zero_esdt_with_gas_limit<D>(
+    pub fn direct_non_zero_dct_with_gas_limit<D>(
         &self,
         to: &ManagedAddress<A>,
         token_identifier: &TokenIdentifier<A>,
@@ -176,7 +176,7 @@ where
         if amount == &0 {
             return;
         }
-        self.direct_esdt_with_gas_limit(
+        self.direct_dct_with_gas_limit(
             to,
             token_identifier,
             nonce,
@@ -187,32 +187,32 @@ where
         );
     }
 
-    /// Sends a single ESDT transfer to target address.
+    /// Sends a single DCT transfer to target address.
     #[inline]
     #[allow(clippy::too_many_arguments)]
-    pub fn direct_esdt(
+    pub fn direct_dct(
         &self,
         to: &ManagedAddress<A>,
         token_identifier: &TokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
     ) {
-        self.direct_esdt_with_gas_limit(to, token_identifier, nonce, amount, 0, Empty, &[]);
+        self.direct_dct_with_gas_limit(to, token_identifier, nonce, amount, 0, Empty, &[]);
     }
 
-    /// Sends a single ESDT transfer to target address.
+    /// Sends a single DCT transfer to target address.
     ///
     /// If the amount is 0, it returns without error.
-    pub fn direct_non_zero_esdt_payment(
+    pub fn direct_non_zero_dct_payment(
         &self,
         to: &ManagedAddress<A>,
-        payment: &EsdtTokenPayment<A>,
+        payment: &DctTokenPayment<A>,
     ) {
         if payment.amount == 0 {
             return;
         }
 
-        self.direct_esdt(
+        self.direct_dct(
             to,
             &payment.token_identifier,
             payment.token_nonce,
@@ -220,16 +220,16 @@ where
         );
     }
 
-    /// Sends either EGLD, ESDT or NFT to the target address,
+    /// Sends either MOA, DCT or NFT to the target address,
     /// depending on the token identifier and nonce.
     /// Also and calls an endpoint at the destination.
     ///
-    /// Avoid if possible, use a contract call with ESDT transfer instead, and call `.transfer_execute()` on it.
+    /// Avoid if possible, use a contract call with DCT transfer instead, and call `.transfer_execute()` on it.
     #[allow(clippy::too_many_arguments)]
     pub fn direct_with_gas_limit<D>(
         &self,
         to: &ManagedAddress<A>,
-        token: &EgldOrEsdtTokenIdentifier<A>,
+        token: &MoaOrDctTokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
         gas: u64,
@@ -238,10 +238,10 @@ where
     ) where
         D: Into<ManagedBuffer<A>>,
     {
-        if let Some(esdt_token_identifier) = token.as_esdt_option() {
-            self.direct_esdt_with_gas_limit(
+        if let Some(dct_token_identifier) = token.as_dct_option() {
+            self.direct_dct_with_gas_limit(
                 to,
-                &esdt_token_identifier,
+                &dct_token_identifier,
                 nonce,
                 amount,
                 gas,
@@ -249,7 +249,7 @@ where
                 arguments,
             );
         } else {
-            let _ = self.send_raw_wrapper().direct_egld_execute(
+            let _ = self.send_raw_wrapper().direct_moa_execute(
                 to,
                 amount,
                 gas,
@@ -258,18 +258,18 @@ where
             );
         }
     }
-    /// Sends either EGLD, ESDT or NFT to the target address,
+    /// Sends either MOA, DCT or NFT to the target address,
     /// depending on the token identifier and nonce.
     /// Also and calls an endpoint at the destination.
     ///
     /// If the amount is 0, it returns without error.
     ///
-    /// Avoid if possible, use a contract call with ESDT transfer instead, and call `.transfer_execute()` on it.
+    /// Avoid if possible, use a contract call with DCT transfer instead, and call `.transfer_execute()` on it.
     #[allow(clippy::too_many_arguments)]
     pub fn direct_non_zero_with_gas_limit<D>(
         &self,
         to: &ManagedAddress<A>,
-        token: &EgldOrEsdtTokenIdentifier<A>,
+        token: &MoaOrDctTokenIdentifier<A>,
         nonce: u64,
         amount: &BigUint<A>,
         gas: u64,
@@ -284,13 +284,13 @@ where
         self.direct_with_gas_limit(to, token, nonce, amount, gas, endpoint_name, arguments);
     }
 
-    /// Sends multiple ESDT tokens to a target address.
+    /// Sends multiple DCT tokens to a target address.
     pub fn direct_multi(
         &self,
         to: &ManagedAddress<A>,
-        payments: &ManagedVec<A, EsdtTokenPayment<A>>,
+        payments: &ManagedVec<A, DctTokenPayment<A>>,
     ) {
-        let _ = self.send_raw_wrapper().multi_esdt_transfer_execute(
+        let _ = self.send_raw_wrapper().multi_dct_transfer_execute(
             to,
             payments,
             0,
@@ -299,15 +299,15 @@ where
         );
     }
 
-    /// Performs a simple ESDT/NFT transfer, but via async call.  
+    /// Performs a simple DCT/NFT transfer, but via async call.  
     ///
     /// As with any async call, this immediately terminates the execution of the current call,
     /// so only use as the last call in your endpoint.
     ///
-    /// If you want to perform multiple transfers, use `self.send().transfer_multiple_esdt_via_async_call()` instead.
+    /// If you want to perform multiple transfers, use `self.send().transfer_multiple_dct_via_async_call()` instead.
     ///
-    /// Note that EGLD can NOT be transfered with this function.  
-    pub fn transfer_esdt_via_async_call(
+    /// Note that MOA can NOT be transfered with this function.  
+    pub fn transfer_dct_via_async_call(
         &self,
         to: ManagedAddress<A>,
         token: TokenIdentifier<A>,
@@ -315,21 +315,21 @@ where
         amount: BigUint<A>,
     ) -> ! {
         ContractCallNoPayment::<A, ()>::new(to, ManagedBuffer::new())
-            .with_esdt_transfer((token, nonce, amount))
+            .with_dct_transfer((token, nonce, amount))
             .async_call()
             .call_and_exit_ignore_callback()
     }
 
-    /// Performs a simple ESDT/NFT transfer, but via async call.  
+    /// Performs a simple DCT/NFT transfer, but via async call.  
     ///
     /// As with any async call, this immediately terminates the execution of the current call,
     /// so only use as the last call in your endpoint.
     ///
-    /// If you want to perform multiple transfers, use `self.send().transfer_multiple_esdt_via_async_call()` instead.  
-    /// Note that EGLD can NOT be transfered with this function.
+    /// If you want to perform multiple transfers, use `self.send().transfer_multiple_dct_via_async_call()` instead.  
+    /// Note that MOA can NOT be transfered with this function.
     ///
     /// If the amount is 0, it returns without error.
-    pub fn transfer_esdt_non_zero_via_async_call(
+    pub fn transfer_dct_non_zero_via_async_call(
         &self,
         to: ManagedAddress<A>,
         token: TokenIdentifier<A>,
@@ -340,16 +340,16 @@ where
             return;
         }
         ContractCallNoPayment::<A, ()>::new(to, ManagedBuffer::new())
-            .with_esdt_transfer((token, nonce, amount))
+            .with_dct_transfer((token, nonce, amount))
             .async_call()
             .call_and_exit_ignore_callback()
     }
 
-    /// Sends multiple ESDT tokens to a target address, via an async call.
-    pub fn transfer_multiple_esdt_via_async_call(
+    /// Sends multiple DCT tokens to a target address, via an async call.
+    pub fn transfer_multiple_dct_via_async_call(
         &self,
         to: ManagedAddress<A>,
-        payments: ManagedVec<A, EsdtTokenPayment<A>>,
+        payments: ManagedVec<A, DctTokenPayment<A>>,
     ) -> ! {
         ContractCallNoPayment::<A, ()>::new(to, ManagedBuffer::new())
             .with_multi_token_transfer(payments)
@@ -384,56 +384,56 @@ where
     /// Allows synchronously calling a local function by name. Execution is resumed afterwards.
     /// You should never have to call this function directly.
     /// Use the other specific methods instead.
-    pub fn call_local_esdt_built_in_function(
+    pub fn call_local_dct_built_in_function(
         &self,
         gas: u64,
         endpoint_name: &ManagedBuffer<A>,
         arg_buffer: &ManagedArgBuffer<A>,
     ) -> ManagedVec<A, ManagedBuffer<A>> {
         self.send_raw_wrapper()
-            .call_local_esdt_built_in_function(gas, endpoint_name, arg_buffer)
+            .call_local_dct_built_in_function(gas, endpoint_name, arg_buffer)
     }
 
-    /// Allows synchronous minting of ESDT/SFT (depending on nonce). Execution is resumed afterwards.
+    /// Allows synchronous minting of DCT/SFT (depending on nonce). Execution is resumed afterwards.
     ///
-    /// Note that the SC must have the ESDTLocalMint or ESDTNftAddQuantity roles set,
+    /// Note that the SC must have the DCTLocalMint or DCTNftAddQuantity roles set,
     /// or this will fail with "action is not allowed".
     ///
-    /// For SFTs, you must use `self.send().esdt_nft_create()` before adding additional quantity.
+    /// For SFTs, you must use `self.send().dct_nft_create()` before adding additional quantity.
     ///
     /// This function cannot be used for NFTs.
-    pub fn esdt_local_mint(&self, token: &TokenIdentifier<A>, nonce: u64, amount: &BigUint<A>) {
+    pub fn dct_local_mint(&self, token: &TokenIdentifier<A>, nonce: u64, amount: &BigUint<A>) {
         let mut arg_buffer = ManagedArgBuffer::new();
         let func_name: &str;
 
         arg_buffer.push_arg(token);
 
         if nonce == 0 {
-            func_name = ESDT_LOCAL_MINT_FUNC_NAME;
+            func_name = DCT_LOCAL_MINT_FUNC_NAME;
         } else {
-            func_name = ESDT_NFT_ADD_QUANTITY_FUNC_NAME;
+            func_name = DCT_NFT_ADD_QUANTITY_FUNC_NAME;
             arg_buffer.push_arg(nonce);
         }
 
         arg_buffer.push_arg(amount);
 
-        let _ = self.call_local_esdt_built_in_function(
+        let _ = self.call_local_dct_built_in_function(
             A::blockchain_api_impl().get_gas_left(),
             &ManagedBuffer::from(func_name),
             &arg_buffer,
         );
     }
 
-    /// Allows synchronous minting of ESDT/SFT (depending on nonce). Execution is resumed afterwards.
+    /// Allows synchronous minting of DCT/SFT (depending on nonce). Execution is resumed afterwards.
     ///
-    /// Note that the SC must have the ESDTLocalMint or ESDTNftAddQuantity roles set,
+    /// Note that the SC must have the DCTLocalMint or DCTNftAddQuantity roles set,
     /// or this will fail with "action is not allowed".
     ///
-    /// For SFTs, you must use `self.send().esdt_nft_create()` before adding additional quantity.
+    /// For SFTs, you must use `self.send().dct_nft_create()` before adding additional quantity.
     /// This function cannot be used for NFTs.
     ///
     /// If the amount is 0, it returns without error.
-    pub fn esdt_non_zero_local_mint(
+    pub fn dct_non_zero_local_mint(
         &self,
         token: &TokenIdentifier<A>,
         nonce: u64,
@@ -442,41 +442,41 @@ where
         if amount == &0 {
             return;
         }
-        self.esdt_local_mint(token, nonce, amount);
+        self.dct_local_mint(token, nonce, amount);
     }
 
-    /// Allows synchronous burning of ESDT/SFT/NFT (depending on nonce). Execution is resumed afterwards.
+    /// Allows synchronous burning of DCT/SFT/NFT (depending on nonce). Execution is resumed afterwards.
     ///
-    /// Note that the SC must have the ESDTLocalBurn or ESDTNftBurn roles set,
+    /// Note that the SC must have the DCTLocalBurn or DCTNftBurn roles set,
     /// or this will fail with "action is not allowed".
-    pub fn esdt_local_burn(&self, token: &TokenIdentifier<A>, nonce: u64, amount: &BigUint<A>) {
+    pub fn dct_local_burn(&self, token: &TokenIdentifier<A>, nonce: u64, amount: &BigUint<A>) {
         let mut arg_buffer = ManagedArgBuffer::new();
         let func_name: &str;
 
         arg_buffer.push_arg(token);
         if nonce == 0 {
-            func_name = ESDT_LOCAL_BURN_FUNC_NAME;
+            func_name = DCT_LOCAL_BURN_FUNC_NAME;
         } else {
-            func_name = ESDT_NFT_BURN_FUNC_NAME;
+            func_name = DCT_NFT_BURN_FUNC_NAME;
             arg_buffer.push_arg(nonce);
         }
 
         arg_buffer.push_arg(amount);
 
-        let _ = self.call_local_esdt_built_in_function(
+        let _ = self.call_local_dct_built_in_function(
             A::blockchain_api_impl().get_gas_left(),
             &ManagedBuffer::from(func_name),
             &arg_buffer,
         );
     }
 
-    /// Allows synchronous burning of ESDT/SFT/NFT (depending on nonce). Execution is resumed afterwards.
+    /// Allows synchronous burning of DCT/SFT/NFT (depending on nonce). Execution is resumed afterwards.
     ///
-    /// Note that the SC must have the ESDTLocalBurn or ESDTNftBurn roles set,
+    /// Note that the SC must have the DCTLocalBurn or DCTNftBurn roles set,
     /// or this will fail with "action is not allowed".
     ///
     /// If the amount is 0, it returns without error.
-    pub fn esdt_non_zero_local_burn(
+    pub fn dct_non_zero_local_burn(
         &self,
         token: &TokenIdentifier<A>,
         nonce: u64,
@@ -485,15 +485,15 @@ where
         if amount == &0 {
             return;
         }
-        self.esdt_local_burn(token, nonce, amount);
+        self.dct_local_burn(token, nonce, amount);
     }
 
-    /// Allows burning of multiple ESDT tokens at once.
+    /// Allows burning of multiple DCT tokens at once.
     ///
     /// Will execute a synchronous call to the appropriate burn builtin function for each.
-    pub fn esdt_local_burn_multi(&self, payments: &ManagedVec<A, EsdtTokenPayment<A>>) {
+    pub fn dct_local_burn_multi(&self, payments: &ManagedVec<A, DctTokenPayment<A>>) {
         for payment in payments {
-            self.esdt_local_burn(
+            self.dct_local_burn(
                 &payment.token_identifier,
                 payment.token_nonce,
                 &payment.amount,
@@ -501,14 +501,14 @@ where
         }
     }
 
-    /// Allows burning of multiple ESDT tokens at once.
+    /// Allows burning of multiple DCT tokens at once.
     ///
     /// Will execute a synchronous call to the appropriate burn builtin function for each.
     ///
     /// If any of the token amounts is 0 skips that token without throwing error.
-    pub fn esdt_non_zero_local_burn_multi(&self, payments: &ManagedVec<A, EsdtTokenPayment<A>>) {
+    pub fn dct_non_zero_local_burn_multi(&self, payments: &ManagedVec<A, DctTokenPayment<A>>) {
         for payment in payments {
-            self.esdt_non_zero_local_burn(
+            self.dct_non_zero_local_burn(
                 &payment.token_identifier,
                 payment.token_nonce,
                 &payment.amount,
@@ -521,11 +521,11 @@ where
     ///
     /// This is a synchronous built-in function call, so the smart contract execution is resumed afterwards.
     ///
-    /// Must have ESDTNftCreate role set, or this will fail with "action is not allowed".
+    /// Must have DCTNftCreate role set, or this will fail with "action is not allowed".
     ///
     /// Returns the nonce of the newly created NFT.
     #[allow(clippy::too_many_arguments)]
-    pub fn esdt_nft_create<T: codec::TopEncode>(
+    pub fn dct_nft_create<T: codec::TopEncode>(
         &self,
         token: &TokenIdentifier<A>,
         amount: &BigUint<A>,
@@ -554,9 +554,9 @@ where
             }
         }
 
-        let output = self.call_local_esdt_built_in_function(
+        let output = self.call_local_dct_built_in_function(
             A::blockchain_api_impl().get_gas_left(),
-            &ManagedBuffer::from(ESDT_NFT_CREATE_FUNC_NAME),
+            &ManagedBuffer::from(DCT_NFT_CREATE_FUNC_NAME),
             &arg_buffer,
         );
 
@@ -572,13 +572,13 @@ where
     /// `attributes` can be any serializable custom struct.
     ///
     /// This is a built-in function, so the smart contract execution is resumed after.
-    /// Must have ESDTNftCreate role set, or this will fail with "action is not allowed".
+    /// Must have DCTNftCreate role set, or this will fail with "action is not allowed".
     ///
     /// Returns the nonce of the newly created NFT.
     ///
     /// If the amount is 0, it returns without error.
     #[allow(clippy::too_many_arguments)]
-    pub fn esdt_non_zero_nft_create<T: codec::TopEncode>(
+    pub fn dct_non_zero_nft_create<T: codec::TopEncode>(
         &self,
         token: &TokenIdentifier<A>,
         amount: &BigUint<A>,
@@ -591,7 +591,7 @@ where
         if amount == &0 {
             0
         } else {
-            self.esdt_nft_create(token, amount, name, royalties, hash, attributes, uris)
+            self.dct_nft_create(token, amount, name, royalties, hash, attributes, uris)
         }
     }
 
@@ -599,19 +599,19 @@ where
     ///
     /// Returns the new NFT nonce.
     #[inline]
-    pub fn esdt_nft_create_compact<T: codec::TopEncode>(
+    pub fn dct_nft_create_compact<T: codec::TopEncode>(
         &self,
         token: &TokenIdentifier<A>,
         amount: &BigUint<A>,
         attributes: &T,
     ) -> u64 {
-        self.esdt_nft_create_compact_named(token, amount, &ManagedBuffer::new(), attributes)
+        self.dct_nft_create_compact_named(token, amount, &ManagedBuffer::new(), attributes)
     }
 
     /// Quick way of creating a new NFT token instance, with custom name.
     ///
     /// Returns the new NFT nonce.
-    pub fn esdt_nft_create_compact_named<T: codec::TopEncode>(
+    pub fn dct_nft_create_compact_named<T: codec::TopEncode>(
         &self,
         token: &TokenIdentifier<A>,
         amount: &BigUint<A>,
@@ -622,7 +622,7 @@ where
         let empty_buffer = ManagedBuffer::new();
         let empty_vec = ManagedVec::from_handle(empty_buffer.get_handle());
 
-        self.esdt_nft_create(
+        self.dct_nft_create(
             token,
             amount,
             name,
@@ -639,13 +639,13 @@ where
     ///
     /// If the amount is 0, it returns without error.
     #[inline]
-    pub fn esdt_non_zero_nft_create_compact<T: codec::TopEncode>(
+    pub fn dct_non_zero_nft_create_compact<T: codec::TopEncode>(
         &self,
         token: &TokenIdentifier<A>,
         amount: &BigUint<A>,
         attributes: &T,
     ) -> u64 {
-        self.esdt_non_zero_nft_create_compact_named(
+        self.dct_non_zero_nft_create_compact_named(
             token,
             amount,
             &ManagedBuffer::new(),
@@ -658,7 +658,7 @@ where
     /// Returns the new NFT nonce.
     ///
     /// If the amount is 0, it returns without error.
-    pub fn esdt_non_zero_nft_create_compact_named<T: codec::TopEncode>(
+    pub fn dct_non_zero_nft_create_compact_named<T: codec::TopEncode>(
         &self,
         token: &TokenIdentifier<A>,
         amount: &BigUint<A>,
@@ -668,7 +668,7 @@ where
         if amount == &0 {
             0
         } else {
-            self.esdt_nft_create_compact_named(token, amount, name, attributes)
+            self.dct_nft_create_compact_named(token, amount, name, attributes)
         }
     }
 
@@ -682,18 +682,18 @@ where
         nft_nonce: u64,
         nft_amount: &BigUint<A>,
         buyer: &ManagedAddress<A>,
-        payment_token: &EgldOrEsdtTokenIdentifier<A>,
+        payment_token: &MoaOrDctTokenIdentifier<A>,
         payment_nonce: u64,
         payment_amount: &BigUint<A>,
     ) -> BigUint<A> {
-        let nft_token_data = BlockchainWrapper::<A>::new().get_esdt_token_data(
+        let nft_token_data = BlockchainWrapper::<A>::new().get_dct_token_data(
             &BlockchainWrapper::<A>::new().get_sc_address(),
             nft_id,
             nft_nonce,
         );
         let royalties_amount = payment_amount.clone() * nft_token_data.royalties / PERCENTAGE_TOTAL;
 
-        let _ = self.send_raw_wrapper().transfer_esdt_nft_execute(
+        let _ = self.send_raw_wrapper().transfer_dct_nft_execute(
             buyer,
             nft_id,
             nft_nonce,
@@ -729,7 +729,7 @@ where
         nft_nonce: u64,
         nft_amount: &BigUint<A>,
         buyer: &ManagedAddress<A>,
-        payment_token: &EgldOrEsdtTokenIdentifier<A>,
+        payment_token: &MoaOrDctTokenIdentifier<A>,
         payment_nonce: u64,
         payment_amount: &BigUint<A>,
     ) -> BigUint<A> {
@@ -777,9 +777,9 @@ where
             arg_buffer.push_arg(uri);
         }
 
-        let _ = self.call_local_esdt_built_in_function(
+        let _ = self.call_local_dct_built_in_function(
             A::blockchain_api_impl().get_gas_left(),
-            &ManagedBuffer::from(ESDT_NFT_ADD_URI_FUNC_NAME),
+            &ManagedBuffer::from(DCT_NFT_ADD_URI_FUNC_NAME),
             &arg_buffer,
         );
     }
@@ -796,9 +796,9 @@ where
         arg_buffer.push_arg(nft_nonce);
         arg_buffer.push_arg(new_attributes);
 
-        let _ = self.call_local_esdt_built_in_function(
+        let _ = self.call_local_dct_built_in_function(
             A::blockchain_api_impl().get_gas_left(),
-            &ManagedBuffer::from(ESDT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME),
+            &ManagedBuffer::from(DCT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME),
             &arg_buffer,
         );
     }

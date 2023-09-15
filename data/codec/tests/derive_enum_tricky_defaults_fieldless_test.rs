@@ -1,5 +1,5 @@
-use dharithri_sc_codec as codec;
-use dharithri_sc_codec_derive::*;
+use dharitri_sc_codec as codec;
+use dharitri_sc_codec_derive::*;
 
 use codec::test_util::{check_top_decode, check_top_encode, check_top_encode_decode};
 

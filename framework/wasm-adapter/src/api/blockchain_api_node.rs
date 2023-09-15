@@ -4,7 +4,7 @@ use crate::api::{
     },
     VmApiImpl,
 };
-use dharithri_sc::{
+use dharitri_sc::{
     api::{BlockchainApi, BlockchainApiImpl, ManagedBufferApiImpl, RawHandle},
     types::heap::{Address, Box, H256},
 };
@@ -47,7 +47,7 @@ extern "C" {
 
     // big int API
     fn bigIntGetExternalBalance(address_ptr: *const u8, dest: i32);
-    fn bigIntGetESDTExternalBalance(
+    fn bigIntGetDCTExternalBalance(
         address_ptr: *const u8,
         tokenIDOffset: *const u8,
         tokenIDLen: i32,
@@ -55,14 +55,14 @@ extern "C" {
         dest: i32,
     );
 
-    // ESDT NFT
-    fn getCurrentESDTNFTNonce(
+    // DCT NFT
+    fn getCurrentDCTNFTNonce(
         address_ptr: *const u8,
         tokenIDOffset: *const u8,
         tokenIDLen: i32,
     ) -> i64;
 
-    fn managedGetESDTTokenData(
+    fn managedGetDCTTokenData(
         addressHandle: i32,
         tokenIDHandle: i32,
         nonce: i64,
@@ -76,11 +76,11 @@ extern "C" {
         urisHandle: i32,
     );
 
-    fn managedIsESDTFrozen(addressHandle: i32, tokenIDHandle: i32, nonce: i64) -> i32;
-    fn managedIsESDTPaused(tokenIDHandle: i32) -> i32;
-    fn managedIsESDTLimitedTransfer(tokenIDHandle: i32) -> i32;
+    fn managedIsDCTFrozen(addressHandle: i32, tokenIDHandle: i32, nonce: i64) -> i32;
+    fn managedIsDCTPaused(tokenIDHandle: i32) -> i32;
+    fn managedIsDCTLimitedTransfer(tokenIDHandle: i32) -> i32;
 
-    fn getESDTLocalRoles(tokenhandle: i32) -> i64;
+    fn getDCTLocalRoles(tokenhandle: i32) -> i64;
 }
 
 impl BlockchainApi for VmApiImpl {
@@ -258,14 +258,14 @@ impl BlockchainApiImpl for VmApiImpl {
     }
 
     #[inline]
-    fn get_current_esdt_nft_nonce(
+    fn get_current_dct_nft_nonce(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
     ) -> u64 {
         unsafe {
             let token_identifier_len = self.mb_len(token_id_handle);
-            getCurrentESDTNFTNonce(
+            getCurrentDCTNFTNonce(
                 unsafe_buffer_load_address(address_handle),
                 unsafe_buffer_load_token_identifier(token_id_handle),
                 token_identifier_len as i32,
@@ -273,7 +273,7 @@ impl BlockchainApiImpl for VmApiImpl {
         }
     }
 
-    fn load_esdt_balance(
+    fn load_dct_balance(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
@@ -282,7 +282,7 @@ impl BlockchainApiImpl for VmApiImpl {
     ) {
         let token_identifier_len = self.mb_len(token_id_handle);
         unsafe {
-            bigIntGetESDTExternalBalance(
+            bigIntGetDCTExternalBalance(
                 unsafe_buffer_load_address(address_handle),
                 unsafe_buffer_load_token_identifier(token_id_handle),
                 token_identifier_len as i32,
@@ -292,7 +292,7 @@ impl BlockchainApiImpl for VmApiImpl {
         }
     }
 
-    fn managed_get_esdt_token_data(
+    fn managed_get_dct_token_data(
         &self,
         address_handle: RawHandle,
         token_id_handle: RawHandle,
@@ -307,7 +307,7 @@ impl BlockchainApiImpl for VmApiImpl {
         uris_handle: RawHandle,
     ) {
         unsafe {
-            managedGetESDTTokenData(
+            managedGetDCTTokenData(
                 address_handle,
                 token_id_handle,
                 nonce as i64,
@@ -323,29 +323,29 @@ impl BlockchainApiImpl for VmApiImpl {
         }
     }
 
-    fn check_esdt_frozen(
+    fn check_dct_frozen(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
         nonce: u64,
     ) -> bool {
-        unsafe { managedIsESDTFrozen(address_handle, token_id_handle, nonce as i64) > 0 }
+        unsafe { managedIsDCTFrozen(address_handle, token_id_handle, nonce as i64) > 0 }
     }
 
-    fn check_esdt_paused(&self, token_id_handle: Self::ManagedBufferHandle) -> bool {
-        unsafe { managedIsESDTPaused(token_id_handle) > 0 }
+    fn check_dct_paused(&self, token_id_handle: Self::ManagedBufferHandle) -> bool {
+        unsafe { managedIsDCTPaused(token_id_handle) > 0 }
     }
 
-    fn check_esdt_limited_transfer(&self, token_id_handle: Self::ManagedBufferHandle) -> bool {
-        unsafe { managedIsESDTLimitedTransfer(token_id_handle) > 0 }
+    fn check_dct_limited_transfer(&self, token_id_handle: Self::ManagedBufferHandle) -> bool {
+        unsafe { managedIsDCTLimitedTransfer(token_id_handle) > 0 }
     }
 
-    fn load_esdt_local_roles(
+    fn load_dct_local_roles(
         &self,
         token_id_handle: Self::ManagedBufferHandle,
-    ) -> dharithri_sc::types::EsdtLocalRoleFlags {
+    ) -> dharitri_sc::types::DctLocalRoleFlags {
         unsafe {
-            dharithri_sc::types::EsdtLocalRoleFlags::from_bits_unchecked(getESDTLocalRoles(
+            dharitri_sc::types::DctLocalRoleFlags::from_bits_unchecked(getDCTLocalRoles(
                 token_id_handle,
             ) as u64)
         }

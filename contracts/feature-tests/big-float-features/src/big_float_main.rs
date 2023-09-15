@@ -1,13 +1,13 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 pub mod big_float_methods;
 pub mod big_float_methods_wrapped;
 pub mod big_float_operators;
 pub mod big_float_operators_wrapped;
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait BigFloatFeatures:
     big_float_methods::BigFloatMethods
     + big_float_operators::BigFloatOperators

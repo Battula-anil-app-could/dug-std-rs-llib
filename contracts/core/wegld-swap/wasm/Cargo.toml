@@ -1,7 +1,7 @@
 [package]
-name = "dharithri-wegld-swap-sc-wasm"
+name = "dharitri-wegld-swap-sc-wasm"
 version = "0.0.0"
-authors = [ "Dorin Iancu <dorin.iancu@dharithri.com>",]
+authors = [ "Dorin Iancu <dorin.iancu@dharitri.com>",]
 edition = "2021"
 publish = false
 
@@ -20,9 +20,9 @@ lto = true
 debug = false
 panic = "abort"
 
-[dependencies.dharithri-wegld-swap-sc]
+[dependencies.dharitri-wegld-swap-sc]
 path = ".."
 
-[dependencies.dharithri-sc-wasm-adapter]
+[dependencies.dharitri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../framework/wasm-adapter"

@@ -1,19 +1,19 @@
 [package]
-name = "dharithri-sc-scenario"
+name = "dharitri-sc-scenario"
 version = "0.43.3"
 edition = "2021"
 
 authors = [
-    "viswanath <contact@dharithri.org>",
-    "dharithri <contact@dharithri.com>",
+    "viswanath <contact@dharitri.org>",
+    "dharitri <contact@dharitri.com>",
 ]
 license = "GPL-3.0-only"
 readme = "README.md"
-repository = "https://github.com/dharithri/mx-sdk-rs"
-homepage = "https://dharithri.com/"
-documentation = "https://docs.dharithri.com/"
-description = "dharithri tools for writing and executing scenarios"
-keywords = ["dharithri", "blockchain", "contract", "debug"]
+repository = "https://github.com/dharitri/mx-sdk-rs"
+homepage = "https://dharitri.com/"
+documentation = "https://docs.dharitri.com/"
+description = "dharitri tools for writing and executing scenarios"
+keywords = ["dharitri", "blockchain", "contract", "debug"]
 categories = ["cryptography::cryptocurrencies", "development-tools::debugging"]
 
 [dependencies]
@@ -39,25 +39,25 @@ path = "src/main.rs"
 [features]
 run-go-tests = []
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "=0.43.3"
 path = "../base"
 
-[dependencies.dharithri-sc-meta]
+[dependencies.dharitri-sc-meta]
 version = "=0.43.3"
 path = "../meta"
 
-[dependencies.dharithri-chain-scenario-format]
+[dependencies.dharitri-chain-scenario-format]
 version = "0.20.0"
 path = "../../sdk/scenario-format"
 
-[dependencies.multiversx-chain-vm-executor]
+[dependencies.dharithri-chain-vm-executor]
 version = "0.1.0"
 
-[dependencies.dharithri-chain-vm]
+[dependencies.dharitri-chain-vm]
 version = "=0.5.2"
 path = "../../vm"
 
-[dependencies.dharithri-sdk]
+[dependencies.dharitri-sdk]
 version = "=0.2.0"
 path = "../../sdk/core"

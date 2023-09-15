@@ -1,7 +1,7 @@
 use super::{HandleTypeInfo, ManagedTypeApi, ManagedTypeApiImpl, RawHandle};
 use crate::types::{
     heap::{Address, Box, H256},
-    EsdtLocalRoleFlags,
+    DctLocalRoleFlags,
 };
 
 pub trait BlockchainApi: ManagedTypeApi {
@@ -95,13 +95,13 @@ pub trait BlockchainApiImpl: ManagedTypeApiImpl {
         self.mb_overwrite(dest, self.get_prev_block_random_seed_legacy().as_slice());
     }
 
-    fn get_current_esdt_nft_nonce(
+    fn get_current_dct_nft_nonce(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
     ) -> u64;
 
-    fn load_esdt_balance(
+    fn load_dct_balance(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
@@ -110,7 +110,7 @@ pub trait BlockchainApiImpl: ManagedTypeApiImpl {
     );
 
     #[allow(clippy::too_many_arguments)]
-    fn managed_get_esdt_token_data(
+    fn managed_get_dct_token_data(
         &self,
         address_handle: RawHandle,
         token_id_handle: RawHandle,
@@ -125,19 +125,19 @@ pub trait BlockchainApiImpl: ManagedTypeApiImpl {
         uris_handle: RawHandle,
     );
 
-    fn check_esdt_frozen(
+    fn check_dct_frozen(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
         nonce: u64,
     ) -> bool;
 
-    fn check_esdt_paused(&self, token_id_handle: Self::ManagedBufferHandle) -> bool;
+    fn check_dct_paused(&self, token_id_handle: Self::ManagedBufferHandle) -> bool;
 
-    fn check_esdt_limited_transfer(&self, token_id_handle: Self::ManagedBufferHandle) -> bool;
+    fn check_dct_limited_transfer(&self, token_id_handle: Self::ManagedBufferHandle) -> bool;
 
-    fn load_esdt_local_roles(
+    fn load_dct_local_roles(
         &self,
         token_id_handle: Self::ManagedBufferHandle,
-    ) -> EsdtLocalRoleFlags;
+    ) -> DctLocalRoleFlags;
 }

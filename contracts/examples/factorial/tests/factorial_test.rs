@@ -1,6 +1,6 @@
 use factorial::*;
-use dharithri_sc::types::BigUint;
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc::types::BigUint;
+use dharitri_sc_scenario::api::StaticApi;
 
 #[test]
 fn test_factorial() {

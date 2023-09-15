@@ -1,12 +1,12 @@
 use crate::{address_h256_to_erdrs, mandos_to_erdrs_address, Interactor};
 use log::info;
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     api::StaticApi,
-    dharithri_sc::types::ContractCallWithEgld,
+    dharitri_sc::types::ContractCallWithMoa,
     scenario::ScenarioRunner,
     scenario_model::{ScCallStep, SetStateStep, TxCall, TxResponse},
 };
-use dharithri_sdk::data::transaction::Transaction;
+use dharitri_sdk::data::transaction::Transaction;
 
 impl Interactor {
     pub async fn sc_call<S>(&mut self, mut sc_call_step: S)
@@ -56,7 +56,7 @@ impl Interactor {
 
         Transaction {
             nonce: 0,
-            value: contract_call.egld_payment.to_alloc().to_string(),
+            value: contract_call.moa_payment.to_alloc().to_string(),
             sender: mandos_to_erdrs_address(&tx_call.from),
             receiver: address_h256_to_erdrs(&contract_call.basic.to.to_address()),
             gas_price: self.network_config.min_gas_price,
@@ -70,7 +70,7 @@ impl Interactor {
     }
 }
 
-fn contract_call_to_tx_data(contract_call: &ContractCallWithEgld<StaticApi, ()>) -> String {
+fn contract_call_to_tx_data(contract_call: &ContractCallWithMoa<StaticApi, ()>) -> String {
     let mut result = String::from_utf8(
         contract_call
             .basic

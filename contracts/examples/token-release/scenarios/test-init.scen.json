@@ -12,14 +12,14 @@
                 "address:user1": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-123456": "10"
                     }
                 },
                 "address:user2": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-123456": "0"
                     }
                 }
@@ -61,7 +61,7 @@
                 "address:user1": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-123456": "10"
                     }
                 },
@@ -90,14 +90,14 @@
                 "address:user1": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-123456": "10"
                     }
                 },
                 "address:user2": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-123456": "0"
                     }
                 }
@@ -116,10 +116,10 @@
                 "sc:token_release_contract": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-123456": {
                             "roles": [
-                                "ESDTRoleLocalMint"
+                                "DCTRoleLocalMint"
                             ]
                         }
                     },

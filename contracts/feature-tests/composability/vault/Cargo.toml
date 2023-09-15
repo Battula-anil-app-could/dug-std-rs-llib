@@ -1,7 +1,7 @@
 [package]
 name = "vault"
 version = "0.0.0"
-authors = ["viswanath <contact@dharithri.org>"]
+authors = ["viswanath <contact@dharitri.org>"]
 edition = "2021"
 publish = false
 
@@ -9,11 +9,11 @@ publish = false
 path = "src/vault.rs"
 
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../../framework/base"
 features = ["promises"]
 
-[dev-dependencies.dharithri-sc-scenario]
+[dev-dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../../framework/scenario"

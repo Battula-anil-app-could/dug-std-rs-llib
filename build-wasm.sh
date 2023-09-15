@@ -2,7 +2,7 @@
 
 # builds all wasm targets
 
-cargo install dharithri-sc-meta
+cargo install dharitri-sc-meta
 
 TARGET_DIR=$PWD/target
 

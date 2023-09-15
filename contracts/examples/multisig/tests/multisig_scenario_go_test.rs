@@ -1,4 +1,4 @@
-use dharithri_sc_scenario::*;
+use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     ScenarioWorld::vm_go()
@@ -79,8 +79,8 @@ fn remove_everyone_go() {
 // TODO: investigate gas issue
 #[test]
 #[ignore]
-fn send_esdt_go() {
-    world().run("scenarios/sendEsdt.scen.json");
+fn send_dct_go() {
+    world().run("scenarios/sendDct.scen.json");
 }
 
 #[test]

@@ -15,16 +15,16 @@ pub trait CallValueApi: HandleTypeInfo {
 pub trait CallValueApiImpl: ErrorApiImpl + ManagedTypeApiImpl + Sized {
     fn check_not_payable(&self);
 
-    /// Retrieves the EGLD call value from the VM.
-    /// Will return 0 in case of an ESDT transfer (cannot have both EGLD and ESDT transfer simultaneously).
-    fn load_egld_value(&self, dest_handle: Self::BigIntHandle);
+    /// Retrieves the MOA call value from the VM.
+    /// Will return 0 in case of an DCT transfer (cannot have both MOA and DCT transfer simultaneously).
+    fn load_moa_value(&self, dest_handle: Self::BigIntHandle);
 
-    /// Loads all ESDT call values into a managed vec. Overwrites destination.
-    fn load_all_esdt_transfers(&self, dest_handle: Self::ManagedBufferHandle);
+    /// Loads all DCT call values into a managed vec. Overwrites destination.
+    fn load_all_dct_transfers(&self, dest_handle: Self::ManagedBufferHandle);
 
-    /// Gets the total number of ESDT transfers (Fungible/SFT/NFT).
+    /// Gets the total number of DCT transfers (Fungible/SFT/NFT).
     ///
-    /// It is redundant, since the number can also be retrieved from `load_all_esdt_transfers`,
+    /// It is redundant, since the number can also be retrieved from `load_all_dct_transfers`,
     /// but it is easier and cheaper to call when the content of those transfers is of no interest.
-    fn esdt_num_transfers(&self) -> usize;
+    fn dct_num_transfers(&self) -> usize;
 }

@@ -6,19 +6,19 @@ use crate::{
     },
 };
 
-use super::tx_interpret_util::interpret_egld_value;
+use super::tx_interpret_util::interpret_moa_value;
 
 #[derive(Debug, Clone)]
 pub struct TxValidatorReward {
     pub to: AddressValue,
-    pub egld_value: BigUintValue,
+    pub moa_value: BigUintValue,
 }
 
 impl InterpretableFrom<TxValidatorRewardRaw> for TxValidatorReward {
     fn interpret_from(from: TxValidatorRewardRaw, context: &InterpreterContext) -> Self {
         TxValidatorReward {
             to: AddressValue::interpret_from(from.to, context),
-            egld_value: interpret_egld_value(from.value, from.egld_value, context),
+            moa_value: interpret_moa_value(from.value, from.moa_value, context),
         }
     }
 }
@@ -28,7 +28,7 @@ impl IntoRaw<TxValidatorRewardRaw> for TxValidatorReward {
         TxValidatorRewardRaw {
             to: self.to.into_raw(),
             value: None,
-            egld_value: Some(self.egld_value.into_raw()),
+            moa_value: Some(self.moa_value.into_raw()),
         }
     }
 }

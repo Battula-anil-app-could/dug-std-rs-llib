@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait OnlyAdminDerivedTestModule {
     #[view]
     fn call_derived_not_admin_only(&self) {}

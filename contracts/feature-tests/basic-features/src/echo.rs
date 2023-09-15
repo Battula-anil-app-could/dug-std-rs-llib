@@ -1,10 +1,10 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use crate::types::*;
 use core::num::NonZeroUsize;
 
 /// Test endpoint argument and result serialization.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait EchoTypes {
     #[endpoint]
     fn echo_u64(&self, i: u64) -> u64 {

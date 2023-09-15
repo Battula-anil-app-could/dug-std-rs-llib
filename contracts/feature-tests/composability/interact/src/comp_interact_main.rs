@@ -12,9 +12,9 @@ use clap::Parser;
 
 use comp_interact_controller::ComposabilityInteract;
 
-use dharithri_sc_snippets::{
+use dharitri_sc_snippets::{
     env_logger,
-    dharithri_sc_scenario::{api::StaticApi, ContractInfo},
+    dharitri_sc_scenario::{api::StaticApi, ContractInfo},
     tokio,
 };
 

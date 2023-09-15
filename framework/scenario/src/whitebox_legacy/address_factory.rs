@@ -1,4 +1,4 @@
-use crate::dharithri_sc::types::heap::Address;
+use crate::dharitri_sc::types::heap::Address;
 use sha2::{Digest, Sha256};
 
 const ADDRESS_LEN: usize = 32;

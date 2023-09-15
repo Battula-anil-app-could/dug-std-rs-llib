@@ -1,18 +1,18 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use super::storage;
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ForwarderRolesModule: storage::ForwarderStorageModule {
     #[endpoint(setLocalRoles)]
     fn set_local_roles(
         &self,
         address: ManagedAddress,
         token_identifier: TokenIdentifier,
-        roles: MultiValueEncoded<EsdtLocalRole>,
+        roles: MultiValueEncoded<DctLocalRole>,
     ) {
         self.send()
-            .esdt_system_sc_proxy()
+            .dct_system_sc_proxy()
             .set_special_roles(&address, &token_identifier, roles.into_iter())
             .async_call()
             .with_callback(self.callbacks().change_roles_callback())
@@ -24,10 +24,10 @@ pub trait ForwarderRolesModule: storage::ForwarderStorageModule {
         &self,
         address: ManagedAddress,
         token_identifier: TokenIdentifier,
-        roles: MultiValueEncoded<EsdtLocalRole>,
+        roles: MultiValueEncoded<DctLocalRole>,
     ) {
         self.send()
-            .esdt_system_sc_proxy()
+            .dct_system_sc_proxy()
             .unset_special_roles(&address, &token_identifier, roles.into_iter())
             .async_call()
             .with_callback(self.callbacks().change_roles_callback())

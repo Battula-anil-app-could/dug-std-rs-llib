@@ -1,7 +1,7 @@
 use crate::Interactor;
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     api::StaticApi,
-    dharithri_sc::{
+    dharitri_sc::{
         codec::{CodecFrom, TopEncodeMulti},
         types::{Address, ContractCall},
     },

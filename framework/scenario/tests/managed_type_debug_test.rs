@@ -1,11 +1,11 @@
-use dharithri_sc::{
+use dharitri_sc::{
     hex_literal::hex,
     types::{
-        BigInt, BigUint, EgldOrEsdtTokenIdentifier, ManagedAddress, ManagedBuffer,
+        BigInt, BigUint, MoaOrDctTokenIdentifier, ManagedAddress, ManagedBuffer,
         ManagedByteArray, ManagedVec, TokenIdentifier,
     },
 };
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc_scenario::api::StaticApi;
 
 #[test]
 fn test_big_uint_format() {
@@ -27,7 +27,7 @@ fn test_big_int_format_2() {
 
 #[test]
 fn test_managed_buffer() {
-    let _ = dharithri_sc::hex_literal::hex!("abcd");
+    let _ = dharitri_sc::hex_literal::hex!("abcd");
     let s = format!("{:?}", ManagedBuffer::<StaticApi>::from(&[0x12, 0x34]));
     assert_eq!("ManagedBuffer { handle: -100, hex-value: \"1234\" }", s);
 }
@@ -72,15 +72,15 @@ fn test_managed_vec_format_biguint() {
 }
 
 #[test]
-fn test_managed_vec_format_egld_or_esdt() {
-    let mut mv = ManagedVec::<StaticApi, EgldOrEsdtTokenIdentifier<StaticApi>>::new();
-    mv.push(EgldOrEsdtTokenIdentifier::egld());
-    mv.push(EgldOrEsdtTokenIdentifier::esdt(TokenIdentifier::from(
+fn test_managed_vec_format_moa_or_dct() {
+    let mut mv = ManagedVec::<StaticApi, MoaOrDctTokenIdentifier<StaticApi>>::new();
+    mv.push(MoaOrDctTokenIdentifier::moa());
+    mv.push(MoaOrDctTokenIdentifier::dct(TokenIdentifier::from(
         "MYTOKEN-5678",
     )));
     let s = format!("{:?}", &mv);
     assert_eq!(
-        "[EgldOrEsdtTokenIdentifier::Egld, EgldOrEsdtTokenIdentifier::Esdt(\"MYTOKEN-5678\")]",
+        "[MoaOrDctTokenIdentifier::Moa, MoaOrDctTokenIdentifier::Dct(\"MYTOKEN-5678\")]",
         s
     );
 }

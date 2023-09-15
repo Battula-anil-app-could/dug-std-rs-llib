@@ -7,8 +7,8 @@
 
 extern crate alloc;
 
-#[cfg(feature = "dharithri-sc-codec-derive")]
-pub use dharithri_sc_codec_derive as derive;
+#[cfg(feature = "dharitri-sc-codec-derive")]
+pub use dharitri_sc_codec_derive as derive;
 
 /// Reexport needed by derive.
 pub use alloc::vec::Vec;

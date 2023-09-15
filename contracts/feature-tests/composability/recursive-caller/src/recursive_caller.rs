@@ -1,9 +1,9 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Test contract for investigating async calls.
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait RecursiveCaller {
     #[proxy]
     fn vault_proxy(&self) -> vault::Proxy<Self::Api>;
@@ -18,7 +18,7 @@ pub trait RecursiveCaller {
     fn recursive_send_funds(
         &self,
         to: &ManagedAddress,
-        token_identifier: &EgldOrEsdtTokenIdentifier,
+        token_identifier: &MoaOrDctTokenIdentifier,
         amount: &BigUint,
         counter: u32,
     ) {
@@ -27,7 +27,7 @@ pub trait RecursiveCaller {
         self.vault_proxy()
             .contract(to.clone())
             .accept_funds()
-            .with_egld_or_single_esdt_transfer((token_identifier.clone(), 0, amount.clone()))
+            .with_moa_or_single_dct_transfer((token_identifier.clone(), 0, amount.clone()))
             .async_call()
             .with_callback(self.callbacks().recursive_send_funds_callback(
                 to,
@@ -42,7 +42,7 @@ pub trait RecursiveCaller {
     fn recursive_send_funds_callback(
         &self,
         to: &ManagedAddress,
-        token_identifier: &EgldOrEsdtTokenIdentifier,
+        token_identifier: &MoaOrDctTokenIdentifier,
         amount: &BigUint,
         counter: u32,
     ) {
@@ -61,7 +61,7 @@ pub trait RecursiveCaller {
     fn recursive_send_funds_event(
         &self,
         #[indexed] to: &ManagedAddress,
-        #[indexed] token_identifier: &EgldOrEsdtTokenIdentifier,
+        #[indexed] token_identifier: &MoaOrDctTokenIdentifier,
         #[indexed] amount: &BigUint,
         counter: u32,
     );
@@ -70,7 +70,7 @@ pub trait RecursiveCaller {
     fn recursive_send_funds_callback_event(
         &self,
         #[indexed] to: &ManagedAddress,
-        #[indexed] token_identifier: &EgldOrEsdtTokenIdentifier,
+        #[indexed] token_identifier: &MoaOrDctTokenIdentifier,
         #[indexed] amount: &BigUint,
         counter: u32,
     );

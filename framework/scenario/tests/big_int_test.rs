@@ -1,5 +1,5 @@
-use dharithri_sc::types::BigInt;
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc::types::BigInt;
+use dharitri_sc_scenario::api::StaticApi;
 
 #[test]
 fn test_big_int_add() {

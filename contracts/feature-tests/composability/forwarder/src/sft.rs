@@ -1,17 +1,17 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use super::storage;
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ForwarderSftModule: storage::ForwarderStorageModule {
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint]
     fn sft_issue(&self, token_display_name: ManagedBuffer, token_ticker: ManagedBuffer) {
-        let issue_cost = self.call_value().egld_value();
+        let issue_cost = self.call_value().moa_value();
         let caller = self.blockchain().get_caller();
 
         self.send()
-            .esdt_system_sc_proxy()
+            .dct_system_sc_proxy()
             .issue_semi_fungible(
                 issue_cost.clone_value(),
                 &token_display_name,
@@ -45,9 +45,9 @@ pub trait ForwarderSftModule: storage::ForwarderStorageModule {
             ManagedAsyncCallResult::Err(message) => {
                 // return issue cost to the caller
                 let (token_identifier, returned_tokens) =
-                    self.call_value().egld_or_single_fungible_esdt();
-                if token_identifier.is_egld() && returned_tokens > 0 {
-                    self.send().direct_egld(caller, &returned_tokens);
+                    self.call_value().moa_or_single_fungible_dct();
+                if token_identifier.is_moa() && returned_tokens > 0 {
+                    self.send().direct_moa(caller, &returned_tokens);
                 }
 
                 self.last_error_message().set(&message.err_msg);

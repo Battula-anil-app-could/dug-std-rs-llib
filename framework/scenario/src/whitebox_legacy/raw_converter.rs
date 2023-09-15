@@ -1,18 +1,18 @@
 use std::collections::BTreeMap;
 
 use crate::{
-    dharithri_sc::types::heap::Address,
+    dharitri_sc::types::heap::Address,
     scenario_format::serde_raw::{
-        AccountRaw, CheckAccountRaw, CheckAccountsRaw, CheckBytesValueRaw, CheckEsdtDataRaw,
-        CheckEsdtInstanceRaw, CheckEsdtInstancesRaw, CheckEsdtMapContentsRaw, CheckEsdtMapRaw,
-        CheckEsdtRaw, CheckLogsRaw, CheckStorageDetailsRaw, CheckStorageRaw, CheckValueListRaw,
-        EsdtFullRaw, EsdtInstanceRaw, EsdtRaw, TxCallRaw, TxESDTRaw, TxExpectRaw, TxQueryRaw,
+        AccountRaw, CheckAccountRaw, CheckAccountsRaw, CheckBytesValueRaw, CheckDctDataRaw,
+        CheckDctInstanceRaw, CheckDctInstancesRaw, CheckDctMapContentsRaw, CheckDctMapRaw,
+        CheckDctRaw, CheckLogsRaw, CheckStorageDetailsRaw, CheckStorageRaw, CheckValueListRaw,
+        DctFullRaw, DctInstanceRaw, DctRaw, TxCallRaw, TxDCTRaw, TxExpectRaw, TxQueryRaw,
         ValueSubTree,
     },
 };
-use dharithri_chain_vm::{
+use dharitri_chain_vm::{
     types::VMAddress,
-    world_mock::{AccountData, EsdtData},
+    world_mock::{AccountData, DctData},
 };
 use num_traits::Zero;
 
@@ -21,19 +21,19 @@ use super::{ScCallMandos, ScQueryMandos, TxExpectMandos};
 pub(crate) const STAR_STR: &str = "*";
 
 pub(crate) fn account_as_raw(acc: &AccountData) -> AccountRaw {
-    let balance_raw = Some(rust_biguint_as_raw(&acc.egld_balance));
+    let balance_raw = Some(rust_biguint_as_raw(&acc.moa_balance));
     let developer_rewards_raw = Some(rust_biguint_as_raw(&acc.developer_rewards));
     let code_raw = acc
         .contract_path
         .clone()
         .map(|c| ValueSubTree::Str(String::from_utf8(c).unwrap()));
 
-    let mut all_esdt_raw = BTreeMap::new();
-    for (token_id, esdt_data) in acc.esdt.iter() {
+    let mut all_dct_raw = BTreeMap::new();
+    for (token_id, dct_data) in acc.dct.iter() {
         let token_id_raw = bytes_to_scenario_string_or_hex(token_id);
-        let esdt_raw = esdt_data_as_raw(esdt_data);
+        let dct_raw = dct_data_as_raw(dct_data);
 
-        let _ = all_esdt_raw.insert(token_id_raw, esdt_raw);
+        let _ = all_dct_raw.insert(token_id_raw, dct_raw);
     }
 
     let mut storage_raw = BTreeMap::new();
@@ -48,7 +48,7 @@ pub(crate) fn account_as_raw(acc: &AccountData) -> AccountRaw {
         balance: balance_raw,
         code: code_raw,
         comment: None,
-        esdt: all_esdt_raw,
+        dct: all_dct_raw,
         nonce: Some(u64_as_raw(acc.nonce)),
         owner: acc.contract_owner.as_ref().map(vm_address_as_raw),
         storage: storage_raw,
@@ -57,22 +57,22 @@ pub(crate) fn account_as_raw(acc: &AccountData) -> AccountRaw {
     }
 }
 
-pub(crate) fn esdt_data_as_raw(esdt: &EsdtData) -> EsdtRaw {
-    let last_nonce_raw = if esdt.last_nonce == 0 {
+pub(crate) fn dct_data_as_raw(dct: &DctData) -> DctRaw {
+    let last_nonce_raw = if dct.last_nonce == 0 {
         None
     } else {
-        Some(u64_as_raw(esdt.last_nonce))
+        Some(u64_as_raw(dct.last_nonce))
     };
 
-    let roles = esdt.get_roles();
+    let roles = dct.get_roles();
     let mut roles_raw = Vec::with_capacity(roles.len());
     for role in roles {
         roles_raw.push(String::from_utf8(role).unwrap());
     }
 
     let mut instances_raw = Vec::new();
-    for inst in esdt.instances.get_instances().values() {
-        let inst_raw = EsdtInstanceRaw {
+    for inst in dct.instances.get_instances().values() {
+        let inst_raw = DctInstanceRaw {
             attributes: Some(bytes_as_raw(&inst.metadata.attributes)),
             balance: Some(rust_biguint_as_raw(&inst.balance)),
             creator: inst.metadata.creator.as_ref().map(vm_address_as_raw),
@@ -85,7 +85,7 @@ pub(crate) fn esdt_data_as_raw(esdt: &EsdtData) -> EsdtRaw {
         instances_raw.push(inst_raw);
     }
 
-    EsdtRaw::Full(EsdtFullRaw {
+    DctRaw::Full(DctFullRaw {
         frozen: None,
         instances: instances_raw,
         last_nonce: last_nonce_raw,
@@ -95,17 +95,17 @@ pub(crate) fn esdt_data_as_raw(esdt: &EsdtData) -> EsdtRaw {
 }
 
 pub(crate) fn tx_call_as_raw(tx_call: &ScCallMandos) -> TxCallRaw {
-    let mut all_esdt_raw = Vec::with_capacity(tx_call.esdt.len());
-    for esdt in tx_call.esdt.iter() {
-        let esdt_raw = TxESDTRaw {
+    let mut all_dct_raw = Vec::with_capacity(tx_call.dct.len());
+    for dct in tx_call.dct.iter() {
+        let dct_raw = TxDCTRaw {
             token_identifier: Some(ValueSubTree::Str(bytes_to_scenario_string_or_hex(
-                &esdt.token_identifier,
+                &dct.token_identifier,
             ))),
-            nonce: Some(u64_as_raw(esdt.nonce)),
-            value: rust_biguint_as_raw(&esdt.value),
+            nonce: Some(u64_as_raw(dct.nonce)),
+            value: rust_biguint_as_raw(&dct.value),
         };
 
-        all_esdt_raw.push(esdt_raw);
+        all_dct_raw.push(dct_raw);
     }
 
     let mut arguments_raw = Vec::with_capacity(tx_call.arguments.len());
@@ -117,9 +117,9 @@ pub(crate) fn tx_call_as_raw(tx_call: &ScCallMandos) -> TxCallRaw {
     TxCallRaw {
         from: address_as_raw(&tx_call.from),
         to: address_as_raw(&tx_call.to),
-        value: None, // this is the old "value" field, which is now "egld_value". Only kept for backwards compatibility
-        egld_value: rust_biguint_as_opt_raw(&tx_call.egld_value),
-        esdt_value: all_esdt_raw,
+        value: None, // this is the old "value" field, which is now "moa_value". Only kept for backwards compatibility
+        moa_value: rust_biguint_as_opt_raw(&tx_call.moa_value),
+        dct_value: all_dct_raw,
         function: tx_call.function.clone(),
         arguments: arguments_raw,
         gas_limit: u64_as_raw(tx_call.gas_limit),
@@ -171,17 +171,17 @@ pub(crate) fn tx_expect_as_raw(tx_expect: &TxExpectMandos) -> TxExpectRaw {
 }
 
 pub(crate) fn account_as_check_state_raw(acc: &AccountData) -> CheckAccountsRaw {
-    let mut all_check_esdt_raw = BTreeMap::new();
-    for (token_id, esdt_data) in acc.esdt.iter() {
-        let esdt_data_raw = match esdt_data_as_raw(esdt_data) {
-            EsdtRaw::Short(_) => unreachable!(), // this can't happen, esdt_data_as_raw always returns the full format
-            EsdtRaw::Full(full_raw) => full_raw,
+    let mut all_check_dct_raw = BTreeMap::new();
+    for (token_id, dct_data) in acc.dct.iter() {
+        let dct_data_raw = match dct_data_as_raw(dct_data) {
+            DctRaw::Short(_) => unreachable!(), // this can't happen, dct_data_as_raw always returns the full format
+            DctRaw::Full(full_raw) => full_raw,
         };
-        let last_nonce_check = opt_raw_value_to_check_raw(&esdt_data_raw.last_nonce);
+        let last_nonce_check = opt_raw_value_to_check_raw(&dct_data_raw.last_nonce);
 
-        let mut esdt_instances_check_raw = Vec::new();
-        for inst_raw in esdt_data_raw.instances.iter() {
-            let inst_check_raw = CheckEsdtInstanceRaw {
+        let mut dct_instances_check_raw = Vec::new();
+        for inst_raw in dct_data_raw.instances.iter() {
+            let inst_check_raw = CheckDctInstanceRaw {
                 attributes: opt_raw_value_to_check_raw(&inst_raw.attributes),
                 balance: opt_raw_value_to_check_raw(&inst_raw.balance),
                 creator: opt_raw_value_to_check_raw(&inst_raw.creator),
@@ -200,24 +200,24 @@ pub(crate) fn account_as_check_state_raw(acc: &AccountData) -> CheckAccountsRaw 
                 ),
             };
 
-            esdt_instances_check_raw.push(inst_check_raw);
+            dct_instances_check_raw.push(inst_check_raw);
         }
 
         let mut roles_as_str = Vec::new();
-        for role in esdt_data.roles.get() {
+        for role in dct_data.roles.get() {
             let role_str = String::from_utf8(role).unwrap();
             roles_as_str.push(role_str);
         }
 
-        let esdt_check_raw = CheckEsdtDataRaw {
+        let dct_check_raw = CheckDctDataRaw {
             frozen: CheckBytesValueRaw::Unspecified,
             last_nonce: last_nonce_check,
-            instances: CheckEsdtInstancesRaw::Equal(esdt_instances_check_raw),
+            instances: CheckDctInstancesRaw::Equal(dct_instances_check_raw),
             roles: roles_as_str,
         };
 
         let token_id_str = bytes_to_scenario_string_or_hex(token_id);
-        all_check_esdt_raw.insert(token_id_str, CheckEsdtRaw::Full(esdt_check_raw));
+        all_check_dct_raw.insert(token_id_str, CheckDctRaw::Full(dct_check_raw));
     }
 
     let mut raw_storage = BTreeMap::new();
@@ -234,10 +234,10 @@ pub(crate) fn account_as_check_state_raw(acc: &AccountData) -> CheckAccountsRaw 
     };
     let check_acc_raw = CheckAccountRaw {
         nonce: CheckBytesValueRaw::Star,
-        balance: CheckBytesValueRaw::Equal(rust_biguint_as_raw(&acc.egld_balance)),
-        esdt: CheckEsdtMapRaw::Equal(CheckEsdtMapContentsRaw {
-            other_esdts_allowed: false,
-            contents: all_check_esdt_raw,
+        balance: CheckBytesValueRaw::Equal(rust_biguint_as_raw(&acc.moa_balance)),
+        dct: CheckDctMapRaw::Equal(CheckDctMapContentsRaw {
+            other_dcts_allowed: false,
+            contents: all_check_dct_raw,
         }),
         owner: CheckBytesValueRaw::Star, // TODO: Add owner check?
         developer_rewards: CheckBytesValueRaw::Equal(rust_biguint_as_raw(&acc.developer_rewards)),

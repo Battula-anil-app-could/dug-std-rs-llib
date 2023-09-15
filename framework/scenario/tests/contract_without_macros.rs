@@ -8,21 +8,21 @@
 
 #![allow(unused)]
 
-use dharithri_sc::{
+use dharitri_sc::{
     contract_base::ProxyObjBase,
     types::{BigInt, ManagedAddress},
 };
-use dharithri_sc_scenario::api::{SingleTxApi, StaticApi};
+use dharitri_sc_scenario::api::{SingleTxApi, StaticApi};
 
 use crate::module_1::VersionModule;
 
 mod module_1 {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //////// CONTRACT TRAIT /////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    pub trait VersionModule: dharithri_sc::contract_base::ContractBase + Sized {
+    pub trait VersionModule: dharitri_sc::contract_base::ContractBase + Sized {
         fn version(&self) -> BigInt<Self::Api>;
 
         fn some_async(&self);
@@ -33,7 +33,7 @@ mod module_1 {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //////// AUTO-IMPLEMENTED METHODS ///////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    pub trait AutoImpl: dharithri_sc::contract_base::ContractBase {}
+    pub trait AutoImpl: dharitri_sc::contract_base::ContractBase {}
 
     impl<C> VersionModule for C
     where
@@ -50,22 +50,22 @@ mod module_1 {
         fn callback(&self) {}
     }
 
-    impl<A> AutoImpl for dharithri_sc::contract_base::UniversalContractObj<A> where
-        A: dharithri_sc::api::VMApi
+    impl<A> AutoImpl for dharitri_sc::contract_base::UniversalContractObj<A> where
+        A: dharitri_sc::api::VMApi
     {
     }
 
-    pub trait EndpointWrappers: VersionModule + dharithri_sc::contract_base::ContractBase {
+    pub trait EndpointWrappers: VersionModule + dharitri_sc::contract_base::ContractBase {
         #[inline]
         fn call_version(&self) {
-            dharithri_sc::io::call_value_init::not_payable::<Self::Api>();
+            dharitri_sc::io::call_value_init::not_payable::<Self::Api>();
             let result = self.version();
-            dharithri_sc::io::finish_multi::<Self::Api, _>(&result)
+            dharitri_sc::io::finish_multi::<Self::Api, _>(&result)
         }
 
         fn call_some_async(&self) {
             self.some_async();
-            dharithri_sc::io::finish_multi::<Self::Api, _>(&())
+            dharitri_sc::io::finish_multi::<Self::Api, _>(&())
         }
 
         fn call(&self, fn_name: &str) -> bool {
@@ -86,39 +86,39 @@ mod module_1 {
         }
     }
 
-    impl<A> EndpointWrappers for dharithri_sc::contract_base::UniversalContractObj<A> where
-        A: dharithri_sc::api::VMApi
+    impl<A> EndpointWrappers for dharitri_sc::contract_base::UniversalContractObj<A> where
+        A: dharitri_sc::api::VMApi
     {
     }
 
     pub struct AbiProvider {}
 
-    impl dharithri_sc::contract_base::ContractAbiProvider for AbiProvider {
-        type Api = dharithri_sc::api::uncallable::UncallableApi;
+    impl dharitri_sc::contract_base::ContractAbiProvider for AbiProvider {
+        type Api = dharitri_sc::api::uncallable::UncallableApi;
 
-        fn abi() -> dharithri_sc::abi::ContractAbi {
-            dharithri_sc::abi::ContractAbi::default()
+        fn abi() -> dharitri_sc::abi::ContractAbi {
+            dharitri_sc::abi::ContractAbi::default()
         }
     }
 
-    pub trait ProxyTrait: dharithri_sc::contract_base::ProxyObjBase + Sized {
+    pub trait ProxyTrait: dharitri_sc::contract_base::ProxyObjBase + Sized {
         fn version(
             &mut self,
-        ) -> dharithri_sc::types::ContractCallNoPayment<Self::Api, BigInt<Self::Api>> {
+        ) -> dharitri_sc::types::ContractCallNoPayment<Self::Api, BigInt<Self::Api>> {
             let ___address___ = self.extract_address();
-            dharithri_sc::types::ContractCallNoPayment::new(___address___, "version")
+            dharitri_sc::types::ContractCallNoPayment::new(___address___, "version")
         }
     }
 }
 
 mod sample_adder {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //////// CONTRACT TRAIT /////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
     pub trait Adder:
-        super::module_1::VersionModule + dharithri_sc::contract_base::ContractBase + Sized
+        super::module_1::VersionModule + dharitri_sc::contract_base::ContractBase + Sized
     {
         fn init(&self, initial_value: &BigInt<Self::Api>) {
             self.set_sum(initial_value);
@@ -141,7 +141,7 @@ mod sample_adder {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //////// AUTO-IMPLEMENTED METHODS ///////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    pub trait AutoImpl: dharithri_sc::contract_base::ContractBase {}
+    pub trait AutoImpl: dharitri_sc::contract_base::ContractBase {}
 
     // impl<C> super::module_1::AutoImpl for C where C: AutoImpl {}
 
@@ -150,55 +150,55 @@ mod sample_adder {
         C: AutoImpl + super::module_1::AutoImpl,
     {
         fn get_sum(&self) -> BigInt<Self::Api> {
-            let mut ___key___ = dharithri_sc::storage::StorageKey::<Self::Api>::new(&b"sum"[..]);
-            dharithri_sc::storage_get(dharithri_sc::types::ManagedRef::new(&___key___))
+            let mut ___key___ = dharitri_sc::storage::StorageKey::<Self::Api>::new(&b"sum"[..]);
+            dharitri_sc::storage_get(dharitri_sc::types::ManagedRef::new(&___key___))
         }
         fn set_sum(&self, sum: &BigInt<Self::Api>) {
-            let mut ___key___ = dharithri_sc::storage::StorageKey::<Self::Api>::new(&b"sum"[..]);
-            dharithri_sc::storage_set(dharithri_sc::types::ManagedRef::new(&___key___), &sum);
+            let mut ___key___ = dharitri_sc::storage::StorageKey::<Self::Api>::new(&b"sum"[..]);
+            dharitri_sc::storage_set(dharitri_sc::types::ManagedRef::new(&___key___), &sum);
         }
         fn callback(&self) {}
         fn callbacks(&self) -> self::CallbackProxyObj<Self::Api> {
-            <self::CallbackProxyObj::<Self::Api> as dharithri_sc::contract_base::CallbackProxyObjBase>::new_cb_proxy_obj()
+            <self::CallbackProxyObj::<Self::Api> as dharitri_sc::contract_base::CallbackProxyObjBase>::new_cb_proxy_obj()
         }
     }
 
-    impl<A> AutoImpl for dharithri_sc::contract_base::UniversalContractObj<A> where
-        A: dharithri_sc::api::VMApi
+    impl<A> AutoImpl for dharitri_sc::contract_base::UniversalContractObj<A> where
+        A: dharitri_sc::api::VMApi
     {
     }
 
     pub trait EndpointWrappers:
-        Adder + dharithri_sc::contract_base::ContractBase + super::module_1::EndpointWrappers
+        Adder + dharitri_sc::contract_base::ContractBase + super::module_1::EndpointWrappers
     {
         #[inline]
         fn call_get_sum(&self) {
-            <Self::Api as dharithri_sc::api::VMApi>::init_static();
-            dharithri_sc::io::call_value_init::not_payable::<Self::Api>();
-            let () = dharithri_sc::io::load_endpoint_args::<Self::Api, ()>(());
+            <Self::Api as dharitri_sc::api::VMApi>::init_static();
+            dharitri_sc::io::call_value_init::not_payable::<Self::Api>();
+            let () = dharitri_sc::io::load_endpoint_args::<Self::Api, ()>(());
             let result = self.get_sum();
-            dharithri_sc::io::finish_multi::<Self::Api, _>(&result);
+            dharitri_sc::io::finish_multi::<Self::Api, _>(&result);
         }
         #[inline]
         fn call_init(&self) {
-            <Self::Api as dharithri_sc::api::VMApi>::init_static();
-            dharithri_sc::io::call_value_init::not_payable::<Self::Api>();
-            let (initial_value, ()) = dharithri_sc::io::load_endpoint_args::<
+            <Self::Api as dharitri_sc::api::VMApi>::init_static();
+            dharitri_sc::io::call_value_init::not_payable::<Self::Api>();
+            let (initial_value, ()) = dharitri_sc::io::load_endpoint_args::<
                 Self::Api,
-                (dharithri_sc::types::BigInt<Self::Api>, ()),
+                (dharitri_sc::types::BigInt<Self::Api>, ()),
             >(("initial_value", ()));
             self.init(&initial_value);
         }
         #[inline]
         fn call_add(&self) {
-            <Self::Api as dharithri_sc::api::VMApi>::init_static();
-            dharithri_sc::io::call_value_init::not_payable::<Self::Api>();
-            let (value, ()) = dharithri_sc::io::load_endpoint_args::<
+            <Self::Api as dharitri_sc::api::VMApi>::init_static();
+            dharitri_sc::io::call_value_init::not_payable::<Self::Api>();
+            let (value, ()) = dharitri_sc::io::load_endpoint_args::<
                 Self::Api,
-                (dharithri_sc::types::BigInt<Self::Api>, ()),
+                (dharitri_sc::types::BigInt<Self::Api>, ()),
             >(("value", ()));
             let result = self.add(value);
-            dharithri_sc::io::finish_multi::<Self::Api, _>(&result);
+            dharitri_sc::io::finish_multi::<Self::Api, _>(&result);
         }
 
         fn call(&self, fn_name: &str) -> bool {
@@ -230,28 +230,28 @@ mod sample_adder {
         }
     }
 
-    impl<A> EndpointWrappers for dharithri_sc::contract_base::UniversalContractObj<A> where
-        A: dharithri_sc::api::VMApi
+    impl<A> EndpointWrappers for dharitri_sc::contract_base::UniversalContractObj<A> where
+        A: dharitri_sc::api::VMApi
     {
     }
 
     pub trait ProxyTrait:
-        dharithri_sc::contract_base::ProxyObjBase + super::module_1::ProxyTrait
+        dharitri_sc::contract_base::ProxyObjBase + super::module_1::ProxyTrait
     {
         fn get_sum(
             &mut self,
-        ) -> dharithri_sc::types::ContractCallNoPayment<Self::Api, BigInt<Self::Api>> {
+        ) -> dharitri_sc::types::ContractCallNoPayment<Self::Api, BigInt<Self::Api>> {
             let ___address___ = self.extract_address();
-            dharithri_sc::types::ContractCallNoPayment::new(___address___, "get_sum")
+            dharitri_sc::types::ContractCallNoPayment::new(___address___, "get_sum")
         }
         fn add(
             &mut self,
             amount: &BigInt<Self::Api>,
-        ) -> dharithri_sc::types::ContractCallNoPayment<Self::Api, ()> {
+        ) -> dharitri_sc::types::ContractCallNoPayment<Self::Api, ()> {
             let ___address___ = self.extract_address();
             let mut ___contract_call___ =
-                dharithri_sc::types::ContractCallNoPayment::new(___address___, "add");
-            dharithri_sc::types::ContractCall::proxy_arg(&mut ___contract_call___, amount);
+                dharitri_sc::types::ContractCallNoPayment::new(___address___, "add");
+            dharitri_sc::types::ContractCall::proxy_arg(&mut ___contract_call___, amount);
             ___contract_call___
         }
     }
@@ -261,7 +261,7 @@ mod sample_adder {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     pub struct ContractObj<A>
     where
-        A: dharithri_sc::api::VMApi,
+        A: dharitri_sc::api::VMApi,
     {
         _phantom: core::marker::PhantomData<A>,
     }
@@ -269,28 +269,28 @@ mod sample_adder {
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //////// CONTRACT OBJECT as CONTRACT BASE ///////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    impl<A> dharithri_sc::contract_base::ContractBase for ContractObj<A>
+    impl<A> dharitri_sc::contract_base::ContractBase for ContractObj<A>
     where
-        A: dharithri_sc::api::VMApi,
+        A: dharitri_sc::api::VMApi,
     {
         type Api = A;
     }
 
-    impl<A> super::module_1::AutoImpl for ContractObj<A> where A: dharithri_sc::api::VMApi {}
+    impl<A> super::module_1::AutoImpl for ContractObj<A> where A: dharitri_sc::api::VMApi {}
 
-    impl<A> AutoImpl for ContractObj<A> where A: dharithri_sc::api::VMApi {}
+    impl<A> AutoImpl for ContractObj<A> where A: dharitri_sc::api::VMApi {}
 
-    impl<A> super::module_1::EndpointWrappers for ContractObj<A> where A: dharithri_sc::api::VMApi {}
+    impl<A> super::module_1::EndpointWrappers for ContractObj<A> where A: dharitri_sc::api::VMApi {}
 
-    impl<A> EndpointWrappers for ContractObj<A> where A: dharithri_sc::api::VMApi {}
+    impl<A> EndpointWrappers for ContractObj<A> where A: dharitri_sc::api::VMApi {}
 
-    impl<A> dharithri_sc::contract_base::CallableContract for ContractObj<A>
+    impl<A> dharitri_sc::contract_base::CallableContract for ContractObj<A>
     where
-        A: dharithri_sc::api::VMApi,
+        A: dharitri_sc::api::VMApi,
     {
         fn call(&self, fn_name: &str) -> bool {
             EndpointWrappers::call(
-                &dharithri_sc::contract_base::UniversalContractObj::<A>::new(),
+                &dharitri_sc::contract_base::UniversalContractObj::<A>::new(),
                 fn_name,
             )
         }
@@ -298,12 +298,12 @@ mod sample_adder {
 
     pub struct ContractBuilder;
 
-    impl dharithri_sc::contract_base::CallableContractBuilder for ContractBuilder {
-        fn new_contract_obj<A: dharithri_sc::api::VMApi>(
+    impl dharitri_sc::contract_base::CallableContractBuilder for ContractBuilder {
+        fn new_contract_obj<A: dharitri_sc::api::VMApi>(
             &self,
-        ) -> dharithri_sc::types::heap::Box<dyn dharithri_sc::contract_base::CallableContract>
+        ) -> dharitri_sc::types::heap::Box<dyn dharitri_sc::contract_base::CallableContract>
         {
-            dharithri_sc::types::heap::Box::new(ContractObj::<A> {
+            dharitri_sc::types::heap::Box::new(ContractObj::<A> {
                 _phantom: core::marker::PhantomData,
             })
         }
@@ -311,17 +311,17 @@ mod sample_adder {
 
     pub struct AbiProvider {}
 
-    impl dharithri_sc::contract_base::ContractAbiProvider for AbiProvider {
-        type Api = dharithri_sc::api::uncallable::UncallableApi;
+    impl dharitri_sc::contract_base::ContractAbiProvider for AbiProvider {
+        type Api = dharitri_sc::api::uncallable::UncallableApi;
 
-        fn abi() -> dharithri_sc::abi::ContractAbi {
-            dharithri_sc::abi::ContractAbi::default()
+        fn abi() -> dharitri_sc::abi::ContractAbi {
+            dharitri_sc::abi::ContractAbi::default()
         }
     }
 
     pub fn contract_obj<A>() -> ContractObj<A>
     where
-        A: dharithri_sc::api::VMApi,
+        A: dharitri_sc::api::VMApi,
     {
         ContractObj {
             _phantom: core::marker::PhantomData,
@@ -330,64 +330,64 @@ mod sample_adder {
 
     pub struct Proxy<A>
     where
-        A: dharithri_sc::api::VMApi + 'static,
+        A: dharitri_sc::api::VMApi + 'static,
     {
         pub address:
-            dharithri_sc::types::ManagedOption<A, dharithri_sc::types::ManagedAddress<A>>,
+            dharitri_sc::types::ManagedOption<A, dharitri_sc::types::ManagedAddress<A>>,
     }
 
-    impl<A> dharithri_sc::contract_base::ProxyObjBase for Proxy<A>
+    impl<A> dharitri_sc::contract_base::ProxyObjBase for Proxy<A>
     where
-        A: dharithri_sc::api::VMApi + 'static,
+        A: dharitri_sc::api::VMApi + 'static,
     {
         type Api = A;
 
         fn new_proxy_obj() -> Self {
             Proxy {
-                address: dharithri_sc::types::ManagedOption::none(),
+                address: dharitri_sc::types::ManagedOption::none(),
             }
         }
 
-        fn contract(mut self, address: dharithri_sc::types::ManagedAddress<Self::Api>) -> Self {
-            self.address = dharithri_sc::types::ManagedOption::some(address);
+        fn contract(mut self, address: dharitri_sc::types::ManagedAddress<Self::Api>) -> Self {
+            self.address = dharitri_sc::types::ManagedOption::some(address);
             self
         }
 
         fn extract_opt_address(
             &mut self,
-        ) -> dharithri_sc::types::ManagedOption<
+        ) -> dharitri_sc::types::ManagedOption<
             Self::Api,
-            dharithri_sc::types::ManagedAddress<Self::Api>,
+            dharitri_sc::types::ManagedAddress<Self::Api>,
         > {
             core::mem::replace(
                 &mut self.address,
-                dharithri_sc::types::ManagedOption::none(),
+                dharitri_sc::types::ManagedOption::none(),
             )
         }
 
-        fn extract_address(&mut self) -> dharithri_sc::types::ManagedAddress<Self::Api> {
+        fn extract_address(&mut self) -> dharitri_sc::types::ManagedAddress<Self::Api> {
             let address = core::mem::replace(
                 &mut self.address,
-                dharithri_sc::types::ManagedOption::none(),
+                dharitri_sc::types::ManagedOption::none(),
             );
-            address.unwrap_or_sc_panic(dharithri_sc::err_msg::RECIPIENT_ADDRESS_NOT_SET)
+            address.unwrap_or_sc_panic(dharitri_sc::err_msg::RECIPIENT_ADDRESS_NOT_SET)
         }
     }
 
-    impl<A> super::module_1::ProxyTrait for Proxy<A> where A: dharithri_sc::api::VMApi {}
+    impl<A> super::module_1::ProxyTrait for Proxy<A> where A: dharitri_sc::api::VMApi {}
 
-    impl<A> ProxyTrait for Proxy<A> where A: dharithri_sc::api::VMApi {}
+    impl<A> ProxyTrait for Proxy<A> where A: dharitri_sc::api::VMApi {}
 
     pub struct CallbackProxyObj<A>
     where
-        A: dharithri_sc::api::VMApi + 'static,
+        A: dharitri_sc::api::VMApi + 'static,
     {
         _phantom: core::marker::PhantomData<A>,
     }
 
-    impl<A> dharithri_sc::contract_base::CallbackProxyObjBase for CallbackProxyObj<A>
+    impl<A> dharitri_sc::contract_base::CallbackProxyObjBase for CallbackProxyObj<A>
     where
-        A: dharithri_sc::api::VMApi + 'static,
+        A: dharitri_sc::api::VMApi + 'static,
     {
         type Api = A;
 
@@ -398,15 +398,15 @@ mod sample_adder {
         }
     }
 
-    pub trait CallbackProxy: dharithri_sc::contract_base::CallbackProxyObjBase + Sized {
-        fn my_callback(self, caller: &Address) -> dharithri_sc::types::CallbackClosure<Self::Api> {
+    pub trait CallbackProxy: dharitri_sc::contract_base::CallbackProxyObjBase + Sized {
+        fn my_callback(self, caller: &Address) -> dharitri_sc::types::CallbackClosure<Self::Api> {
             let mut ___callback_call___ =
-                dharithri_sc::types::new_callback_call::<Self::Api>("my_callback");
+                dharitri_sc::types::new_callback_call::<Self::Api>("my_callback");
             ___callback_call___.push_endpoint_arg(caller);
             ___callback_call___
         }
     }
-    impl<A> self::CallbackProxy for CallbackProxyObj<A> where A: dharithri_sc::api::VMApi + 'static {}
+    impl<A> self::CallbackProxy for CallbackProxyObj<A> where A: dharitri_sc::api::VMApi + 'static {}
 }
 
 #[test]
@@ -437,11 +437,11 @@ fn contract_without_macros_basic() {
         sample_adder::Proxy::<StaticApi>::new_proxy_obj().contract(ManagedAddress::zero());
     let _ = own_proxy.get_sum();
 
-    let _ = dharithri_sc_meta::abi_json::contract_abi::<sample_adder::AbiProvider>();
+    let _ = dharitri_sc_meta::abi_json::contract_abi::<sample_adder::AbiProvider>();
 }
 
-fn world() -> dharithri_sc_scenario::ScenarioWorld {
-    let mut blockchain = dharithri_sc_scenario::ScenarioWorld::new();
+fn world() -> dharitri_sc_scenario::ScenarioWorld {
+    let mut blockchain = dharitri_sc_scenario::ScenarioWorld::new();
     blockchain.register_contract(
         "file:../../contracts/examples/adder/output/adder.wasm",
         sample_adder::ContractBuilder,

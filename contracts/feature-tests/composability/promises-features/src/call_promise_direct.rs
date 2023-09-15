@@ -1,7 +1,7 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Test contract for investigating the new async call framework.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait CallPromisesDirectModule {
     #[proxy]
     fn vault_proxy(&self) -> vault::Proxy<Self::Api>;
@@ -16,10 +16,10 @@ pub trait CallPromisesDirectModule {
         extra_gas_for_callback: u64,
         args: MultiValueEncoded<ManagedBuffer>,
     ) {
-        let payment = self.call_value().egld_or_single_esdt();
+        let payment = self.call_value().moa_or_single_dct();
         self.send()
             .contract_call::<()>(to, endpoint_name)
-            .with_egld_or_single_esdt_transfer(payment)
+            .with_moa_or_single_dct_transfer(payment)
             .with_raw_arguments(args.to_arg_buffer())
             .with_gas_limit(gas_limit)
             .async_call_promise()
@@ -34,11 +34,11 @@ pub trait CallPromisesDirectModule {
         to: ManagedAddress,
         endpoint_name: ManagedBuffer,
         extra_gas_for_callback: u64,
-        token_payment_args: MultiValueEncoded<EsdtTokenPaymentMultiValue>,
+        token_payment_args: MultiValueEncoded<DctTokenPaymentMultiValue>,
     ) {
         let mut token_payments_vec = ManagedVec::new();
         for token_payment_arg in token_payment_args {
-            token_payments_vec.push(token_payment_arg.into_esdt_token_payment());
+            token_payments_vec.push(token_payment_arg.into_dct_token_payment());
         }
 
         let gas_limit = (self.blockchain().get_gas_left() - extra_gas_for_callback) * 9 / 10;

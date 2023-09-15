@@ -1,4 +1,4 @@
-use dharithri_sc::api::{EndpointArgumentApi, EndpointArgumentApiImpl, HandleConstraints};
+use dharitri_sc::api::{EndpointArgumentApi, EndpointArgumentApiImpl, HandleConstraints};
 
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 

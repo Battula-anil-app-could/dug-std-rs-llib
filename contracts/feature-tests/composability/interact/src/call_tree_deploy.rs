@@ -1,12 +1,12 @@
 use crate::{call_tree::CallState, comp_interact_controller::ComposabilityInteract};
 
 use forwarder_queue::ProxyTrait as _;
-use dharithri_sc_snippets::{
-    dharithri_sc::{
+use dharitri_sc_snippets::{
+    dharitri_sc::{
         codec::multi_types::OptionalValue,
         types::{BoxedBytes, ManagedBuffer},
     },
-    dharithri_sc_scenario::{
+    dharitri_sc_scenario::{
         api::StaticApi,
         bech32,
         scenario_model::{ScDeployStep, TypedScDeploy},

@@ -1,9 +1,9 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 use crate::{storage, zombie::Zombie};
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ZombieFactory: storage::Storage {
     fn create_zombie(&self, owner: ManagedAddress, name: ManagedBuffer, dna: u64) {
         self.zombies_count().update(|id| {

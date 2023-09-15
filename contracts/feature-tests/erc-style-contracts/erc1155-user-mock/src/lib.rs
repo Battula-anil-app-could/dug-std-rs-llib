@@ -1,8 +1,8 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait Erc1155UserMock {
     #[init]
     fn init(&self) {}

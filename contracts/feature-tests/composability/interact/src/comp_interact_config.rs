@@ -1,7 +1,7 @@
 use forwarder_queue::QueuedCallType;
-use dharithri_sc_snippets::{
-    dharithri_sc::types::{EgldOrEsdtTokenIdentifier, TokenIdentifier},
-    dharithri_sc_scenario::{api::StaticApi, num_bigint::BigUint},
+use dharitri_sc_snippets::{
+    dharitri_sc::types::{MoaOrDctTokenIdentifier, TokenIdentifier},
+    dharitri_sc_scenario::{api::StaticApi, num_bigint::BigUint},
 };
 use serde::Deserialize;
 use std::{fmt::Debug, io::Read, str::FromStr};
@@ -42,10 +42,10 @@ impl Config {
         }
     }
 
-    pub fn token_id(&self) -> EgldOrEsdtTokenIdentifier<StaticApi> {
+    pub fn token_id(&self) -> MoaOrDctTokenIdentifier<StaticApi> {
         match self.token_id.as_str() {
-            "EGLD" => EgldOrEsdtTokenIdentifier::egld(),
-            _ => EgldOrEsdtTokenIdentifier::esdt(TokenIdentifier::from(self.token_id.as_str())),
+            "MOA" => MoaOrDctTokenIdentifier::moa(),
+            _ => MoaOrDctTokenIdentifier::dct(TokenIdentifier::from(self.token_id.as_str())),
         }
     }
 

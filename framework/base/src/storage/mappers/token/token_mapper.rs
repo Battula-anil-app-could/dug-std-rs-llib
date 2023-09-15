@@ -1,11 +1,11 @@
 use crate::{
     api::{CallTypeApi, ErrorApiImpl, StorageMapperApi},
     contract_base::BlockchainWrapper,
-    esdt::ESDTSystemSmartContractProxy,
+    dct::DCTSystemSmartContractProxy,
     storage::StorageKey,
     storage_get, storage_get_len, storage_set,
     types::{
-        CallbackClosure, ContractCall, EsdtLocalRole, EsdtTokenPayment, ManagedAddress, ManagedRef,
+        CallbackClosure, ContractCall, DctLocalRole, DctTokenPayment, ManagedAddress, ManagedRef,
         ManagedVec, TokenIdentifier,
     },
 };
@@ -55,7 +55,7 @@ where
         }
     }
 
-    fn require_all_same_token(&self, payments: &ManagedVec<SA, EsdtTokenPayment<SA>>) {
+    fn require_all_same_token(&self, payments: &ManagedVec<SA, DctTokenPayment<SA>>) {
         let actual_token_id = self.get_token_id_ref();
         for p in payments {
             if actual_token_id != &p.token_identifier {
@@ -66,7 +66,7 @@ where
 
     fn set_local_roles(
         &self,
-        roles: &[EsdtLocalRole],
+        roles: &[DctLocalRole],
         opt_callback: Option<CallbackClosure<SA>>,
     ) -> ! {
         let own_sc_address = Self::get_sc_address();
@@ -76,12 +76,12 @@ where
     fn set_local_roles_for_address(
         &self,
         address: &ManagedAddress<SA>,
-        roles: &[EsdtLocalRole],
+        roles: &[DctLocalRole],
         opt_callback: Option<CallbackClosure<SA>>,
     ) -> ! {
         self.require_issued_or_set();
 
-        let system_sc_proxy = ESDTSystemSmartContractProxy::<SA>::new_proxy_obj();
+        let system_sc_proxy = DCTSystemSmartContractProxy::<SA>::new_proxy_obj();
         let token_id = self.get_token_id_ref();
         let mut async_call = system_sc_proxy
             .set_special_roles(address, token_id, roles[..].iter().cloned())
@@ -110,7 +110,7 @@ pub(crate) fn store_token_id<
     if mapper.get_token_state().is_set() {
         SA::error_api_impl().signal_error(TOKEN_ID_ALREADY_SET_ERR_MSG);
     }
-    if !token_id.is_valid_esdt_identifier() {
+    if !token_id.is_valid_dct_identifier() {
         SA::error_api_impl().signal_error(INVALID_TOKEN_ID_ERR_MSG);
     }
     storage_set(

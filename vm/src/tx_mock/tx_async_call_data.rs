@@ -22,8 +22,8 @@ pub fn async_call_tx_input(async_call: &AsyncCallTxData) -> TxInput {
     TxInput {
         from: async_call.from.clone(),
         to: async_call.to.clone(),
-        egld_value: async_call.call_value.clone(),
-        esdt_values: Vec::new(),
+        moa_value: async_call.call_value.clone(),
+        dct_values: Vec::new(),
         func_name: async_call.endpoint_name.clone(),
         args: async_call.arguments.clone(),
         gas_limit: 1000,
@@ -57,8 +57,8 @@ pub fn async_callback_tx_input(
     TxInput {
         from: async_data.to.clone(),
         to: async_data.from.clone(),
-        egld_value: 0u32.into(),
-        esdt_values: Vec::new(),
+        moa_value: 0u32.into(),
+        dct_values: Vec::new(),
         func_name: TxFunctionName::CALLBACK,
         args,
         gas_limit: 1000,
@@ -80,9 +80,9 @@ fn extract_callback_payments(
         let token_transfers = builtin_functions.extract_token_transfers(&tx_input);
         if &token_transfers.real_recipient == callback_contract_address {
             if !token_transfers.is_empty() {
-                callback_payments.esdt_values = token_transfers.transfers;
+                callback_payments.dct_values = token_transfers.transfers;
             } else {
-                callback_payments.egld_value = async_call.call_value.clone();
+                callback_payments.moa_value = async_call.call_value.clone();
             }
             break;
         }
@@ -109,8 +109,8 @@ pub fn async_promise_tx_input(
     TxInput {
         from: promise.call.from.clone(),
         to: address.clone(),
-        egld_value: 0u32.into(),
-        esdt_values: Vec::new(),
+        moa_value: 0u32.into(),
+        dct_values: Vec::new(),
         func_name: callback_name,
         args,
         gas_limit: 1000,

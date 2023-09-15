@@ -1,5 +1,5 @@
-use dharithri_chain_vm::tx_mock::{TxFunctionName, TxResult};
-use dharithri_sc::contract_base::{CallableContract, ContractBase};
+use dharitri_chain_vm::tx_mock::{TxFunctionName, TxResult};
+use dharitri_sc::contract_base::{CallableContract, ContractBase};
 
 use crate::{
     debug_executor::contract_instance_wrapped_execution,

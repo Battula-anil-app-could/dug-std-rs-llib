@@ -1,13 +1,13 @@
 use crate::{
-    types::{EsdtLocalRole, EsdtLocalRoleFlags, RawHandle, VMAddress},
+    types::{DctLocalRole, DctLocalRoleFlags, RawHandle, VMAddress},
     vm_hooks::VMHooksHandlerSource,
-    world_mock::{EsdtData, EsdtInstance},
+    world_mock::{DctData, DctInstance},
 };
 use num_bigint::BigInt;
 use num_traits::Zero;
 
 // The Go VM doesn't do it, but if we change that, we can enable it easily here too via this constant.
-const ESDT_TOKEN_DATA_FUNC_RESETS_VALUES: bool = false;
+const DCT_TOKEN_DATA_FUNC_RESETS_VALUES: bool = false;
 
 pub trait VMHooksBlockchain: VMHooksHandlerSource {
     fn is_contract_address(&self, address_bytes: &[u8]) -> bool {
@@ -49,7 +49,7 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
             "get balance not yet implemented for accounts other than the contract itself"
         );
         self.m_types_lock()
-            .bi_overwrite(dest, self.current_account_data().egld_balance.into());
+            .bi_overwrite(dest, self.current_account_data().moa_balance.into());
     }
 
     fn get_tx_hash(&self, dest: RawHandle) {
@@ -107,19 +107,19 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
         );
     }
 
-    fn get_current_esdt_nft_nonce(&self, address_bytes: &[u8], token_id_bytes: &[u8]) -> u64 {
+    fn get_current_dct_nft_nonce(&self, address_bytes: &[u8], token_id_bytes: &[u8]) -> u64 {
         assert!(
             self.is_contract_address(address_bytes),
-            "get_current_esdt_nft_nonce not yet implemented for accounts other than the contract itself"
+            "get_current_dct_nft_nonce not yet implemented for accounts other than the contract itself"
         );
 
         self.current_account_data()
-            .esdt
+            .dct
             .get_by_identifier_or_default(token_id_bytes)
             .last_nonce
     }
 
-    fn big_int_get_esdt_external_balance(
+    fn big_int_get_dct_external_balance(
         &self,
         address_bytes: &[u8],
         token_id_bytes: &[u8],
@@ -128,18 +128,18 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
     ) {
         assert!(
             self.is_contract_address(address_bytes),
-            "get_esdt_balance not yet implemented for accounts other than the contract itself"
+            "get_dct_balance not yet implemented for accounts other than the contract itself"
         );
 
-        let esdt_balance = self
+        let dct_balance = self
             .current_account_data()
-            .esdt
-            .get_esdt_balance(token_id_bytes, nonce);
-        self.m_types_lock().bi_overwrite(dest, esdt_balance.into());
+            .dct
+            .get_dct_balance(token_id_bytes, nonce);
+        self.m_types_lock().bi_overwrite(dest, dct_balance.into());
     }
 
     #[allow(clippy::too_many_arguments)]
-    fn managed_get_esdt_token_data(
+    fn managed_get_dct_token_data(
         &self,
         address_handle: RawHandle,
         token_id_handle: RawHandle,
@@ -157,10 +157,10 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
         let token_id_bytes = self.m_types_lock().mb_get(token_id_handle).to_vec();
         let account = self.account_data(&address);
 
-        if let Some(esdt_data) = account.esdt.get_by_identifier(token_id_bytes.as_slice()) {
-            if let Some(instance) = esdt_data.instances.get_by_nonce(nonce) {
-                self.set_esdt_data_values(
-                    esdt_data,
+        if let Some(dct_data) = account.dct.get_by_identifier(token_id_bytes.as_slice()) {
+            if let Some(instance) = dct_data.instances.get_by_nonce(nonce) {
+                self.set_dct_data_values(
+                    dct_data,
                     instance,
                     value_handle,
                     properties_handle,
@@ -173,7 +173,7 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
                 )
             } else {
                 // missing nonce
-                self.reset_esdt_data_values(
+                self.reset_dct_data_values(
                     value_handle,
                     properties_handle,
                     hash_handle,
@@ -186,7 +186,7 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
             }
         } else {
             // missing token identifier
-            self.reset_esdt_data_values(
+            self.reset_dct_data_values(
                 value_handle,
                 properties_handle,
                 hash_handle,
@@ -199,7 +199,7 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
         }
     }
 
-    fn check_esdt_frozen(
+    fn check_dct_frozen(
         &self,
         address_handle: RawHandle,
         token_id_handle: RawHandle,
@@ -208,30 +208,30 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
         let address = VMAddress::from_slice(self.m_types_lock().mb_get(address_handle));
         let token_id_bytes = self.m_types_lock().mb_get(token_id_handle).to_vec();
         let account = self.account_data(&address);
-        if let Some(esdt_data) = account.esdt.get_by_identifier(token_id_bytes.as_slice()) {
-            return esdt_data.frozen;
+        if let Some(dct_data) = account.dct.get_by_identifier(token_id_bytes.as_slice()) {
+            return dct_data.frozen;
         }
 
         false
     }
 
-    fn get_esdt_local_roles_bits(&self, token_id_handle: RawHandle) -> u64 {
+    fn get_dct_local_roles_bits(&self, token_id_handle: RawHandle) -> u64 {
         let token_id_bytes = self.m_types_lock().mb_get(token_id_handle).to_vec();
         let account = self.current_account_data();
-        let mut result = EsdtLocalRoleFlags::NONE;
-        if let Some(esdt_data) = account.esdt.get_by_identifier(token_id_bytes.as_slice()) {
-            for role_name in esdt_data.roles.get() {
-                result |= EsdtLocalRole::from(role_name.as_slice()).to_flag();
+        let mut result = DctLocalRoleFlags::NONE;
+        if let Some(dct_data) = account.dct.get_by_identifier(token_id_bytes.as_slice()) {
+            for role_name in dct_data.roles.get() {
+                result |= DctLocalRole::from(role_name.as_slice()).to_flag();
             }
         }
         result.bits()
     }
 
     #[allow(clippy::too_many_arguments)]
-    fn set_esdt_data_values(
+    fn set_dct_data_values(
         &self,
-        esdt_data: &EsdtData,
-        instance: &EsdtInstance,
+        dct_data: &DctData,
+        instance: &DctInstance,
         value_handle: RawHandle,
         properties_handle: RawHandle,
         hash_handle: RawHandle,
@@ -243,7 +243,7 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
     ) {
         let mut m_types = self.m_types_lock();
         m_types.bi_overwrite(value_handle, instance.balance.clone().into());
-        if esdt_data.frozen {
+        if dct_data.frozen {
             m_types.mb_set(properties_handle, vec![1, 0]);
         } else {
             m_types.mb_set(properties_handle, vec![0, 0]);
@@ -267,7 +267,7 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
     }
 
     #[allow(clippy::too_many_arguments)]
-    fn reset_esdt_data_values(
+    fn reset_dct_data_values(
         &self,
         value_handle: RawHandle,
         properties_handle: RawHandle,
@@ -278,7 +278,7 @@ pub trait VMHooksBlockchain: VMHooksHandlerSource {
         royalties_handle: RawHandle,
         uris_handle: RawHandle,
     ) {
-        if ESDT_TOKEN_DATA_FUNC_RESETS_VALUES {
+        if DCT_TOKEN_DATA_FUNC_RESETS_VALUES {
             let mut m_types = self.m_types_lock();
             m_types.bi_overwrite(value_handle, BigInt::zero());
             m_types.mb_set(properties_handle, vec![0, 0]);

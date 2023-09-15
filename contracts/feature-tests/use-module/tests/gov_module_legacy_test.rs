@@ -1,11 +1,11 @@
 #![allow(deprecated)] // TODO: migrate tests
 
-use dharithri_sc::types::{Address, ManagedVec, MultiValueEncoded};
-use dharithri_sc_modules::governance::{
+use dharitri_sc::types::{Address, ManagedVec, MultiValueEncoded};
+use dharitri_sc_modules::governance::{
     governance_configurable::GovernanceConfigurablePropertiesModule, governance_proposal::VoteType,
     GovernanceModule,
 };
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     managed_address, managed_biguint, managed_buffer, managed_token_id, rust_biguint,
     testing_framework::{BlockchainStateWrapper, ContractObjWrapper, TxResult},
     DebugApi,
@@ -51,16 +51,16 @@ where
         let mut b_mock = BlockchainStateWrapper::new();
 
         let owner = b_mock.create_user_account(&rust_zero);
-        b_mock.set_esdt_balance(&owner, GOV_TOKEN_ID, &initial_gov);
+        b_mock.set_dct_balance(&owner, GOV_TOKEN_ID, &initial_gov);
 
         let first_user = b_mock.create_user_account(&rust_zero);
-        b_mock.set_esdt_balance(&first_user, GOV_TOKEN_ID, &initial_gov);
+        b_mock.set_dct_balance(&first_user, GOV_TOKEN_ID, &initial_gov);
 
         let second_user = b_mock.create_user_account(&rust_zero);
-        b_mock.set_esdt_balance(&second_user, GOV_TOKEN_ID, &initial_gov);
+        b_mock.set_dct_balance(&second_user, GOV_TOKEN_ID, &initial_gov);
 
         let third_user = b_mock.create_user_account(&rust_zero);
-        b_mock.set_esdt_balance(&third_user, GOV_TOKEN_ID, &initial_gov);
+        b_mock.set_dct_balance(&third_user, GOV_TOKEN_ID, &initial_gov);
 
         let gov_wrapper =
             b_mock.create_sc_account(&rust_zero, Some(&owner), gov_builder, "gov path");
@@ -100,7 +100,7 @@ where
         args: Vec<Vec<u8>>,
     ) -> (TxResult, usize) {
         let mut proposal_id = 0;
-        let result = self.b_mock.execute_esdt_transfer(
+        let result = self.b_mock.execute_dct_transfer(
             proposer,
             &self.gov_wrapper,
             GOV_TOKEN_ID,
@@ -131,7 +131,7 @@ where
     }
 
     pub fn vote(&mut self, voter: &Address, proposal_id: usize, gov_token_amount: u64) -> TxResult {
-        self.b_mock.execute_esdt_transfer(
+        self.b_mock.execute_dct_transfer(
             voter,
             &self.gov_wrapper,
             GOV_TOKEN_ID,
@@ -149,7 +149,7 @@ where
         proposal_id: usize,
         gov_token_amount: u64,
     ) -> TxResult {
-        self.b_mock.execute_esdt_transfer(
+        self.b_mock.execute_dct_transfer(
             voter,
             &self.gov_wrapper,
             GOV_TOKEN_ID,
@@ -167,7 +167,7 @@ where
         proposal_id: usize,
         gov_token_amount: u64,
     ) -> TxResult {
-        self.b_mock.execute_esdt_transfer(
+        self.b_mock.execute_dct_transfer(
             voter,
             &self.gov_wrapper,
             GOV_TOKEN_ID,
@@ -185,7 +185,7 @@ where
         proposal_id: usize,
         gov_token_amount: u64,
     ) -> TxResult {
-        self.b_mock.execute_esdt_transfer(
+        self.b_mock.execute_dct_transfer(
             voter,
             &self.gov_wrapper,
             GOV_TOKEN_ID,
@@ -342,16 +342,16 @@ fn change_gov_config_test() {
 
     gov_setup
         .b_mock
-        .check_esdt_balance(&first_user_addr, GOV_TOKEN_ID, &rust_biguint!(300));
+        .check_dct_balance(&first_user_addr, GOV_TOKEN_ID, &rust_biguint!(300));
     gov_setup
         .b_mock
-        .check_esdt_balance(&second_user_addr, GOV_TOKEN_ID, &rust_biguint!(1));
+        .check_dct_balance(&second_user_addr, GOV_TOKEN_ID, &rust_biguint!(1));
     gov_setup
         .b_mock
-        .check_esdt_balance(&third_user_addr, GOV_TOKEN_ID, &rust_biguint!(800));
+        .check_dct_balance(&third_user_addr, GOV_TOKEN_ID, &rust_biguint!(800));
     gov_setup
         .b_mock
-        .check_esdt_balance(&owner_addr, GOV_TOKEN_ID, &rust_biguint!(800));
+        .check_dct_balance(&owner_addr, GOV_TOKEN_ID, &rust_biguint!(800));
 }
 
 #[test]
@@ -400,13 +400,13 @@ fn down_veto_gov_config_test() {
 
     gov_setup
         .b_mock
-        .check_esdt_balance(&first_user_addr, GOV_TOKEN_ID, &rust_biguint!(200));
+        .check_dct_balance(&first_user_addr, GOV_TOKEN_ID, &rust_biguint!(200));
     gov_setup
         .b_mock
-        .check_esdt_balance(&second_user_addr, GOV_TOKEN_ID, &rust_biguint!(800));
+        .check_dct_balance(&second_user_addr, GOV_TOKEN_ID, &rust_biguint!(800));
     gov_setup
         .b_mock
-        .check_esdt_balance(&third_user_addr, GOV_TOKEN_ID, &rust_biguint!(800));
+        .check_dct_balance(&third_user_addr, GOV_TOKEN_ID, &rust_biguint!(800));
 }
 
 #[test]
@@ -466,13 +466,13 @@ fn abstain_vote_gov_config_test() {
 
     gov_setup
         .b_mock
-        .check_esdt_balance(&first_user_addr, GOV_TOKEN_ID, &rust_biguint!(0));
+        .check_dct_balance(&first_user_addr, GOV_TOKEN_ID, &rust_biguint!(0));
     gov_setup
         .b_mock
-        .check_esdt_balance(&second_user_addr, GOV_TOKEN_ID, &rust_biguint!(600));
+        .check_dct_balance(&second_user_addr, GOV_TOKEN_ID, &rust_biguint!(600));
     gov_setup
         .b_mock
-        .check_esdt_balance(&third_user_addr, GOV_TOKEN_ID, &rust_biguint!(400));
+        .check_dct_balance(&third_user_addr, GOV_TOKEN_ID, &rust_biguint!(400));
 }
 
 #[test]

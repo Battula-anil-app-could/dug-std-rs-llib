@@ -1,8 +1,8 @@
-use dharithri_sc::storage::{
+use dharitri_sc::storage::{
     mappers::{StorageClearable, StorageMapper, UnorderedSetMapper},
     StorageKey,
 };
-use dharithri_sc_scenario::api::SingleTxApi;
+use dharitri_sc_scenario::api::SingleTxApi;
 
 fn create_set() -> UnorderedSetMapper<SingleTxApi, u64> {
     let base_key = StorageKey::new(&b"my_unordered_set"[..]);

@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ManagedBufferFeatures {
     #[endpoint]
     fn mbuffer_new(&self) -> ManagedBuffer {

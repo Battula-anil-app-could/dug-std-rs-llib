@@ -1,7 +1,7 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// All crypto functions provided by Arwen exposed here.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait CryptoFeatures {
     #[endpoint]
     fn compute_sha256(&self, input: ManagedBuffer) -> ManagedByteArray<Self::Api, 32> {

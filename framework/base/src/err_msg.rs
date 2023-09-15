@@ -1,14 +1,14 @@
 pub const PANIC_OCCURRED: &str = "panic occurred";
 pub const MEM_ALLOC_ERROR: &str = "memory allocation error";
 
-pub const NON_PAYABLE_FUNC_ESDT: &str = "function does not accept ESDT payment";
+pub const NON_PAYABLE_FUNC_DCT: &str = "function does not accept DCT payment";
 pub const BAD_TOKEN_PROVIDED: &str = "bad call value token provided";
 pub const BAD_TOKEN_TICKER_FORMAT: &[u8] = b"bad token ticker format";
-pub const SINGLE_ESDT_EXPECTED: &str = "function expects single ESDT payment";
-pub const TOO_MANY_ESDT_TRANSFERS: &str = "too many ESDT transfers";
-pub const ESDT_INVALID_TOKEN_INDEX: &str = "invalid token index";
-pub const INCORRECT_NUM_ESDT_TRANSFERS: &str = "incorrect number of ESDT transfers";
-pub static FUNGIBLE_TOKEN_EXPECTED_ERR_MSG: &str = "fungible ESDT token expected";
+pub const SINGLE_DCT_EXPECTED: &str = "function expects single DCT payment";
+pub const TOO_MANY_DCT_TRANSFERS: &str = "too many DCT transfers";
+pub const DCT_INVALID_TOKEN_INDEX: &str = "invalid token index";
+pub const INCORRECT_NUM_DCT_TRANSFERS: &str = "incorrect number of DCT transfers";
+pub static FUNGIBLE_TOKEN_EXPECTED_ERR_MSG: &str = "fungible DCT token expected";
 
 pub const ARG_WRONG_NUMBER: &str = "wrong number of arguments";
 pub const ARG_ASYNC_WRONG_NUMBER: &[u8] = b"wrong number of arguments provided to async call";

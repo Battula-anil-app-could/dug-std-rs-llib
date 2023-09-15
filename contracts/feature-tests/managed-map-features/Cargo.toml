@@ -1,21 +1,21 @@
 [package]
 name = "managed-map-features"
 version = "0.0.0"
-authors = ["viswanath <contact@dharithri.org>"]
+authors = ["viswanath <contact@dharitri.org>"]
 edition = "2021"
 publish = false
 
 [lib]
 path = "src/mmap_features.rs"
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../framework/base"
 
 features = ["managed-map"]
 
-[dev-dependencies.dharithri-sc-scenario]
+[dev-dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../framework/scenario"
 
-[dev-dependencies.esdt-system-sc-mock]
-path = "../esdt-system-sc-mock"
+[dev-dependencies.dct-system-sc-mock]
+path = "../dct-system-sc-mock"

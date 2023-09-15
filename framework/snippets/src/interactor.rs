@@ -1,9 +1,9 @@
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     mandos_system::{run_list::ScenarioRunnerList, run_trace::ScenarioTraceFile},
-    dharithri_sc::types::Address,
+    dharitri_sc::types::Address,
     scenario_model::AddressValue,
 };
-use dharithri_sdk::{
+use dharitri_sdk::{
     blockchain::CommunicationProxy,
     data::{address::Address as ErdrsAddress, network_config::NetworkConfig},
     wallet::Wallet,

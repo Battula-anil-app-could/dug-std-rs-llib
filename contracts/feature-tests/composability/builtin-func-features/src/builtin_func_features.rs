@@ -2,10 +2,10 @@
 
 pub mod builtin_func_proxy;
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Test contract for investigating async calls.
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait BuiltinFuncFeatures {
     #[proxy]
     fn builtin_func_proxy(&self, to: ManagedAddress) -> builtin_func_proxy::Proxy<Self::Api>;

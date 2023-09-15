@@ -122,12 +122,12 @@ impl TxManagedTypes {
         self.mb_set(destination_handle, m_vec_raw_data);
     }
 
-    pub fn mb_get_vec_of_esdt_payments(&self, source_handle: RawHandle) -> Vec<TxTokenTransfer> {
+    pub fn mb_get_vec_of_dct_payments(&self, source_handle: RawHandle) -> Vec<TxTokenTransfer> {
         let mut result = Vec::new();
         let data = self.mb_get(source_handle);
         assert!(
             data.len() % 16 == 0,
-            "malformed ManagedVec<EsdtTokenPayment> data"
+            "malformed ManagedVec<DctTokenPayment> data"
         );
         for chunk in data.chunks(16) {
             let token_id_handle = i32::from_be_bytes(chunk[0..4].try_into().unwrap());
@@ -146,7 +146,7 @@ impl TxManagedTypes {
         result
     }
 
-    pub fn mb_set_vec_of_esdt_payments(
+    pub fn mb_set_vec_of_dct_payments(
         &mut self,
         dest_handle: RawHandle,
         transfers: &[TxTokenTransfer],
@@ -186,7 +186,7 @@ pub mod tests {
     }
 
     #[test]
-    fn test_vec_of_esdt_payments() {
+    fn test_vec_of_dct_payments() {
         let mut m_types = TxManagedTypes::new();
         let handle = m_types.mb_new(vec![]);
         let transfers = vec![TxTokenTransfer {
@@ -194,8 +194,8 @@ pub mod tests {
             nonce: 6,
             value: 789u32.into(),
         }];
-        m_types.mb_set_vec_of_esdt_payments(handle, transfers.as_slice());
-        let retrieved = m_types.mb_get_vec_of_esdt_payments(handle);
+        m_types.mb_set_vec_of_dct_payments(handle, transfers.as_slice());
+        let retrieved = m_types.mb_get_vec_of_dct_payments(handle);
         assert_eq!(transfers, retrieved);
     }
 }

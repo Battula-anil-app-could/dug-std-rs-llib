@@ -2,12 +2,12 @@ use crate::codec::TopEncodeMulti;
 
 use crate::{
     api::CallTypeApi,
-    types::{EgldOrMultiEsdtPayment, ManagedAddress, ManagedBuffer},
+    types::{MoaOrMultiDctPayment, ManagedAddress, ManagedBuffer},
 };
 
-use super::{contract_call_no_payment::ContractCallNoPayment, ContractCall, ContractCallWithEgld};
+use super::{contract_call_no_payment::ContractCallNoPayment, ContractCall, ContractCallWithMoa};
 
-/// Holds data for calling another contract, with any type of payment: none, EGLD, Multi-ESDT.
+/// Holds data for calling another contract, with any type of payment: none, MOA, Multi-DCT.
 ///
 /// Gets created when chaining method `with_any_payment`.
 #[must_use]
@@ -16,7 +16,7 @@ where
     SA: CallTypeApi + 'static,
 {
     pub basic: ContractCallNoPayment<SA, OriginalResult>,
-    pub payment: EgldOrMultiEsdtPayment<SA>,
+    pub payment: MoaOrMultiDctPayment<SA>,
 }
 
 impl<SA, OriginalResult> ContractCall<SA> for ContractCallWithAnyPayment<SA, OriginalResult>
@@ -26,13 +26,13 @@ where
 {
     type OriginalResult = OriginalResult;
 
-    fn into_normalized(self) -> ContractCallWithEgld<SA, Self::OriginalResult> {
+    fn into_normalized(self) -> ContractCallWithMoa<SA, Self::OriginalResult> {
         match self.payment {
-            EgldOrMultiEsdtPayment::Egld(egld_amount) => self.basic.with_egld_transfer(egld_amount),
-            EgldOrMultiEsdtPayment::MultiEsdt(multi_esdt_payment) => self
+            MoaOrMultiDctPayment::Moa(moa_amount) => self.basic.with_moa_transfer(moa_amount),
+            MoaOrMultiDctPayment::MultiDct(multi_dct_payment) => self
                 .basic
                 .into_normalized()
-                .convert_to_esdt_transfer_call(multi_esdt_payment),
+                .convert_to_dct_transfer_call(multi_dct_payment),
         }
     }
 
@@ -43,11 +43,11 @@ where
 
     fn transfer_execute(self) {
         match self.payment {
-            EgldOrMultiEsdtPayment::Egld(egld_amount) => {
-                self.basic.transfer_execute_egld(egld_amount);
+            MoaOrMultiDctPayment::Moa(moa_amount) => {
+                self.basic.transfer_execute_moa(moa_amount);
             },
-            EgldOrMultiEsdtPayment::MultiEsdt(multi_esdt_payment) => {
-                self.basic.transfer_execute_esdt(multi_esdt_payment);
+            MoaOrMultiDctPayment::MultiDct(multi_dct_payment) => {
+                self.basic.transfer_execute_dct(multi_dct_payment);
             },
         }
     }
@@ -61,7 +61,7 @@ where
     pub fn new<N: Into<ManagedBuffer<SA>>>(
         to: ManagedAddress<SA>,
         endpoint_name: N,
-        payment: EgldOrMultiEsdtPayment<SA>,
+        payment: MoaOrMultiDctPayment<SA>,
     ) -> Self {
         ContractCallWithAnyPayment {
             basic: ContractCallNoPayment::new(to, endpoint_name),

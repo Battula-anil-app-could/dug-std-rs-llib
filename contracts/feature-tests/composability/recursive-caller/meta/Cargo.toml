@@ -7,6 +7,6 @@ publish = false
 [dependencies.recursive-caller]
 path = ".."
 
-[dependencies.dharithri-sc-meta]
+[dependencies.dharitri-sc-meta]
 version = "0.43.3"
 path = "../../../../../framework/meta"

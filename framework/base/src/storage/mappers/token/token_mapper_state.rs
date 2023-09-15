@@ -66,7 +66,7 @@ impl<M: ManagedTypeApi> codec::TopDecode for TokenMapperState<M> {
         } else if decoded_input == PENDING_ENCODING {
             Ok(TokenMapperState::Pending)
         } else {
-            let token_id = TokenIdentifier::from_esdt_bytes(decoded_input);
+            let token_id = TokenIdentifier::from_dct_bytes(decoded_input);
             Ok(TokenMapperState::Token(token_id))
         }
     }

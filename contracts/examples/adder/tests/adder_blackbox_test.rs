@@ -1,4 +1,4 @@
-use dharithri_sc_scenario::{scenario_model::*, *};
+use dharitri_sc_scenario::{scenario_model::*, *};
 
 const ADDER_PATH_EXPR: &str = "file:output/adder.wasm";
 

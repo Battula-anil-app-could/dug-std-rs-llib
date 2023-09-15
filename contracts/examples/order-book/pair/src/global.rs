@@ -1,7 +1,7 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait GlobalOperationModule {
     #[only_owner]
     #[endpoint(startGlobalOperation)]

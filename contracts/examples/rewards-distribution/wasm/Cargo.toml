@@ -1,7 +1,7 @@
 [package]
 name = "rewards-distribution-wasm"
 version = "0.0.0"
-authors = ["kasi <contact@dharithri.org>"]
+authors = ["kasi <contact@dharitri.org>"]
 edition = "2021"
 publish = false
 
@@ -23,6 +23,6 @@ panic = "abort"
 [dependencies.rewards-distribution]
 path = ".."
 
-[dependencies.dharithri-sc-wasm-adapter]
+[dependencies.dharitri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../framework/wasm-adapter"

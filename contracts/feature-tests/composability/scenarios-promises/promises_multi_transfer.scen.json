@@ -10,7 +10,7 @@
                 "sc:promises": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FWD-TOKEN": "1000",
                         "str:NFT-123456": {
                             "instances": [
@@ -93,7 +93,7 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FWD-TOKEN": "500",
                         "str:NFT-123456": {
                             "instances": [
@@ -120,7 +120,7 @@
                 "sc:promises": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FWD-TOKEN": "500",
                         "str:NFT-123456": {
                             "instances": [

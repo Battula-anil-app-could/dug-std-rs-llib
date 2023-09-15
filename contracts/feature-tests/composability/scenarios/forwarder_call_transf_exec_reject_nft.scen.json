@@ -16,7 +16,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {

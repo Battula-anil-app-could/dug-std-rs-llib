@@ -1,4 +1,4 @@
-use dharithri_sc_scenario::*;
+use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
@@ -18,8 +18,8 @@ fn test_rs() {
 }
 
 #[test]
-fn test_esdt_generation_rs() {
-    world().run("scenarios/test_esdt_generation.scen.json");
+fn test_dct_generation_rs() {
+    world().run("scenarios/test_dct_generation.scen.json");
 }
 
 #[test]

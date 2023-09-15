@@ -1,9 +1,9 @@
-use dharithri_sc::types::H256;
+use dharitri_sc::types::H256;
 use num_traits::Zero;
 
 use crate::{
     api::StaticApi,
-    dharithri_sc::{
+    dharitri_sc::{
         codec::{CodecFrom, TopEncodeMulti},
         types::ContractCall,
     },
@@ -69,10 +69,10 @@ impl ScQueryStep {
     where
         CC: ContractCall<StaticApi>,
     {
-        let (to_str, function, egld_value_expr, mandos_args) = process_contract_call(contract_call);
+        let (to_str, function, moa_value_expr, mandos_args) = process_contract_call(contract_call);
         assert!(
-            egld_value_expr.value.is_zero(),
-            "cannot send EGLD value in queries"
+            moa_value_expr.value.is_zero(),
+            "cannot send MOA value in queries"
         );
         self = self.to(to_str.as_str());
         self = self.function(function.as_str());

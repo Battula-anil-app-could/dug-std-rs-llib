@@ -1,12 +1,12 @@
 use core::fmt::Debug;
-use dharithri_sc::{
+use dharitri_sc::{
     api::ManagedTypeApi,
     types::{
         BigInt, BigUint, ManagedAddress, ManagedBuffer, ManagedByteArray, ManagedRef, ManagedType,
         TokenIdentifier,
     },
 };
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc_scenario::api::StaticApi;
 
 fn test_managed_ref_for_type<M, T>(obj: T)
 where

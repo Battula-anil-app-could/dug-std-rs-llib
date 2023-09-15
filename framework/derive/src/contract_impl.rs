@@ -34,7 +34,7 @@ pub fn contract_implementation(
 
         #(#module_original_attributes)*
         pub trait #trait_name_ident:
-        dharithri_sc::contract_base::ContractBase
+        dharitri_sc::contract_base::ContractBase
         + Sized
         #(#supertraits_main)*
         where
@@ -48,7 +48,7 @@ pub fn contract_implementation(
     };
 
     let auto_impl_trait = quote! {
-        pub trait AutoImpl: dharithri_sc::contract_base::ContractBase {}
+        pub trait AutoImpl: dharitri_sc::contract_base::ContractBase {}
 
         impl<C> #trait_name_ident for C
         where
@@ -59,8 +59,8 @@ pub fn contract_implementation(
             #callbacks_impl
         }
 
-        impl<A> AutoImpl for dharithri_sc::contract_base::UniversalContractObj<A> where
-            A: dharithri_sc::api::VMApi
+        impl<A> AutoImpl for dharitri_sc::contract_base::UniversalContractObj<A> where
+            A: dharitri_sc::api::VMApi
         {
         }
     };
@@ -69,7 +69,7 @@ pub fn contract_implementation(
         supertrait_gen::endpoint_wrapper_supertrait_decl(contract.supertraits.as_slice());
     let endpoint_wrappers = quote! {
         pub trait EndpointWrappers:
-            dharithri_sc::contract_base::ContractBase
+            dharitri_sc::contract_base::ContractBase
             + #trait_name_ident
             #(#endpoint_wrapper_supertrait_decl)*
         {
@@ -79,7 +79,7 @@ pub fn contract_implementation(
                 #function_selector_body
             }
 
-            fn callback_selector(&self, mut ___cb_closure___: dharithri_sc::types::CallbackClosureForDeser<Self::Api>) -> dharithri_sc::types::CallbackSelectorResult<Self::Api> {
+            fn callback_selector(&self, mut ___cb_closure___: dharitri_sc::types::CallbackClosureForDeser<Self::Api>) -> dharitri_sc::types::CallbackSelectorResult<Self::Api> {
                 #callback_selector_body
             }
 
@@ -88,8 +88,8 @@ pub fn contract_implementation(
             }
         }
 
-        impl<A> EndpointWrappers for dharithri_sc::contract_base::UniversalContractObj<A> where
-            A: dharithri_sc::api::VMApi
+        impl<A> EndpointWrappers for dharitri_sc::contract_base::UniversalContractObj<A> where
+            A: dharitri_sc::api::VMApi
         {
         }
     };

@@ -2,6 +2,6 @@
 
 # cleans all wasm targets
 
-cargo install dharithri-sc-meta
+cargo install dharitri-sc-meta
 
 sc-meta all clean --path ./contracts

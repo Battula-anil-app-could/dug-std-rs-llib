@@ -25,12 +25,12 @@ pub mod whitebox_legacy;
 pub use whitebox_legacy as testing_framework;
 
 pub use api::DebugApi;
-pub use dharithri_chain_vm;
+pub use dharitri_chain_vm;
 
 /// Re-exporting for convenience.
 pub use num_bigint;
 
-pub use dharithri_sc;
+pub use dharitri_sc;
 
 /// Exposing the scenario model. Might be moved in the future,
 /// but the export will hopefully remain the same.
@@ -40,7 +40,7 @@ pub use crate::scenario::model as scenario_model;
 pub use crate::scenario as mandos_system;
 
 // Re-exporting the whole mandos crate for easier use in tests.
-pub use dharithri_chain_scenario_format as scenario_format;
+pub use dharitri_chain_scenario_format as scenario_format;
 
 pub use facade::{ContractInfo, ScenarioWorld, WhiteboxContract};
 

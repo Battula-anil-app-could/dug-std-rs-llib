@@ -1,8 +1,8 @@
-use dharithri_sc::{
+use dharitri_sc::{
     api::ManagedTypeApi,
     types::{BigUint, ManagedAddress, Vec},
 };
-dharithri_sc::derive_imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]
 pub struct LotteryInfo<M: ManagedTypeApi> {

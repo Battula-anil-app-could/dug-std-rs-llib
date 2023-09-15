@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::derive::proxy]
+#[dharitri_sc::derive::proxy]
 pub trait UserBuiltin {
     #[endpoint(SetUserName)]
     fn set_user_name(&self, name: &ManagedBuffer);

@@ -1,4 +1,4 @@
-use dharithri_sc::api::{CallTypeApi, HandleTypeInfo, StorageMapperApi, VMApi};
+use dharitri_sc::api::{CallTypeApi, HandleTypeInfo, StorageMapperApi, VMApi};
 
 /// The reference to the API implementation based on Arwen hooks.
 /// It continas no data, can be embedded at no cost.

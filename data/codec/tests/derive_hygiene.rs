@@ -1,11 +1,11 @@
 #![allow(dead_code)]
 
-use dharithri_sc_codec as codec;
-use dharithri_sc_codec_derive::*;
+use dharitri_sc_codec as codec;
+use dharitri_sc_codec_derive::*;
 
 // This test doesn't run any code, the fact that it compiles is the actual testing.
 // It checks that the derive macro generation is immune to type shadowing,
-// i.e. any types that are in scope and happen to have the same name as dharithri-sc-codec types do not break the build.
+// i.e. any types that are in scope and happen to have the same name as dharitri-sc-codec types do not break the build.
 // The derive macro must generate fully qualified type names everywhere to avoid this hurdle.
 
 // All exported traits:
@@ -31,7 +31,7 @@ enum Result {
 #[allow(unused_imports)]
 use crate::Result::{Err, Ok};
 
-// Also adding all public functions exposed by dharithri-sc-codec.
+// Also adding all public functions exposed by dharitri-sc-codec.
 // They are not used in the derive, but just to make sure:
 fn top_encode_number() {}
 fn universal_decode_number() {}

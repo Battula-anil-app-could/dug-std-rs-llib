@@ -1,14 +1,14 @@
 use super::VmApiImpl;
-use dharithri_sc::api::{CallValueApi, CallValueApiImpl};
+use dharitri_sc::api::{CallValueApi, CallValueApiImpl};
 
 extern "C" {
     fn checkNoPayment();
 
     fn bigIntGetCallValue(dest: i32);
 
-    fn managedGetMultiESDTCallValue(resultHandle: i32);
+    fn managedGetMultiDCTCallValue(resultHandle: i32);
 
-    fn getNumESDTTransfers() -> i32;
+    fn getNumDCTTransfers() -> i32;
 }
 
 impl CallValueApi for VmApiImpl {
@@ -28,19 +28,19 @@ impl CallValueApiImpl for VmApiImpl {
         }
     }
 
-    fn load_egld_value(&self, dest: Self::BigIntHandle) {
+    fn load_moa_value(&self, dest: Self::BigIntHandle) {
         unsafe {
             bigIntGetCallValue(dest);
         }
     }
 
-    fn load_all_esdt_transfers(&self, dest_handle: Self::ManagedBufferHandle) {
+    fn load_all_dct_transfers(&self, dest_handle: Self::ManagedBufferHandle) {
         unsafe {
-            managedGetMultiESDTCallValue(dest_handle);
+            managedGetMultiDCTCallValue(dest_handle);
         }
     }
 
-    fn esdt_num_transfers(&self) -> usize {
-        unsafe { getNumESDTTransfers() as usize }
+    fn dct_num_transfers(&self) -> usize {
+        unsafe { getNumDCTTransfers() as usize }
     }
 }

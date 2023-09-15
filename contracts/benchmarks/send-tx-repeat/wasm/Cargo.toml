@@ -1,7 +1,7 @@
 [package]
 name = "send-tx-repeat-wasm"
 version = "0.0.0"
-authors = ["Dorin Iancu <dorin.iancu@dharithri.com>"]
+authors = ["Dorin Iancu <dorin.iancu@dharitri.com>"]
 edition = "2021"
 publish = false
 
@@ -18,7 +18,7 @@ panic = "abort"
 [dependencies.send-tx-repeat]
 path = ".."
 
-[dependencies.dharithri-sc-wasm-adapter]
+[dependencies.dharitri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../framework/wasm-adapter"
 

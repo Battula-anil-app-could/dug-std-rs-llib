@@ -1,10 +1,10 @@
 use std::marker::PhantomData;
 
-use dharithri_sc::{codec::PanicErrorHandler, types::ContractDeploy};
+use dharitri_sc::{codec::PanicErrorHandler, types::ContractDeploy};
 
 use crate::{
     api::StaticApi,
-    dharithri_sc::{
+    dharitri_sc::{
         codec::{CodecFrom, TopEncodeMulti},
         types::{Address, CodeMetadata},
     },
@@ -44,11 +44,11 @@ impl<OriginalResult> TypedScDeploy<OriginalResult> {
         self
     }
 
-    pub fn egld_value<A>(mut self, amount: A) -> Self
+    pub fn moa_value<A>(mut self, amount: A) -> Self
     where
         BigUintValue: From<A>,
     {
-        self.sc_deploy_step = self.sc_deploy_step.egld_value(amount);
+        self.sc_deploy_step = self.sc_deploy_step.moa_value(amount);
         self
     }
 

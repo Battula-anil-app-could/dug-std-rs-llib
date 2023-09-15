@@ -6,7 +6,7 @@
                 "0xe32afedc904fe1939746ad973beb383563cf63642ba669b3040f9b9428a5ed60": {
                     "nonce": "619",
                     "balance": "101110120254850000003",
-                    "esdt": {
+                    "dct": {
                         "str:CAN-14dc0a": "1000",
                         "str:CAN-2abf4b": "1000",
                         "str:CAN-6d39e6": "1000",
@@ -22,7 +22,7 @@
                 "0xb2a11555ce521e4944e09ab17549d85b487dcd26c84b5017a39e31a3670889ba": {
                     "nonce": "251",
                     "balance": "101558004165010000000",
-                    "esdt": {
+                    "dct": {
                         "str:CAMP-3bd1c7": {
                             "instances": [
                                 {
@@ -128,7 +128,7 @@
                 "0x3af8d9c9423b2577c6252722c1d90212a4111f7203f9744f76fcfa1d0a310033": {
                     "nonce": "434",
                     "balance": "62227641093810000000",
-                    "esdt": {
+                    "dct": {
                         "str:USDC-091bd3": "9997000000000",
                         "str:XRF-079f0d": "999999805000000000000000000",
                         "str:XUSDC-929b9b": "1000000000000000000000000"
@@ -143,12 +143,12 @@
                 "0x00000000000000000500c114ee7698050a4d40c092add8c31d25e99a6e1ec2ee": {
                     "nonce": "0",
                     "balance": "175064792195269569513",
-                    "esdt": {
+                    "dct": {
                         "str:WEGLD-6cf38e": {
                             "instances": [],
                             "roles": [
-                                "ESDTRoleLocalBurn",
-                                "ESDTRoleLocalMint"
+                                "DCTRoleLocalBurn",
+                                "DCTRoleLocalMint"
                             ]
                         }
                     },

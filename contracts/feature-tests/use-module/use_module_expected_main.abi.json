@@ -13,7 +13,7 @@
             "gitVersion": "<git version here>"
         },
         "framework": {
-            "name": "dharithri-sc",
+            "name": "dharitri-sc",
             "version": "0.43.3"
         }
     },
@@ -22,7 +22,7 @@
         "Also provides testing for the most common modules:",
         "- DnsModule",
         "- FeaturesModule",
-        "- EsdtModule",
+        "- DctModule",
         "- GovernanceModule",
         "- PauseModule"
     ],
@@ -131,7 +131,7 @@
             "inputs": [],
             "outputs": [
                 {
-                    "type": "EsdtTokenPayment"
+                    "type": "DctTokenPayment"
                 }
             ]
         },
@@ -144,7 +144,7 @@
             "inputs": [],
             "outputs": [
                 {
-                    "type": "EsdtTokenPayment"
+                    "type": "DctTokenPayment"
                 }
             ]
         },
@@ -157,7 +157,7 @@
             "inputs": [],
             "outputs": [
                 {
-                    "type": "List<EsdtTokenPayment>"
+                    "type": "List<DctTokenPayment>"
                 }
             ]
         },
@@ -170,12 +170,12 @@
             "inputs": [
                 {
                     "name": "tokens_to_remove",
-                    "type": "List<EsdtTokenPayment>"
+                    "type": "List<DctTokenPayment>"
                 }
             ],
             "outputs": [
                 {
-                    "type": "List<EsdtTokenPayment>"
+                    "type": "List<DctTokenPayment>"
                 }
             ]
         },
@@ -195,7 +195,7 @@
             "onlyOwner": true,
             "mutability": "mutable",
             "payableInTokens": [
-                "EGLD"
+                "MOA"
             ],
             "inputs": [
                 {
@@ -214,7 +214,7 @@
             "onlyOwner": true,
             "mutability": "mutable",
             "payableInTokens": [
-                "EGLD"
+                "MOA"
             ],
             "inputs": [
                 {
@@ -227,7 +227,7 @@
                 },
                 {
                     "name": "token_type",
-                    "type": "EsdtTokenType"
+                    "type": "DctTokenType"
                 },
                 {
                     "name": "opt_num_decimals",
@@ -291,7 +291,7 @@
                 "An action has the following format:",
                 "    - gas limit for action execution",
                 "    - destination address",
-                "    - a vector of ESDT transfers, in the form of ManagedVec<EsdTokenPayment>",
+                "    - a vector of DCT transfers, in the form of ManagedVec<EsdTokenPayment>",
                 "    - endpoint to be called on the destination",
                 "    - a vector of arguments for the endpoint, in the form of ManagedVec<ManagedBuffer>",
                 "",
@@ -694,7 +694,7 @@
             "onlyOwner": true,
             "mutability": "mutable",
             "payableInTokens": [
-                "EGLD"
+                "MOA"
             ],
             "inputs": [
                 {
@@ -967,7 +967,7 @@
                 },
                 {
                     "name": "payment",
-                    "type": "EsdtTokenPayment"
+                    "type": "DctTokenPayment"
                 }
             ]
         },
@@ -986,14 +986,14 @@
                 },
                 {
                     "name": "payment",
-                    "type": "EsdtTokenPayment"
+                    "type": "DctTokenPayment"
                 }
             ]
         }
     ],
     "hasCallback": true,
     "types": {
-        "EsdtTokenPayment": {
+        "DctTokenPayment": {
             "type": "struct",
             "fields": [
                 {
@@ -1010,7 +1010,7 @@
                 }
             ]
         },
-        "EsdtTokenType": {
+        "DctTokenType": {
             "type": "enum",
             "variants": [
                 {
@@ -1044,7 +1044,7 @@
                 },
                 {
                     "name": "tokens",
-                    "type": "EsdtTokenPayment"
+                    "type": "DctTokenPayment"
                 }
             ]
         },

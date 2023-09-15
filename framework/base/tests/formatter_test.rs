@@ -1,6 +1,6 @@
 use core::fmt::Display;
 
-use dharithri_sc::{api::uncallable::UncallableApi, formatter::*, types::CodeMetadata};
+use dharitri_sc::{api::uncallable::UncallableApi, formatter::*, types::CodeMetadata};
 
 #[derive(Default)]
 struct SimpleReceiver(String);
@@ -14,21 +14,21 @@ impl FormatByteReceiver for SimpleReceiver {
 
     fn append_managed_buffer(
         &mut self,
-        _item: &dharithri_sc::types::ManagedBuffer<UncallableApi>,
+        _item: &dharitri_sc::types::ManagedBuffer<UncallableApi>,
     ) {
         unimplemented!()
     }
 
     fn append_managed_buffer_lower_hex(
         &mut self,
-        _item: &dharithri_sc::types::ManagedBuffer<UncallableApi>,
+        _item: &dharitri_sc::types::ManagedBuffer<UncallableApi>,
     ) {
         unimplemented!()
     }
 
     fn append_managed_buffer_binary(
         &mut self,
-        _item: &dharithri_sc::types::ManagedBuffer<UncallableApi>,
+        _item: &dharitri_sc::types::ManagedBuffer<UncallableApi>,
     ) {
         unimplemented!()
     }

@@ -1,4 +1,4 @@
-use dharithri_sc::{api::EllipticCurveApiImpl, types::heap::BoxedBytes};
+use dharitri_sc::{api::EllipticCurveApiImpl, types::heap::BoxedBytes};
 
 extern "C" {
     fn createEC(dataOffset: i32, dataLength: i32) -> i32;

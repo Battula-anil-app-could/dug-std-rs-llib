@@ -6,7 +6,7 @@
 // TODO: get rid of the legacy API and also of this.
 extern crate alloc;
 
-pub use dharithri_sc;
+pub use dharitri_sc;
 
 pub mod api;
 pub mod error_hook;

@@ -1,6 +1,6 @@
 use crate::Interactor;
 use log::info;
-use dharithri_sdk::data::transaction::TransactionOnNetwork;
+use dharitri_sdk::data::transaction::TransactionOnNetwork;
 use std::time::Duration;
 
 const TX_GET_RESULTS_NUM_RETRIES: usize = 8;

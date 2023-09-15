@@ -12,8 +12,8 @@
 # 1. Have a look at commits on GitHub, everything that changed since the last release must be published.
 # Be mindful that hotfixes need to be backwards compatible, minor releases do not.
 # We always publish all `framework/*` crates together.
-# We always publish `dharithri-codec` and `dharithri-codec-derive` together.
-# `framework/*` depend on both `dharithri-codec` and `dharithri-chain-scenario-format`,
+# We always publish `dharitri-codec` and `dharitri-codec-derive` together.
+# `framework/*` depend on both `dharitri-codec` and `dharitri-chain-scenario-format`,
 # so if you have a minor release on the latter, you also need a minor release on `framework/*`.
 # See the Changelog for more details.
 #
@@ -30,19 +30,19 @@
 #
 # 6. Make sure that the contract upgrade tool is still sound.
 # At the very least add the new version to `VERSIONS` and change `DEFAULT_LAST_VERSION` in 
-# `/home/andreim/dharithri/rs/mx-sdk-rs/framework/meta/src/sc_upgrade/upgrade_versions.rs`
+# `/home/andreim/dharitri/rs/mx-sdk-rs/framework/meta/src/sc_upgrade/upgrade_versions.rs`
 # 
 # 7. Run this script, `./publish.sh`.
 # You can comment out the crates you are not publishing. The script will stop otherwise when it cannot publish them.
 # 
-# 8. Search for `dharithri` on `crates.io` and check that the new versions appear for all crates.
+# 8. Search for `dharitri` on `crates.io` and check that the new versions appear for all crates.
 # If any of the crates was not published, check what went wrong and try again.
 #
 # 9. Create tag.
 # `git tag -s -a vX.X.X -m 'very short description of the release'`
 # `git push origin vX.X.X`
 #
-# 10. Go to https://github.com/dharithri/mx-sdk-rs/tags
+# 10. Go to https://github.com/dharitri/mx-sdk-rs/tags
 # Click on the new tag.
 # Click `Create release from tag`.
 # The title should be the released crates and versions, same as in the changelog and the commit message.

@@ -14,10 +14,10 @@ use crate::{
     abi::TypeName,
     api::{CallTypeApi, StorageMapperApi},
     contract_base::{BlockchainWrapper, SendWrapper},
-    esdt::{ESDTSystemSmartContractProxy, FungibleTokenProperties},
+    dct::{DCTSystemSmartContractProxy, FungibleTokenProperties},
     storage::StorageKey,
     types::{
-        BigUint, CallbackClosure, ContractCall, EsdtTokenPayment, EsdtTokenType, ManagedAddress,
+        BigUint, CallbackClosure, ContractCall, DctTokenPayment, DctTokenType, ManagedAddress,
         ManagedBuffer, ManagedType, TokenIdentifier,
     },
 };
@@ -100,7 +100,7 @@ where
     ///     },
     /// }
     ///
-    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharithri-sc-modules
+    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharitri-sc-modules
     /// and pass None for the opt_callback argument
     pub fn issue(
         &self,
@@ -113,7 +113,7 @@ where
     ) -> ! {
         check_not_set(self);
 
-        let system_sc_proxy = ESDTSystemSmartContractProxy::<SA>::new_proxy_obj();
+        let system_sc_proxy = DCTSystemSmartContractProxy::<SA>::new_proxy_obj();
         let callback = match opt_callback {
             Some(cb) => cb,
             None => self.default_callback_closure_obj(&initial_supply),
@@ -153,7 +153,7 @@ where
     ///     },
     /// }
     ///
-    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharithri-sc-modules
+    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharitri-sc-modules
     /// and pass None for the opt_callback argument
     pub fn issue_and_set_all_roles(
         &self,
@@ -165,7 +165,7 @@ where
     ) -> ! {
         check_not_set(self);
 
-        let system_sc_proxy = ESDTSystemSmartContractProxy::<SA>::new_proxy_obj();
+        let system_sc_proxy = DCTSystemSmartContractProxy::<SA>::new_proxy_obj();
         let callback = match opt_callback {
             Some(cb) => cb,
             None => self.default_callback_closure_obj(&BigUint::zero()),
@@ -177,7 +177,7 @@ where
                 issue_cost,
                 token_display_name,
                 token_ticker,
-                EsdtTokenType::Fungible,
+                DctTokenType::Fungible,
                 num_decimals,
             )
             .async_call()
@@ -207,20 +207,20 @@ where
         cb_closure
     }
 
-    pub fn mint(&self, amount: BigUint<SA>) -> EsdtTokenPayment<SA> {
+    pub fn mint(&self, amount: BigUint<SA>) -> DctTokenPayment<SA> {
         let send_wrapper = SendWrapper::<SA>::new();
         let token_id = self.get_token_id();
 
-        send_wrapper.esdt_local_mint(&token_id, 0, &amount);
+        send_wrapper.dct_local_mint(&token_id, 0, &amount);
 
-        EsdtTokenPayment::new(token_id, 0, amount)
+        DctTokenPayment::new(token_id, 0, amount)
     }
 
     pub fn mint_and_send(
         &self,
         to: &ManagedAddress<SA>,
         amount: BigUint<SA>,
-    ) -> EsdtTokenPayment<SA> {
+    ) -> DctTokenPayment<SA> {
         let payment = self.mint(amount);
         self.send_payment(to, &payment);
 
@@ -231,7 +231,7 @@ where
         let send_wrapper = SendWrapper::<SA>::new();
         let token_id = self.get_token_id_ref();
 
-        send_wrapper.esdt_local_burn(token_id, 0, amount);
+        send_wrapper.dct_local_burn(token_id, 0, amount);
     }
 
     pub fn get_balance(&self) -> BigUint<SA> {
@@ -239,12 +239,12 @@ where
         let own_sc_address = Self::get_sc_address();
         let token_id = self.get_token_id_ref();
 
-        b_wrapper.get_esdt_balance(&own_sc_address, token_id, 0)
+        b_wrapper.get_dct_balance(&own_sc_address, token_id, 0)
     }
 
-    fn send_payment(&self, to: &ManagedAddress<SA>, payment: &EsdtTokenPayment<SA>) {
+    fn send_payment(&self, to: &ManagedAddress<SA>, payment: &DctTokenPayment<SA>) {
         let send_wrapper = SendWrapper::<SA>::new();
-        send_wrapper.direct_esdt(to, &payment.token_identifier, 0, &payment.amount);
+        send_wrapper.direct_dct(to, &payment.token_identifier, 0, &payment.amount);
     }
 }
 

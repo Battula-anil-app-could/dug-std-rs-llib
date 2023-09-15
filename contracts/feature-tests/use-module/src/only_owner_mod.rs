@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 #[only_owner]
 pub trait OnlyOwnerTestModule: super::only_owner_derived_mod::OnlyOwnerDerivedTestModule {
     #[endpoint]

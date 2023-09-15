@@ -1,5 +1,5 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, TypeAbi)]
 pub struct TokenAttributesStruct<M: ManagedTypeApi> {
@@ -8,7 +8,7 @@ pub struct TokenAttributesStruct<M: ManagedTypeApi> {
     field_vec_u32: ManagedVec<M, u32>,
 }
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait TokenAttributesMapperFeatures {
     #[storage_mapper("TokenAttributes")]
     fn token_attributes(&self) -> TokenAttributesMapper;

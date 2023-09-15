@@ -7,11 +7,11 @@ publish = false
 [lib]
 path = "src/lib.rs"
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../../framework/base"
 
-[dev-dependencies.dharithri-sc-scenario]
+[dev-dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../../framework/scenario"
 

@@ -1,4 +1,4 @@
-use dharithri_sc::types::H256;
+use dharitri_sc::types::H256;
 
 use crate::{
     api::StaticApi,
@@ -10,7 +10,7 @@ use crate::{
     scenario_model::TxResponse,
 };
 
-use crate::dharithri_sc::types::{CodeMetadata, ContractDeploy};
+use crate::dharitri_sc::types::{CodeMetadata, ContractDeploy};
 
 use super::{convert_call_args, TypedScDeploy};
 
@@ -52,11 +52,11 @@ impl ScDeployStep {
         self
     }
 
-    pub fn egld_value<V>(mut self, expr: V) -> Self
+    pub fn moa_value<V>(mut self, expr: V) -> Self
     where
         BigUintValue: From<V>,
     {
-        self.tx.egld_value = BigUintValue::from(expr);
+        self.tx.moa_value = BigUintValue::from(expr);
         self
     }
 

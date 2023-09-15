@@ -13,7 +13,7 @@
                 "address:an-account": {
                     "nonce": "0",
                     "balance": "1,000,000,000,000",
-                    "esdt": {
+                    "dct": {
                         "str:PAYABLE-FEATURES-TOKEN": "1,000,000,000,000",
                         "str:OTHER-TOKEN": "1,000,000,000,000"
                     }
@@ -34,7 +34,7 @@
             "expect": {
                 "out": [],
                 "status": "4",
-                "message": "str:function expects single ESDT payment",
+                "message": "str:function expects single DCT payment",
                 "logs": "*",
                 "gas": "*",
                 "refund": "*"
@@ -55,7 +55,7 @@
             "expect": {
                 "out": [],
                 "status": "4",
-                "message": "str:function expects single ESDT payment",
+                "message": "str:function expects single DCT payment",
                 "logs": "*",
                 "gas": "*",
                 "refund": "*"
@@ -67,7 +67,7 @@
             "tx": {
                 "from": "address:an-account",
                 "to": "sc:payable-features",
-                "esdtValue": [
+                "dctValue": [
                     {
                         "tokenIdentifier": "str:PAYABLE-FEATURES-TOKEN",
                         "value": "100"
@@ -95,7 +95,7 @@
             "tx": {
                 "from": "address:an-account",
                 "to": "sc:payable-features",
-                "esdtValue": [
+                "dctValue": [
                     {
                         "tokenIdentifier": "str:OTHER-TOKEN",
                         "value": "100"

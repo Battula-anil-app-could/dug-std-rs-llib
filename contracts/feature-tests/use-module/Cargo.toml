@@ -1,25 +1,25 @@
 [package]
 name = "use-module"
 version = "0.0.0"
-authors = ["viswanath <contact@dharithri.org>"]
+authors = ["viswanath <contact@dharitri.org>"]
 edition = "2021"
 publish = false
 
 [lib]
 path = "src/use_module.rs"
 
-[dependencies.dharithri-sc-modules]
+[dependencies.dharitri-sc-modules]
 version = "0.43.3"
 path = "../../../contracts/modules"
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../framework/base"
 
-[dev-dependencies.dharithri-sc-scenario]
+[dev-dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../framework/scenario"
 
-[dev-dependencies.dharithri-sc-meta]
+[dev-dependencies.dharitri-sc-meta]
 version = "0.43.3"
 path = "../../../framework/meta"

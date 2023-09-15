@@ -1,4 +1,4 @@
-use dharithri_sdk::data::transaction::ApiSmartContractResult;
+use dharitri_sdk::data::transaction::ApiSmartContractResult;
 
 /// Checks for invalid topics.
 pub fn process_topics_error(topics: Option<&Vec<String>>) -> Option<String> {

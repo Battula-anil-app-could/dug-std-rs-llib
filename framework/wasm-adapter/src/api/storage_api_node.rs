@@ -1,5 +1,5 @@
 use super::VmApiImpl;
-use dharithri_sc::api::{
+use dharitri_sc::api::{
     StorageReadApi, StorageReadApiImpl, StorageWriteApi, StorageWriteApiImpl,
 };
 

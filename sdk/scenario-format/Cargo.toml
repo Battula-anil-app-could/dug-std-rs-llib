@@ -1,16 +1,16 @@
 [package]
-name = "dharithri-chain-scenario-format"
+name = "dharitri-chain-scenario-format"
 version = "0.20.0"
 edition = "2021"
 
-authors = ["viswanath <contact@dharithri.org>", "dharithri <contact@dharithri.com>"]
+authors = ["viswanath <contact@dharitri.org>", "dharitri <contact@dharitri.com>"]
 license = "GPL-3.0-only"
 readme = "README.md"
-repository = "https://github.com/dharithri/mx-sdk-rs"
-homepage = "https://dharithri.com/"
-documentation = "https://docs.dharithri.com/"
-description = "Parser/writer of the dharithri transaction scenario format"
-keywords = ["dharithri", "blockchain", "contract"]
+repository = "https://github.com/dharitri/mx-sdk-rs"
+homepage = "https://dharitri.com/"
+documentation = "https://docs.dharitri.com/"
+description = "Parser/writer of the dharitri transaction scenario format"
+keywords = ["dharitri", "blockchain", "contract"]
 categories = ["cryptography::cryptocurrencies", "development-tools"]
 
 [dependencies]

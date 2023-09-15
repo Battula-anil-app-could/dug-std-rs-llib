@@ -1,4 +1,4 @@
-use dharithri_sc_scenario::*;
+use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     ScenarioWorld::vm_go()
@@ -70,8 +70,8 @@ fn not_payable_go() {
 }
 
 #[test]
-fn not_payable_esdt_go() {
-    world().run("scenarios/not_payable_esdt.scen.json");
+fn not_payable_dct_go() {
+    world().run("scenarios/not_payable_dct.scen.json");
 }
 
 #[test]

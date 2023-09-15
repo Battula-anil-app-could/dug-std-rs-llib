@@ -1,9 +1,9 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use super::governance_proposal::GovernanceProposal;
 use crate::governance::ProposalId;
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait GovernanceEventsModule {
     #[event("proposalCreated")]
     fn proposal_created_event(
@@ -60,7 +60,7 @@ pub trait GovernanceEventsModule {
         &self,
         #[indexed] address: &ManagedAddress,
         #[indexed] proposal_id: ProposalId,
-        payment: &EsdtTokenPayment<Self::Api>,
+        payment: &DctTokenPayment<Self::Api>,
     );
 
     #[event("userClaimDepositedTokens")]
@@ -68,6 +68,6 @@ pub trait GovernanceEventsModule {
         &self,
         #[indexed] address: &ManagedAddress,
         #[indexed] proposal_id: ProposalId,
-        payment: &EsdtTokenPayment<Self::Api>,
+        payment: &DctTokenPayment<Self::Api>,
     );
 }

@@ -40,7 +40,7 @@
                 "address:user1": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-123456": "10"
                     }
                 },
@@ -51,10 +51,10 @@
                 "sc:token_release_contract": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-123456": {
                             "roles": [
-                                "ESDTRoleLocalMint"
+                                "DCTRoleLocalMint"
                             ]
                         }
                     },

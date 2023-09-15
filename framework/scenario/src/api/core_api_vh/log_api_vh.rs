@@ -1,4 +1,4 @@
-use dharithri_sc::api::{HandleConstraints, LogApi, LogApiImpl};
+use dharitri_sc::api::{HandleConstraints, LogApi, LogApiImpl};
 
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 

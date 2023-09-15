@@ -11,13 +11,13 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:TEST-SFTABC": {
                             "lastNonce": "2",
                             "roles": [
-                                "ESDTRoleNFTCreate",
-                                "ESDTRoleNFTAddQuantity",
-                                "ESDTRoleNFTBurn"
+                                "DCTRoleNFTCreate",
+                                "DCTRoleNFTAddQuantity",
+                                "DCTRoleNFTBurn"
                             ]
                         }
                     },
@@ -26,7 +26,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:TEST-SFTABC": {
                             "instances": [
                                 {
@@ -83,13 +83,13 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:TEST-SFTABC": {
                             "lastNonce": "4",
                             "roles": [
-                                "ESDTRoleNFTCreate",
-                                "ESDTRoleNFTAddQuantity",
-                                "ESDTRoleNFTBurn"
+                                "DCTRoleNFTCreate",
+                                "DCTRoleNFTAddQuantity",
+                                "DCTRoleNFTBurn"
                             ]
                         }
                     },
@@ -99,7 +99,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:TEST-SFTABC": {
                             "instances": [
                                 {

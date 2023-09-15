@@ -1,5 +1,5 @@
 use crate::scenario::model::{
-    AddressValue, BigUintValue, BytesValue, TxESDT, TxTransfer, TxValidatorReward, U64Value,
+    AddressValue, BigUintValue, BytesValue, TxDCT, TxTransfer, TxValidatorReward, U64Value,
 };
 
 #[derive(Debug, Default, Clone)]
@@ -20,8 +20,8 @@ pub struct ValidatorRewardStep {
 
 impl TransferStep {
     pub fn new() -> Self {
-        // 50,000 is the gas limit for simple EGLD transfers, so it is default for convenience
-        // ESDT transfers will need more
+        // 50,000 is the gas limit for simple MOA transfers, so it is default for convenience
+        // DCT transfers will need more
         Self::default().gas_limit("50,000")
     }
 
@@ -41,32 +41,32 @@ impl TransferStep {
         self
     }
 
-    pub fn egld_value<A>(mut self, amount: A) -> Self
+    pub fn moa_value<A>(mut self, amount: A) -> Self
     where
         BigUintValue: From<A>,
     {
-        if !self.tx.esdt_value.is_empty() {
-            panic!("Cannot transfer both EGLD and ESDT");
+        if !self.tx.dct_value.is_empty() {
+            panic!("Cannot transfer both MOA and DCT");
         }
 
-        self.tx.egld_value = BigUintValue::from(amount);
+        self.tx.moa_value = BigUintValue::from(amount);
         self
     }
 
-    pub fn esdt_transfer<T, N, A>(mut self, token_id: T, token_nonce: N, amount: A) -> Self
+    pub fn dct_transfer<T, N, A>(mut self, token_id: T, token_nonce: N, amount: A) -> Self
     where
         BytesValue: From<T>,
         U64Value: From<N>,
         BigUintValue: From<A>,
     {
-        if self.tx.egld_value.value > 0u32.into() {
-            panic!("Cannot transfer both EGLD and ESDT");
+        if self.tx.moa_value.value > 0u32.into() {
+            panic!("Cannot transfer both MOA and DCT");
         }
 
-        self.tx.esdt_value.push(TxESDT {
-            esdt_token_identifier: BytesValue::from(token_id),
+        self.tx.dct_value.push(TxDCT {
+            dct_token_identifier: BytesValue::from(token_id),
             nonce: U64Value::from(token_nonce),
-            esdt_value: BigUintValue::from(amount),
+            dct_value: BigUintValue::from(amount),
         });
 
         self

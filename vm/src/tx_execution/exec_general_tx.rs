@@ -39,7 +39,7 @@ impl BlockchainVMRef {
         F: FnOnce(),
     {
         if let Err(err) =
-            tx_cache.transfer_egld_balance(&tx_input.from, &tx_input.to, &tx_input.egld_value)
+            tx_cache.transfer_moa_balance(&tx_input.from, &tx_input.to, &tx_input.moa_value)
         {
             return (TxResult::from_panic_obj(&err), BlockchainUpdate::empty());
         }
@@ -47,7 +47,7 @@ impl BlockchainVMRef {
         // skip for transactions coming directly from scenario json, which should all be coming from user wallets
         // TODO: reorg context logic
         let add_transfer_log =
-            tx_input.from.is_smart_contract_address() && !tx_input.egld_value.is_zero();
+            tx_input.from.is_smart_contract_address() && !tx_input.moa_value.is_zero();
         let transfer_value_log = if add_transfer_log {
             Some(TxLog {
                 address: VMAddress::zero(), // TODO: figure out the real VM behavior
@@ -55,7 +55,7 @@ impl BlockchainVMRef {
                 topics: vec![
                     tx_input.from.to_vec(),
                     tx_input.to.to_vec(),
-                    tx_input.egld_value.to_bytes_be(),
+                    tx_input.moa_value.to_bytes_be(),
                 ],
                 data: Vec::new(),
             })
@@ -64,13 +64,13 @@ impl BlockchainVMRef {
         };
 
         // TODO: temporary, will convert to explicit builtin function first
-        for esdt_transfer in tx_input.esdt_values.iter() {
-            let transfer_result = tx_cache.transfer_esdt_balance(
+        for dct_transfer in tx_input.dct_values.iter() {
+            let transfer_result = tx_cache.transfer_dct_balance(
                 &tx_input.from,
                 &tx_input.to,
-                &esdt_transfer.token_identifier,
-                esdt_transfer.nonce,
-                &esdt_transfer.value,
+                &dct_transfer.token_identifier,
+                dct_transfer.nonce,
+                &dct_transfer.value,
             );
             if let Err(err) = transfer_result {
                 return (TxResult::from_panic_obj(&err), BlockchainUpdate::empty());
@@ -117,7 +117,7 @@ impl BlockchainVMRef {
 
         if let Err(err) = tx_context_sh
             .tx_cache
-            .subtract_egld_balance(&tx_input_ref.from, &tx_input_ref.egld_value)
+            .subtract_moa_balance(&tx_input_ref.from, &tx_input_ref.moa_value)
         {
             return (
                 TxResult::from_panic_obj(&err),
@@ -128,7 +128,7 @@ impl BlockchainVMRef {
         tx_context_sh.create_new_contract(&new_address, contract_path, tx_input_ref.from.clone());
         tx_context_sh
             .tx_cache
-            .increase_egld_balance(&new_address, &tx_input_ref.egld_value);
+            .increase_moa_balance(&new_address, &tx_input_ref.moa_value);
 
         TxContextStack::execute_on_vm_stack(&mut tx_context_sh, f);
 

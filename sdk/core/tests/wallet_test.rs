@@ -1,6 +1,6 @@
 use bip39::Mnemonic;
 
-use dharithri_sdk::{crypto::public_key::PublicKey, data::address::Address, wallet::Wallet};
+use dharitri_sdk::{crypto::public_key::PublicKey, data::address::Address, wallet::Wallet};
 
 #[test]
 fn test_private_key_from_mnemonic() {

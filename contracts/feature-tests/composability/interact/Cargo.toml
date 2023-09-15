@@ -1,7 +1,7 @@
 [package]
 name = "interact"
 version = "0.0.0"
-authors = ["Costin Carabas <costin.carabas@dharithri.com>"]
+authors = ["Costin Carabas <costin.carabas@dharitri.com>"]
 edition = "2021"
 publish = false
 
@@ -23,10 +23,10 @@ path = "../forwarder-queue"
 [dependencies.promises-features]
 path = "../promises-features"
 
-[dependencies.dharithri-sc-modules]
+[dependencies.dharitri-sc-modules]
 version = "0.43.3"
 path = "../../../../contracts/modules"
 
-[dependencies.dharithri-sc-snippets]
+[dependencies.dharitri-sc-snippets]
 version = "0.43.3"
 path = "../../../../framework/snippets"

@@ -24,12 +24,12 @@ pub fn generate_callback_selector_and_main(
         let as_call_method = generate_endpoint_call_method_body(&raw);
         let cb_selector_body = quote! {
             #as_call_method
-            dharithri_sc::types::CallbackSelectorResult::Processed
+            dharitri_sc::types::CallbackSelectorResult::Processed
         };
         let cb_main_body = quote! {
             let _ = self::EndpointWrappers::callback_selector(
                 self,
-                dharithri_sc::types::CallbackClosureForDeser::no_callback(),
+                dharitri_sc::types::CallbackClosureForDeser::no_callback(),
             );
         };
         (cb_selector_body, cb_main_body)
@@ -39,18 +39,18 @@ pub fn generate_callback_selector_and_main(
             module_calls(contract.supertraits.as_slice());
         if match_arms.is_empty() && module_calls.is_empty() {
             let cb_selector_body = quote! {
-                dharithri_sc::types::CallbackSelectorResult::NotProcessed(___cb_closure___)
+                dharitri_sc::types::CallbackSelectorResult::NotProcessed(___cb_closure___)
             };
             let cb_main_body = quote! {};
             (cb_selector_body, cb_main_body)
         } else {
             let cb_selector_body = callback_selector_body(match_arms, module_calls);
             let cb_main_body = quote! {
-                if let Some(___cb_closure___) = dharithri_sc::types::CallbackClosureForDeser::storage_load_and_clear::<Self::Api>() {
-                    if let dharithri_sc::types::CallbackSelectorResult::NotProcessed(_) =
+                if let Some(___cb_closure___) = dharitri_sc::types::CallbackClosureForDeser::storage_load_and_clear::<Self::Api>() {
+                    if let dharitri_sc::types::CallbackSelectorResult::NotProcessed(_) =
                         self::EndpointWrappers::callback_selector(self, ___cb_closure___)	{
-                        dharithri_sc::api::ErrorApiImpl::signal_error(
-                            &<Self::Api as dharithri_sc::api::ErrorApi>::error_api_impl(),
+                        dharitri_sc::api::ErrorApiImpl::signal_error(
+                            &<Self::Api as dharitri_sc::api::ErrorApi>::error_api_impl(),
                             err_msg::CALLBACK_BAD_FUNC,
                         );
                     }
@@ -75,11 +75,11 @@ fn callback_selector_body(
     quote! {
         let ___cb_closure_matcher___ = ___cb_closure___.matcher::<#CALLBACK_NAME_MAX_LENGTH>();
         if ___cb_closure_matcher___.matches_empty() {
-            return dharithri_sc::types::CallbackSelectorResult::Processed;
+            return dharitri_sc::types::CallbackSelectorResult::Processed;
         }
         #(#match_arms)*
         #(#module_calls)*
-        dharithri_sc::types::CallbackSelectorResult::NotProcessed(___cb_closure___)
+        dharitri_sc::types::CallbackSelectorResult::NotProcessed(___cb_closure___)
     }
 }
 
@@ -106,7 +106,7 @@ fn match_arms(methods: &[Method]) -> Vec<proc_macro2::TokenStream> {
                         #load_call_result_args
                         #load_cb_closure_args
                         #body_with_result ;
-                        return dharithri_sc::types::CallbackSelectorResult::Processed;
+                        return dharitri_sc::types::CallbackSelectorResult::Processed;
                     }
                 };
                 Some(match_arm)
@@ -124,10 +124,10 @@ pub fn module_calls(supertraits: &[Supertrait]) -> Vec<proc_macro2::TokenStream>
             let module_path = &supertrait.module_path;
             quote! {
                 match #module_path EndpointWrappers::callback_selector(self, ___cb_closure___) {
-                    dharithri_sc::types::CallbackSelectorResult::Processed => {
-                        return dharithri_sc::types::CallbackSelectorResult::Processed;
+                    dharitri_sc::types::CallbackSelectorResult::Processed => {
+                        return dharitri_sc::types::CallbackSelectorResult::Processed;
                     },
-                    dharithri_sc::types::CallbackSelectorResult::NotProcessed(recovered_cb_closure) => {
+                    dharitri_sc::types::CallbackSelectorResult::NotProcessed(recovered_cb_closure) => {
                         ___cb_closure___ = recovered_cb_closure;
                     },
                 }

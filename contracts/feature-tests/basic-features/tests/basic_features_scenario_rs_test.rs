@@ -1,4 +1,4 @@
-use dharithri_sc_scenario::*;
+use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
@@ -9,8 +9,8 @@ fn world() -> ScenarioWorld {
         basic_features::ContractBuilder,
     );
     blockchain.register_contract(
-        "file:../esdt-system-sc-mock/output/esdt-system-sc-mock.wasm",
-        esdt_system_sc_mock::ContractBuilder,
+        "file:../dct-system-sc-mock/output/dct-system-sc-mock.wasm",
+        dct_system_sc_mock::ContractBuilder,
     );
 
     blockchain

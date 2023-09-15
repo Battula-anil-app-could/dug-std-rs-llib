@@ -1,6 +1,6 @@
 use crate::{
     api::StaticApi,
-    dharithri_sc::types::{ContractCall, ContractCallWithEgld, EsdtTokenPayment},
+    dharitri_sc::types::{ContractCall, ContractCallWithMoa, DctTokenPayment},
     scenario::model::{AddressValue, BigUintValue, BytesValue, U64Value},
     scenario_format::{
         interpret_trait::{InterpretableFrom, InterpreterContext, IntoRaw},
@@ -8,7 +8,7 @@ use crate::{
     },
 };
 
-use super::{tx_interpret_util::interpret_egld_value, TxESDT};
+use super::{tx_interpret_util::interpret_moa_value, TxDCT};
 
 pub const DEFAULT_GAS_EXPR: &str = "5,000,000";
 
@@ -16,8 +16,8 @@ pub const DEFAULT_GAS_EXPR: &str = "5,000,000";
 pub struct TxCall {
     pub from: AddressValue,
     pub to: AddressValue,
-    pub egld_value: BigUintValue,
-    pub esdt_value: Vec<TxESDT>,
+    pub moa_value: BigUintValue,
+    pub dct_value: Vec<TxDCT>,
     pub function: String,
     pub arguments: Vec<BytesValue>,
     pub gas_limit: U64Value,
@@ -29,8 +29,8 @@ impl Default for TxCall {
         Self {
             from: Default::default(),
             to: Default::default(),
-            egld_value: Default::default(),
-            esdt_value: Default::default(),
+            moa_value: Default::default(),
+            dct_value: Default::default(),
             function: Default::default(),
             arguments: Default::default(),
             gas_limit: U64Value::from(DEFAULT_GAS_EXPR),
@@ -44,11 +44,11 @@ impl InterpretableFrom<TxCallRaw> for TxCall {
         TxCall {
             from: AddressValue::interpret_from(from.from, context),
             to: AddressValue::interpret_from(from.to, context),
-            egld_value: interpret_egld_value(from.value, from.egld_value, context),
-            esdt_value: from
-                .esdt_value
+            moa_value: interpret_moa_value(from.value, from.moa_value, context),
+            dct_value: from
+                .dct_value
                 .into_iter()
-                .map(|esdt_value| TxESDT::interpret_from(esdt_value, context))
+                .map(|dct_value| TxDCT::interpret_from(dct_value, context))
                 .collect(),
             function: from.function,
             arguments: from
@@ -68,11 +68,11 @@ impl IntoRaw<TxCallRaw> for TxCall {
             from: self.from.into_raw(),
             to: self.to.into_raw(),
             value: None,
-            egld_value: self.egld_value.into_raw_opt(),
-            esdt_value: self
-                .esdt_value
+            moa_value: self.moa_value.into_raw_opt(),
+            dct_value: self
+                .dct_value
                 .into_iter()
-                .map(|esdt_value| esdt_value.into_raw())
+                .map(|dct_value| dct_value.into_raw())
                 .collect(),
             function: self.function,
             arguments: self
@@ -87,23 +87,23 @@ impl IntoRaw<TxCallRaw> for TxCall {
 }
 
 impl TxCall {
-    pub fn to_contract_call(&self) -> ContractCallWithEgld<StaticApi, ()> {
-        let mut contract_call = ContractCallWithEgld::new(
+    pub fn to_contract_call(&self) -> ContractCallWithMoa<StaticApi, ()> {
+        let mut contract_call = ContractCallWithMoa::new(
             (&self.to.value).into(),
             self.function.as_bytes(),
-            (&self.egld_value.value).into(),
+            (&self.moa_value.value).into(),
         );
 
         contract_call.basic.explicit_gas_limit = self.gas_limit.value;
 
-        contract_call = contract_call.convert_to_esdt_transfer_call(
-            self.esdt_value
+        contract_call = contract_call.convert_to_dct_transfer_call(
+            self.dct_value
                 .iter()
-                .map(|esdt| {
-                    EsdtTokenPayment::new(
-                        esdt.esdt_token_identifier.value.as_slice().into(),
-                        esdt.nonce.value,
-                        (&esdt.esdt_value.value).into(),
+                .map(|dct| {
+                    DctTokenPayment::new(
+                        dct.dct_token_identifier.value.as_slice().into(),
+                        dct.nonce.value,
+                        (&dct.dct_value.value).into(),
                     )
                 })
                 .collect(),

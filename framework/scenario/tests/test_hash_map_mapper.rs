@@ -1,8 +1,8 @@
-use dharithri_sc::storage::{
+use dharitri_sc::storage::{
     mappers::{MapMapper, StorageClearable, StorageMapper},
     StorageKey,
 };
-use dharithri_sc_scenario::api::SingleTxApi;
+use dharitri_sc_scenario::api::SingleTxApi;
 
 fn create_map() -> MapMapper<SingleTxApi, u64, u64> {
     let base_key = StorageKey::new(&b"my_map"[..]);

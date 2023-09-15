@@ -1,5 +1,5 @@
 use formatted_message_features::*;
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc_scenario::api::StaticApi;
 
 fn check_printed_and_clear(expected: &str) {
     let printed = StaticApi::printed_messages();

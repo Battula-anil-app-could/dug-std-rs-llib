@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ForwarderRawCommon {
     #[view]
     #[storage_mapper("callback_args")]
@@ -8,12 +8,12 @@ pub trait ForwarderRawCommon {
 
     #[view]
     #[storage_mapper("callback_payments")]
-    fn callback_payments(&self) -> VecMapper<(EgldOrEsdtTokenIdentifier, u64, BigUint)>;
+    fn callback_payments(&self) -> VecMapper<(MoaOrDctTokenIdentifier, u64, BigUint)>;
 
     #[view]
     fn callback_payments_triples(
         &self,
-    ) -> MultiValueEncoded<MultiValue3<EgldOrEsdtTokenIdentifier, u64, BigUint>> {
+    ) -> MultiValueEncoded<MultiValue3<MoaOrDctTokenIdentifier, u64, BigUint>> {
         let mut result = MultiValueEncoded::new();
         for payment_tuple in self.callback_payments().iter() {
             result.push(payment_tuple.into());
@@ -27,19 +27,19 @@ pub trait ForwarderRawCommon {
         self.callback_payments().clear();
     }
 
-    /// Used in the elrond-go tests, do not remove.
+    /// Used in the dharitri-go tests, do not remove.
     #[view]
     fn callback_args_at_index(&self, index: usize) -> MultiValueEncoded<ManagedBuffer> {
         let cb_args = self.callback_args().get(index);
         cb_args.into()
     }
 
-    /// Used in the elrond-go tests, do not remove.
+    /// Used in the dharitri-go tests, do not remove.
     #[view]
     fn callback_payment_at_index(
         &self,
         index: usize,
-    ) -> MultiValue3<EgldOrEsdtTokenIdentifier, u64, BigUint> {
+    ) -> MultiValue3<MoaOrDctTokenIdentifier, u64, BigUint> {
         self.callback_payments().get(index).into()
     }
 

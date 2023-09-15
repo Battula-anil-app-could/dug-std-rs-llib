@@ -1,5 +1,5 @@
 use super::*;
-use dharithri_sc::abi::*;
+use dharitri_sc::abi::*;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 

@@ -1,5 +1,5 @@
 use super::{Log, TxResponse, TxResponseStatus};
-use dharithri_sc::codec::{PanicErrorHandler, TopDecodeMulti};
+use dharitri_sc::codec::{PanicErrorHandler, TopDecodeMulti};
 
 pub struct TypedResponse<T>
 where

@@ -1,8 +1,8 @@
 # Smart contract standard codec
 
-[![crates.io](https://img.shields.io/crates/v/dharithri-sc-codec.svg)](https://crates.io/crates/dharithri-sc-codec) 
+[![crates.io](https://img.shields.io/crates/v/dharitri-sc-codec.svg)](https://crates.io/crates/dharitri-sc-codec) 
 
-Lightweight binary serializer/deserializer, written especially for dharithri smart contracts.
+Lightweight binary serializer/deserializer, written especially for dharitri smart contracts.
 
 Designed to:
 - produce minimal WASM bytecode
@@ -11,11 +11,11 @@ Designed to:
 
 Largely inspired by the Parity SCALE codec, but a completely different format and implementation.
 
-For more info about the serialization format, see [the developer reference](https://docs.dharithri.com/developers/developer-reference/serialization-format/).
+For more info about the serialization format, see [the developer reference](https://docs.dharitri.com/developers/developer-reference/serialization-format/).
 
 # no-std
 
-Being designed for dharithri smart contracts, it needs to be able to run in a no-std environment.
+Being designed for dharitri smart contracts, it needs to be able to run in a no-std environment.
 
 It is also safe to run in a regular std environment.
 

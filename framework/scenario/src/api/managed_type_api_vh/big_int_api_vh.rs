@@ -1,6 +1,6 @@
 use core::cmp::Ordering;
 
-use dharithri_sc::api::{use_raw_handle, BigIntApiImpl, HandleConstraints, Sign};
+use dharitri_sc::api::{use_raw_handle, BigIntApiImpl, HandleConstraints, Sign};
 
 use crate::api::{i32_to_bool, VMHooksApi, VMHooksApiBackend};
 

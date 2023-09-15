@@ -1,7 +1,7 @@
 #![no_std]
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 pub mod dummy_module;
 
@@ -16,7 +16,7 @@ pub struct StructWithManagedTypes<M: ManagedTypeApi> {
     pub buffer: ManagedBuffer<M>,
 }
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     #[init]
     fn init(&self) -> ManagedBuffer {
@@ -42,31 +42,31 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
     }
 
     #[endpoint]
-    fn get_egld_balance(&self) -> BigUint {
+    fn get_moa_balance(&self) -> BigUint {
         self.blockchain()
-            .get_sc_balance(&EgldOrEsdtTokenIdentifier::egld(), 0)
+            .get_sc_balance(&MoaOrDctTokenIdentifier::moa(), 0)
     }
 
     #[endpoint]
-    fn get_esdt_balance(&self, token_id: TokenIdentifier, nonce: u64) -> BigUint {
+    fn get_dct_balance(&self, token_id: TokenIdentifier, nonce: u64) -> BigUint {
         self.blockchain()
-            .get_sc_balance(&EgldOrEsdtTokenIdentifier::esdt(token_id), nonce)
+            .get_sc_balance(&MoaOrDctTokenIdentifier::dct(token_id), nonce)
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint]
-    fn receive_egld(&self) -> BigUint {
-        self.call_value().egld_value().clone_value()
+    fn receive_moa(&self) -> BigUint {
+        self.call_value().moa_value().clone_value()
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint]
-    fn recieve_egld_half(&self) {
+    fn recieve_moa_half(&self) {
         let caller = self.blockchain().get_caller();
-        let payment_amount = &*self.call_value().egld_value() / 2u32;
+        let payment_amount = &*self.call_value().moa_value() / 2u32;
         self.send().direct(
             &caller,
-            &EgldOrEsdtTokenIdentifier::egld(),
+            &MoaOrDctTokenIdentifier::moa(),
             0,
             &payment_amount,
         );
@@ -74,8 +74,8 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
 
     #[payable("*")]
     #[endpoint]
-    fn receive_esdt(&self) -> (TokenIdentifier, BigUint) {
-        let payment = self.call_value().single_esdt();
+    fn receive_dct(&self) -> (TokenIdentifier, BigUint) {
+        let payment = self.call_value().single_dct();
         (payment.token_identifier, payment.amount)
     }
 
@@ -87,19 +87,19 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
 
     #[payable("*")]
     #[endpoint]
-    fn receive_esdt_half(&self) {
+    fn receive_dct_half(&self) {
         let caller = self.blockchain().get_caller();
-        let payment = self.call_value().single_esdt();
+        let payment = self.call_value().single_dct();
         let amount = payment.amount / 2u32;
 
         self.send()
-            .direct_esdt(&caller, &payment.token_identifier, 0, &amount);
+            .direct_dct(&caller, &payment.token_identifier, 0, &amount);
     }
 
     #[payable("*")]
     #[endpoint]
-    fn receive_multi_esdt(&self) -> ManagedVec<EsdtTokenPayment<Self::Api>> {
-        self.call_value().all_esdt_transfers().clone_value()
+    fn receive_multi_dct(&self) -> ManagedVec<DctTokenPayment<Self::Api>> {
+        self.call_value().all_dct_transfers().clone_value()
     }
 
     #[payable("*")]
@@ -111,17 +111,17 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
         nft_nonce: u64,
         amount: BigUint,
     ) {
-        self.send().direct_esdt(&to, &token_id, nft_nonce, &amount);
+        self.send().direct_dct(&to, &token_id, nft_nonce, &amount);
     }
 
     #[endpoint]
-    fn mint_esdt(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
-        self.send().esdt_local_mint(&token_id, nonce, &amount);
+    fn mint_dct(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
+        self.send().dct_local_mint(&token_id, nonce, &amount);
     }
 
     #[endpoint]
-    fn burn_esdt(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
-        self.send().esdt_local_burn(&token_id, nonce, &amount);
+    fn burn_dct(&self, token_id: TokenIdentifier, nonce: u64, amount: BigUint) {
+        self.send().dct_local_burn(&token_id, nonce, &amount);
     }
 
     #[endpoint]
@@ -131,7 +131,7 @@ pub trait RustTestingFrameworkTester: dummy_module::DummyModule {
         amount: BigUint,
         attributes: NftDummyAttributes,
     ) -> u64 {
-        self.send().esdt_nft_create(
+        self.send().dct_nft_create(
             &token_id,
             &amount,
             &ManagedBuffer::new(),

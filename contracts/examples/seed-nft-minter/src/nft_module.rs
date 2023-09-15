@@ -1,33 +1,33 @@
 use crate::distribution_module;
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
-use dharithri_sc_modules::default_issue_callbacks;
+use dharitri_sc_modules::default_issue_callbacks;
 
 const NFT_AMOUNT: u32 = 1;
 const ROYALTIES_MAX: u32 = 10_000; // 100%
 
 #[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct PriceTag<M: ManagedTypeApi> {
-    pub token: EgldOrEsdtTokenIdentifier<M>,
+    pub token: MoaOrDctTokenIdentifier<M>,
     pub nonce: u64,
     pub amount: BigUint<M>,
 }
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait NftModule:
     distribution_module::DistributionModule + default_issue_callbacks::DefaultIssueCallbacksModule
 {
     // endpoints - owner-only
 
     #[only_owner]
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint(issueToken)]
     fn issue_token(&self, token_display_name: ManagedBuffer, token_ticker: ManagedBuffer) {
-        let issue_cost = self.call_value().egld_value();
+        let issue_cost = self.call_value().moa_value();
         self.nft_token_id().issue_and_set_all_roles(
-            EsdtTokenType::NonFungible,
+            DctTokenType::NonFungible,
             issue_cost.clone_value(),
             token_display_name,
             token_ticker,
@@ -41,7 +41,7 @@ pub trait NftModule:
     #[payable("*")]
     #[endpoint(buyNft)]
     fn buy_nft(&self, nft_nonce: u64) {
-        let payment = self.call_value().egld_or_single_esdt();
+        let payment = self.call_value().moa_or_single_dct();
 
         self.require_token_issued();
         require!(
@@ -67,7 +67,7 @@ pub trait NftModule:
 
         let nft_token_id = self.nft_token_id().get_token_id();
         let caller = self.blockchain().get_caller();
-        self.send().direct_esdt(
+        self.send().direct_dct(
             &caller,
             &nft_token_id,
             nft_nonce,
@@ -88,7 +88,7 @@ pub trait NftModule:
     fn get_nft_price(
         &self,
         nft_nonce: u64,
-    ) -> OptionalValue<MultiValue3<EgldOrEsdtTokenIdentifier, u64, BigUint>> {
+    ) -> OptionalValue<MultiValue3<MoaOrDctTokenIdentifier, u64, BigUint>> {
         if self.price_tag(nft_nonce).is_empty() {
             // NFT was already sold
             OptionalValue::None
@@ -109,7 +109,7 @@ pub trait NftModule:
         attributes: T,
         uri: ManagedBuffer,
         selling_price: BigUint,
-        token_used_as_payment: EgldOrEsdtTokenIdentifier,
+        token_used_as_payment: MoaOrDctTokenIdentifier,
         token_used_as_payment_nonce: u64,
     ) -> u64 {
         self.require_token_issued();
@@ -125,7 +125,7 @@ pub trait NftModule:
         let attributes_sha256 = self.crypto().sha256(&serialized_attributes);
         let attributes_hash = attributes_sha256.as_managed_buffer();
         let uris = ManagedVec::from_single_item(uri);
-        let nft_nonce = self.send().esdt_nft_create(
+        let nft_nonce = self.send().dct_nft_create(
             &nft_token_id,
             &BigUint::from(NFT_AMOUNT),
             &name,

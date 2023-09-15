@@ -1,6 +1,6 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use hex_literal::hex;
 
@@ -8,27 +8,27 @@ static HARDCODED_ADDRESS: [u8; 32] =
     hex!("fefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefefe");
 
 mod pay_me_proxy {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
-    #[dharithri_sc::proxy]
+    #[dharitri_sc::proxy]
     pub trait PayMe {
-        #[payable("EGLD")]
+        #[payable("MOA")]
         #[endpoint(payMe)]
         fn pay_me(&self, arg1: i64);
 
-        #[payable("EGLD")]
+        #[payable("MOA")]
         #[endpoint(payMeWithResult)]
         fn pay_me_with_result(&self, arg1: i64);
     }
 }
 
 mod message_me_proxy {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
-    #[dharithri_sc::proxy]
+    #[dharitri_sc::proxy]
     pub trait MessageMe {
         #[init]
-        #[payable("EGLD")]
+        #[payable("MOA")]
         fn init(&self, init_arg: i32) -> i32;
 
         #[endpoint(messageMe)]
@@ -36,7 +36,7 @@ mod message_me_proxy {
     }
 }
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait ProxyTestFirst {
     #[proxy]
     fn pay_me_proxy(&self) -> pay_me_proxy::Proxy<Self::Api>;
@@ -58,54 +58,54 @@ pub trait ProxyTestFirst {
         self.set_other_contract(other_contract_addr);
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint(deploySecondContract)]
     fn deploy_second_contract(&self, code: ManagedBuffer) -> i32 {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
         let (address, init_result) = self
             .message_me_proxy()
             .init(123)
-            .with_egld_transfer(payment.clone_value())
+            .with_moa_transfer(payment.clone_value())
             .deploy_contract::<i32>(&code, CodeMetadata::DEFAULT);
         self.set_other_contract(&address);
         init_result + 1
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint(upgradeSecondContract)]
     fn upgrade_second_contract(&self, code: ManagedBuffer) {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
         let other_contract = self.get_other_contract();
 
         self.message_me_proxy()
             .contract(other_contract)
             .init(456)
-            .with_egld_transfer(payment.clone_value())
+            .with_moa_transfer(payment.clone_value())
             .upgrade_contract(&code, CodeMetadata::DEFAULT);
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint(forwardToOtherContract)]
     fn forward_to_other_contract(&self) {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
         let other_contract = self.get_other_contract();
         self.pay_me_proxy()
             .contract(other_contract)
             .pay_me(0x56)
-            .with_egld_transfer(payment.clone_value())
+            .with_moa_transfer(payment.clone_value())
             .async_call()
             .call_and_exit()
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint(forwardToOtherContractWithCallback)]
     fn forward_to_other_contract_with_callback(&self) {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
         let other_contract = self.get_other_contract();
         self.pay_me_proxy()
             .contract(other_contract)
             .pay_me_with_result(0x56)
-            .with_egld_transfer(payment.clone_value())
+            .with_moa_transfer(payment.clone_value())
             .async_call()
             .with_callback(self.callbacks().pay_callback())
             .call_and_exit()

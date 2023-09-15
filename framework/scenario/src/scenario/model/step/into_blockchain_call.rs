@@ -3,11 +3,11 @@
 use super::{ScCallStep, ScDeployStep, ScQueryStep, TypedScCall, TypedScDeploy, TypedScQuery};
 use crate::{
     api::StaticApi,
-    dharithri_sc::{
+    dharitri_sc::{
         codec::TopEncodeMulti,
         types::{
-            ContractCall, ContractCallNoPayment, ContractCallWithEgld,
-            ContractCallWithEgldOrSingleEsdt, ContractCallWithMultiEsdt, ContractDeploy,
+            ContractCall, ContractCallNoPayment, ContractCallWithMoa,
+            ContractCallWithMoaOrSingleDct, ContractCallWithMultiDct, ContractDeploy,
         },
     },
 };
@@ -46,9 +46,9 @@ macro_rules! impl_into_blockchain_call_cc {
 }
 
 impl_into_blockchain_call_cc! {ContractCallNoPayment}
-impl_into_blockchain_call_cc! {ContractCallWithEgld}
-impl_into_blockchain_call_cc! {ContractCallWithEgldOrSingleEsdt}
-impl_into_blockchain_call_cc! {ContractCallWithMultiEsdt}
+impl_into_blockchain_call_cc! {ContractCallWithMoa}
+impl_into_blockchain_call_cc! {ContractCallWithMoaOrSingleDct}
+impl_into_blockchain_call_cc! {ContractCallWithMultiDct}
 
 impl<OriginalResult> IntoBlockchainCall for ContractDeploy<StaticApi, OriginalResult> {
     type BlockchainCall = TypedScDeploy<OriginalResult>;

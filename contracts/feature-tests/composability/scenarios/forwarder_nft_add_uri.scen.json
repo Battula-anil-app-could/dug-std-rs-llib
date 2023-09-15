@@ -10,7 +10,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -20,7 +20,7 @@
                             ],
                             "lastNonce": "1",
                             "roles": [
-                                "ESDTRoleNFTAddURI"
+                                "DCTRoleNFTAddURI"
                             ]
                         }
                     },
@@ -49,7 +49,7 @@
                 "logs": [
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:ESDTNFTAddURI",
+                        "endpoint": "str:DCTNFTAddURI",
                         "topics": [
                             "str:NFT-000001",
                             "1",
@@ -73,7 +73,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -86,7 +86,7 @@
                             ],
                             "lastNonce": "1",
                             "roles": [
-                                "ESDTRoleNFTAddURI"
+                                "DCTRoleNFTAddURI"
                             ]
                         }
                     },
@@ -117,7 +117,7 @@
                 "logs": [
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:ESDTNFTAddURI",
+                        "endpoint": "str:DCTNFTAddURI",
                         "topics": [
                             "str:NFT-000001",
                             "1",
@@ -142,7 +142,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -157,7 +157,7 @@
                             ],
                             "lastNonce": "1",
                             "roles": [
-                                "ESDTRoleNFTAddURI"
+                                "DCTRoleNFTAddURI"
                             ]
                         }
                     },

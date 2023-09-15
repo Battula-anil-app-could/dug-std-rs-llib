@@ -3,22 +3,22 @@ use std::{collections::HashMap, path::PathBuf, str::FromStr, sync::Arc};
 use crate::{
     api::DebugApi,
     debug_executor::{contract_instance_wrapped_execution, ContractContainer, StaticVarStack},
-    dharithri_sc::{
+    dharitri_sc::{
         codec::{TopDecode, TopEncode},
         contract_base::{CallableContract, ContractBase},
-        types::{heap::Address, EsdtLocalRole},
+        types::{heap::Address, DctLocalRole},
     },
     scenario_model::{Account, BytesValue, ScCallStep, SetStateStep},
     testing_framework::raw_converter::bytes_to_hex,
     ScenarioWorld,
 };
-use dharithri_chain_scenario_format::interpret_trait::InterpretableFrom;
-use dharithri_chain_vm::{
+use dharitri_chain_scenario_format::interpret_trait::InterpretableFrom;
+use dharitri_chain_vm::{
     tx_mock::{TxContext, TxContextStack, TxFunctionName, TxResult},
     types::VMAddress,
-    world_mock::EsdtInstanceMetadata,
+    world_mock::DctInstanceMetadata,
 };
-use dharithri_sc::types::H256;
+use dharitri_sc::types::H256;
 use num_traits::Zero;
 
 use super::{
@@ -26,7 +26,7 @@ use super::{
     AddressFactory, MandosGenerator, ScQueryMandos,
 };
 
-pub use dharithri_chain_vm::tx_mock::TxTokenTransfer;
+pub use dharitri_chain_vm::tx_mock::TxTokenTransfer;
 
 #[derive(Clone)]
 pub struct ContractObjWrapper<
@@ -89,35 +89,35 @@ impl BlockchainStateWrapper {
         }
     }
 
-    pub fn check_egld_balance(&self, address: &Address, expected_balance: &num_bigint::BigUint) {
+    pub fn check_moa_balance(&self, address: &Address, expected_balance: &num_bigint::BigUint) {
         let actual_balance = match &self.world.get_state().accounts.get(&to_vm_address(address)) {
-            Some(acc) => acc.egld_balance.clone(),
+            Some(acc) => acc.moa_balance.clone(),
             None => num_bigint::BigUint::zero(),
         };
 
         assert!(
             expected_balance == &actual_balance,
-            "EGLD balance mismatch for address {}\n Expected: {}\n Have: {}\n",
+            "MOA balance mismatch for address {}\n Expected: {}\n Have: {}\n",
             address_to_hex(address),
             expected_balance,
             actual_balance
         );
     }
 
-    pub fn check_esdt_balance(
+    pub fn check_dct_balance(
         &self,
         address: &Address,
         token_id: &[u8],
         expected_balance: &num_bigint::BigUint,
     ) {
         let actual_balance = match &self.world.get_state().accounts.get(&to_vm_address(address)) {
-            Some(acc) => acc.esdt.get_esdt_balance(token_id, 0),
+            Some(acc) => acc.dct.get_dct_balance(token_id, 0),
             None => num_bigint::BigUint::zero(),
         };
 
         assert!(
             expected_balance == &actual_balance,
-            "ESDT balance mismatch for address {}\n Token: {}\n Expected: {}\n Have: {}\n",
+            "DCT balance mismatch for address {}\n Token: {}\n Expected: {}\n Have: {}\n",
             address_to_hex(address),
             String::from_utf8(token_id.to_vec()).unwrap(),
             expected_balance,
@@ -138,8 +138,8 @@ impl BlockchainStateWrapper {
         let (actual_balance, actual_attributes_serialized) =
             match &self.world.get_state().accounts.get(&to_vm_address(address)) {
                 Some(acc) => {
-                    let esdt_data = acc.esdt.get_by_identifier_or_default(token_id);
-                    let opt_instance = esdt_data.instances.get_by_nonce(nonce);
+                    let dct_data = acc.dct.get_by_identifier_or_default(token_id);
+                    let opt_instance = dct_data.instances.get_by_nonce(nonce);
 
                     match opt_instance {
                         Some(instance) => (
@@ -154,7 +154,7 @@ impl BlockchainStateWrapper {
 
         assert!(
             expected_balance == &actual_balance,
-            "ESDT NFT balance mismatch for address {}\n Token: {}, nonce: {}\n Expected: {}\n Have: {}\n",
+            "DCT NFT balance mismatch for address {}\n Token: {}, nonce: {}\n Expected: {}\n Have: {}\n",
             address_to_hex(address),
             String::from_utf8(token_id.to_vec()).unwrap(),
             nonce,
@@ -166,7 +166,7 @@ impl BlockchainStateWrapper {
             let actual_attributes = T::top_decode(actual_attributes_serialized).unwrap();
             assert!(
                 expected_attributes == &actual_attributes,
-                "ESDT NFT attributes mismatch for address {}\n Token: {}, nonce: {}\n Expected: {:?}\n Have: {:?}\n",
+                "DCT NFT attributes mismatch for address {}\n Token: {}, nonce: {}\n Expected: {:?}\n Have: {:?}\n",
                 address_to_hex(address),
                 String::from_utf8(token_id.to_vec()).unwrap(),
                 nonce,
@@ -178,9 +178,9 @@ impl BlockchainStateWrapper {
 }
 
 impl BlockchainStateWrapper {
-    pub fn create_user_account(&mut self, egld_balance: &num_bigint::BigUint) -> Address {
+    pub fn create_user_account(&mut self, moa_balance: &num_bigint::BigUint) -> Address {
         let address = self.address_factory.new_address();
-        self.create_account_raw(&address, egld_balance, None, None, None);
+        self.create_account_raw(&address, moa_balance, None, None, None);
 
         address
     }
@@ -188,14 +188,14 @@ impl BlockchainStateWrapper {
     pub fn create_user_account_fixed_address(
         &mut self,
         address: &Address,
-        egld_balance: &num_bigint::BigUint,
+        moa_balance: &num_bigint::BigUint,
     ) {
-        self.create_account_raw(address, egld_balance, None, None, None);
+        self.create_account_raw(address, moa_balance, None, None, None);
     }
 
     pub fn create_sc_account<CB, ContractObjBuilder>(
         &mut self,
-        egld_balance: &num_bigint::BigUint,
+        moa_balance: &num_bigint::BigUint,
         owner: Option<&Address>,
         obj_builder: ContractObjBuilder,
         contract_wasm_path: &str,
@@ -207,7 +207,7 @@ impl BlockchainStateWrapper {
         let address = self.address_factory.new_sc_address();
         self.create_sc_account_fixed_address(
             &address,
-            egld_balance,
+            moa_balance,
             owner,
             obj_builder,
             contract_wasm_path,
@@ -217,7 +217,7 @@ impl BlockchainStateWrapper {
     pub fn create_sc_account_fixed_address<CB, ContractObjBuilder>(
         &mut self,
         address: &Address,
-        egld_balance: &num_bigint::BigUint,
+        moa_balance: &num_bigint::BigUint,
         owner: Option<&Address>,
         obj_builder: ContractObjBuilder,
         contract_wasm_path: &str,
@@ -244,7 +244,7 @@ impl BlockchainStateWrapper {
         );
 
         let mut account = Account::new()
-            .balance(egld_balance)
+            .balance(moa_balance)
             .code(contract_code_expr.clone());
         if let Some(owner) = owner {
             account = account.owner(owner);
@@ -283,7 +283,7 @@ impl BlockchainStateWrapper {
     pub fn create_account_raw(
         &mut self,
         address: &Address,
-        egld_balance: &num_bigint::BigUint,
+        moa_balance: &num_bigint::BigUint,
         _owner: Option<&Address>,
         _sc_identifier: Option<Vec<u8>>,
         _sc_mandos_path_expr: Option<Vec<u8>>,
@@ -293,7 +293,7 @@ impl BlockchainStateWrapper {
             panic!("Address already used: {:?}", address_to_hex(address));
         }
 
-        let account = Account::new().balance(egld_balance);
+        let account = Account::new().balance(moa_balance);
 
         self.world
             .set_state_step(SetStateStep::new().put_account(address, account));
@@ -343,23 +343,23 @@ impl BlockchainStateWrapper {
         ContractObjWrapper::new(old_wrapper.address, new_builder)
     }
 
-    pub fn set_egld_balance(&mut self, address: &Address, balance: &num_bigint::BigUint) {
+    pub fn set_moa_balance(&mut self, address: &Address, balance: &num_bigint::BigUint) {
         let vm_address = to_vm_address(address);
         match self.world.get_mut_state().accounts.get_mut(&vm_address) {
             Some(acc) => {
-                acc.egld_balance = balance.clone();
+                acc.moa_balance = balance.clone();
 
                 self.add_mandos_set_account(address);
             },
 
             None => panic!(
-                "set_egld_balance: Account {:?} does not exist",
+                "set_moa_balance: Account {:?} does not exist",
                 address_to_hex(address)
             ),
         }
     }
 
-    pub fn set_esdt_balance(
+    pub fn set_dct_balance(
         &mut self,
         address: &Address,
         token_id: &[u8],
@@ -368,17 +368,17 @@ impl BlockchainStateWrapper {
         let vm_address = to_vm_address(address);
         match self.world.get_mut_state().accounts.get_mut(&vm_address) {
             Some(acc) => {
-                acc.esdt.set_esdt_balance(
+                acc.dct.set_dct_balance(
                     token_id.to_vec(),
                     0,
                     balance,
-                    EsdtInstanceMetadata::default(),
+                    DctInstanceMetadata::default(),
                 );
 
                 self.add_mandos_set_account(address);
             },
             None => panic!(
-                "set_esdt_balance: Account {:?} does not exist",
+                "set_dct_balance: Account {:?} does not exist",
                 address_to_hex(address)
             ),
         }
@@ -442,11 +442,11 @@ impl BlockchainStateWrapper {
         let vm_address = to_vm_address(address);
         match self.world.get_mut_state().accounts.get_mut(&vm_address) {
             Some(acc) => {
-                acc.esdt.set_esdt_balance(
+                acc.dct.set_dct_balance(
                     token_id.to_vec(),
                     nonce,
                     balance,
-                    EsdtInstanceMetadata {
+                    DctInstanceMetadata {
                         creator: creator.map(to_vm_address),
                         attributes: serialize_attributes(attributes),
                         royalties,
@@ -465,11 +465,11 @@ impl BlockchainStateWrapper {
         }
     }
 
-    pub fn set_esdt_local_roles(
+    pub fn set_dct_local_roles(
         &mut self,
         address: &Address,
         token_id: &[u8],
-        roles: &[EsdtLocalRole],
+        roles: &[DctLocalRole],
     ) {
         let vm_address = to_vm_address(address);
         match self.world.get_mut_state().accounts.get_mut(&vm_address) {
@@ -478,12 +478,12 @@ impl BlockchainStateWrapper {
                 for role in roles {
                     roles_raw.push(role.as_role_name().to_vec());
                 }
-                acc.esdt.set_roles(token_id.to_vec(), roles_raw);
+                acc.dct.set_roles(token_id.to_vec(), roles_raw);
 
                 self.add_mandos_set_account(address);
             },
             None => panic!(
-                "set_esdt_local_roles: Account {:?} does not exist",
+                "set_dct_local_roles: Account {:?} does not exist",
                 address_to_hex(address)
             ),
         }
@@ -589,7 +589,7 @@ impl BlockchainStateWrapper {
         &mut self,
         caller: &Address,
         sc_wrapper: &ContractObjWrapper<CB, ContractObjBuilder>,
-        egld_payment: &num_bigint::BigUint,
+        moa_payment: &num_bigint::BigUint,
         tx_fn: TxFn,
     ) -> TxResult
     where
@@ -597,16 +597,16 @@ impl BlockchainStateWrapper {
         ContractObjBuilder: 'static + Copy + Fn() -> CB,
         TxFn: FnOnce(CB),
     {
-        self.execute_tx_any(caller, sc_wrapper, egld_payment, Vec::new(), tx_fn)
+        self.execute_tx_any(caller, sc_wrapper, moa_payment, Vec::new(), tx_fn)
     }
 
-    pub fn execute_esdt_transfer<CB, ContractObjBuilder, TxFn>(
+    pub fn execute_dct_transfer<CB, ContractObjBuilder, TxFn>(
         &mut self,
         caller: &Address,
         sc_wrapper: &ContractObjWrapper<CB, ContractObjBuilder>,
         token_id: &[u8],
-        esdt_nonce: u64,
-        esdt_amount: &num_bigint::BigUint,
+        dct_nonce: u64,
+        dct_amount: &num_bigint::BigUint,
         tx_fn: TxFn,
     ) -> TxResult
     where
@@ -614,25 +614,25 @@ impl BlockchainStateWrapper {
         ContractObjBuilder: 'static + Copy + Fn() -> CB,
         TxFn: FnOnce(CB),
     {
-        let esdt_transfer = vec![TxTokenTransfer {
+        let dct_transfer = vec![TxTokenTransfer {
             token_identifier: token_id.to_vec(),
-            nonce: esdt_nonce,
-            value: esdt_amount.clone(),
+            nonce: dct_nonce,
+            value: dct_amount.clone(),
         }];
         self.execute_tx_any(
             caller,
             sc_wrapper,
             &num_bigint::BigUint::zero(),
-            esdt_transfer,
+            dct_transfer,
             tx_fn,
         )
     }
 
-    pub fn execute_esdt_multi_transfer<CB, ContractObjBuilder, TxFn>(
+    pub fn execute_dct_multi_transfer<CB, ContractObjBuilder, TxFn>(
         &mut self,
         caller: &Address,
         sc_wrapper: &ContractObjWrapper<CB, ContractObjBuilder>,
-        esdt_transfers: &[TxTokenTransfer],
+        dct_transfers: &[TxTokenTransfer],
         tx_fn: TxFn,
     ) -> TxResult
     where
@@ -644,7 +644,7 @@ impl BlockchainStateWrapper {
             caller,
             sc_wrapper,
             &num_bigint::BigUint::zero(),
-            esdt_transfers.to_vec(),
+            dct_transfers.to_vec(),
             tx_fn,
         )
     }
@@ -672,8 +672,8 @@ impl BlockchainStateWrapper {
         &mut self,
         caller: &Address,
         sc_wrapper: &ContractObjWrapper<CB, ContractObjBuilder>,
-        egld_payment: &num_bigint::BigUint,
-        esdt_payments: Vec<TxTokenTransfer>,
+        moa_payment: &num_bigint::BigUint,
+        dct_payments: Vec<TxTokenTransfer>,
         tx_fn: TxFn,
     ) -> TxResult
     where
@@ -685,17 +685,17 @@ impl BlockchainStateWrapper {
             .from(caller)
             .to(sc_wrapper.address_ref())
             .function(TxFunctionName::WHITEBOX_CALL.as_str())
-            .egld_value(egld_payment)
+            .moa_value(moa_payment)
             .gas_limit(u64::MAX)
             .no_expect();
 
         sc_call_step.explicit_tx_hash = Some(H256::zero());
 
-        for esdt_payment in &esdt_payments {
-            sc_call_step = sc_call_step.esdt_transfer(
-                esdt_payment.token_identifier.as_slice(),
-                esdt_payment.nonce,
-                &esdt_payment.value,
+        for dct_payment in &dct_payments {
+            sc_call_step = sc_call_step.dct_transfer(
+                dct_payment.token_identifier.as_slice(),
+                dct_payment.nonce,
+                &dct_payment.value,
             );
         }
 
@@ -731,26 +731,26 @@ impl BlockchainStateWrapper {
 }
 
 impl BlockchainStateWrapper {
-    pub fn get_egld_balance(&self, address: &Address) -> num_bigint::BigUint {
+    pub fn get_moa_balance(&self, address: &Address) -> num_bigint::BigUint {
         match self.world.get_state().accounts.get(&to_vm_address(address)) {
-            Some(acc) => acc.egld_balance.clone(),
+            Some(acc) => acc.moa_balance.clone(),
             None => panic!(
-                "get_egld_balance: Account {:?} does not exist",
+                "get_moa_balance: Account {:?} does not exist",
                 address_to_hex(address)
             ),
         }
     }
 
-    pub fn get_esdt_balance(
+    pub fn get_dct_balance(
         &self,
         address: &Address,
         token_id: &[u8],
         token_nonce: u64,
     ) -> num_bigint::BigUint {
         match self.world.get_state().accounts.get(&to_vm_address(address)) {
-            Some(acc) => acc.esdt.get_esdt_balance(token_id, token_nonce),
+            Some(acc) => acc.dct.get_dct_balance(token_id, token_nonce),
             None => panic!(
-                "get_esdt_balance: Account {:?} does not exist",
+                "get_dct_balance: Account {:?} does not exist",
                 address_to_hex(address)
             ),
         }
@@ -763,8 +763,8 @@ impl BlockchainStateWrapper {
         token_nonce: u64,
     ) -> Option<T> {
         match self.world.get_state().accounts.get(&to_vm_address(address)) {
-            Some(acc) => match acc.esdt.get_by_identifier(token_id) {
-                Some(esdt_data) => esdt_data
+            Some(acc) => match acc.dct.get_by_identifier(token_id) {
+                Some(dct_data) => dct_data
                     .instances
                     .get_by_nonce(token_nonce)
                     .map(|inst| T::top_decode(inst.metadata.attributes.clone()).unwrap()),
@@ -805,16 +805,16 @@ impl BlockchainStateWrapper {
         };
 
         println!("State for account: {:?}", address_to_hex(address));
-        println!("EGLD: {}", account.egld_balance);
+        println!("MOA: {}", account.moa_balance);
 
-        if !account.esdt.is_empty() {
-            println!("ESDT Tokens:");
+        if !account.dct.is_empty() {
+            println!("DCT Tokens:");
         }
-        for (token_id, acc_esdt) in account.esdt.iter() {
+        for (token_id, acc_dct) in account.dct.iter() {
             let token_id_str = String::from_utf8(token_id.to_vec()).unwrap();
             println!("  Token: {token_id_str}");
 
-            for (token_nonce, instance) in acc_esdt.instances.get_instances() {
+            for (token_nonce, instance) in acc_dct.instances.get_instances() {
                 if std::any::TypeId::of::<AttributesType>() == std::any::TypeId::of::<Vec<u8>>() {
                     print_token_balance_raw(
                         *token_nonce,

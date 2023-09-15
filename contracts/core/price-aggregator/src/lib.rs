@@ -1,6 +1,6 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 mod events;
 pub mod median;
@@ -16,14 +16,14 @@ static PAUSED_ERROR_MSG: &[u8] = b"Contract is paused";
 static PAIR_DECIMALS_NOT_CONFIGURED_ERROR: &[u8] = b"pair decimals not configured";
 static WRONG_NUMBER_OF_DECIMALS_ERROR: &[u8] = b"wrong number of decimals";
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait PriceAggregator:
-    dharithri_sc_modules::pause::PauseModule + staking::StakingModule + events::EventsModule
+    dharitri_sc_modules::pause::PauseModule + staking::StakingModule + events::EventsModule
 {
     #[init]
     fn init(
         &self,
-        staking_token: EgldOrEsdtTokenIdentifier,
+        staking_token: MoaOrDctTokenIdentifier,
         staking_amount: BigUint,
         slash_amount: BigUint,
         slash_quorum: usize,

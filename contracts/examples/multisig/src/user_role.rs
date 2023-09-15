@@ -1,4 +1,4 @@
-dharithri_sc::derive_imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(TopEncode, TopDecode, TypeAbi, Clone, Copy, PartialEq, Eq, Debug)]
 pub enum UserRole {

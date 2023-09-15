@@ -1,4 +1,4 @@
-dharithri_sc::derive_imports!();
+dharitri_sc::derive_imports!();
 
 use random::*;
 

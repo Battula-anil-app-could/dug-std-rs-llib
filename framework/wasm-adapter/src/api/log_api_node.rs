@@ -1,5 +1,5 @@
 use super::VmApiImpl;
-use dharithri_sc::api::{LogApi, LogApiImpl};
+use dharitri_sc::api::{LogApi, LogApiImpl};
 
 extern "C" {
     fn managedWriteLog(topicsHandle: i32, dataHandle: i32);

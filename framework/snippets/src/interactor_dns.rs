@@ -1,9 +1,9 @@
-use dharithri_sc_scenario::{
-    dharithri_sc::types::Address, scenario_format::value_interpreter::keccak256,
+use dharitri_sc_scenario::{
+    dharitri_sc::types::Address, scenario_format::value_interpreter::keccak256,
 };
 
 #[cfg(test)]
-use dharithri_sc_scenario::bech32;
+use dharitri_sc_scenario::bech32;
 
 fn get_initial_dns_address() -> Address {
     Address::from_slice(&[1u8; 32])
@@ -69,11 +69,11 @@ fn test_compute_dns_address() {
 #[test]
 fn test_dns_for_name() {
     assert_eq!(
-        bech32::encode(&dns_address_for_name("test.elrond")),
+        bech32::encode(&dns_address_for_name("test.dharitri")),
         "erd1qqqqqqqqqqqqqpgqx4ca3eu4k6w63hl8pjjyq2cp7ul7a4ukqz0skq6fxj"
     );
     assert_eq!(
-        bech32::encode(&dns_address_for_name("helloworld.elrond")),
+        bech32::encode(&dns_address_for_name("helloworld.dharitri")),
         "erd1qqqqqqqqqqqqqpgqhcm9k2xkk75e47wpmvfgj8fuzwaguvzyqqrqsteg8w"
     );
 }

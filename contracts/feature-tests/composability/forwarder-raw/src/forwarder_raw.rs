@@ -7,11 +7,11 @@ mod forwarder_raw_common;
 mod forwarder_raw_deploy_upgrade;
 mod forwarder_raw_sync;
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Test contract for investigating async calls.
 /// TODO: split into modules
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait ForwarderRaw:
     forwarder_raw_alt_init::ForwarderRawAlterativeInit
     + forwarder_raw_common::ForwarderRawCommon
@@ -24,20 +24,20 @@ pub trait ForwarderRaw:
 
     #[callback_raw]
     fn callback_raw(&self, args: MultiValueEncoded<ManagedBuffer>) {
-        let payments = self.call_value().all_esdt_transfers();
+        let payments = self.call_value().all_dct_transfers();
         if payments.is_empty() {
-            let egld_value = self.call_value().egld_value();
-            if *egld_value > 0 {
+            let moa_value = self.call_value().moa_value();
+            if *moa_value > 0 {
                 let _ = self.callback_payments().push(&(
-                    EgldOrEsdtTokenIdentifier::egld(),
+                    MoaOrDctTokenIdentifier::moa(),
                     0,
-                    egld_value.clone_value(),
+                    moa_value.clone_value(),
                 ));
             }
         } else {
             for payment in payments.into_iter() {
                 let _ = self.callback_payments().push(&(
-                    EgldOrEsdtTokenIdentifier::esdt(payment.token_identifier),
+                    MoaOrDctTokenIdentifier::dct(payment.token_identifier),
                     payment.token_nonce,
                     payment.amount,
                 ));

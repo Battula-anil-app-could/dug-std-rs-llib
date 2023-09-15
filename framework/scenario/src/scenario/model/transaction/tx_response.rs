@@ -1,6 +1,6 @@
-use crate::dharithri_sc::types::Address;
-use dharithri_chain_vm::tx_mock::TxResult;
-use dharithri_sdk::data::transaction::{
+use crate::dharitri_sc::types::Address;
+use dharitri_chain_vm::tx_mock::TxResult;
+use dharitri_sdk::data::transaction::{
     ApiLogs, ApiSmartContractResult, Events, TransactionOnNetwork,
 };
 
@@ -207,7 +207,7 @@ impl TxResponse {
 
 #[cfg(test)]
 mod tests {
-    use dharithri_sdk::data::transaction::{TransactionInfo, TransactionOnNetwork};
+    use dharitri_sdk::data::transaction::{TransactionInfo, TransactionOnNetwork};
     use crate::scenario_model::TxResponse;
 
     #[test]
@@ -252,7 +252,7 @@ mod tests {
                       "value": 0,
                       "receiver": "erd14r7m6drneg69jyxvxxnrsss6x5gg2cqqwreyhdwanj0fcza0ynnq5jmy4g",
                       "sender": "erd1qqqqqqqqqqqqqpgq5400a82at6ttplyrdhyn8kk9lhxaed5d0n4s9s77kz",
-                      "data": "ESDTTransfer@5745474c442d643763366262@03856446ff9a304b",
+                      "data": "DCTTransfer@5745474c442d643763366262@03856446ff9a304b",
                       "prevTxHash": "d4058bd3c13db0b14832c7c58fe163db2f579ff6544380586b8a27d88b4a5070",
                       "originalTxHash": "d4058bd3c13db0b14832c7c58fe163db2f579ff6544380586b8a27d88b4a5070",
                       "gasLimit": 0,
@@ -263,7 +263,7 @@ mod tests {
                         "events": [
                           {
                             "address": "erd1qqqqqqqqqqqqqpgq5400a82at6ttplyrdhyn8kk9lhxaed5d0n4s9s77kz",
-                            "identifier": "ESDTTransfer",
+                            "identifier": "DCTTransfer",
                             "topics": [
                               "V0VHTEQtZDdjNmJi",
                               "",
@@ -293,10 +293,10 @@ mod tests {
                       "tokens": [
                         "WEGLD-d7c6bb"
                       ],
-                      "esdtValues": [
+                      "dctValues": [
                         "253719210115084363"
                       ],
-                      "operation": "ESDTTransfer"
+                      "operation": "DCTTransfer"
                     },
                     {
                       "hash": "b7b4d15917fd215399d8e772c3c4e732008baaedc2b8172f71c91708ba7523f0",
@@ -347,7 +347,7 @@ mod tests {
                       "value": 0,
                       "receiver": "erd1qqqqqqqqqqqqqpgquu5rsa4ee6l4azz6vdu4hjp8z4p6tt8m0n4suht3dy",
                       "sender": "erd1qqqqqqqqqqqqqpgq5400a82at6ttplyrdhyn8kk9lhxaed5d0n4s9s77kz",
-                      "data": "ESDTTransfer@5745474c442d643763366262@e7730d1ef1b0@737761704e6f466565416e64466f7277617264@4d45582d646332383963@0000000000000000000000000000000000000000000000000000000000000000",
+                      "data": "DCTTransfer@5745474c442d643763366262@e7730d1ef1b0@737761704e6f466565416e64466f7277617264@4d45582d646332383963@0000000000000000000000000000000000000000000000000000000000000000",
                       "prevTxHash": "d4058bd3c13db0b14832c7c58fe163db2f579ff6544380586b8a27d88b4a5070",
                       "originalTxHash": "d4058bd3c13db0b14832c7c58fe163db2f579ff6544380586b8a27d88b4a5070",
                       "gasLimit": 0,
@@ -356,10 +356,10 @@ mod tests {
                       "tokens": [
                         "WEGLD-d7c6bb"
                       ],
-                      "esdtValues": [
+                      "dctValues": [
                         "254481327387056"
                       ],
-                      "operation": "ESDTTransfer",
+                      "operation": "DCTTransfer",
                       "function": "swapNoFeeAndForward"
                     }
                   ],
@@ -368,7 +368,7 @@ mod tests {
                     "events": [
                       {
                         "address": "erd14r7m6drneg69jyxvxxnrsss6x5gg2cqqwreyhdwanj0fcza0ynnq5jmy4g",
-                        "identifier": "ESDTTransfer",
+                        "identifier": "DCTTransfer",
                         "topics": [
                           "SFRNLWZlMWY2OQ==",
                           "",
@@ -379,7 +379,7 @@ mod tests {
                       },
                       {
                         "address": "erd1qqqqqqqqqqqqqpgq5400a82at6ttplyrdhyn8kk9lhxaed5d0n4s9s77kz",
-                        "identifier": "ESDTTransfer",
+                        "identifier": "DCTTransfer",
                         "topics": [
                           "V0VHTEQtZDdjNmJi",
                           "",
@@ -390,7 +390,7 @@ mod tests {
                       },
                       {
                         "address": "erd1qqqqqqqqqqqqqpgquu5rsa4ee6l4azz6vdu4hjp8z4p6tt8m0n4suht3dy",
-                        "identifier": "ESDTLocalBurn",
+                        "identifier": "DCTLocalBurn",
                         "topics": [
                           "TUVYLWRjMjg5Yw==",
                           "",
@@ -411,7 +411,7 @@ mod tests {
                       },
                       {
                         "address": "erd1qqqqqqqqqqqqqpgq5400a82at6ttplyrdhyn8kk9lhxaed5d0n4s9s77kz",
-                        "identifier": "ESDTTransfer",
+                        "identifier": "DCTTransfer",
                         "topics": [
                           "V0VHTEQtZDdjNmJi",
                           "",
@@ -438,10 +438,10 @@ mod tests {
                   "tokens": [
                     "HTM-fe1f69"
                   ],
-                  "esdtValues": [
+                  "dctValues": [
                     "1000000000000000000"
                   ],
-                  "operation": "ESDTTransfer",
+                  "operation": "DCTTransfer",
                   "function": "swapTokensFixedInput",
                   "initiallyPaidFee": "502005000000000",
                   "fee": "399976490000000",

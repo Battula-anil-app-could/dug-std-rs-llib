@@ -1,8 +1,8 @@
-use dharithri_sc::storage::{
+use dharitri_sc::storage::{
     mappers::{SetMapper, StorageClearable, StorageMapper},
     StorageKey,
 };
-use dharithri_sc_scenario::api::SingleTxApi;
+use dharitri_sc_scenario::api::SingleTxApi;
 
 fn create_set() -> SetMapper<SingleTxApi, u64> {
     let base_key = StorageKey::new(&b"my_set"[..]);

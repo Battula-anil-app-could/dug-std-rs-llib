@@ -1,4 +1,4 @@
-use dharithri_sc_scenario::*;
+use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     ScenarioWorld::vm_go()
@@ -10,8 +10,8 @@ fn test_go() {
 }
 
 #[test]
-fn test_esdt_generation_go() {
-    world().run("scenarios/test_esdt_generation.scen.json");
+fn test_dct_generation_go() {
+    world().run("scenarios/test_dct_generation.scen.json");
 }
 
 #[test]

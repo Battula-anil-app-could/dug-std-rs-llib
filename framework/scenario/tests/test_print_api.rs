@@ -1,5 +1,5 @@
-use dharithri_sc::types::BigUint;
-use dharithri_sc_scenario::{api::StaticApi, display_util::BigUintPrinter};
+use dharitri_sc::types::BigUint;
+use dharitri_sc_scenario::{api::StaticApi, display_util::BigUintPrinter};
 
 #[test]
 fn test_print_api() {

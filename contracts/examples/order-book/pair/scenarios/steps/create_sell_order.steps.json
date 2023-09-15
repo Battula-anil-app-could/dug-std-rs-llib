@@ -7,7 +7,7 @@
             "tx": {
                 "from": "address:user2",
                 "to": "sc:pair",
-                "esdtValue": [
+                "dctValue": [
                     {
                         "tokenIdentifier": "str:WEGLD-abcdef",
                         "value": "200,000"

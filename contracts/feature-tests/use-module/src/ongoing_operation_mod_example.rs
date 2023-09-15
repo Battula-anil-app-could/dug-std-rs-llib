@@ -1,11 +1,11 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-use dharithri_sc_modules::ongoing_operation::{
+use dharitri_sc_modules::ongoing_operation::{
     self, CONTINUE_OP, DEFAULT_MIN_GAS_TO_SAVE_PROGRESS, STOP_OP,
 };
 
 /// Example of a module using the ongoing operation pattern
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait OngoingOperationModExample: ongoing_operation::OngoingOperationModule {
     #[endpoint(countTo100)]
     fn count_to_100(&self) -> OperationCompletionStatus {

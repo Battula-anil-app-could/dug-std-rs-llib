@@ -1,7 +1,7 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Storage mapper test.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait QueueMapperFeatures {
     #[view]
     #[storage_mapper("queue_mapper")]

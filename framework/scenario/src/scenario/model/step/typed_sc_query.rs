@@ -1,6 +1,6 @@
 use std::marker::PhantomData;
 
-use crate::dharithri_sc::codec::{CodecFrom, TopEncodeMulti};
+use crate::dharitri_sc::codec::{CodecFrom, TopEncodeMulti};
 
 use crate::{
     scenario::model::{AddressValue, BytesValue, TxExpect},

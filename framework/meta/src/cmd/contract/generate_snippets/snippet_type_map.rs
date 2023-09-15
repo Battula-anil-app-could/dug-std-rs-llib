@@ -95,25 +95,25 @@ fn init_rust_types_map() -> HashMap<&'static str, RustTypeString> {
         "TokenIdentifier",
         RustTypeString {
             type_name: "TokenIdentifier".to_string() + STATIC_API_SUFFIX,
-            default_value_expr: "TokenIdentifier::from_esdt_bytes(&b\"\"[..])".to_string(),
+            default_value_expr: "TokenIdentifier::from_dct_bytes(&b\"\"[..])".to_string(),
             contains_custom_types: false,
         },
     );
     m.insert(
-        "EgldOrEsdtTokenIdentifier",
+        "MoaOrDctTokenIdentifier",
         RustTypeString {
-            type_name: "EgldOrEsdtTokenIdentifier".to_string() + STATIC_API_SUFFIX,
-            default_value_expr: "EgldOrEsdtTokenIdentifier::esdt(&b\"\"[..])".to_string(),
+            type_name: "MoaOrDctTokenIdentifier".to_string() + STATIC_API_SUFFIX,
+            default_value_expr: "MoaOrDctTokenIdentifier::dct(&b\"\"[..])".to_string(),
             contains_custom_types: false,
         },
     );
 
     m.insert(
-        "EsdtTokenPayment",
+        "DctTokenPayment",
         RustTypeString {
-            type_name: "EsdtTokenPayment".to_string() + STATIC_API_SUFFIX,
-            default_value_expr: "EsdtTokenPayment::new(
-            TokenIdentifier::from_esdt_bytes(&b\"\"[..]),
+            type_name: "DctTokenPayment".to_string() + STATIC_API_SUFFIX,
+            default_value_expr: "DctTokenPayment::new(
+            TokenIdentifier::from_dct_bytes(&b\"\"[..]),
             0u64,
             BigUint::from(0u128),
         )"
@@ -122,11 +122,11 @@ fn init_rust_types_map() -> HashMap<&'static str, RustTypeString> {
         },
     );
     m.insert(
-        "EgldOrEsdtTokenPayment",
+        "MoaOrDctTokenPayment",
         RustTypeString {
-            type_name: "EgldOrEsdtTokenPayment".to_string() + STATIC_API_SUFFIX,
-            default_value_expr: "EgldOrEsdtTokenPayment::new(
-            EgldOrEsdtTokenIdentifier::esdt(&b\"\"[..]),
+            type_name: "MoaOrDctTokenPayment".to_string() + STATIC_API_SUFFIX,
+            default_value_expr: "MoaOrDctTokenPayment::new(
+            MoaOrDctTokenIdentifier::dct(&b\"\"[..]),
             0u64,
             BigUint::from(0u128),
         )"

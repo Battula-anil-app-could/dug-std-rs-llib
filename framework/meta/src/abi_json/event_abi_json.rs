@@ -1,4 +1,4 @@
-use dharithri_sc::abi::*;
+use dharitri_sc::abi::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]

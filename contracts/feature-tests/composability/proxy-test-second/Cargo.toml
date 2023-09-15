@@ -1,18 +1,18 @@
 [package]
 name = "proxy-test-second"
 version = "0.0.0"
-authors = ["viswanath <contact@dharithri.org>"]
+authors = ["viswanath <contact@dharitri.org>"]
 edition = "2021"
 publish = false
 
 [lib]
 path = "src/proxy-test-second.rs"
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../../framework/base"
 features = ["alloc"]
 
-[dev-dependencies.dharithri-sc-scenario]
+[dev-dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../../framework/scenario"

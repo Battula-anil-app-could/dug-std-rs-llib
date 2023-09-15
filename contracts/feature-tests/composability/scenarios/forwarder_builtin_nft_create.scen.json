@@ -7,7 +7,7 @@
                 "address:a_user": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -21,7 +21,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -31,7 +31,7 @@
                             ],
                             "lastNonce": "1",
                             "roles": [
-                                "ESDTRoleNFTCreate"
+                                "DCTRoleNFTCreate"
                             ]
                         }
                     },
@@ -40,7 +40,7 @@
                 "sc:forwarder2": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -83,7 +83,7 @@
                 "logs": [
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:ESDTNFTCreate",
+                        "endpoint": "str:DCTNFTCreate",
                         "topics": [
                             "str:NFT-000001",
                             "2",
@@ -142,7 +142,7 @@
                 "address:a_user": {
                     "nonce": "*",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -158,7 +158,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -179,7 +179,7 @@
                             ],
                             "lastNonce": "2",
                             "roles": [
-                                "ESDTRoleNFTCreate"
+                                "DCTRoleNFTCreate"
                             ]
                         }
                     },
@@ -189,7 +189,7 @@
                 "sc:forwarder2": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {

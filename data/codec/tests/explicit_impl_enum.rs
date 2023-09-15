@@ -1,4 +1,4 @@
-use dharithri_sc_codec as codec;
+use dharitri_sc_codec as codec;
 
 use codec::{
     test_util::{check_dep_encode_decode, check_top_encode_decode},

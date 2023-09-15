@@ -9,26 +9,26 @@ The `mx-sdk-rs` repo contains many crates, grouped into several families. Crates
 For brevity, the changelog will only mention a short version of their name.
 
 They are:
-- `dharithri-sc`, in short `sc`, the smart contract framework, 6 crates + 3 for contracts/modules:
-	- `dharithri-sc`
-    - `dharithri-sc-derive`
-    - `dharithri-sc-meta`
-    - `dharithri-sc-scenario`
-    - `dharithri-sc-snippets`
-    - `dharithri-sc-wasm-adapter`
-    - `dharithri-sc-modules` - *standard contract modules*
-	- `dharithri-price-aggregator-sc` - *core contract*
-	- `dharithri-wegld-swap-sc` - *core contract*
-- `dharithri-sc-codec`, in short `codec`, the serializer/deserializer, 2 crates:
-	- `dharithri-sc-codec`
-	- `dharithri-sc-codec-derive`
-- `dharithri-chain-vm`, in short `vm`, a Rust VM implementation, 1 crate.
-- `dharithri-chain-scenario-format`, in short `scenario-format`, scenario JSON serializer/deserializer, 1 crate.
-- `dharithri-sdk`, in short `sdk`, allows communication with the chain(s), 1 crate.
+- `dharitri-sc`, in short `sc`, the smart contract framework, 6 crates + 3 for contracts/modules:
+	- `dharitri-sc`
+    - `dharitri-sc-derive`
+    - `dharitri-sc-meta`
+    - `dharitri-sc-scenario`
+    - `dharitri-sc-snippets`
+    - `dharitri-sc-wasm-adapter`
+    - `dharitri-sc-modules` - *standard contract modules*
+	- `dharitri-price-aggregator-sc` - *core contract*
+	- `dharitri-wegld-swap-sc` - *core contract*
+- `dharitri-sc-codec`, in short `codec`, the serializer/deserializer, 2 crates:
+	- `dharitri-sc-codec`
+	- `dharitri-sc-codec-derive`
+- `dharitri-chain-vm`, in short `vm`, a Rust VM implementation, 1 crate.
+- `dharitri-chain-scenario-format`, in short `scenario-format`, scenario JSON serializer/deserializer, 1 crate.
+- `dharitri-sdk`, in short `sdk`, allows communication with the chain(s), 1 crate.
 
 
 ## [sc 0.43.3, vm 0.5.2] - 2023-09-08
-- Added several new methods in the `SendWrapper`, which perform EGLD & ESDT transfers but don't do anything if the value is zero.
+- Added several new methods in the `SendWrapper`, which perform MOA & DCT transfers but don't do anything if the value is zero.
 - Added the `DeleteUsername` builtin function to the VM.
 - Minor fixes in API wrapper constructors.
 
@@ -47,14 +47,14 @@ They are:
 	- pre-rustc-1.71;
 	- between rustc-1.71 and rustc-1.73;
 	- latest, after rustc-1.73. Also upgraded some dependencies, notably proc-macro2 "1.0.66" and ed25519-dalek "2.0.0".
-- Initial version of the contract template tool in dharithri-sc-meta:
+- Initial version of the contract template tool in dharitri-sc-meta:
 	- Ability to download and adapt template contracts, to kickstart contract development;
 	- A template mechanism that is customizable on the framework side;
 	- Available templates: adder, empty, crypto-zombies.
 - The Rust debugger is now thread safe.
-- Removed the `big-float` feature of dharithri-sc, because the functionality is already available on mainnet.
-- Arguments `--target-dir-wasm`, `--target-dir-meta`, and `--target-dir-all` in the `dharithri-sc-meta` CLI.
-- Fixed an issue with contract calls and ESDT transfers in the `StaticApi` environment.
+- Removed the `big-float` feature of dharitri-sc, because the functionality is already available on mainnet.
+- Arguments `--target-dir-wasm`, `--target-dir-meta`, and `--target-dir-all` in the `dharitri-sc-meta` CLI.
+- Fixed an issue with contract calls and DCT transfers in the `StaticApi` environment.
 
 ## [sc 0.42.0, codec 0.18.0, vm 0.4.0, scenario-format 0.20.0, sdk 0.2.0] - 2023-07-15
 - Multi-endpoints in multi-contracts:
@@ -119,10 +119,10 @@ They are:
 - `ManagedVecItem` implementation for arrays.
 
 ## [sc 0.40.0, vm 0.2.0] - 2023-04-20
-- Call value `egld_value` and `all_esdt_transfers` methods return `ManagedRef` instead of owned objects, because they are cached (to avoid accidental corruption of the underlying cache).
+- Call value `moa_value` and `all_dct_transfers` methods return `ManagedRef` instead of owned objects, because they are cached (to avoid accidental corruption of the underlying cache).
 
 ## [sc 0.39.8, vm 0.1.8] - 2023-03-29
-- `dharithri-sc-meta` `test-gen` command: generates Rust integration tests based on scenarios present in the `scenarios` folder.
+- `dharitri-sc-meta` `test-gen` command: generates Rust integration tests based on scenarios present in the `scenarios` folder.
  - `UnorderedSetMapper` `swap_indexes` method.
 
 ## [sc 0.39.7, vm 0.1.7] - 2023-03-18
@@ -130,25 +130,25 @@ They are:
  - `ManagedBuffer` `concat` method.
 
 ## [sc 0.39.6, vm 0.1.6] - 2023-03-16
-- `dharithri-sc-meta` improvements:
+- `dharitri-sc-meta` improvements:
 	- Bugfix: custom names in the main contract no longer crash the multi-contract build.
 	- Bugfix: the `--mir` flag works correctly in `sc-meta all build`;
 	- Multi-contract configs can now specify separate cargo features for individual contracts, for conditional compilation.
 
 ## [sc 0.39.5, vm 0.1.5] - 2023-02-06
-- `dharithri-sc-meta` improvements:
+- `dharitri-sc-meta` improvements:
 	- Rust snippet generator fixes. The generator creates compilable code with appropriate argument types.
 	- `local-deps` command: generates a report on the local depedencies of contract crates. Will explore indirect depdencies too.
 	- Upgrade tool minor fix.
 
 ## [sc 0.39.4, vm 0.1.4] - 2023-01-26
-- `dharithri-sc-meta` improvements:
+- `dharitri-sc-meta` improvements:
 	- `--locked` flag get passed to the build command, preserves dependencies in Cargo.lock.
 	- `update` command updates Cargo.lock files without building the contracts.
 - Backwards compatibility for running scenarios using the VM Go infrastructure.
 
 ## [sc 0.39.3, vm 0.1.3] - 2023-01-26
-- `dharithri-sc-meta` improvements:
+- `dharitri-sc-meta` improvements:
 	- `upgrade` can handle crates as early as `0.28.0`;
 	- `--ignore` flag for the `all` command: will ignore folders with given names, by default set to `target`;
 	- `info` command, shows contracts and contract library crates with their respective framework versions;
@@ -157,37 +157,37 @@ They are:
 - `BigUint` from `u128` conversion.
 
 ## [sc 0.39.2, vm 0.1.2] - 2023-01-19
-- `dharithri-sc-meta` improvements:
+- `dharitri-sc-meta` improvements:
 	- `all` command that allows calling all contract meta crates in a folder;
 	- `upgrade` also re-generates wasm crates after reaching 0.39.1.
 - Cleaned up dependencies.
 
 ## [sc 0.39.1, codec 0.17.1, vm 0.1.1, scenario-format 0.19.1, sdk 0.1.1] - 2023-01-18
-- `dharithri-sc-meta` can be installed as a standalone tool (`sc-meta`), and used to automatically upgrade contracts.
+- `dharitri-sc-meta` can be installed as a standalone tool (`sc-meta`), and used to automatically upgrade contracts.
 - Many depedencies updates across the repo.
 - Updated readme files.
 
 ## [sc 0.39.0, codec 0.17.0, vm 0.1.0, scenario-format 0.19.0, sdk 0.1.0] - 2023-01-12
-- All crates were renamed, in line with the dharithri brand.
-- New crate: `dharithri-chain-vm`, extracted from the old debug crate.
-- New crate: `dharithri-sdk`, adapted from a solution proposed by the community.
+- All crates were renamed, in line with the dharitri brand.
+- New crate: `dharitri-chain-vm`, extracted from the old debug crate.
+- New crate: `dharitri-sdk`, adapted from a solution proposed by the community.
 - A `ScenarioWorld` facade, for contract tests.
 - The meta crate supports `twiggy` post-processing, this is a tool to analyze contract size and investigate bloat in the binaries.
-- Dropped crate: `elrond-wasm-output`. There is no equivalent crate, its job was passed to the individual `wasm` crates.
+- Dropped crate: `dharitri-wasm-output`. There is no equivalent crate, its job was passed to the individual `wasm` crates.
 - `ManagedVec` supports sorting and deduplication.
 - `migrateUserName` builtin function mock.
 
-## [elrond-wasm 0.38.0, elrond-codec 0.16.0, mandos 0.18.0] - 2022-12-15
+## [dharitri-wasm 0.38.0, dharitri-codec 0.16.0, mandos 0.18.0] - 2022-12-15
 - `ContractCall` refactor. Building a contract call comes with harder compile-time constraints. This also reduces compiled code size.
 - `ContractBase` supertrait can be now stated explicitly for contract and module traits.
 - Debugger:
 	- Callback payment is now set correctly.
 	- Function names are represented internally as strings instead of bytes, which aids debugging.
 - Removed the `ei-1-2` feature, which was guarding the newer VM functions. These functions are in the mainnet, so this feature is no longer needed.
-- New utility functions: `self.send().esdt_local_burn_multi(...`, `self.blockchain().get_token_attributes(...)`.
+- New utility functions: `self.send().dct_local_burn_multi(...`, `self.blockchain().get_token_attributes(...)`.
 - Updated all crates to Rust 2021.
 
-## [elrond-wasm 0.37.0, elrond-codec 0.15.0] - 2022-12-09
+## [dharitri-wasm 0.37.0, dharitri-codec 0.15.0] - 2022-12-09
 - Multi-contract build system:
 	- build system refactor;
 	- `multicontract.toml` config system with labels,
@@ -197,7 +197,7 @@ They are:
 	- new APIs;
 	- a new flavor of callbacks (`#[promises-callback]`);
 	- callback optimizations.
-- `elrond-codec` refactor: removed `TopEncodeNoErr`, `NestedEncodeNoErr` and `TypeInfo`
+- `dharitri-codec` refactor: removed `TopEncodeNoErr`, `NestedEncodeNoErr` and `TypeInfo`
 - System SC proxy: added support for `controlChanges` endpoint and transfer create role (from community).
 - Module updates:
 	- `MergedTokenInstances` module;
@@ -211,15 +211,15 @@ They are:
 	- Added `take` and `replace` methods for `SingleValueMapper`;
 	- Implemented `Extend` trait for `UnorderedSetMapper`.
 
-## [elrond-wasm 0.36.1] - 2022-11-01
+## [dharitri-wasm 0.36.1] - 2022-11-01
 - Deprecated `ContractCall` `execute_on_dest_context_ignore_result` method, since it is currently redundant.
 
-## [elrond-wasm 0.36.0, elrond-codec 0.14.0] - 2022-10-13
-- `EsdtTokenPayment` legacy decode: objects encoded by older versions of the framework can now also be decoded, if flag `esdt-token-payment-legacy-decode` is active.
+## [dharitri-wasm 0.36.0, dharitri-codec 0.14.0] - 2022-10-13
+- `DctTokenPayment` legacy decode: objects encoded by older versions of the framework can now also be decoded, if flag `dct-token-payment-legacy-decode` is active.
 - Codec `NestedDecodeInput` new  `peek_into` method.
 - `FungibleTokenMapper` caches the token identifier.
 
-## [elrond-wasm 0.35.0, elrond-codec 0.13.0, mandos 0.17.0] - 2022-09-20
+## [dharitri-wasm 0.35.0, dharitri-codec 0.13.0, mandos 0.17.0] - 2022-09-20
 - Rust interactor snippet generator.
 - Added some missing substitution rules in the contract preprocessor.
 - Allow single zero byte when top-decoding Option::None.
@@ -228,18 +228,18 @@ They are:
 - `FromIterator` trait for `ManagedVec`.
 - Mandos `"id"` accepted as synonym to `"txId"`.
 
-## [elrond-wasm 0.34.1] - 2022-07-19
+## [dharitri-wasm 0.34.1] - 2022-07-19
 - `#[only_admin]` annotation
 - Safer BigUint/BigInt conversions
 - Added and published `price-aggregator` and `wegld-swap` core contracts.
 
-## [elrond-wasm 0.34.0, elrond-codec 0.12.0, mandos 0.16.0, elrond-interact-snippets 0.1.0] - 2022-07-08
+## [dharitri-wasm 0.34.0, dharitri-codec 0.12.0, mandos 0.16.0, dharitri-interact-snippets 0.1.0] - 2022-07-08
 - Major refactor of the mandos-rs infrastructure.
-	- High-level Mandos objects moved to elrond-wasm-debug;
-	- The `mandos` crate no longer depends on `elrond-wasm-debug` (as originally intended and implemented);
+	- High-level Mandos objects moved to dharitri-wasm-debug;
+	- The `mandos` crate no longer depends on `dharitri-wasm-debug` (as originally intended and implemented);
 	- Typed mandos contract call objects, for better call syntax.
 	- More syntactic sugar for writing mandos calls.
-- The first version of elrond-interact-snippets, which can be used to write short blockchain interactor programs.
+- The first version of dharitri-interact-snippets, which can be used to write short blockchain interactor programs.
 	- The syntax relies on contract proxies to easily build calls.
 	- Some of the infrastructure is shared with Mandos.
 	- There is an example of such a interactor for the multisig contract.
@@ -249,15 +249,15 @@ They are:
 - `#[only_user_account]` annotation. Only user accounts can call these endpoints.
 - ABI - fixed missing event logs from modules.
 
-## [elrond-wasm 0.33.1, mandos 0.15.1] - 2022-06-24
+## [dharitri-wasm 0.33.1, mandos 0.15.1] - 2022-06-24
 - CodecSelf for BigInt
 
-## [elrond-wasm 0.33.0, mandos 0.15.0] - 2022-06-20
-- Removed the data field for direct EGLD & ESDT transfers.
+## [dharitri-wasm 0.33.0, mandos 0.15.0] - 2022-06-20
+- Removed the data field for direct MOA & DCT transfers.
 - Testing and debugging environment aligned with VM version 1.4.53.
 - Call value and token data infrastructure additional cleanup.
 
-## [elrond-wasm 0.32.0, mandos 0.14.0] - 2022-06-03
+## [dharitri-wasm 0.32.0, mandos 0.14.0] - 2022-06-03
 - VM new functionality added as part of the environment interface 1.2:
 	- Fully managed functionality for elliptic curves (no allocator);
 	- Fully managed cryptographic functions (no allocator);
@@ -265,11 +265,11 @@ They are:
 	- Functionality available by adding the `ei-1-2` flag to contracts.
 - `BigFloat` functionality. Since the functionality is not yet deployed on mainnet, use flag `big-float` to use.
 - Major refactoring of the call value mechanism:
-	- `TokenIdentifier` now only refers to ESDT, for mixed EGLD+ESDT we have `EgldOrEsdtTokenIdentifier`.
-	- `EsdtTokenPayment` now only refers to ESDT, for mixed EGLD+ESDT we have `EgldOrEsdtTokenPayment`.
-	- Compact version for multi-transfer: `let [payment_a, payment_b, payment_c] = self.call_value().multi_esdt();`.
-	- Explicit `single_esdt` vs. `single_fungible_esdt` vs. `egld_or_single_esdt` vs. `egld_or_single_fungible_esdt`.
-	- Payment arguments are still supported, although discouraged. They always assume the EGLD+ESDT scenario.
+	- `TokenIdentifier` now only refers to DCT, for mixed MOA+DCT we have `MoaOrDctTokenIdentifier`.
+	- `DctTokenPayment` now only refers to DCT, for mixed MOA+DCT we have `MoaOrDctTokenPayment`.
+	- Compact version for multi-transfer: `let [payment_a, payment_b, payment_c] = self.call_value().multi_dct();`.
+	- Explicit `single_dct` vs. `single_fungible_dct` vs. `moa_or_single_dct` vs. `moa_or_single_fungible_dct`.
+	- Payment arguments are still supported, although discouraged. They always assume the MOA+DCT scenario.
 - `ManagedOption` provides some minor optimization for specific use-cases. Mostly for use in the framework.
 - Cleanup in the callback mechanism and in the `SendApi`.
 - `SparseArray` implementation.
@@ -278,10 +278,10 @@ They are:
 - New standard module: `StakingModule`.
 
 
-## [elrond-wasm 0.31.1, mandos 0.13.1] - 2022-05-04
+## [dharitri-wasm 0.31.1, mandos 0.13.1] - 2022-05-04
 - Bugfix - formatter single char issue.
 
-## [elrond-wasm 0.31.0, elrond-codec 0.11.0, mandos 0.13.0] - 2022-05-02
+## [dharitri-wasm 0.31.0, dharitri-codec 0.11.0, mandos 0.13.0] - 2022-05-02
 - Improved formatter. Strings can be formatted similarly to the standard Rust ones, but without allocator, using managed buffers. Macros `require!`, `sc_panic!`, `sc_format!`, `sc_print!` use it.
 - Removed build flag `ei-1-1`, following mainnet updated and new VM endpoints being available. Among others, managed `sha256` and `keccak256` APIs can be used freely.
 - `CodecFrom` and `CodecInto` traits to define equivalent encodings and conversions via codec.
@@ -290,11 +290,11 @@ They are:
 - Managed type handle management system in the contract, to reduce the number of API calls to the VM. General VM API refactor.
 - Eliminated `#[var_args]` annotation. The framework can now distinguish between single-values and multi-values solely based on type.
 - Contract cleans up return data after performing synchronous calls. Getting return data by range is no longer needed and the respective methods have been removed.
-- Fixed behavior of blockchain API `get_esdt_token_data`.
+- Fixed behavior of blockchain API `get_dct_token_data`.
 - Git tag/commit info in ABI (fixed & reintroduced).
 
-## [elrond-wasm 0.30.0, elrond-codec 0.10.0] - 2022-03-17
-- Feature flags in `elrond-wasm`:
+## [dharitri-wasm 0.30.0, dharitri-codec 0.10.0] - 2022-03-17
+- Feature flags in `dharitri-wasm`:
 	- `alloc` allows contracts to use the heap allocator. It is not a hard restriction, there is still access to the implementations of the heap-allocated types, but they are not imported. Some methods are only available with this flag.
 	- `ei-1-1` allows contracts to use VM endpoints that are not yet available on the mainnet.
 - Fixes with async calls, smart contract deploy & upgrade.
@@ -302,15 +302,15 @@ They are:
 - Rust testing framework: Allow checking NFT balance without also checking attributes.
 - View for `MapMapper`.
 
-## [elrond-wasm 0.29.3] - 2022-03-03
+## [dharitri-wasm 0.29.3] - 2022-03-03
 - `ManagedVec` backwards compatible implementation for `set`.
 - Implemented `ManagedVecItem` for `Option<T>`.
 
-## [elrond-wasm 0.29.2] - 2022-03-01
+## [dharitri-wasm 0.29.2] - 2022-03-01
 - Disabled git tag/commit info in ABI due to issue in standard modules.
 
-## [elrond-wasm 0.29.0] - 2022-03-01
-- Cleaned up allocator from modules: `DnsModule`, `EsdtModule`, `FeaturesModule`, `PauseModule`, `UsersModule`.
+## [dharitri-wasm 0.29.0] - 2022-03-01
+- Cleaned up allocator from modules: `DnsModule`, `DctModule`, `FeaturesModule`, `PauseModule`, `UsersModule`.
 - Crypto API managed wrapper over legacy VM endpoints.
 - Managed multi-value types refactor and rename.
 - `ManagedVec` - `remove`, `contains`, `find`.
@@ -318,32 +318,32 @@ They are:
 - Feature `cb_closure_managed_deser` replaced by `cb_closure_unmanaged_deser`, managed implementation is now the default.
 - Git tag/commit info in ABI.
 
-## [elrond-wasm 0.28.0, elrond-codec 0.9.0, mandos 0.12.0] - 2022-02-22
-- Major elrond-codec refactor:
+## [dharitri-wasm 0.28.0, dharitri-codec 0.9.0, mandos 0.12.0] - 2022-02-22
+- Major dharitri-codec refactor:
 	- Redesigned the error handling for single value encoding
 	- Introduced multi-value encoding, which replaces the previous endpoint argument and result mechanisms
 - Mandos improvements:
-	- Multi-values: out, topics, ESDT uri
+	- Multi-values: out, topics, DCT uri
 	- Logs "+" wildcard
-- Builtin function mocks: `ESDTNFTUpdateAttributes`, `ESDTNFTAddURI`
+- Builtin function mocks: `DCTNFTUpdateAttributes`, `DCTNFTAddURI`
 - New storage mappers: `FungibleTokenMapper`, `NonFungibleTokenMapper`, `WhitelistMapper`
 - Call value wrapper avoids using invalid token index in requests
 
-## [elrond-wasm 0.27.4, elrond-codec 0.8.5] - 2022-02-02
+## [dharitri-wasm 0.27.4, dharitri-codec 0.8.5] - 2022-02-02
 - Backwards compatibility fix.
 
-## [elrond-wasm 0.27.3] - 2022-01-31
+## [dharitri-wasm 0.27.3] - 2022-01-31
 - Backwards compatibility fix.
 - Trailing commas are allowed in `sc_panic!`, `require!` and `sc_print!`.
-- EsdtTokenData `decode_attributes_or_exit` for easier error handling.
+- DctTokenData `decode_attributes_or_exit` for easier error handling.
 
-## [elrond-wasm 0.27.2, elrond-codec 0.8.4] - 2022-01-27
+## [dharitri-wasm 0.27.2, dharitri-codec 0.8.4] - 2022-01-27
 - Added missing non-specialized decode implementations for managed types.
 
-## [elrond-wasm 0.27.1] - 2022-01-27
+## [dharitri-wasm 0.27.1] - 2022-01-27
 - Deriving `PartialEq` now works on structs that contain managed types.
 
-## [elrond-wasm 0.27.0] - 2022-01-25
+## [dharitri-wasm 0.27.0] - 2022-01-25
 - Fixed certain compilation error messages. The previous implementation of the macro preprocessor would have concealed the location of many issues.
 - Changed implementation of `require!`:
 	- `require!` no longer returns a `SCResult` type, when the condition is false it now stops the transaction immediately, via `signal_error`;
@@ -355,7 +355,7 @@ They are:
 - Refactored `CodeMetadata` and added "payable by SC" field.
 - Empty contract template.
 
-## [elrond-wasm 0.26.0] - 2022-01-19
+## [dharitri-wasm 0.26.0] - 2022-01-19
 - Major VM API trait refactoring. All API methods can be accessed from a static context. Removed api instance variables from all objects.
 - External view contracts
 	- Annotating one or more endpoints with `#[external_view]` triggers the framework to create a second "external view" contract where all these endpoints are placed. This is primarily to reduce the main contract size.
@@ -371,100 +371,100 @@ They are:
 	- `sc_panic!` macro
 - Random number generator wrapper over randomness source from the VM.
 
-## [elrond-wasm 0.25.0] - 2021-12-14
+## [dharitri-wasm 0.25.0] - 2021-12-14
 - Rust testing framework - mandos generation fixes and some more getters
-- Standard modules moved to `elrond-wasm-modules` crates
+- Standard modules moved to `dharitri-wasm-modules` crates
 
-## [elrond-wasm 0.24.0] - 2021-12-07
+## [dharitri-wasm 0.24.0] - 2021-12-07
 - Rust testing framework
 - Managed Crypto API - keccak256 and sha256
-- New hook for ESDT local roles
+- New hook for DCT local roles
 - Only-owner module annotation
 
-## [elrond-wasm 0.23.1, elrond-codec 0.8.3] - 2021-11-25
+## [dharitri-wasm 0.23.1, dharitri-codec 0.8.3] - 2021-11-25
 - `ArrayVec` serialization
 - `ManagedAddress` additional conversions
 
-## [elrond-wasm 0.23.0] - 2021-11-23
+## [dharitri-wasm 0.23.0] - 2021-11-23
 - Static access to API. Static thread-local context stack in the debugger.
 
-## [elrond-wasm 0.22.11] - 2021-11-17
+## [dharitri-wasm 0.22.11] - 2021-11-17
 - Derive `ManagedVecItem` generics fix
 - Constructor can reside in module
 
-## [elrond-wasm 0.22.10] - 2021-11-12
+## [dharitri-wasm 0.22.10] - 2021-11-12
 - `ManagedMultiResultVec` push accepts multi result
 
-## [elrond-wasm 0.22.9] - 2021-11-12
+## [dharitri-wasm 0.22.9] - 2021-11-12
 - `ManagedVarArgsEager` implementation
-- `EsdtLocalRoleFlags`, no heap allocation in `get_esdt_local_roles`
+- `DctLocalRoleFlags`, no heap allocation in `get_dct_local_roles`
 
-## [elrond-wasm 0.22.8, elrond-codec 0.8.2] - 2021-11-12
+## [dharitri-wasm 0.22.8, dharitri-codec 0.8.2] - 2021-11-12
 - Optimized decode unsigned number from slice
 
-## [elrond-wasm 0.22.7] - 2021-11-12
+## [dharitri-wasm 0.22.7] - 2021-11-12
 - Optimized decode unsigned number from slice
-- Optimized blockchain API: managed get token nonce, get esdt balance
+- Optimized blockchain API: managed get token nonce, get dct balance
 - `ManagedVecItem` for `ManagedByteArray`
 
-## [elrond-wasm 0.22.6] - 2021-11-11
+## [dharitri-wasm 0.22.6] - 2021-11-11
 - Optimized decode u64 from `ManagedBuffer`
 - `ManagedVecItem` in `derive_imports`
 
-## [elrond-wasm 0.22.5] - 2021-11-11
+## [dharitri-wasm 0.22.5] - 2021-11-11
 - Implemented `ManagedVecItem` for `bool`.
 - Substitution for `ManagedMultiResultVec::new()`.
 
-## [elrond-wasm 0.22.4] - 2021-11-11
+## [dharitri-wasm 0.22.4] - 2021-11-11
 - Derive `ManagedVecItem`.
 - Nested encode and decode from ManagedBuffers cached in a static singleton buffer.
 - Implemented `ExactSizeIterator` for `ManagedVecIterator`.
 
-## [elrond-wasm 0.22.3] - 2021-11-10
+## [dharitri-wasm 0.22.3] - 2021-11-10
 - Memory allocation optimisations.
 
-## [elrond-wasm 0.22.2] - 2021-11-06
+## [dharitri-wasm 0.22.2] - 2021-11-06
 - Callback endpoint automatically created empty for contracts that have no callbacks. This is determined by the `meta` crate, based on the ABI of the contract and its modules.
 - `UnorderedSetMapper`
 - `IgnoreVarArgs` variadic argument type that ignores input
 
-## [elrond-wasm 0.22.1] - 2021-11-04
+## [dharitri-wasm 0.22.1] - 2021-11-04
 - Made the generated code in `wasm/lib.rs` more compact with the use of macros.
 
-## [elrond-wasm 0.22.0] - 2021-11-02
+## [dharitri-wasm 0.22.0] - 2021-11-02
 - Mechanism for generating contract endpoints based on ABI. Previously, all endpoints from all modules from a crate were automaticaly included, now they can be filtered based on what modules are used.
 - Contract `meta` crates are now capable of building the respective contracts and the ABIs without relying on `erdpy`.
 - Renamed feature `arwen-tests` to `mandos-go-tests`
 
-## [elrond-wasm 0.21.2] - 2021-10-26
-- Bugfix regarding contract upgrade args in `elrond-wasm-debug`
+## [dharitri-wasm 0.21.2] - 2021-10-26
+- Bugfix regarding contract upgrade args in `dharitri-wasm-debug`
 
-## [elrond-wasm 0.21.1, elrond-codec 0.8.1, mandos 0.11.1] - 2021-10-26
-- Relative path improvements and fixes in `elrond-wasm-debug`:
+## [dharitri-wasm 0.21.1, dharitri-codec 0.8.1, mandos 0.11.1] - 2021-10-26
+- Relative path improvements and fixes in `dharitri-wasm-debug`:
 	- mandos-rs `file:` syntax now actually loads files and correctly unifies equivalent paths
 	- debugging now works seamlessly, without needing to temporarily change paths in the tests
-- SC proxy - `register_meta_esdt`
-- Debugger builtin function mocks check for ESDT roles
-- ABI provides definitions for EsdtTokenPayment, EsdtTokenData, EsdtTokenType
+- SC proxy - `register_meta_dct`
+- Debugger builtin function mocks check for DCT roles
+- ABI provides definitions for DctTokenPayment, DctTokenData, DctTokenType
 
-## [elrond-wasm 0.21.0, elrond-codec 0.8.0, mandos 0.11.0] - 2021-10-22
+## [dharitri-wasm 0.21.0, dharitri-codec 0.8.0, mandos 0.11.0] - 2021-10-22
 - Mandos support for NFT syntax. Many more small improvements and some major refactoring.
-- Major refactoring of the `elrond-wasm-debug` crate, which enables the debugger and the coverage tool. Many features added:
+- Major refactoring of the `dharitri-wasm-debug` crate, which enables the debugger and the coverage tool. Many features added:
 	- support for synchronous calls, also nested synchronous calls
 	- support for NFT simple transfers
-	- support for ESDT multitransfer (FT + NFT)
-	- builtin functions mocked in the debugger: `ESDTLocalMint`, `ESDTLocalBurn`, `MultiESDTNFTTransfer`, `ESDTNFTTransfer`, `ESDTNFTCreate`, `ESDTNFTAddQuantity`, `ESDTNFTBurn`, `ESDTTransfer`, `ChangeOwnerAddress`, `SetUserName`
+	- support for DCT multitransfer (FT + NFT)
+	- builtin functions mocked in the debugger: `DCTLocalMint`, `DCTLocalBurn`, `MultiDCTNFTTransfer`, `DCTNFTTransfer`, `DCTNFTCreate`, `DCTNFTAddQuantity`, `DCTNFTBurn`, `DCTTransfer`, `ChangeOwnerAddress`, `SetUserName`
 	- supports deploy/deploy from source/upgrade/upgrade from source from contracts
 - `#[payment_multi]` annotation
 - `ManagedRef` type, that allows easier handling of managed types
 - ABI contains endpoint mutability flag (mutable/readonly)
 - reverse iteration for `ManagedVec`
 
-## [elrond-wasm 0.20.1] - 2021-10-05
+## [dharitri-wasm 0.20.1] - 2021-10-05
 - Added missing managed methods in blockchain API: `is_smart_contract`, `get_shard_of_address`, `get_balance`.
 - Improved preprocessor substitutions: `ManagedAddress`, `TokenIdentifier`.
 
-## [elrond-wasm 0.20.0, elrond-codec 0.7.0, mandos 0.10.0] - 2021-10-02
+## [dharitri-wasm 0.20.0, dharitri-codec 0.7.0, mandos 0.10.0] - 2021-10-02
 - Managed callback handling
 - Managed async call result
 - ManagedVec improvements, deserialization fix
@@ -472,12 +472,12 @@ They are:
 - Improved preprocessor substitutions: hidden generics for most managed types
 - Build info in ABI - rustc version, framework version, crate version
 
-## [elrond-wasm 0.19.1] - 2021-09-17
+## [dharitri-wasm 0.19.1] - 2021-09-17
 - Legacy Send API implementation fix
 
-## [elrond-wasm 0.19.0, elrond-codec 0.6.0, mandos 0.9.0] - 2021-09-10
+## [dharitri-wasm 0.19.0, dharitri-codec 0.6.0, mandos 0.9.0] - 2021-09-10
 - Managed types used extensively. Because of this, the recommended Arwen minimum version is `v1.4.10`.
-	- Redesigned parts of the elrond-codec, so as to allow custom type specializations. These specializations allow serializers and types to bypass the limitations of the codec traits to provide optimized implementations. Managed type serialization relies on this.
+	- Redesigned parts of the dharitri-codec, so as to allow custom type specializations. These specializations allow serializers and types to bypass the limitations of the codec traits to provide optimized implementations. Managed type serialization relies on this.
 	- Redesigned existing managed types: `BigInt`, `BigUint`, `EllipticCurve`.
 	- Added the `ManagedBuffer` type, which can be used to store anything on the VM side.
 	- Support for complex operations using managed buffers, such as storing lists of elements in a managed buffer via the `ManagedVec` type.
@@ -488,7 +488,7 @@ They are:
 	- All error messages generated by the framework are assembled using a managed buffer.
 	- The blockchain API uses managed types for most interactions.
 	- The contract call API uses managed types for most interactions.
-	- The call value API supports multi transfer via managed `EsdtTokenPayment` objects.
+	- The call value API supports multi transfer via managed `DctTokenPayment` objects.
 	- Event logs are sent to the VM via managed types (`ManagedVec<ManagedBuffer>` for topics, `ManagedBuffer` for data).
 	- Type conversion traits for managed types: `ManagedFrom` and `ManagedInto`.
 	- There are now 2 types of `SCError`: `StaticSCError` for static messages and `ManagedSCError`, which is backed by a managed buffer.
@@ -499,17 +499,17 @@ They are:
 - Separated contract API into low-level VM API connectors and high-level utility objects to be used in the contracts.
 - Mandos-rs improvements:
 	- Self tests synchronized with mandos-go. Some missing features needed to be added to make them pass.
-	- Support for ESDT tokens.
-	- Support for ESDT multi-transfer.
+	- Support for DCT tokens.
+	- Support for DCT multi-transfer.
 
 
-## [elrond-wasm 0.18.2] - 2021-08-20
+## [dharitri-wasm 0.18.2] - 2021-08-20
 - Crypto API: `ripemd160` function, custom secp256k1 signature verification (`verify_custom_secp256k1`) and signature generation (`encode_secp256k1_der_signature`).
 
-## [elrond-wasm 0.18.1] - 2021-08-05
+## [dharitri-wasm 0.18.1] - 2021-08-05
 - Added "safe" storage mappers, which serialize keys using nested encoding instead of top. The old respective mappers only kept for backwards compatibility, are now deprecated.
 
-## [elrond-wasm 0.18.0, mandos 0.8.0] - 2021-07-28
+## [dharitri-wasm 0.18.0, mandos 0.8.0] - 2021-07-28
 
 - New math hooks exposed from Arwen:
 	- `pow`, `log2`, `sqrt`
@@ -520,42 +520,42 @@ They are:
 - High level proxies can be used to deploy contracts.
 - Mandos log syntax updated, to match Arwen.
 - A better `#[only_owner]` annotation, which can be applied directly to endoint methods. This annotation also shows up in the ABI.
-- `elrond-wasm-derive` now an optional dependency of `elrond-wasm`. Use `#[elrond_wasm::contract]` instead of `#[elrond_wasm_derive::contract]` now. Same for proxies and modules.
+- `dharitri-wasm-derive` now an optional dependency of `dharitri-wasm`. Use `#[dharitri_wasm::contract]` instead of `#[dharitri_wasm_derive::contract]` now. Same for proxies and modules.
 
-## [elrond-wasm 0.17.4] - 2021-06-30
+## [dharitri-wasm 0.17.4] - 2021-06-30
 - conversions from big ints to small int: `BigUint::to_u64`, `BigInt::to_i64`
 
-## [elrond-wasm 0.17.3] - 2021-06-11
+## [dharitri-wasm 0.17.3] - 2021-06-11
 - `SingleValueMapper` `set_if_empty` method
 
-## [elrond-wasm 0.17.2] - 2021-06-04
+## [dharitri-wasm 0.17.2] - 2021-06-04
 - callbacks can now declared in modules only (manual forwarding from the main contract no longer required)
 
-## [elrond-wasm 0.17.1] - 2021-06-04
+## [dharitri-wasm 0.17.1] - 2021-06-04
 - `legacy-nft-transfer` feature for interacting with older versions of Arwen
 
-## [elrond-wasm 0.17.0] - 2021-05-28
+## [dharitri-wasm 0.17.0] - 2021-05-28
 - Integration tests can now call Arwen-Mandos (mandos-go)
 - Send API refactoring and cleanup
-	- ESDT builtin function calls no longer require explicit gas
+	- DCT builtin function calls no longer require explicit gas
 	- sync calls and transfer-execute no longer require explicit gas
 - `#[payment_nonce]` endpoint argument annotation
 - `#[payable]` annotation no longer allowed without argument
 
-## [elrond-wasm 0.16.2, mandos 0.7.2] - 2021-05-20
+## [dharitri-wasm 0.16.2, mandos 0.7.2] - 2021-05-20
 - New implementation for the `Try` trait for `SCResult`, in accordance to feature `try_trait_v2`
 - Published DNS module, which helps contracts register usernames for themselves
-- `ESDTLocalRole` more expressive type ABI
+- `DCTLocalRole` more expressive type ABI
 
-## [elrond-wasm 0.16.1, mandos 0.7.1] - 2021-05-18
+## [dharitri-wasm 0.16.1, mandos 0.7.1] - 2021-05-18
 - Improvements in mandos-rs: username, contract owner, nested async calls
 
-## [elrond-wasm 0.16.0, mandos 0.7.0, elrond-codec 0.5.3] - 2021-05-14
+## [dharitri-wasm 0.16.0, mandos 0.7.0, dharitri-codec 0.5.3] - 2021-05-14
 ### Major redesign of important framework components:
 - The arguments to contract/module/proxy annotations are gone. All items are generated in the same Rust module. Both submodule inclusion and contract calls are now Rust-module-aware.
 - Submodule imports are now expressed as supertraits instead of the module getter annotated methods. Note: explicitly specifying the Rust module is required, in order for the framework to fetch generated types and functions from that module.
 - Each contract now generates its own callable proxy to ease calling it. Caller contracts do no longer need to define a call interface, they can import it from the crate of the contract they want to call. Callable proxies contain the methods from the main contract, as well as from all the modules. Note: calling a contract requires the caller to specify the Rust module where it resides.
-- We no longer have a separate syntax/parser/code generation for call proxies. They are just contracts with no implementations and annotated with `#[elrond_wasm_derive::proxy]` instead of `#[elrond_wasm_derive::contract]`.
+- We no longer have a separate syntax/parser/code generation for call proxies. They are just contracts with no implementations and annotated with `#[dharitri_wasm_derive::proxy]` instead of `#[dharitri_wasm_derive::contract]`.
 - BigUint and BigInt are now associated types instead of generics in all API traits. Contracts need to specify them as `Self::BigUint` instead of just `BigUint`. Although more verbose, this might be more intuitive for the developer.
 - `ContractCall`s, `AsyncCall`s and all other call & transfer result types now contain a reference to the Send API. This also means the `execute_on_dest_context` method no longer requires an api argument.
 - `execute_on_dest_context` can now deserialize the call results automatically and provide them to the calling contract. There is a mechanism in place to deconstruct non-serialized types, e.g. `SCResult<T>` becomes `T` and `AsyncCall<Self::BigUint>` becomes `()`. 
@@ -564,30 +564,30 @@ They are:
 - Callbacks can now have names, just like endpoints. This name gets saved in the callback closure in storage, but has no other impact on the contract. The reason I needed it was to help me with defining callback forwarders and avoiding some name collisions there. Callback forwarders are still needed for a little longer, until module callbacks are properly implemented.
 
 ### Mandos
-- mandos-rs syntax synchronized with mandos-go (`sc:` syntax, new ESDT call value syntax, _no NFTs yet_).
+- mandos-rs syntax synchronized with mandos-go (`sc:` syntax, new DCT call value syntax, _no NFTs yet_).
 
-## [elrond-wasm 0.15.1] - 2021-04-30
+## [dharitri-wasm 0.15.1] - 2021-04-30
 - Mitigating nested sync calls with Send API `execute_on_dest_context_raw_custom_result_range`
 
-## [elrond-wasm 0.15.0, elrond-codec 0.5.2] - 2021-04-19
+## [dharitri-wasm 0.15.0, dharitri-codec 0.5.2] - 2021-04-19
 - ABI
 	- Constructor representation
 	- Simplified ABI syntax for tuples and fixed-size arrays
 - Final cleanup for the contract APIs: split off blockchain and crypto APIs
 - Small fixes in the send API
 - `TokenIdentifier` validation
-- Minor refactoring in the elrond-codec 
+- Minor refactoring in the dharitri-codec 
 
-## [elrond-wasm 0.14.2] - 2021-03-29
+## [dharitri-wasm 0.14.2] - 2021-03-29
 - Fixed contract call/callback logs in mandos-rs
 
-## [elrond-wasm 0.14.1] - 2021-03-25
+## [dharitri-wasm 0.14.1] - 2021-03-25
 - Unified variadic arguments with respective variadic results
 
-## [elrond-wasm 0.14.0, mandos 0.6.0, elrond-codec 0.5.1] - 2021-03-22
-- ESDT functionality:
-	- ESDT system smart contract proxy, though which it is possible to mint, burn, issue, freeze, pause, etc.
-	- Endpoints to handle NFTs. Also added NFT management in the  ESDT system smart contract proxy
+## [dharitri-wasm 0.14.0, mandos 0.6.0, dharitri-codec 0.5.1] - 2021-03-22
+- DCT functionality:
+	- DCT system smart contract proxy, though which it is possible to mint, burn, issue, freeze, pause, etc.
+	- Endpoints to handle NFTs. Also added NFT management in the  DCT system smart contract proxy
 	- Get balance, get token data, local mint/burn
 - Contract calls:
 	- Low-level and high-level support for synchronous calls via `execute_on_dest_context`.
@@ -600,30 +600,30 @@ They are:
 	- fixed defaults: unspecified fields now check the default value instead of being ignored
 	- check logs
 	- `nested:` and `biguint:` syntax
-- `elrond-codec-derive` dix - `TopDecodeOrDefault` works with generics
+- `dharitri-codec-derive` dix - `TopDecodeOrDefault` works with generics
 - Upgraded to Rust2021.
 
-## [elrond-wasm 0.13.0] - 2021-03-04
+## [dharitri-wasm 0.13.0] - 2021-03-04
 ### Main feature
 - Events revamped:
 	- any event name of any length is accepted. The event name is now expressed as ASCII instead of hex
 	- topics can have any length
-	- topics and data are serialized using the elrond-codec instead of the old macro-based solution
+	- topics and data are serialized using the dharitri-codec instead of the old macro-based solution
 	- old events are still allowed for now via the `#[legacy_event("0x...")]` syntax; might be removed in the future
 ### Refactoring 
-- Major refactoring of elrond-wasm-derive. This doesn't change much of the functionality, though.
+- Major refactoring of dharitri-wasm-derive. This doesn't change much of the functionality, though.
 ### Minor features
 - SingleValueMapper redesigned for easier use. It no longer keeps the storage value cached.
 
-## [elrond-wasm 0.12.0] - 2021-02-25
-- Reorganized ESDT and EGLD direct send api.
+## [dharitri-wasm 0.12.0] - 2021-02-25
+- Reorganized DCT and MOA direct send api.
 - New async call syntax
 	- redesigned contract proxies
 	- contract calls are communicated via objects returned from endpoint methods
 	- callbacks now specified programmatically
 	- got rid of the `#[callback_arg]` annotation
 
-## [elrond-wasm 0.11.0, elrond-codec 0.5.0, mandos 0.5.0] - 2021-02-05
+## [dharitri-wasm 0.11.0, dharitri-codec 0.5.0, mandos 0.5.0] - 2021-02-05
 ### Refactor
 - Major refactoring of the contract API: split into smaller traits
 ### Added
@@ -633,27 +633,27 @@ They are:
 	- MapMapper
 - SendApi
 	- created SendApi, which groups all functionality related to sending tokens and interactions with other contracts
-    - integrated the new TransferESDT hook from Arwen
+    - integrated the new TransferDCT hook from Arwen
     - added an unsafe buffer for handling values before transfer
     - mandos-rs fixes
     - contracts now use the new API + more mandos tests
 - Call Value API refactor and `#[payable]` updates:
 	- Main features:
-    	- `#[payable]` annotation more versatile: `#[payable("EGLD")]` `#[payable("TOKEN-ID")]` `#[payable("*")]`
+    	- `#[payable]` annotation more versatile: `#[payable("MOA")]` `#[payable("TOKEN-ID")]` `#[payable("*")]`
     	- `#[payable]` still accepted but throws a warning, will become unsupported in the future.
-    	- `#[payment]` argument attribute now also provides ESDT payment where applicable
-    	- a new TokenIdentifier type that encodes the EGLD special token and any ESDT token
+    	- `#[payment]` argument attribute now also provides DCT payment where applicable
+    	- a new TokenIdentifier type that encodes the MOA special token and any DCT token
     	- a new `#[token_identifier]` argument attribute provides the token id. Similar to `#[payment]` it is a fake argument, not exported.
-    	- ABI updated ("payableInTokens" is no longer restricted to "EGLD")
+    	- ABI updated ("payableInTokens" is no longer restricted to "MOA")
     	- all new features covered by mandos tests
-    	- async proxies still only accept `#[payable("EGLD")]`, but that is for future updates
+    	- async proxies still only accept `#[payable("MOA")]`, but that is for future updates
 	- Less visible changes:
     	- all call value hooks now grouped in a new CallValueApi
-    	- for low-level access, developers now need to write self.call_value().egld_value(), etc.
+    	- for low-level access, developers now need to write self.call_value().moa_value(), etc.
     	- some optimizations in the handling of call value hooks
 	- Refactoring:
     	- parse_attr mod was split into a proper folder with many files, since it had grown too large
-    	- an extensive refactoring of elrond-wasm-derive not yet performed, will come soon
+    	- an extensive refactoring of dharitri-wasm-derive not yet performed, will come soon
 ### Minor features
 - ABI enum discriminants generation
 ### Fixed
@@ -663,107 +663,107 @@ They are:
     - mandos-rs was accidentally providing keccak256 instead of sha256
 
 
-## [elrond-wasm 0.10.5] - 2021-01-27
+## [dharitri-wasm 0.10.5] - 2021-01-27
 - Temporary fix: callbacks allow error message argument to be missing
 
-## [elrond-wasm 0.10.4, mandos 0.4.2] - 2021-01-13
+## [dharitri-wasm 0.10.4, mandos 0.4.2] - 2021-01-13
 - Codec derive with defaults
 - Storage mapper infrastructure
 
-## [elrond-wasm 0.10.3] - 2020-12-29
+## [dharitri-wasm 0.10.3] - 2020-12-29
 - ABI generation of endpoint output names
 
-## [elrond-wasm 0.10.2, elrond-codec 0.4.2] - 2020-12-28
+## [dharitri-wasm 0.10.2, dharitri-codec 0.4.2] - 2020-12-28
 - Codec type hygene
 
-## [elrond-wasm 0.10.1, elrond-codec 0.4.1, mandos 0.4.1] - 2020-12-23
+## [dharitri-wasm 0.10.1, dharitri-codec 0.4.1, mandos 0.4.1] - 2020-12-23
 - Minor fixes, support for strings
 
-## [elrond-wasm 0.10.0, elrond-codec 0.4.0] - 2020-12-21
+## [dharitri-wasm 0.10.0, dharitri-codec 0.4.0] - 2020-12-21
 - Codec derive
 - ABI generation framework
 - New example contracts
 
-## [elrond-wasm 0.9.8, elrond-codec 0.3.2, mandos 0.3.1] - 2020-11-23
+## [dharitri-wasm 0.9.8, dharitri-codec 0.3.2, mandos 0.3.1] - 2020-11-23
 - SC deploy API
 
-## [elrond-wasm 0.9.7, elrond-codec 0.3.1, mandos 0.3.0] - 2020-11-11
+## [dharitri-wasm 0.9.7, dharitri-codec 0.3.1, mandos 0.3.0] - 2020-11-11
 - Monomorphization via codec trait instead of TypeInfo for arguments and storage
 - Reorganized all contracts in the `contracts` folder
 
-## [elrond-wasm 0.9.6] - 2020-11-09
+## [dharitri-wasm 0.9.6] - 2020-11-09
 - H256 & BoxedBytes fixes
 
-## [elrond-wasm 0.9.5] - 2020-11-09
+## [dharitri-wasm 0.9.5] - 2020-11-09
 - H256 is_zero, minor fixes
 
-## [elrond-wasm 0.9.4] - 2020-11-09
+## [dharitri-wasm 0.9.4] - 2020-11-09
 - BoxedBytes
 	- optimized allocation, used in hooks
 	- used for error messages
 
-## [elrond-wasm 0.9.3] - 2020-11-08
+## [dharitri-wasm 0.9.3] - 2020-11-08
 - Optimized Address/H256 hooks
 
-## [elrond-wasm 0.9.2] - 2020-11-06
+## [dharitri-wasm 0.9.2] - 2020-11-06
 - Allow slices as arguments 
 - `storage_is_empty` annotation
 
-## [elrond-wasm 0.9.1] - 2020-11-05
+## [dharitri-wasm 0.9.1] - 2020-11-05
 - BigUint serialization bugfix
 
-## [elrond-wasm 0.9.0, elrond-codec 0.3.0, mandos 0.2.0] - 2020-11-04
+## [dharitri-wasm 0.9.0, dharitri-codec 0.3.0, mandos 0.2.0] - 2020-11-04
 - Serialization completely refactored to use "fast exit" methods
 - Storage/argument/result traits completely redesigned, simplified and optimized
-- Completely ditched the approach from elrond-wasm 0.8.0.
+- Completely ditched the approach from dharitri-wasm 0.8.0.
 
-## [elrond-wasm 0.8.0, elrond-codec 0.2.0] - 2020-11-02
+## [dharitri-wasm 0.8.0, dharitri-codec 0.2.0] - 2020-11-02
 - Was the first version to split Encode/Decode into TopEncode/NestedEncode/TopDecode/NestedDecode
 - Attempted to optimize the serializer to use "fast exit" closures. It worked, but the resulting bytecode size was not satisfactory. Even though it was completely replaced and never got to be used, it historically remains the solution of this release.
 - Some of the storage/argument/result trait refactorings, survived.
 
-## [elrond-wasm 0.7.2] - 2020-10-16
+## [dharitri-wasm 0.7.2] - 2020-10-16
 - small int EI
 - minor refactors, serialization fixes
 
-## [elrond-wasm 0.7.1] - 2020-10-07
+## [dharitri-wasm 0.7.1] - 2020-10-07
 - Avoid function selector infinite loop
 - Crowdfunding contract initial commit
 
-## [elrond-wasm 0.7.0, mandos 0.1.0] - 2020-10-06
+## [dharitri-wasm 0.7.0, mandos 0.1.0] - 2020-10-06
 - Code coverage now possible
 - Mandos in Rust
 - Modules properly integrated in the build process
 
-## [elrond-wasm 0.6.2] - 2020-09-16
+## [dharitri-wasm 0.6.2] - 2020-09-16
 - NonZeroUsize iterator and utils
 
-## [elrond-wasm 0.6.1, elrond-codec 0.1.3] - 2020-09-15
+## [dharitri-wasm 0.6.1, dharitri-codec 0.1.3] - 2020-09-15
 - Integrated NonZeroUsize into the framework
 - Specialized small int top encoding/decoding
 - `only_owner!` macro
 
-## [elrond-wasm 0.6.0, elrond-codec 0.1.2] - 2020-08-25
+## [dharitri-wasm 0.6.0, dharitri-codec 0.1.2] - 2020-08-25
 - Redesigned the entire build process with wasm crates
 - Standard modules
 - Moved all example contracts from sc-examples-rs to the framework
 
-## [elrond-wasm 0.5.5] - 2020-07-27
+## [dharitri-wasm 0.5.5] - 2020-07-27
 - H256 now boxed
 - SCResult is_ok, is_err
 
-## [elrond-wasm 0.5.4, elrond-codec 0.1.1] - 2020-07-18
+## [dharitri-wasm 0.5.4, dharitri-codec 0.1.1] - 2020-07-18
 - MultiResultVec - new, from_iter
 - EncodeError type
 
-## [elrond-wasm 0.5.3, elrond-codec 0.1.0] - 2020-07-10
-- Extracted elrond-codec to separate crate
+## [dharitri-wasm 0.5.3, dharitri-codec 0.1.0] - 2020-07-10
+- Extracted dharitri-codec to separate crate
 - Fixed non_snake_case endpoint handling
 
-## [elrond-wasm 0.5.2] - 2020-07-09
+## [dharitri-wasm 0.5.2] - 2020-07-09
 - Queue type
 
-## [elrond-wasm 0.5.1] - 2020-07-02
+## [dharitri-wasm 0.5.1] - 2020-07-02
 - `#[view]` attribute, same as `#[endpoint]`
 - `#[init]` attribute
 - `storage get mut` annotation + BorrowedMutStorage
@@ -773,62 +773,62 @@ They are:
 - Arg name in error message
 - Async call arguments based on traits
 
-## [elrond-wasm 0.5.0] - 2020-06-29
+## [dharitri-wasm 0.5.0] - 2020-06-29
 - EndpointResult trait, arg serialization trait, arg loader
 - Variadic args/results: OptionalArg, OptionalResult, MultiResultX
 
-## [elrond-wasm 0.4.6] - 2020-06-21
+## [dharitri-wasm 0.4.6] - 2020-06-21
 - MultiResultVec implementation
 - Callback varargs
 
-## [elrond-wasm 0.4.5] - 2020-06-09
+## [dharitri-wasm 0.4.5] - 2020-06-09
 - `storage_set` allows slices
 - H256 to_vec
 - async call and callback argument fixes
 - eliminate bloat when no callback
-- the new elrond lightweight serializer (would later become elrond-codec)
+- the new dharitri lightweight serializer (would later become dharitri-codec)
 - imports macro
 - OtherContractHandle implementation
 
-## [elrond-wasm 0.4.4] - 2020-05-19
+## [dharitri-wasm 0.4.4] - 2020-05-19
 - Serialization fixes for small ints
 - `get_cumulated_validator_rewards` hook
 
-## [elrond-wasm 0.4.3] - 2020-05-11
+## [dharitri-wasm 0.4.3] - 2020-05-11
 - Allow any (macro-based) serializable argument in async call
 - `#[var_args]`
 - Call data serialization refactoring
 
-## [elrond-wasm 0.4.2] - 2020-05-07
+## [dharitri-wasm 0.4.2] - 2020-05-07
 - Tutorial setup (later abandoned)
 
-## [elrond-wasm 0.4.1] - 2020-05-06
+## [dharitri-wasm 0.4.1] - 2020-05-06
 - Direct storage conversion for simple types
 - Block info hooks
 
-## [elrond-wasm 0.4.0] - 2020-05-06
+## [dharitri-wasm 0.4.0] - 2020-05-06
 - Serde-based serializer (later abandoned)
 - Major storage improvements:
 	- Generate storage getters & setters
 	- Variable length storage keys
 
-## [elrond-wasm 0.3.2] - 2020-04-13
+## [dharitri-wasm 0.3.2] - 2020-04-13
 - Fixes in the macro-based argument handling
 
-## [elrond-wasm 0.3.0] - 2020-04-03
+## [dharitri-wasm 0.3.0] - 2020-04-03
 - Raw callback support
 - `storage_load_len` hook
 - Multi args
 - Multi args in async calls
 
-## [elrond-wasm 0.2.0] - 2020-03-18
+## [dharitri-wasm 0.2.0] - 2020-03-18
 - BigUint trait created, added operators (including bitwise)
 - BigUint used for balances
 
-## [elrond-wasm 0.1.1] - 2020-02-27
+## [dharitri-wasm 0.1.1] - 2020-02-27
 - Async call contract proxy infrastructure
 
-## [elrond-wasm 0.1.0] - 2020-02-05 
+## [dharitri-wasm 0.1.0] - 2020-02-05 
 - Initial relase of the framework
 - Main features at this time:
 	- contract main macro
@@ -839,7 +839,7 @@ They are:
 ## [Initial commit] - 2020-01-04
 - Early framework moved here from sc-examples
 - 4 crates:
-	- elrond-wasm
-	- elrond-wasm-derive for macros
-	- elrond-wasm-node for wasm
-	- elrond-wasm-debug for debugging and early tests
+	- dharitri-wasm
+	- dharitri-wasm-derive for macros
+	- dharitri-wasm-node for wasm
+	- dharitri-wasm-debug for debugging and early tests

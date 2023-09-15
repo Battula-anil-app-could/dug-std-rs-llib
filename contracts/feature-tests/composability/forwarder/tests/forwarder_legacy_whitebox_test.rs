@@ -1,8 +1,8 @@
 #![allow(deprecated)] // TODO: migrate tests
 
 use forwarder::nft::{Color, ForwarderNftModule};
-use dharithri_sc::{contract_base::ContractBase, types::EsdtLocalRole};
-use dharithri_sc_scenario::{
+use dharitri_sc::{contract_base::ContractBase, types::DctLocalRole};
+use dharitri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint,
     testing_framework::BlockchainStateWrapper,
 };
@@ -18,10 +18,10 @@ fn nft_update_attributes_and_send_test() {
     let forw_wrapper =
         b_mock.create_sc_account(&rust_zero, None, forwarder::contract_obj, "forwarder path");
 
-    b_mock.set_esdt_local_roles(
+    b_mock.set_dct_local_roles(
         forw_wrapper.address_ref(),
         NFT_TOKEN_ID,
-        &[EsdtLocalRole::NftCreate, EsdtLocalRole::NftUpdateAttributes],
+        &[DctLocalRole::NftCreate, DctLocalRole::NftUpdateAttributes],
     );
 
     let original_attributes = Color { r: 0, g: 0, b: 0 };
@@ -33,7 +33,7 @@ fn nft_update_attributes_and_send_test() {
                 original_attributes,
             );
 
-            sc.send().direct_esdt(
+            sc.send().direct_dct(
                 &managed_address!(&user),
                 &managed_token_id!(NFT_TOKEN_ID),
                 1,
@@ -56,7 +56,7 @@ fn nft_update_attributes_and_send_test() {
         b: 255,
     };
     b_mock
-        .execute_esdt_transfer(
+        .execute_dct_transfer(
             &user,
             &forw_wrapper,
             NFT_TOKEN_ID,
@@ -65,7 +65,7 @@ fn nft_update_attributes_and_send_test() {
             |sc| {
                 sc.nft_update_attributes(managed_token_id!(NFT_TOKEN_ID), 1, new_attributes);
 
-                sc.send().direct_esdt(
+                sc.send().direct_dct(
                     &managed_address!(&user),
                     &managed_token_id!(NFT_TOKEN_ID),
                     1,

@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait OnlyAdminModule {
     #[view(isAdmin)]
     fn is_admin(&self, address: ManagedAddress) -> bool {

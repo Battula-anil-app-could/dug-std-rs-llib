@@ -1,9 +1,9 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use crate::types::*;
 
 /// Storage tests: direct store.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait StorageStoreFeatures {
     #[endpoint]
     #[storage_set("storage_bytes")]
@@ -66,14 +66,14 @@ pub trait StorageStoreFeatures {
     fn store_map3(&self, x: usize, b: bool);
 
     #[endpoint]
-    #[storage_set("ELRONDi64")]
+    #[storage_set("DHARITRIi64")]
     fn store_reserved_i64(&self, i: i64);
 
     #[endpoint]
-    #[storage_set("ELRONDBigUint")]
+    #[storage_set("DHARITRIBigUint")]
     fn store_reserved_big_uint(&self, i: BigUint);
 
     #[endpoint]
-    #[storage_set("ELRONDreserved")]
+    #[storage_set("DHARITRIreserved")]
     fn store_reserved_vec_u8(&self, i: ManagedBuffer);
 }

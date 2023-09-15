@@ -1,5 +1,5 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(TopEncode, TopDecode)]
 pub struct TokenAmountPair<M: ManagedTypeApi> {
@@ -9,11 +9,11 @@ pub struct TokenAmountPair<M: ManagedTypeApi> {
 
 static NOT_ENOUGH_STAKE_ERR_MSG: &[u8] = b"Not enough stake";
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait StakingModule {
     fn init_staking_module(
         &self,
-        staking_token: &EgldOrEsdtTokenIdentifier,
+        staking_token: &MoaOrDctTokenIdentifier,
         staking_amount: &BigUint,
         slash_amount: &BigUint,
         slash_quorum: usize,
@@ -47,7 +47,7 @@ pub trait StakingModule {
     #[payable("*")]
     #[endpoint]
     fn stake(&self) {
-        let (payment_token, payment_amount) = self.call_value().egld_or_single_fungible_esdt();
+        let (payment_token, payment_amount) = self.call_value().moa_or_single_fungible_dct();
         let staking_token = self.staking_token().get();
         require!(payment_token == staking_token, "Invalid payment token");
 
@@ -146,7 +146,7 @@ pub trait StakingModule {
     }
 
     #[storage_mapper("staking_module:stakingToken")]
-    fn staking_token(&self) -> SingleValueMapper<EgldOrEsdtTokenIdentifier>;
+    fn staking_token(&self) -> SingleValueMapper<MoaOrDctTokenIdentifier>;
 
     #[storage_mapper("staking_module:requiredStakeAmount")]
     fn required_stake_amount(&self) -> SingleValueMapper<BigUint>;

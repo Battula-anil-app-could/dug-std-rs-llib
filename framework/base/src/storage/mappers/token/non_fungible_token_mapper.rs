@@ -15,14 +15,14 @@ use crate::{
     abi::{TypeAbi, TypeName},
     api::{CallTypeApi, ErrorApiImpl, StorageMapperApi},
     contract_base::{BlockchainWrapper, SendWrapper},
-    esdt::{
-        ESDTSystemSmartContractProxy, MetaTokenProperties, NonFungibleTokenProperties,
+    dct::{
+        DCTSystemSmartContractProxy, MetaTokenProperties, NonFungibleTokenProperties,
         SemiFungibleTokenProperties,
     },
     storage::StorageKey,
     types::{
-        BigUint, CallbackClosure, ContractCall, ContractCallWithEgld, EsdtTokenData,
-        EsdtTokenPayment, EsdtTokenType, ManagedAddress, ManagedBuffer, ManagedType,
+        BigUint, CallbackClosure, ContractCall, ContractCallWithMoa, DctTokenData,
+        DctTokenPayment, DctTokenType, ManagedAddress, ManagedBuffer, ManagedType,
         TokenIdentifier,
     },
 };
@@ -103,11 +103,11 @@ where
     ///     },
     /// }
     ///
-    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharithri-sc-modules
+    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharitri-sc-modules
     /// and pass None for the opt_callback argument
     pub fn issue(
         &self,
-        token_type: EsdtTokenType,
+        token_type: DctTokenType,
         issue_cost: BigUint<SA>,
         token_display_name: ManagedBuffer<SA>,
         token_ticker: ManagedBuffer<SA>,
@@ -121,13 +121,13 @@ where
             None => self.default_callback_closure_obj(),
         };
         let contract_call = match token_type {
-            EsdtTokenType::NonFungible => {
+            DctTokenType::NonFungible => {
                 Self::nft_issue(issue_cost, token_display_name, token_ticker)
             },
-            EsdtTokenType::SemiFungible => {
+            DctTokenType::SemiFungible => {
                 Self::sft_issue(issue_cost, token_display_name, token_ticker)
             },
-            EsdtTokenType::Meta => {
+            DctTokenType::Meta => {
                 Self::meta_issue(issue_cost, token_display_name, token_ticker, num_decimals)
             },
             _ => SA::error_api_impl().signal_error(INVALID_TOKEN_TYPE_ERR_MSG),
@@ -156,11 +156,11 @@ where
     ///     },
     /// }
     ///
-    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharithri-sc-modules
+    /// If you want to use default callbacks, import the default_issue_callbacks::DefaultIssueCallbacksModule from dharitri-sc-modules
     /// and pass None for the opt_callback argument
     pub fn issue_and_set_all_roles(
         &self,
-        token_type: EsdtTokenType,
+        token_type: DctTokenType,
         issue_cost: BigUint<SA>,
         token_display_name: ManagedBuffer<SA>,
         token_ticker: ManagedBuffer<SA>,
@@ -169,11 +169,11 @@ where
     ) -> ! {
         check_not_set(self);
 
-        if token_type == EsdtTokenType::Fungible || token_type == EsdtTokenType::Invalid {
+        if token_type == DctTokenType::Fungible || token_type == DctTokenType::Invalid {
             SA::error_api_impl().signal_error(INVALID_TOKEN_TYPE_ERR_MSG);
         }
 
-        let system_sc_proxy = ESDTSystemSmartContractProxy::<SA>::new_proxy_obj();
+        let system_sc_proxy = DCTSystemSmartContractProxy::<SA>::new_proxy_obj();
         let callback = match opt_callback {
             Some(cb) => cb,
             None => self.default_callback_closure_obj(),
@@ -215,8 +215,8 @@ where
         issue_cost: BigUint<SA>,
         token_display_name: ManagedBuffer<SA>,
         token_ticker: ManagedBuffer<SA>,
-    ) -> ContractCallWithEgld<SA, ()> {
-        let system_sc_proxy = ESDTSystemSmartContractProxy::<SA>::new_proxy_obj();
+    ) -> ContractCallWithMoa<SA, ()> {
+        let system_sc_proxy = DCTSystemSmartContractProxy::<SA>::new_proxy_obj();
         system_sc_proxy.issue_non_fungible(
             issue_cost,
             &token_display_name,
@@ -229,8 +229,8 @@ where
         issue_cost: BigUint<SA>,
         token_display_name: ManagedBuffer<SA>,
         token_ticker: ManagedBuffer<SA>,
-    ) -> ContractCallWithEgld<SA, ()> {
-        let system_sc_proxy = ESDTSystemSmartContractProxy::<SA>::new_proxy_obj();
+    ) -> ContractCallWithMoa<SA, ()> {
+        let system_sc_proxy = DCTSystemSmartContractProxy::<SA>::new_proxy_obj();
         system_sc_proxy.issue_semi_fungible(
             issue_cost,
             &token_display_name,
@@ -244,14 +244,14 @@ where
         token_display_name: ManagedBuffer<SA>,
         token_ticker: ManagedBuffer<SA>,
         num_decimals: usize,
-    ) -> ContractCallWithEgld<SA, ()> {
-        let system_sc_proxy = ESDTSystemSmartContractProxy::<SA>::new_proxy_obj();
+    ) -> ContractCallWithMoa<SA, ()> {
+        let system_sc_proxy = DCTSystemSmartContractProxy::<SA>::new_proxy_obj();
         let properties = MetaTokenProperties {
             num_decimals,
             ..Default::default()
         };
 
-        system_sc_proxy.register_meta_esdt(
+        system_sc_proxy.register_meta_dct(
             issue_cost,
             &token_display_name,
             &token_ticker,
@@ -263,13 +263,13 @@ where
         &self,
         amount: BigUint<SA>,
         attributes: &T,
-    ) -> EsdtTokenPayment<SA> {
+    ) -> DctTokenPayment<SA> {
         let send_wrapper = SendWrapper::<SA>::new();
         let token_id = self.get_token_id();
 
-        let token_nonce = send_wrapper.esdt_nft_create_compact(&token_id, &amount, attributes);
+        let token_nonce = send_wrapper.dct_nft_create_compact(&token_id, &amount, attributes);
 
-        EsdtTokenPayment::new(token_id, token_nonce, amount)
+        DctTokenPayment::new(token_id, token_nonce, amount)
     }
 
     pub fn nft_create_named<T: TopEncode>(
@@ -277,14 +277,14 @@ where
         amount: BigUint<SA>,
         name: &ManagedBuffer<SA>,
         attributes: &T,
-    ) -> EsdtTokenPayment<SA> {
+    ) -> DctTokenPayment<SA> {
         let send_wrapper = SendWrapper::<SA>::new();
         let token_id = self.get_token_id();
 
         let token_nonce =
-            send_wrapper.esdt_nft_create_compact_named(&token_id, &amount, name, attributes);
+            send_wrapper.dct_nft_create_compact_named(&token_id, &amount, name, attributes);
 
-        EsdtTokenPayment::new(token_id, token_nonce, amount)
+        DctTokenPayment::new(token_id, token_nonce, amount)
     }
 
     pub fn nft_create_and_send<T: TopEncode>(
@@ -292,7 +292,7 @@ where
         to: &ManagedAddress<SA>,
         amount: BigUint<SA>,
         attributes: &T,
-    ) -> EsdtTokenPayment<SA> {
+    ) -> DctTokenPayment<SA> {
         let payment = self.nft_create(amount, attributes);
         self.send_payment(to, &payment);
 
@@ -305,20 +305,20 @@ where
         amount: BigUint<SA>,
         name: &ManagedBuffer<SA>,
         attributes: &T,
-    ) -> EsdtTokenPayment<SA> {
+    ) -> DctTokenPayment<SA> {
         let payment = self.nft_create_named(amount, name, attributes);
         self.send_payment(to, &payment);
 
         payment
     }
 
-    pub fn nft_add_quantity(&self, token_nonce: u64, amount: BigUint<SA>) -> EsdtTokenPayment<SA> {
+    pub fn nft_add_quantity(&self, token_nonce: u64, amount: BigUint<SA>) -> DctTokenPayment<SA> {
         let send_wrapper = SendWrapper::<SA>::new();
         let token_id = self.get_token_id();
 
-        send_wrapper.esdt_local_mint(&token_id, token_nonce, &amount);
+        send_wrapper.dct_local_mint(&token_id, token_nonce, &amount);
 
-        EsdtTokenPayment::new(token_id, token_nonce, amount)
+        DctTokenPayment::new(token_id, token_nonce, amount)
     }
 
     pub fn nft_add_quantity_and_send(
@@ -326,7 +326,7 @@ where
         to: &ManagedAddress<SA>,
         token_nonce: u64,
         amount: BigUint<SA>,
-    ) -> EsdtTokenPayment<SA> {
+    ) -> DctTokenPayment<SA> {
         let payment = self.nft_add_quantity(token_nonce, amount);
         self.send_payment(to, &payment);
 
@@ -343,15 +343,15 @@ where
         let send_wrapper = SendWrapper::<SA>::new();
         let token_id = self.get_token_id_ref();
 
-        send_wrapper.esdt_local_burn(token_id, token_nonce, amount);
+        send_wrapper.dct_local_burn(token_id, token_nonce, amount);
     }
 
-    pub fn get_all_token_data(&self, token_nonce: u64) -> EsdtTokenData<SA> {
+    pub fn get_all_token_data(&self, token_nonce: u64) -> DctTokenData<SA> {
         let b_wrapper = BlockchainWrapper::new();
         let own_sc_address = Self::get_sc_address();
         let token_id = self.get_token_id_ref();
 
-        b_wrapper.get_esdt_token_data(&own_sc_address, token_id, token_nonce)
+        b_wrapper.get_dct_token_data(&own_sc_address, token_id, token_nonce)
     }
 
     pub fn get_balance(&self, token_nonce: u64) -> BigUint<SA> {
@@ -359,7 +359,7 @@ where
         let own_sc_address = Self::get_sc_address();
         let token_id = self.get_token_id_ref();
 
-        b_wrapper.get_esdt_balance(&own_sc_address, token_id, token_nonce)
+        b_wrapper.get_dct_balance(&own_sc_address, token_id, token_nonce)
     }
 
     pub fn get_token_attributes<T: TopDecode>(&self, token_nonce: u64) -> T {
@@ -367,9 +367,9 @@ where
         token_data.decode_attributes()
     }
 
-    fn send_payment(&self, to: &ManagedAddress<SA>, payment: &EsdtTokenPayment<SA>) {
+    fn send_payment(&self, to: &ManagedAddress<SA>, payment: &DctTokenPayment<SA>) {
         let send_wrapper = SendWrapper::<SA>::new();
-        send_wrapper.direct_esdt(
+        send_wrapper.direct_dct(
             to,
             &payment.token_identifier,
             payment.token_nonce,

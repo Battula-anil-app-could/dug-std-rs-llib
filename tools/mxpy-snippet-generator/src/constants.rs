@@ -19,7 +19,7 @@ pub const PROXY_ARG_NAME: &str = "proxy";
 pub const CHAIN_ID_ARG_NAME: &str = "chain";
 pub const NONCE_ARG_NAME: &str = "nonce";
 pub const GAS_LIMIT_ARG_NAME: &str = "gas-limit";
-pub const EGLD_VALUE_ARG_NAME: &str = "value";
+pub const MOA_VALUE_ARG_NAME: &str = "value";
 pub const FUNCTION_ARG_NAME: &str = "function";
 pub const ARGUMENTS_ARG_NAME: &str = "arguments";
 
@@ -29,14 +29,14 @@ pub const RECALL_NONCE_FLAG: &str = "recall-nonce";
 pub const SEND_FLAG: &str = "send";
 
 // built-in function names
-pub const ESDT_TRANSFER_FUNC_NAME: &str = "ESDTTransfer";
-pub const NFT_TRANSFER_FUNC_NAME: &str = "ESDTNFTTransfer";
-pub const MULTI_TRANSFER_FUNC_NAME: &str = "MultiESDTNFTTransfer";
+pub const DCT_TRANSFER_FUNC_NAME: &str = "DCTTransfer";
+pub const NFT_TRANSFER_FUNC_NAME: &str = "DCTNFTTransfer";
+pub const MULTI_TRANSFER_FUNC_NAME: &str = "MultiDCTNFTTransfer";
 
 // default proxies
-pub const TESTNET_PROXY: &str = "https://testnet-gateway.elrond.com";
-pub const DEVNET_PROXY: &str = "https://devnet-gateway.elrond.com";
-pub const MAINNET_PROXY: &str = "https://gateway.elrond.com";
+pub const TESTNET_PROXY: &str = "https://testnet-gateway.dharitri.com";
+pub const DEVNET_PROXY: &str = "https://devnet-gateway.dharitri.com";
+pub const MAINNET_PROXY: &str = "https://gateway.dharitri.com";
 
 // default chain IDs
 pub const TESTNET_CHAIN_ID: &str = "T";

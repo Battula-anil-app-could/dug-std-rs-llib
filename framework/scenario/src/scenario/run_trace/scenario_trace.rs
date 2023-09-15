@@ -1,10 +1,10 @@
-use dharithri_chain_scenario_format::{
+use dharitri_chain_scenario_format::{
     interpret_trait::{InterpretableFrom, InterpreterContext},
     serde_raw::ScenarioRaw,
 };
 
 use crate::{
-    dharithri_sc::types::Address,
+    dharitri_sc::types::Address,
     scenario::{model::*, ScenarioRunner},
     scenario_format::interpret_trait::IntoRaw,
 };

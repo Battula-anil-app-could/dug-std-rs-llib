@@ -1,50 +1,50 @@
 #[macro_export]
 macro_rules! rust_biguint {
     ($value:expr) => {{
-        dharithri_sc_scenario::num_bigint::BigUint::from($value as u64)
+        dharitri_sc_scenario::num_bigint::BigUint::from($value as u64)
     }};
 }
 
 #[macro_export]
 macro_rules! managed_biguint {
     ($value:expr) => {{
-        dharithri_sc::types::BigUint::from($value as u64)
+        dharitri_sc::types::BigUint::from($value as u64)
     }};
 }
 
 #[macro_export]
 macro_rules! managed_buffer {
     ($value:expr) => {{
-        dharithri_sc::types::ManagedBuffer::new_from_bytes($value)
+        dharitri_sc::types::ManagedBuffer::new_from_bytes($value)
     }};
 }
 
 #[macro_export]
 macro_rules! managed_address {
     ($address:expr) => {{
-        dharithri_sc::types::ManagedAddress::from_address($address)
+        dharitri_sc::types::ManagedAddress::from_address($address)
     }};
 }
 
 #[macro_export]
 macro_rules! managed_token_id {
     ($bytes:expr) => {{
-        dharithri_sc::types::TokenIdentifier::from_esdt_bytes($bytes)
+        dharitri_sc::types::TokenIdentifier::from_dct_bytes($bytes)
     }};
 }
 
 #[macro_export]
 macro_rules! managed_token_id_wrapped {
     ($bytes:expr) => {{
-        let ___esdt_token_id___ = dharithri_sc::types::TokenIdentifier::from_esdt_bytes($bytes);
-        dharithri_sc::types::EgldOrEsdtTokenIdentifier::esdt(___esdt_token_id___)
+        let ___dct_token_id___ = dharitri_sc::types::TokenIdentifier::from_dct_bytes($bytes);
+        dharitri_sc::types::MoaOrDctTokenIdentifier::dct(___dct_token_id___)
     }};
 }
 
 #[macro_export]
-macro_rules! managed_egld_token_id {
+macro_rules! managed_moa_token_id {
     () => {{
-        dharithri_sc::types::EgldOrEsdtTokenIdentifier::egld()
+        dharitri_sc::types::MoaOrDctTokenIdentifier::moa()
     }};
 }
 
@@ -52,10 +52,10 @@ macro_rules! managed_egld_token_id {
 macro_rules! assert_sc_error {
     ($sc_result:expr, $expected_string:expr) => {{
         match $sc_result {
-            dharithri_sc::types::SCResult::Ok(t) => {
+            dharitri_sc::types::SCResult::Ok(t) => {
                 panic!("Expected SCError, but got SCResult::Ok: {:?}", t)
             },
-            dharithri_sc::types::SCResult::Err(err) => {
+            dharitri_sc::types::SCResult::Err(err) => {
                 let as_str = String::from_utf8(err.as_bytes().to_vec()).unwrap();
                 assert_eq!(as_str, $expected_string);
             },
@@ -79,8 +79,8 @@ macro_rules! assert_values_eq {
 macro_rules! unwrap_or_panic {
     ($sc_result:expr) => {{
         match $sc_result {
-            dharithri_sc::types::SCResult::Ok(t) => t,
-            dharithri_sc::types::SCResult::Err(err) => {
+            dharitri_sc::types::SCResult::Ok(t) => t,
+            dharitri_sc::types::SCResult::Err(err) => {
                 let as_str = String::from_utf8(err.as_bytes().to_vec()).unwrap();
                 panic!("{}", as_str);
             },

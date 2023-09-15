@@ -1,7 +1,7 @@
 use benchmark_common::ExampleStruct;
 use linked_list_repeat::ProxyTrait;
-use dharithri_sc::types::{MultiValueEncoded, TokenIdentifier};
-use dharithri_sc_scenario::{api::StaticApi, scenario_model::*, *};
+use dharitri_sc::types::{MultiValueEncoded, TokenIdentifier};
+use dharitri_sc_scenario::{api::StaticApi, scenario_model::*, *};
 
 const WASM_PATH_EXPR: &str = "file:output/linked-list-repeat.wasm";
 
@@ -75,12 +75,12 @@ fn linked_list_repeat_struct_blackbox_raw() {
     let mut contract = ContractInfo::<linked_list_repeat::Proxy<StaticApi>>::new("sc:llr");
 
     let mut example = ExampleStruct {
-        first_token_id: TokenIdentifier::from_esdt_bytes(b"str:TESTTOK-1234"),
+        first_token_id: TokenIdentifier::from_dct_bytes(b"str:TESTTOK-1234"),
         first_token_nonce: 0,
-        first_token_amount: dharithri_sc::types::BigUint::from(1_000_000_000_000_000_000u64),
-        second_token_id: TokenIdentifier::from_esdt_bytes(b"str:TESTTOK-2345"),
+        first_token_amount: dharitri_sc::types::BigUint::from(1_000_000_000_000_000_000u64),
+        second_token_id: TokenIdentifier::from_dct_bytes(b"str:TESTTOK-2345"),
         second_token_nonce: 0,
-        second_token_amount: dharithri_sc::types::BigUint::from(1_000_000_000_000_000_000u64),
+        second_token_amount: dharitri_sc::types::BigUint::from(1_000_000_000_000_000_000u64),
     };
     world.sc_call(
         ScCallStep::new()

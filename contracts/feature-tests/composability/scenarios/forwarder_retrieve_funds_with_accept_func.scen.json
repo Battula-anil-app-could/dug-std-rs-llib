@@ -7,7 +7,7 @@
                 "address:a_user": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-abcdef": "1,000,000",
                         "str:SECTOKEN-abcdef": "2,000,000"
                     }
@@ -15,7 +15,7 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:THIRDTOKEN-abcdef": "5,000,000"
                     },
                     "code": "file:../vault/output/vault.wasm"
@@ -33,7 +33,7 @@
             "tx": {
                 "from": "address:a_user",
                 "to": "sc:forwarder",
-                "esdtValue": [
+                "dctValue": [
                     {
                         "tokenIdentifier": "str:FIRSTTOKEN-abcdef",
                         "value": "1,000,000"
@@ -72,7 +72,7 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FIRSTTOKEN-abcdef": "1,000,000",
                         "str:SECTOKEN-abcdef": "2,000,000"
                     },
@@ -82,7 +82,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:THIRDTOKEN-abcdef": "5,000,000"
                     },
                     "storage": {

@@ -1,8 +1,8 @@
-use dharithri_sc::storage::{
+use dharitri_sc::storage::{
     mappers::{BiDiMapper, StorageMapper},
     StorageKey,
 };
-use dharithri_sc_scenario::api::SingleTxApi;
+use dharitri_sc_scenario::api::SingleTxApi;
 
 fn create_set_1() -> BiDiMapper<SingleTxApi, u64, u32> {
     let base_key = StorageKey::new(&b"my_bidi_set"[..]);

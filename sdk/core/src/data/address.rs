@@ -31,7 +31,7 @@ impl Address {
     }
 
     pub fn to_bech32_string(&self) -> Result<String> {
-        let address = bech32::encode("erd", self.0.to_base32(), Variant::Bech32)?;
+        let address = bech32::encode("moa", self.0.to_base32(), Variant::Bech32)?;
         Ok(address)
     }
 

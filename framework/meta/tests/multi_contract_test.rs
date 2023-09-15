@@ -1,5 +1,5 @@
-use dharithri_sc::abi::{ContractAbi, EndpointAbi};
-use dharithri_sc_meta::cmd::contract::output_contract::{
+use dharitri_sc::abi::{ContractAbi, EndpointAbi};
+use dharitri_sc_meta::cmd::contract::output_contract::{
     MultiContractConfigSerde, OutputContractGlobalConfig,
 };
 

@@ -1,65 +1,65 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::contract]
-pub trait EgldEsdtSwap: dharithri_sc_modules::pause::PauseModule {
+#[dharitri_sc::contract]
+pub trait MoaDctSwap: dharitri_sc_modules::pause::PauseModule {
     #[init]
-    fn init(&self, wrapped_egld_token_id: TokenIdentifier) {
-        self.wrapped_egld_token_id().set(&wrapped_egld_token_id);
+    fn init(&self, wrapped_moa_token_id: TokenIdentifier) {
+        self.wrapped_moa_token_id().set(&wrapped_moa_token_id);
     }
 
     // endpoints
 
-    #[payable("EGLD")]
-    #[endpoint(wrapEgld)]
-    fn wrap_egld(&self) -> EsdtTokenPayment<Self::Api> {
+    #[payable("MOA")]
+    #[endpoint(wrapMoa)]
+    fn wrap_moa(&self) -> DctTokenPayment<Self::Api> {
         self.require_not_paused();
 
-        let payment_amount = self.call_value().egld_value();
+        let payment_amount = self.call_value().moa_value();
         require!(*payment_amount > 0u32, "Payment must be more than 0");
 
-        let wrapped_egld_token_id = self.wrapped_egld_token_id().get();
+        let wrapped_moa_token_id = self.wrapped_moa_token_id().get();
         self.send()
-            .esdt_local_mint(&wrapped_egld_token_id, 0, &payment_amount);
+            .dct_local_mint(&wrapped_moa_token_id, 0, &payment_amount);
 
         let caller = self.blockchain().get_caller();
         self.send()
-            .direct_esdt(&caller, &wrapped_egld_token_id, 0, &payment_amount);
+            .direct_dct(&caller, &wrapped_moa_token_id, 0, &payment_amount);
 
-        EsdtTokenPayment::new(wrapped_egld_token_id, 0, payment_amount.clone_value())
+        DctTokenPayment::new(wrapped_moa_token_id, 0, payment_amount.clone_value())
     }
 
     #[payable("*")]
-    #[endpoint(unwrapEgld)]
-    fn unwrap_egld(&self) {
+    #[endpoint(unwrapMoa)]
+    fn unwrap_moa(&self) {
         self.require_not_paused();
 
-        let (payment_token, payment_amount) = self.call_value().single_fungible_esdt();
-        let wrapped_egld_token_id = self.wrapped_egld_token_id().get();
+        let (payment_token, payment_amount) = self.call_value().single_fungible_dct();
+        let wrapped_moa_token_id = self.wrapped_moa_token_id().get();
 
-        require!(payment_token == wrapped_egld_token_id, "Wrong esdt token");
+        require!(payment_token == wrapped_moa_token_id, "Wrong dct token");
         require!(payment_amount > 0u32, "Must pay more than 0 tokens!");
         require!(
-            payment_amount <= self.get_locked_egld_balance(),
+            payment_amount <= self.get_locked_moa_balance(),
             "Contract does not have enough funds"
         );
 
         self.send()
-            .esdt_local_burn(&wrapped_egld_token_id, 0, &payment_amount);
+            .dct_local_burn(&wrapped_moa_token_id, 0, &payment_amount);
 
         // 1 wrapped eGLD = 1 eGLD, so we pay back the same amount
         let caller = self.blockchain().get_caller();
-        self.send().direct_egld(&caller, &payment_amount);
+        self.send().direct_moa(&caller, &payment_amount);
     }
 
-    #[view(getLockedEgldBalance)]
-    fn get_locked_egld_balance(&self) -> BigUint {
+    #[view(getLockedMoaBalance)]
+    fn get_locked_moa_balance(&self) -> BigUint {
         self.blockchain()
-            .get_sc_balance(&EgldOrEsdtTokenIdentifier::egld(), 0)
+            .get_sc_balance(&MoaOrDctTokenIdentifier::moa(), 0)
     }
 
-    #[view(getWrappedEgldTokenId)]
-    #[storage_mapper("wrappedEgldTokenId")]
-    fn wrapped_egld_token_id(&self) -> SingleValueMapper<TokenIdentifier>;
+    #[view(getWrappedMoaTokenId)]
+    #[storage_mapper("wrappedMoaTokenId")]
+    fn wrapped_moa_token_id(&self) -> SingleValueMapper<TokenIdentifier>;
 }

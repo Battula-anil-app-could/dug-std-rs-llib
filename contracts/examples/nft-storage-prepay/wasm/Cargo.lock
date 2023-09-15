@@ -65,27 +65,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7ebdb29d2ea9ed0083cd8cece49bbd968021bd99b0849edb4a9a7ee0fdf6a4e0"
 
 [[package]]
-name = "dharithri-sc"
+name = "dharitri-sc"
 version = "0.43.3"
 dependencies = [
  "bitflags",
  "hashbrown",
  "hex-literal",
- "dharithri-sc-codec",
- "dharithri-sc-derive",
+ "dharitri-sc-codec",
+ "dharitri-sc-derive",
  "num-traits",
 ]
 
 [[package]]
-name = "dharithri-sc-codec"
+name = "dharitri-sc-codec"
 version = "0.18.1"
 dependencies = [
  "arrayvec",
- "dharithri-sc-codec-derive",
+ "dharitri-sc-codec-derive",
 ]
 
 [[package]]
-name = "dharithri-sc-codec-derive"
+name = "dharitri-sc-codec-derive"
 version = "0.18.1"
 dependencies = [
  "hex",
@@ -95,7 +95,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-sc-derive"
+name = "dharitri-sc-derive"
 version = "0.43.3"
 dependencies = [
  "hex",
@@ -106,24 +106,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-sc-wasm-adapter"
+name = "dharitri-sc-wasm-adapter"
 version = "0.43.3"
 dependencies = [
- "dharithri-sc",
+ "dharitri-sc",
 ]
 
 [[package]]
 name = "nft-storage-prepay"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
+ "dharitri-sc",
 ]
 
 [[package]]
 name = "nft-storage-prepay-wasm"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc-wasm-adapter",
+ "dharitri-sc-wasm-adapter",
  "nft-storage-prepay",
 ]
 

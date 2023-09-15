@@ -11,18 +11,18 @@ use multisig::{
 };
 use multisig_interact_config::Config;
 use multisig_interact_state::State;
-use dharithri_sc_modules::dns::ProxyTrait as _;
-use dharithri_sc_scenario::{
-    mandos_system::ScenarioRunner, dharithri_sc::codec::multi_types::IgnoreValue,
+use dharitri_sc_modules::dns::ProxyTrait as _;
+use dharitri_sc_scenario::{
+    mandos_system::ScenarioRunner, dharitri_sc::codec::multi_types::IgnoreValue,
     scenario_format::interpret_trait::InterpretableFrom,
     standalone::retrieve_account_as_scenario_set_state, test_wallets,
 };
-use dharithri_sc_snippets::{
+use dharitri_sc_snippets::{
     dns_address_for_name, env_logger,
-    dharithri_sc::{
+    dharitri_sc::{
         codec::multi_types::MultiValueVec, storage::mappers::SingleValue, types::Address,
     },
-    dharithri_sc_scenario::{
+    dharitri_sc_scenario::{
         api::StaticApi, bech32, scenario_format::interpret_trait::InterpreterContext,
         scenario_model::*, ContractInfo,
     },
@@ -51,7 +51,7 @@ async fn main() {
             multisig_interact.dns_register(&args.name).await;
         },
         Some(multisig_interact_cli::InteractCliCommand::Feed) => {
-            multisig_interact.feed_contract_egld().await;
+            multisig_interact.feed_contract_moa().await;
         },
         Some(multisig_interact_cli::InteractCliCommand::MultiDeploy(args)) => {
             multisig_interact.multi_deploy(&args.count).await;
@@ -79,14 +79,14 @@ async fn main() {
         Some(multisig_interact_cli::InteractCliCommand::Quorum) => {
             multisig_interact.print_quorum().await;
         },
-        Some(multisig_interact_cli::InteractCliCommand::UnwrapEgld) => {
-            multisig_interact.unwrap_egld().await;
+        Some(multisig_interact_cli::InteractCliCommand::UnwrapMoa) => {
+            multisig_interact.unwrap_moa().await;
         },
-        Some(multisig_interact_cli::InteractCliCommand::WEgldSwapFull) => {
-            multisig_interact.wegld_swap_full().await;
+        Some(multisig_interact_cli::InteractCliCommand::WMoaSwapFull) => {
+            multisig_interact.wmoa_swap_full().await;
         },
-        Some(multisig_interact_cli::InteractCliCommand::WrapEgld) => {
-            multisig_interact.wrap_egld().await;
+        Some(multisig_interact_cli::InteractCliCommand::WrapMoa) => {
+            multisig_interact.wrap_moa().await;
         },
         None => {},
     }
@@ -153,7 +153,7 @@ impl MultisigInteract {
             self.interactor.post_runners.run_scenario(&scenario);
         }
 
-        self.wegld_swap_set_state().await;
+        self.wmoa_swap_set_state().await;
     }
 
     async fn deploy(&mut self) {
@@ -242,14 +242,14 @@ impl MultisigInteract {
         ])
     }
 
-    async fn feed_contract_egld(&mut self) {
+    async fn feed_contract_moa(&mut self) {
         let _ = self
             .interactor
             .transfer(
                 TransferStep::new()
                     .from(&self.wallet_address)
                     .to(self.state.multisig())
-                    .egld_value("0,050000000000000000"),
+                    .moa_value("0,050000000000000000"),
             )
             .await;
     }

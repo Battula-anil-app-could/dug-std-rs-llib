@@ -1,17 +1,17 @@
 [package]
 name = "send-tx-repeat"
 version = "0.0.0"
-authors = ["Dorin Iancu <dorin.iancu@dharithri.com>"]
+authors = ["Dorin Iancu <dorin.iancu@dharitri.com>"]
 edition = "2021"
 publish = false
 
 [lib]
 path = "src/send_tx_repeat.rs"
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../framework/base"
 
-[dev-dependencies.dharithri-sc-scenario]
+[dev-dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../framework/scenario"

@@ -1,12 +1,12 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 use crate::types::*;
 
 // String is not part of the standard imports because we want to discourage its use
-use dharithri_sc::types::String;
+use dharitri_sc::types::String;
 
 /// Test serialization for heap-allocated types.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait EchoAllocTypes {
     #[endpoint]
     fn echo_h256(&self, h: H256) -> H256 {

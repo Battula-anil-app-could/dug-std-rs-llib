@@ -3,7 +3,7 @@ use crate::{
     user_role::UserRole,
 };
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Gas required to finish transaction after transfer-execute.
 const PERFORM_ACTION_FINISH_GAS: u64 = 300_000;
@@ -13,7 +13,7 @@ fn usize_add_isize(value: &mut usize, delta: isize) {
 }
 
 /// Contains all events that can be emitted by the contract.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait MultisigPerformModule:
     crate::multisig_state::MultisigStateModule + crate::multisig_events::MultisigEventsModule
 {
@@ -162,14 +162,14 @@ pub trait MultisigPerformModule:
                 self.perform_transfer_execute_event(
                     action_id,
                     &call_data.to,
-                    &call_data.egld_amount,
+                    &call_data.moa_amount,
                     gas,
                     &call_data.endpoint_name,
                     call_data.arguments.as_multi(),
                 );
-                let result = self.send_raw().direct_egld_execute(
+                let result = self.send_raw().direct_moa_execute(
                     &call_data.to,
-                    &call_data.egld_amount,
+                    &call_data.moa_amount,
                     gas,
                     &call_data.endpoint_name,
                     &call_data.arguments.into(),
@@ -184,14 +184,14 @@ pub trait MultisigPerformModule:
                 self.perform_async_call_event(
                     action_id,
                     &call_data.to,
-                    &call_data.egld_amount,
+                    &call_data.moa_amount,
                     gas_left,
                     &call_data.endpoint_name,
                     call_data.arguments.as_multi(),
                 );
                 self.send()
                     .contract_call::<()>(call_data.to, call_data.endpoint_name)
-                    .with_egld_transfer(call_data.egld_amount)
+                    .with_moa_transfer(call_data.moa_amount)
                     .with_raw_arguments(call_data.arguments.into())
                     .async_call()
                     .with_callback(self.callbacks().perform_async_call_callback())

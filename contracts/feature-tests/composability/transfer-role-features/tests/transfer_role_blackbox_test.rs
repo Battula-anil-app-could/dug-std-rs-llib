@@ -1,5 +1,5 @@
-use dharithri_sc::{codec::multi_types::MultiValueVec, types::Address};
-use dharithri_sc_scenario::{
+use dharitri_sc::{codec::multi_types::MultiValueVec, types::Address};
+use dharitri_sc_scenario::{
     api::StaticApi,
     scenario_model::{
         Account, AddressValue, CheckAccount, CheckStateStep, ScCallStep, ScDeployStep,
@@ -60,7 +60,7 @@ impl TransferRoleTestState {
                     USER_ADDRESS_EXPR,
                     Account::new()
                         .nonce(1)
-                        .esdt_balance(TRANSFER_TOKEN_ID_EXPR, 1_000u64),
+                        .dct_balance(TRANSFER_TOKEN_ID_EXPR, 1_000u64),
                 ),
         );
 
@@ -100,7 +100,7 @@ impl TransferRoleTestState {
         self.world.sc_call(
             ScCallStep::new()
                 .from(USER_ADDRESS_EXPR)
-                .esdt_transfer(TRANSFER_TOKEN_ID, 0, 100u64)
+                .dct_transfer(TRANSFER_TOKEN_ID, 0, 100u64)
                 .call(self.transfer_role_features_contract.forward_payments(
                     dest,
                     endpoint_name,
@@ -113,12 +113,12 @@ impl TransferRoleTestState {
         self.world
             .check_state_step(CheckStateStep::new().put_account(
                 USER_ADDRESS_EXPR,
-                CheckAccount::new().esdt_balance(TRANSFER_TOKEN_ID_EXPR, "800"),
+                CheckAccount::new().dct_balance(TRANSFER_TOKEN_ID_EXPR, "800"),
             ));
         self.world
             .check_state_step(CheckStateStep::new().put_account(
                 VAULT_ADDRESS_EXPR,
-                CheckAccount::new().esdt_balance(TRANSFER_TOKEN_ID_EXPR, "100"),
+                CheckAccount::new().dct_balance(TRANSFER_TOKEN_ID_EXPR, "100"),
             ));
     }
 }
@@ -134,20 +134,20 @@ fn test_transfer_role() {
         .world
         .check_state_step(CheckStateStep::new().put_account(
             USER_ADDRESS_EXPR,
-            CheckAccount::new().esdt_balance(TRANSFER_TOKEN_ID_EXPR, "900"),
+            CheckAccount::new().dct_balance(TRANSFER_TOKEN_ID_EXPR, "900"),
         ));
     state
         .world
         .check_state_step(CheckStateStep::new().put_account(
             OWNER_ADDRESS_EXPR,
-            CheckAccount::new().esdt_balance(TRANSFER_TOKEN_ID_EXPR, "100"),
+            CheckAccount::new().dct_balance(TRANSFER_TOKEN_ID_EXPR, "100"),
         ));
 
     // transfer to user - err, not whitelisted
     state.world.sc_call(
         ScCallStep::new()
             .from(USER_ADDRESS_EXPR)
-            .esdt_transfer(TRANSFER_TOKEN_ID, 0, 100u64)
+            .dct_transfer(TRANSFER_TOKEN_ID, 0, 100u64)
             .call(state.transfer_role_features_contract.forward_payments(
                 Address::zero(),
                 "",

@@ -1,13 +1,13 @@
-use dharithri_sc::codec::TopEncodeMulti;
+use dharitri_sc::codec::TopEncodeMulti;
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 const CALLBACK_RESERVED_GAS_PER_TOKEN: u64 = 1_000_000;
 static ERR_CALLBACK_MSG: &[u8] = b"Error received in callback:";
 
-pub type PaymentsVec<M> = ManagedVec<M, EsdtTokenPayment<M>>;
+pub type PaymentsVec<M> = ManagedVec<M, DctTokenPayment<M>>;
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait TransferRoleProxyModule {
     fn transfer_to_user(
         &self,
@@ -17,7 +17,7 @@ pub trait TransferRoleProxyModule {
         data: ManagedBuffer,
     ) -> ! {
         let contract_call =
-            ContractCallWithMultiEsdt::<Self::Api, ()>::new(dest, data, payments.clone());
+            ContractCallWithMultiDct::<Self::Api, ()>::new(dest, data, payments.clone());
 
         self.execute_async_call(original_caller, payments, contract_call, None);
     }
@@ -25,7 +25,7 @@ pub trait TransferRoleProxyModule {
     fn transfer_to_contract_typed_call<T>(
         &self,
         original_caller: ManagedAddress,
-        contract_call: ContractCallWithMultiEsdt<Self::Api, T>,
+        contract_call: ContractCallWithMultiDct<Self::Api, T>,
         opt_custom_callback: Option<CallbackClosure<Self::Api>>,
     ) -> !
     where
@@ -33,7 +33,7 @@ pub trait TransferRoleProxyModule {
     {
         self.execute_async_call(
             original_caller,
-            contract_call.esdt_payments.clone(),
+            contract_call.dct_payments.clone(),
             contract_call,
             opt_custom_callback,
         );
@@ -49,7 +49,7 @@ pub trait TransferRoleProxyModule {
         opt_custom_callback: Option<CallbackClosure<Self::Api>>,
     ) -> ! {
         let contract_call =
-            ContractCallWithMultiEsdt::<Self::Api, ()>::new(dest, endpoint_name, payments.clone())
+            ContractCallWithMultiDct::<Self::Api, ()>::new(dest, endpoint_name, payments.clone())
                 .with_raw_arguments(args);
 
         self.execute_async_call(
@@ -64,7 +64,7 @@ pub trait TransferRoleProxyModule {
         &self,
         original_caller: ManagedAddress,
         initial_payments: PaymentsVec<Self::Api>,
-        contract_call: ContractCallWithMultiEsdt<Self::Api, T>,
+        contract_call: ContractCallWithMultiDct<Self::Api, T>,
         opt_custom_callback: Option<CallbackClosure<Self::Api>>,
     ) -> !
     where
@@ -78,7 +78,7 @@ pub trait TransferRoleProxyModule {
 
         let remaining_gas = self.blockchain().get_gas_left();
         let cb_gas_needed =
-            CALLBACK_RESERVED_GAS_PER_TOKEN * contract_call.esdt_payments.len() as u64;
+            CALLBACK_RESERVED_GAS_PER_TOKEN * contract_call.dct_payments.len() as u64;
         require!(
             remaining_gas > cb_gas_needed,
             "Not enough gas to launch async call"
@@ -102,7 +102,7 @@ pub trait TransferRoleProxyModule {
     fn transfer_callback(
         &self,
         original_caller: ManagedAddress,
-        initial_payments: ManagedVec<EsdtTokenPayment<Self::Api>>,
+        initial_payments: ManagedVec<DctTokenPayment<Self::Api>>,
         #[call_result] result: ManagedAsyncCallResult<MultiValueEncoded<ManagedBuffer>>,
     ) -> MultiValueEncoded<ManagedBuffer> {
         match result {

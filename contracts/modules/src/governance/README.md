@@ -1,4 +1,4 @@
-# dharithri smart contract module - Governance
+# dharitri smart contract module - Governance
 
 This is a standard smart contract module, that when added to a smart contract offers governance features:
 - proposing actions
@@ -36,7 +36,7 @@ Please note that although the main contract can modify the module's storage dire
 Proposing actions is done through the `propose` endpoint. An action has the following format:
     - gas limit for action execution
     - destination address
-    - a vector of ESDT transfers, in the form of `ManagedVec<EsdTokenPayment>`
+    - a vector of DCT transfers, in the form of `ManagedVec<EsdTokenPayment>`
     - endpoint to be called on the destination
     - a vector of arguments for the endpoint, in the form of `ManagedVec<ManagedBuffer>`
 
@@ -45,7 +45,7 @@ A maximum of `MAX_GOVERNANCE_PROPOSAL_ACTIONS` may be proposed at a time. All ac
 Additionally, a minimum of `min_token_balance_for_proposal` governance tokens must be deposited at proposal time.
 
 Examples of actions that can be proposed:
-- transfering ESDT tokens to user accounts
+- transfering DCT tokens to user accounts
 - calling other smart contracts, with or without sending tokens as well
 - calling the goverance contract itself, for the purpose of changing configurable parameters
 

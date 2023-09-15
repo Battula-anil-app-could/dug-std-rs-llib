@@ -1,16 +1,16 @@
-use dharithri_price_aggregator_sc::{
+use dharitri_price_aggregator_sc::{
     price_aggregator_data::{OracleStatus, TimestampedPrice, TokenPair},
     staking::EndpointWrappers as StakingEndpointWrappers,
     PriceAggregator, MAX_ROUND_DURATION_SECONDS,
 };
-use dharithri_sc::types::{EgldOrEsdtTokenIdentifier, MultiValueEncoded};
-use dharithri_sc_modules::pause::EndpointWrappers as PauseEndpointWrappers;
-use dharithri_sc_scenario::{
+use dharitri_sc::types::{MoaOrDctTokenIdentifier, MultiValueEncoded};
+use dharitri_sc_modules::pause::EndpointWrappers as PauseEndpointWrappers;
+use dharitri_sc_scenario::{
     managed_address, managed_biguint, managed_buffer, scenario_model::*, WhiteboxContract, *,
 };
 
 pub const DECIMALS: u8 = 0;
-pub const EGLD_TICKER: &[u8] = b"EGLD";
+pub const MOA_TICKER: &[u8] = b"MOA";
 pub const NR_ORACLES: usize = 4;
 pub const SLASH_AMOUNT: u64 = 10;
 pub const SLASH_QUORUM: usize = 2;
@@ -20,7 +20,7 @@ pub const USD_TICKER: &[u8] = b"USDC";
 
 const OWNER_ADDRESS_EXPR: &str = "address:owner";
 const PRICE_AGGREGATOR_ADDRESS_EXPR: &str = "sc:price-aggregator";
-const PRICE_AGGREGATOR_PATH_EXPR: &str = "file:output/dharithri-price-aggregator-sc.wasm";
+const PRICE_AGGREGATOR_PATH_EXPR: &str = "file:output/dharitri-price-aggregator-sc.wasm";
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
@@ -28,7 +28,7 @@ fn world() -> ScenarioWorld {
     blockchain.set_current_dir_from_workspace("contracts/core/price-aggregator");
     blockchain.register_contract(
         PRICE_AGGREGATOR_PATH_EXPR,
-        dharithri_price_aggregator_sc::ContractBuilder,
+        dharitri_price_aggregator_sc::ContractBuilder,
     );
 
     blockchain
@@ -39,7 +39,7 @@ fn test_price_aggregator_submit() {
     let (mut world, oracles) = setup();
     let price_aggregator_whitebox = WhiteboxContract::new(
         PRICE_AGGREGATOR_ADDRESS_EXPR,
-        dharithri_price_aggregator_sc::contract_obj,
+        dharitri_price_aggregator_sc::contract_obj,
     );
 
     // configure the number of decimals
@@ -48,7 +48,7 @@ fn test_price_aggregator_submit() {
         ScCallStep::new().from(OWNER_ADDRESS_EXPR),
         |sc| {
             sc.set_pair_decimals(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 DECIMALS,
             )
@@ -63,7 +63,7 @@ fn test_price_aggregator_submit() {
             .expect(TxExpect::user_error("str:Contract is paused")),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 99,
                 managed_biguint!(100),
@@ -86,7 +86,7 @@ fn test_price_aggregator_submit() {
         ScCallStep::new().from(&oracles[0]).no_expect(),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 10,
                 managed_biguint!(100),
@@ -104,7 +104,7 @@ fn test_price_aggregator_submit() {
         ScCallStep::new().from(&oracles[0]),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 95,
                 managed_biguint!(100),
@@ -116,7 +116,7 @@ fn test_price_aggregator_submit() {
     let current_timestamp = 100;
     world.whitebox_query(&price_aggregator_whitebox, |sc| {
         let token_pair = TokenPair {
-            from: managed_buffer!(EGLD_TICKER),
+            from: managed_buffer!(MOA_TICKER),
             to: managed_buffer!(USD_TICKER),
         };
         assert_eq!(
@@ -154,7 +154,7 @@ fn test_price_aggregator_submit() {
         ScCallStep::new().from(&oracles[0]),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 95,
                 managed_biguint!(100),
@@ -181,7 +181,7 @@ fn test_price_aggregator_submit_round_ok() {
     let (mut world, oracles) = setup();
     let price_aggregator_whitebox = WhiteboxContract::new(
         PRICE_AGGREGATOR_ADDRESS_EXPR,
-        dharithri_price_aggregator_sc::contract_obj,
+        dharitri_price_aggregator_sc::contract_obj,
     );
 
     // configure the number of decimals
@@ -190,7 +190,7 @@ fn test_price_aggregator_submit_round_ok() {
         ScCallStep::new().from(OWNER_ADDRESS_EXPR),
         |sc| {
             sc.set_pair_decimals(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 DECIMALS,
             )
@@ -210,7 +210,7 @@ fn test_price_aggregator_submit_round_ok() {
         ScCallStep::new().from(&oracles[0]),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 95,
                 managed_biguint!(10_000),
@@ -228,7 +228,7 @@ fn test_price_aggregator_submit_round_ok() {
         ScCallStep::new().from(&oracles[1]),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 101,
                 managed_biguint!(11_000),
@@ -243,7 +243,7 @@ fn test_price_aggregator_submit_round_ok() {
         ScCallStep::new().from(&oracles[2]),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 105,
                 managed_biguint!(12_000),
@@ -254,12 +254,12 @@ fn test_price_aggregator_submit_round_ok() {
 
     world.whitebox_query(&price_aggregator_whitebox, |sc| {
         let result = sc
-            .latest_price_feed(managed_buffer!(EGLD_TICKER), managed_buffer!(USD_TICKER))
+            .latest_price_feed(managed_buffer!(MOA_TICKER), managed_buffer!(USD_TICKER))
             .unwrap();
 
         let (round_id, from, to, timestamp, price, decimals) = result.into_tuple();
         assert_eq!(round_id, 1);
-        assert_eq!(from, managed_buffer!(EGLD_TICKER));
+        assert_eq!(from, managed_buffer!(MOA_TICKER));
         assert_eq!(to, managed_buffer!(USD_TICKER));
         assert_eq!(timestamp, current_timestamp);
         assert_eq!(price, managed_biguint!(11_000));
@@ -288,7 +288,7 @@ fn test_price_aggregator_discarded_round() {
     let (mut world, oracles) = setup();
     let price_aggregator_whitebox = WhiteboxContract::new(
         PRICE_AGGREGATOR_ADDRESS_EXPR,
-        dharithri_price_aggregator_sc::contract_obj,
+        dharitri_price_aggregator_sc::contract_obj,
     );
 
     // configure the number of decimals
@@ -297,7 +297,7 @@ fn test_price_aggregator_discarded_round() {
         ScCallStep::new().from(OWNER_ADDRESS_EXPR),
         |sc| {
             sc.set_pair_decimals(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 DECIMALS,
             )
@@ -317,7 +317,7 @@ fn test_price_aggregator_discarded_round() {
         ScCallStep::new().from(&oracles[0]),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 95,
                 managed_biguint!(10_000),
@@ -335,7 +335,7 @@ fn test_price_aggregator_discarded_round() {
         ScCallStep::new().from(&oracles[1]),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 current_timestamp - 1,
                 managed_biguint!(11_000),
@@ -346,7 +346,7 @@ fn test_price_aggregator_discarded_round() {
 
     world.whitebox_query(&price_aggregator_whitebox, |sc| {
         let token_pair = TokenPair {
-            from: managed_buffer!(EGLD_TICKER),
+            from: managed_buffer!(MOA_TICKER),
             to: managed_buffer!(USD_TICKER),
         };
         let submissions = sc.submissions().get(&token_pair).unwrap();
@@ -365,7 +365,7 @@ fn test_price_aggregator_slashing() {
     let (mut world, oracles) = setup();
     let price_aggregator_whitebox = WhiteboxContract::new(
         PRICE_AGGREGATOR_ADDRESS_EXPR,
-        dharithri_price_aggregator_sc::contract_obj,
+        dharitri_price_aggregator_sc::contract_obj,
     );
 
     // unpause
@@ -405,7 +405,7 @@ fn test_price_aggregator_slashing() {
         ScCallStep::new().from(&oracles[1]).no_expect(),
         |sc| {
             sc.submit(
-                managed_buffer!(EGLD_TICKER),
+                managed_buffer!(MOA_TICKER),
                 managed_buffer!(USD_TICKER),
                 95,
                 managed_biguint!(10_000),
@@ -423,7 +423,7 @@ fn setup() -> (ScenarioWorld, Vec<AddressValue>) {
     let mut world = world();
     let price_aggregator_whitebox = WhiteboxContract::new(
         PRICE_AGGREGATOR_ADDRESS_EXPR,
-        dharithri_price_aggregator_sc::contract_obj,
+        dharitri_price_aggregator_sc::contract_obj,
     );
     let price_aggregator_code = world.code_expression(PRICE_AGGREGATOR_PATH_EXPR);
 
@@ -457,7 +457,7 @@ fn setup() -> (ScenarioWorld, Vec<AddressValue>) {
             }
 
             sc.init(
-                EgldOrEsdtTokenIdentifier::egld(),
+                MoaOrDctTokenIdentifier::moa(),
                 managed_biguint!(STAKE_AMOUNT),
                 managed_biguint!(SLASH_AMOUNT),
                 SLASH_QUORUM,
@@ -472,7 +472,7 @@ fn setup() -> (ScenarioWorld, Vec<AddressValue>) {
             &price_aggregator_whitebox,
             ScCallStep::new()
                 .from(oracle_address)
-                .egld_value(STAKE_AMOUNT),
+                .moa_value(STAKE_AMOUNT),
             |sc| sc.call_stake(),
         );
     }

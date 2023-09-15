@@ -1,6 +1,6 @@
 use std::{fs::File, io::Write};
 
-use dharithri_sc::abi::ContractAbi;
+use dharitri_sc::abi::ContractAbi;
 
 use super::snippet_gen_common::write_newline;
 
@@ -12,11 +12,11 @@ pub(crate) fn write_snippet_imports(file: &mut File, contract_crate_name: &str) 
 use {contract_crate_name}::ProxyTrait as _;
 use {contract_crate_name}::*;
 
-use dharithri_sc_snippets::{{
+use dharitri_sc_snippets::{{
     env_logger,
     erdrs::wallet::Wallet,
-    dharithri_sc::{{codec::multi_types::*, types::*}},
-    dharithri_sc_scenario::{{
+    dharitri_sc::{{codec::multi_types::*, types::*}},
+    dharitri_sc_scenario::{{
         api::StaticApi,
         bech32,
         scenario_format::interpret_trait::{{InterpretableFrom, InterpreterContext}},

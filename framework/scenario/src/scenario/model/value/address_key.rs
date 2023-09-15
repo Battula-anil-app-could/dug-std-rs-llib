@@ -1,6 +1,6 @@
 use super::{value_from_slice, AddressValue};
 use crate::{
-    dharithri_sc::types::Address,
+    dharitri_sc::types::Address,
     scenario_format::{
         interpret_trait::{InterpretableFrom, InterpreterContext, IntoRaw},
         value_interpreter::interpret_string,
@@ -28,7 +28,7 @@ impl AddressKey {
         self.value.clone()
     }
 
-    pub fn to_vm_address(&self) -> dharithri_chain_vm::types::VMAddress {
+    pub fn to_vm_address(&self) -> dharitri_chain_vm::types::VMAddress {
         self.value.as_array().into()
     }
 }

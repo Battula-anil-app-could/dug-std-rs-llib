@@ -1,12 +1,12 @@
 use std::sync::Mutex;
 
-use dharithri_chain_vm::{
+use dharitri_chain_vm::{
     executor::VMHooks,
     types::VMAddress,
     vm_hooks::{SingleTxApiData, SingleTxApiVMHooksHandler, VMHooksDispatcher},
     world_mock::AccountData,
 };
-use dharithri_sc::api::RawHandle;
+use dharitri_sc::api::RawHandle;
 
 use crate::debug_executor::StaticVarData;
 

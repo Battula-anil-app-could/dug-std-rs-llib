@@ -1,8 +1,8 @@
 #![no_std]
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
-use dharithri_sc_modules::ongoing_operation::{
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
+use dharitri_sc_modules::ongoing_operation::{
     CONTINUE_OP, DEFAULT_MIN_GAS_TO_SAVE_PROGRESS, STOP_OP,
 };
 
@@ -32,9 +32,9 @@ pub struct RaffleProgress<M: ManagedTypeApi> {
     pub computed_brackets: ManagedVec<M, ComputedBracket<M>>,
 }
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait RewardsDistribution:
-    dharithri_sc_modules::ongoing_operation::OngoingOperationModule
+    dharitri_sc_modules::ongoing_operation::OngoingOperationModule
 {
     #[init]
     fn init(&self, seed_nft_minter_address: ManagedAddress, brackets: ManagedVec<Bracket>) {
@@ -53,7 +53,7 @@ pub trait RewardsDistribution:
     #[payable("*")]
     #[endpoint(depositRoyalties)]
     fn deposit_royalties(&self) {
-        let payment = self.call_value().egld_or_single_esdt();
+        let payment = self.call_value().moa_or_single_dct();
         let raffle_id = self.raffle_id().get();
         self.royalties(raffle_id, &payment.token_identifier, payment.token_nonce)
             .update(|total| *total += payment.amount);
@@ -241,19 +241,19 @@ pub trait RewardsDistribution:
         &self,
         raffle_id_start: u64,
         raffle_id_end: u64,
-        reward_tokens: MultiValueEncoded<MultiValue2<EgldOrEsdtTokenIdentifier, u64>>,
+        reward_tokens: MultiValueEncoded<MultiValue2<MoaOrDctTokenIdentifier, u64>>,
     ) {
-        let nfts = self.call_value().all_esdt_transfers();
+        let nfts = self.call_value().all_dct_transfers();
         self.validate_nft_payments(&nfts);
         self.validate_raffle_id_range(raffle_id_start, raffle_id_end);
 
         let caller = self.blockchain().get_caller();
         let mut rewards = ManagedVec::new();
-        let mut total_egld_reward = BigUint::zero();
+        let mut total_moa_reward = BigUint::zero();
 
         for reward_token_pair in reward_tokens.into_iter() {
             let (reward_token_id, reward_token_nonce) = reward_token_pair.into_tuple();
-            let (egld_reward, reward_payment_opt) = self.claim_reward_token(
+            let (moa_reward, reward_payment_opt) = self.claim_reward_token(
                 raffle_id_start,
                 raffle_id_end,
                 &reward_token_id,
@@ -261,14 +261,14 @@ pub trait RewardsDistribution:
                 &nfts,
             );
 
-            total_egld_reward += egld_reward;
+            total_moa_reward += moa_reward;
             if let Some(reward_payment) = reward_payment_opt {
                 rewards.push(reward_payment);
             }
         }
 
         self.send()
-            .direct_non_zero_egld(&caller, &total_egld_reward);
+            .direct_non_zero_moa(&caller, &total_moa_reward);
         self.send().direct_multi(&caller, &rewards);
         self.send().direct_multi(&caller, &nfts);
     }
@@ -277,10 +277,10 @@ pub trait RewardsDistribution:
         &self,
         raffle_id_start: u64,
         raffle_id_end: u64,
-        reward_token_id: &EgldOrEsdtTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
-        nfts: &ManagedVec<EsdtTokenPayment>,
-    ) -> (BigUint, Option<EsdtTokenPayment>) {
+        nfts: &ManagedVec<DctTokenPayment>,
+    ) -> (BigUint, Option<DctTokenPayment>) {
         let mut total = BigUint::zero();
 
         for raffle_id in raffle_id_start..=raffle_id_end {
@@ -300,11 +300,11 @@ pub trait RewardsDistribution:
             }
         }
 
-        if total == 0 || reward_token_id.is_egld() {
+        if total == 0 || reward_token_id.is_moa() {
             return (total, None);
         }
-        let reward_payment = EsdtTokenPayment::new(
-            reward_token_id.clone().unwrap_esdt(),
+        let reward_payment = DctTokenPayment::new(
+            reward_token_id.clone().unwrap_dct(),
             reward_token_nonce,
             total,
         );
@@ -314,9 +314,9 @@ pub trait RewardsDistribution:
     fn try_claim(
         &self,
         raffle_id: u64,
-        reward_token_id: &EgldOrEsdtTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
-        nft: &EsdtTokenPayment,
+        nft: &DctTokenPayment,
     ) -> Result<(), ()> {
         let was_claimed_mapper = self.was_claimed(
             raffle_id,
@@ -337,7 +337,7 @@ pub trait RewardsDistribution:
     fn compute_claimable_amount(
         &self,
         raffle_id: u64,
-        reward_token_id: &EgldOrEsdtTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
         nft_nonce: u64,
     ) -> BigUint {
@@ -348,7 +348,7 @@ pub trait RewardsDistribution:
         royalties * nft_reward_percent / MAX_PERCENTAGE / DIVISION_SAFETY_CONSTANT
     }
 
-    fn validate_nft_payments(&self, nfts: &ManagedVec<EsdtTokenPayment>) {
+    fn validate_nft_payments(&self, nfts: &ManagedVec<DctTokenPayment>) {
         let nft_token_id = self.nft_token_id().get();
         require!(!nfts.is_empty(), "Missing payment");
         for nft in nfts {
@@ -376,7 +376,7 @@ pub trait RewardsDistribution:
     fn royalties(
         &self,
         raffle_id: u64,
-        reward_token_id: &EgldOrEsdtTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
     ) -> SingleValueMapper<BigUint>;
 
@@ -389,7 +389,7 @@ pub trait RewardsDistribution:
     fn was_claimed(
         &self,
         raffle_id: u64,
-        reward_token_id: &EgldOrEsdtTokenIdentifier,
+        reward_token_id: &MoaOrDctTokenIdentifier,
         reward_token_nonce: u64,
         nft_nonce: u64,
     ) -> SingleValueMapper<bool>;
@@ -440,9 +440,9 @@ fn ticket_from_storage(position: u64, ticket_id: u64) -> u64 {
 }
 
 mod seed_nft_minter {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
-    #[dharithri_sc::proxy]
+    #[dharitri_sc::proxy]
     pub trait SeedNftMinter {
         #[endpoint(getNftCount)]
         fn get_nft_count(&self) -> u64;

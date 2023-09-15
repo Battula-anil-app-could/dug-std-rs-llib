@@ -4,7 +4,7 @@ mod elliptic_curve_api_vh;
 mod managed_buffer_api_vh;
 mod managed_map_api_vh;
 
-use dharithri_sc::api::{HandleConstraints, ManagedTypeApi, ManagedTypeApiImpl};
+use dharitri_sc::api::{HandleConstraints, ManagedTypeApi, ManagedTypeApiImpl};
 
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 

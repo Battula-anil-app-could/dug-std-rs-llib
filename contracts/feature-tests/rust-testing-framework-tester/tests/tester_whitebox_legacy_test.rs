@@ -5,13 +5,13 @@ use forwarder::call_sync::*;
 use num_traits::ToPrimitive;
 
 use basic_features::BasicFeatures;
-use dharithri_sc::{
+use dharitri_sc::{
     codec::Empty,
     contract_base::ContractBase,
     err_msg,
-    types::{Address, BigUint, EsdtLocalRole, EsdtTokenPayment, ManagedVec, TokenIdentifier},
+    types::{Address, BigUint, DctLocalRole, DctTokenPayment, ManagedVec, TokenIdentifier},
 };
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     api::DebugApi, assert_values_eq, managed_address, managed_biguint, managed_buffer,
     managed_token_id, rust_biguint, testing_framework::*,
 };
@@ -19,7 +19,7 @@ use rust_testing_framework_tester::{dummy_module::DummyModule, *};
 
 const TEST_OUTPUT_PATH: &str = "test.scen.json";
 const TEST_MULTIPLE_SC_OUTPUT_PATH: &str = "test_multiple_sc.scen.json";
-const TEST_ESDT_OUTPUT_PATH: &str = "test_esdt_generation.scen.json";
+const TEST_DCT_OUTPUT_PATH: &str = "test_dct_generation.scen.json";
 
 const SC_WASM_PATH: &str = "output/rust-testing-framework-tester.wasm";
 const ADDER_WASM_PATH: &str = "../../examples/adder/output/adder.wasm";
@@ -229,14 +229,14 @@ fn test_sc_payment_ok() {
 
     wrapper
         .execute_tx(&caller_addr, &sc_wrapper, &rust_biguint!(1_000), |sc| {
-            let actual_payment = sc.receive_egld();
+            let actual_payment = sc.receive_moa();
             let expected_payment = managed_biguint!(1_000);
             assert_eq!(actual_payment, expected_payment);
         })
         .assert_ok();
 
-    wrapper.check_egld_balance(&caller_addr, &rust_biguint!(0));
-    wrapper.check_egld_balance(sc_wrapper.address_ref(), &rust_biguint!(3_000));
+    wrapper.check_moa_balance(&caller_addr, &rust_biguint!(0));
+    wrapper.check_moa_balance(sc_wrapper.address_ref(), &rust_biguint!(3_000));
 }
 
 #[test]
@@ -256,8 +256,8 @@ fn test_sc_payment_reverted() {
         })
         .assert_user_error("No payment allowed!");
 
-    wrapper.check_egld_balance(&caller_addr, &rust_biguint!(1_000));
-    wrapper.check_egld_balance(sc_wrapper.address_ref(), &rust_biguint!(2_000));
+    wrapper.check_moa_balance(&caller_addr, &rust_biguint!(1_000));
+    wrapper.check_moa_balance(sc_wrapper.address_ref(), &rust_biguint!(2_000));
 }
 
 #[test]
@@ -273,16 +273,16 @@ fn test_sc_half_payment() {
 
     wrapper
         .execute_tx(&caller_addr, &sc_wrapper, &rust_biguint!(1_000), |sc| {
-            sc.recieve_egld_half();
+            sc.recieve_moa_half();
         })
         .assert_ok();
 
-    wrapper.check_egld_balance(&caller_addr, &rust_biguint!(500));
-    wrapper.check_egld_balance(sc_wrapper.address_ref(), &rust_biguint!(2_500));
+    wrapper.check_moa_balance(&caller_addr, &rust_biguint!(500));
+    wrapper.check_moa_balance(sc_wrapper.address_ref(), &rust_biguint!(2_500));
 }
 
 #[test]
-fn test_esdt_balance() {
+fn test_dct_balance() {
     let mut wrapper = BlockchainStateWrapper::new();
     let sc_wrapper = wrapper.create_sc_account(
         &rust_biguint!(0),
@@ -292,25 +292,25 @@ fn test_esdt_balance() {
     );
     let token_id = &b"COOL-123456"[..];
 
-    wrapper.set_esdt_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(1_000));
-    wrapper.check_esdt_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(1_000));
+    wrapper.set_dct_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(1_000));
+    wrapper.check_dct_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(1_000));
 
     wrapper
         .execute_query(&sc_wrapper, |sc| {
             let managed_id = managed_token_id!(token_id);
 
-            let actual_balance = sc.get_esdt_balance(managed_id, 0);
+            let actual_balance = sc.get_dct_balance(managed_id, 0);
             let expected_balance = managed_biguint!(1_000);
             assert_eq!(expected_balance, actual_balance);
         })
         .assert_ok();
 
     wrapper.add_mandos_check_account(sc_wrapper.address_ref());
-    wrapper.write_mandos_output(TEST_ESDT_OUTPUT_PATH);
+    wrapper.write_mandos_output(TEST_DCT_OUTPUT_PATH);
 }
 
 #[test]
-fn test_esdt_payment_ok() {
+fn test_dct_payment_ok() {
     let mut wrapper = BlockchainStateWrapper::new();
     let rust_zero = rust_biguint!(0);
 
@@ -323,18 +323,18 @@ fn test_esdt_payment_ok() {
     );
     let token_id = &b"COOL-123456"[..];
 
-    wrapper.set_esdt_balance(&caller_addr, token_id, &rust_biguint!(1_000));
-    wrapper.set_esdt_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(2_000));
+    wrapper.set_dct_balance(&caller_addr, token_id, &rust_biguint!(1_000));
+    wrapper.set_dct_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(2_000));
 
     wrapper
-        .execute_esdt_transfer(
+        .execute_dct_transfer(
             &caller_addr,
             &sc_wrapper,
             token_id,
             0,
             &rust_biguint!(1_000),
             |sc| {
-                let (actual_token_id, actual_payment) = sc.receive_esdt();
+                let (actual_token_id, actual_payment) = sc.receive_dct();
                 let expected_payment = managed_biguint!(1_000);
 
                 assert_eq!(actual_token_id, managed_token_id!(token_id));
@@ -343,12 +343,12 @@ fn test_esdt_payment_ok() {
         )
         .assert_ok();
 
-    wrapper.check_esdt_balance(&caller_addr, token_id, &rust_zero);
-    wrapper.check_esdt_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(3_000));
+    wrapper.check_dct_balance(&caller_addr, token_id, &rust_zero);
+    wrapper.check_dct_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(3_000));
 }
 
 #[test]
-fn test_esdt_payment_reverted() {
+fn test_dct_payment_reverted() {
     let mut wrapper = BlockchainStateWrapper::new();
     let rust_zero = rust_biguint!(0);
 
@@ -361,11 +361,11 @@ fn test_esdt_payment_reverted() {
     );
     let token_id = &b"COOL-123456"[..];
 
-    wrapper.set_esdt_balance(&caller_addr, token_id, &rust_biguint!(1_000));
-    wrapper.set_esdt_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(2_000));
+    wrapper.set_dct_balance(&caller_addr, token_id, &rust_biguint!(1_000));
+    wrapper.set_dct_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(2_000));
 
     wrapper
-        .execute_esdt_transfer(
+        .execute_dct_transfer(
             &caller_addr,
             &sc_wrapper,
             token_id,
@@ -377,8 +377,8 @@ fn test_esdt_payment_reverted() {
         )
         .assert_user_error("No payment allowed!");
 
-    wrapper.check_esdt_balance(&caller_addr, token_id, &rust_biguint!(1_000));
-    wrapper.check_esdt_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(2_000));
+    wrapper.check_dct_balance(&caller_addr, token_id, &rust_biguint!(1_000));
+    wrapper.check_dct_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(2_000));
 }
 
 #[test]
@@ -417,7 +417,7 @@ fn test_nft_balance() {
         .execute_query(&sc_wrapper, |sc| {
             let managed_id = managed_token_id!(token_id);
 
-            let actual_balance = sc.get_esdt_balance(managed_id, nft_nonce);
+            let actual_balance = sc.get_dct_balance(managed_id, nft_nonce);
             let expected_balance = managed_biguint!(1_000);
             assert_eq!(expected_balance, actual_balance);
         })
@@ -510,7 +510,7 @@ fn test_sc_send_nft_to_user() {
 }
 
 #[test]
-fn test_sc_esdt_mint_burn() {
+fn test_sc_dct_mint_burn() {
     let mut wrapper = BlockchainStateWrapper::new();
     let caller_addr = wrapper.create_user_account(&rust_biguint!(0));
     let sc_wrapper = wrapper.create_sc_account(
@@ -521,31 +521,31 @@ fn test_sc_esdt_mint_burn() {
     );
     let token_id = &b"COOL-123456"[..];
 
-    wrapper.set_esdt_local_roles(
+    wrapper.set_dct_local_roles(
         sc_wrapper.address_ref(),
         token_id,
-        &[EsdtLocalRole::Mint, EsdtLocalRole::Burn][..],
+        &[DctLocalRole::Mint, DctLocalRole::Burn][..],
     );
 
     wrapper
         .execute_tx(&caller_addr, &sc_wrapper, &rust_biguint!(0), |sc| {
             let managed_id = managed_token_id!(token_id);
             let managed_amt = managed_biguint!(400);
-            sc.mint_esdt(managed_id, 0, managed_amt);
+            sc.mint_dct(managed_id, 0, managed_amt);
         })
         .assert_ok();
 
-    wrapper.check_esdt_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(400));
+    wrapper.check_dct_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(400));
 
     wrapper
         .execute_tx(&caller_addr, &sc_wrapper, &rust_biguint!(0), |sc| {
             let managed_id = managed_token_id!(token_id);
             let managed_amt = managed_biguint!(100);
-            sc.burn_esdt(managed_id, 0, managed_amt);
+            sc.burn_dct(managed_id, 0, managed_amt);
         })
         .assert_ok();
 
-    wrapper.check_esdt_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(300));
+    wrapper.check_dct_balance(sc_wrapper.address_ref(), token_id, &rust_biguint!(300));
 }
 
 #[test]
@@ -564,13 +564,13 @@ fn test_sc_nft() {
         cool_factor: 101,
     };
 
-    wrapper.set_esdt_local_roles(
+    wrapper.set_dct_local_roles(
         sc_wrapper.address_ref(),
         token_id,
         &[
-            EsdtLocalRole::NftCreate,
-            EsdtLocalRole::NftAddQuantity,
-            EsdtLocalRole::NftBurn,
+            DctLocalRole::NftCreate,
+            DctLocalRole::NftAddQuantity,
+            DctLocalRole::NftBurn,
         ][..],
     );
 
@@ -610,7 +610,7 @@ fn test_sc_nft() {
         .execute_tx(&caller_addr, &sc_wrapper, &rust_biguint!(0), |sc| {
             let managed_id = managed_token_id!(token_id);
             let managed_amt = managed_biguint!(100);
-            sc.mint_esdt(managed_id, 1, managed_amt);
+            sc.mint_dct(managed_id, 1, managed_amt);
         })
         .assert_ok();
 
@@ -633,7 +633,7 @@ fn test_sc_nft() {
         .execute_tx(&caller_addr, &sc_wrapper, &rust_biguint!(0), |sc| {
             let managed_id = managed_token_id!(token_id);
             let managed_amt = managed_biguint!(50);
-            sc.burn_esdt(managed_id, 2, managed_amt);
+            sc.burn_dct(managed_id, 2, managed_amt);
         })
         .assert_ok();
 
@@ -692,7 +692,7 @@ fn test_over_set_nft() {
 
     b_mock
         .execute_tx(&user, &sc_wrapper, &rust_zero, |sc| {
-            let merged_token_data = sc.blockchain().get_esdt_token_data(
+            let merged_token_data = sc.blockchain().get_dct_token_data(
                 &managed_address!(&user),
                 &managed_token_id!(NFT_TOKEN_ID),
                 FIRST_NFT_NONCE,
@@ -706,7 +706,7 @@ fn test_over_set_nft() {
 }
 
 #[test]
-fn test_esdt_multi_transfer() {
+fn test_dct_multi_transfer() {
     let mut wrapper = BlockchainStateWrapper::new();
     let caller_addr = wrapper.create_user_account(&rust_biguint!(0));
     let sc_wrapper = wrapper.create_sc_account(
@@ -719,7 +719,7 @@ fn test_esdt_multi_transfer() {
     let token_id_2 = &b"VERYCOOL-123456"[..];
     let nft_nonce = 5;
 
-    wrapper.set_esdt_balance(&caller_addr, token_id_1, &rust_biguint!(100));
+    wrapper.set_dct_balance(&caller_addr, token_id_1, &rust_biguint!(100));
     wrapper.set_nft_balance(
         &caller_addr,
         token_id_2,
@@ -742,20 +742,20 @@ fn test_esdt_multi_transfer() {
     ];
 
     wrapper
-        .execute_esdt_multi_transfer(&caller_addr, &sc_wrapper, &transfers, |sc| {
+        .execute_dct_multi_transfer(&caller_addr, &sc_wrapper, &transfers, |sc| {
             let mut expected_transfers = Vec::new();
-            expected_transfers.push(EsdtTokenPayment::new(
+            expected_transfers.push(DctTokenPayment::new(
                 managed_token_id!(token_id_1),
                 0,
                 managed_biguint!(100),
             ));
-            expected_transfers.push(EsdtTokenPayment::new(
+            expected_transfers.push(DctTokenPayment::new(
                 managed_token_id!(token_id_2),
                 nft_nonce,
                 managed_biguint!(1),
             ));
 
-            let actual_transfers = sc.receive_multi_esdt().into_vec();
+            let actual_transfers = sc.receive_multi_dct().into_vec();
             assert_eq!(
                 expected_transfers[0].token_identifier,
                 actual_transfers[0].token_identifier
@@ -778,7 +778,7 @@ fn test_esdt_multi_transfer() {
         })
         .assert_ok();
 
-    wrapper.check_esdt_balance(sc_wrapper.address_ref(), token_id_1, &rust_biguint!(100));
+    wrapper.check_dct_balance(sc_wrapper.address_ref(), token_id_1, &rust_biguint!(100));
     wrapper.check_nft_balance::<Empty>(
         sc_wrapper.address_ref(),
         token_id_2,
@@ -799,7 +799,7 @@ fn test_query() {
     );
 
     let _ = wrapper.execute_query(&sc_wrapper, |sc| {
-        let actual_balance = sc.get_egld_balance();
+        let actual_balance = sc.get_moa_balance();
         let expected_balance = managed_biguint!(2_000);
         assert_eq!(actual_balance, expected_balance);
     });
@@ -1205,10 +1205,10 @@ fn test_async_call() {
 #[test]
 fn test_wrapper_getters() {
     let mut wrapper = BlockchainStateWrapper::new();
-    let egld_balance = rust_biguint!(1_000);
+    let moa_balance = rust_biguint!(1_000);
 
-    let esdt_token_id = b"ESDT-123456";
-    let esdt_balance = rust_biguint!(100);
+    let dct_token_id = b"DCT-123456";
+    let dct_balance = rust_biguint!(100);
 
     let nft_token_id = b"NFT-123456";
     let nft_nonce = 5;
@@ -1218,8 +1218,8 @@ fn test_wrapper_getters() {
         cool_factor: 100,
     };
 
-    let user_addr = wrapper.create_user_account(&egld_balance);
-    wrapper.set_esdt_balance(&user_addr, esdt_token_id, &esdt_balance);
+    let user_addr = wrapper.create_user_account(&moa_balance);
+    wrapper.set_dct_balance(&user_addr, dct_token_id, &dct_balance);
     wrapper.set_nft_balance(
         &user_addr,
         nft_token_id,
@@ -1228,15 +1228,15 @@ fn test_wrapper_getters() {
         &nft_attributes,
     );
 
-    let actual_egld_balance = wrapper.get_egld_balance(&user_addr);
-    let actual_esdt_balance = wrapper.get_esdt_balance(&user_addr, esdt_token_id, 0);
-    let actual_nft_balance = wrapper.get_esdt_balance(&user_addr, nft_token_id, nft_nonce);
+    let actual_moa_balance = wrapper.get_moa_balance(&user_addr);
+    let actual_dct_balance = wrapper.get_dct_balance(&user_addr, dct_token_id, 0);
+    let actual_nft_balance = wrapper.get_dct_balance(&user_addr, nft_token_id, nft_nonce);
     let actual_attributes = wrapper
         .get_nft_attributes::<NftDummyAttributes>(&user_addr, nft_token_id, nft_nonce)
         .unwrap();
 
-    assert_eq!(egld_balance, actual_egld_balance);
-    assert_eq!(esdt_balance, actual_esdt_balance);
+    assert_eq!(moa_balance, actual_moa_balance);
+    assert_eq!(dct_balance, actual_dct_balance);
     assert_eq!(nft_balance, actual_nft_balance);
     assert_eq!(nft_attributes, actual_attributes);
 }
@@ -1314,15 +1314,15 @@ fn test_managed_values_standalone_consistency() {
         BASIC_FEATURES_WASM_PATH,
     );
 
-    let foo_token = TokenIdentifier::<DebugApi>::from_esdt_bytes(b"FOO-a1a1a1");
+    let foo_token = TokenIdentifier::<DebugApi>::from_dct_bytes(b"FOO-a1a1a1");
     blockchain_wrapper
         .execute_query(&basic_features_wrapper, |_sc| {
-            let _bar = TokenIdentifier::<DebugApi>::from_esdt_bytes(b"BAR-a1a1a1");
+            let _bar = TokenIdentifier::<DebugApi>::from_dct_bytes(b"BAR-a1a1a1");
             // 'foo' and '_bar' have the same numerical handle value
             // check that the value of 'foo' is taken from the correct context
             assert_eq!(
                 foo_token,
-                TokenIdentifier::<DebugApi>::from_esdt_bytes(b"FOO-a1a1a1")
+                TokenIdentifier::<DebugApi>::from_dct_bytes(b"FOO-a1a1a1")
             );
         })
         .assert_error(
@@ -1477,8 +1477,8 @@ fn test_back_and_forth_transfers() {
     let second_token_amount = rust_biguint!(2_000_000);
     let third_token_amount = rust_biguint!(5_000_000);
 
-    wrapper.set_esdt_balance(&user, &first_token_id[..], &first_token_amount);
-    wrapper.set_esdt_balance(&user, &second_token_id[..], &second_token_amount);
+    wrapper.set_dct_balance(&user, &first_token_id[..], &first_token_amount);
+    wrapper.set_dct_balance(&user, &second_token_id[..], &second_token_amount);
 
     let forwarder_wrapper = wrapper.create_sc_account(
         &rust_biguint!(0),
@@ -1493,7 +1493,7 @@ fn test_back_and_forth_transfers() {
         vault::contract_obj,
         "../vault/output/vault.wasm",
     );
-    wrapper.set_esdt_balance(
+    wrapper.set_dct_balance(
         vault_wrapper.address_ref(),
         &third_token_id[..],
         &third_token_amount,
@@ -1513,7 +1513,7 @@ fn test_back_and_forth_transfers() {
     ];
 
     wrapper
-        .execute_esdt_multi_transfer(&user, &forwarder_wrapper, &transfers, |sc| {
+        .execute_dct_multi_transfer(&user, &forwarder_wrapper, &transfers, |sc| {
             sc.forward_sync_retrieve_funds_with_accept_func(
                 managed_address!(vault_wrapper.address_ref()),
                 managed_token_id!(&third_token_id[..]),
@@ -1522,7 +1522,7 @@ fn test_back_and_forth_transfers() {
         })
         .assert_ok();
 
-    wrapper.check_esdt_balance(
+    wrapper.check_dct_balance(
         forwarder_wrapper.address_ref(),
         &third_token_id[..],
         &third_token_amount,
@@ -1549,8 +1549,8 @@ fn dump_state_single_test() {
         cool_factor: 255,
     };
 
-    wrapper.set_egld_balance(sc_wrapper.address_ref(), &rust_biguint!(444));
-    wrapper.set_esdt_balance(
+    wrapper.set_moa_balance(sc_wrapper.address_ref(), &rust_biguint!(444));
+    wrapper.set_dct_balance(
         sc_wrapper.address_ref(),
         fungible_token_id,
         &rust_biguint!(1_000),
@@ -1593,8 +1593,8 @@ fn dump_state_raw_attributes_test() {
         cool_factor: 255,
     };
 
-    wrapper.set_egld_balance(sc_wrapper.address_ref(), &rust_biguint!(444));
-    wrapper.set_esdt_balance(
+    wrapper.set_moa_balance(sc_wrapper.address_ref(), &rust_biguint!(444));
+    wrapper.set_dct_balance(
         sc_wrapper.address_ref(),
         fungible_token_id,
         &rust_biguint!(1_000),
@@ -1638,8 +1638,8 @@ fn dump_state_all_test() {
         cool_factor: 255,
     };
 
-    wrapper.set_egld_balance(sc_wrapper.address_ref(), &rust_biguint!(444));
-    wrapper.set_esdt_balance(
+    wrapper.set_moa_balance(sc_wrapper.address_ref(), &rust_biguint!(444));
+    wrapper.set_dct_balance(
         sc_wrapper.address_ref(),
         fungible_token_id,
         &rust_biguint!(1_000),

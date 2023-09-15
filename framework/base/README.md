@@ -1,8 +1,8 @@
 # Smart contract base crate
 
-[![crates.io](https://img.shields.io/crates/v/dharithri-sc.svg)](https://crates.io/crates/dharithri-sc) 
+[![crates.io](https://img.shields.io/crates/v/dharitri-sc.svg)](https://crates.io/crates/dharitri-sc) 
 
-This is the main crate for building smart contracts for the dharithri blockchain.
+This is the main crate for building smart contracts for the dharitri blockchain.
 
 It contains the interface that the smart contract sees and can use. No implementation details are available from this crate alone.
 

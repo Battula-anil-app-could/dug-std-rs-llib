@@ -17,9 +17,9 @@ pub enum CallType {
     // previously, and now the control returns to the caller SmartContract's callBack method
     AsynchronousCallBack = 2,
 
-    // ESDTTransferAndExecute means that there is a smart contract execution after the ESDT transfer
+    // DCTTransferAndExecute means that there is a smart contract execution after the DCT transfer
     // this is needed in order to skip the check whether a contract is payable or not
-    ESDTTransferAndExecute = 3,
+    DCTTransferAndExecute = 3,
 }
 
 // VmValueRequest defines the request struct for values available in a VM

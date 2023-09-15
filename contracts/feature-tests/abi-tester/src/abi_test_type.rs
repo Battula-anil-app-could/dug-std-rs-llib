@@ -1,9 +1,9 @@
 use crate::only_nested::*;
-use dharithri_sc::{
+use dharitri_sc::{
     api::ManagedTypeApi,
     types::{BigUint, Box, ManagedBuffer},
 };
-dharithri_sc::derive_imports!();
+dharitri_sc::derive_imports!();
 
 /// Its only purpose is to test that the ABI generator works fine.
 #[derive(NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi)]

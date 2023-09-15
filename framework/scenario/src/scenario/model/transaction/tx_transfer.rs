@@ -6,14 +6,14 @@ use crate::{
     },
 };
 
-use super::{tx_interpret_util::interpret_egld_value, TxCall, TxESDT};
+use super::{tx_interpret_util::interpret_moa_value, TxCall, TxDCT};
 
 #[derive(Debug, Default, Clone)]
 pub struct TxTransfer {
     pub from: AddressValue,
     pub to: AddressValue,
-    pub egld_value: BigUintValue,
-    pub esdt_value: Vec<TxESDT>,
+    pub moa_value: BigUintValue,
+    pub dct_value: Vec<TxDCT>,
     pub gas_limit: U64Value,
     pub gas_price: U64Value,
 }
@@ -23,11 +23,11 @@ impl InterpretableFrom<TxTransferRaw> for TxTransfer {
         TxTransfer {
             from: AddressValue::interpret_from(from.from, context),
             to: AddressValue::interpret_from(from.to, context),
-            egld_value: interpret_egld_value(from.value, from.egld_value, context),
-            esdt_value: from
-                .esdt_value
+            moa_value: interpret_moa_value(from.value, from.moa_value, context),
+            dct_value: from
+                .dct_value
                 .iter()
-                .map(|esdt_value| TxESDT::interpret_from(esdt_value.clone(), context))
+                .map(|dct_value| TxDCT::interpret_from(dct_value.clone(), context))
                 .collect(),
             gas_limit: U64Value::interpret_from(from.gas_limit.unwrap_or_default(), context),
             gas_price: U64Value::interpret_from(from.gas_price.unwrap_or_default(), context),
@@ -41,11 +41,11 @@ impl IntoRaw<TxTransferRaw> for TxTransfer {
             from: self.from.into_raw(),
             to: self.to.into_raw(),
             value: None,
-            egld_value: self.egld_value.into_raw_opt(),
-            esdt_value: self
-                .esdt_value
+            moa_value: self.moa_value.into_raw_opt(),
+            dct_value: self
+                .dct_value
                 .into_iter()
-                .map(|esdt_value| esdt_value.into_raw())
+                .map(|dct_value| dct_value.into_raw())
                 .collect(),
             gas_limit: self.gas_limit.into_raw_opt(),
             gas_price: self.gas_price.into_raw_opt(),
@@ -59,8 +59,8 @@ impl TxTransfer {
         TxCall {
             from: self.from.clone(),
             to: self.to.clone(),
-            egld_value: self.egld_value.clone(),
-            esdt_value: self.esdt_value.clone(),
+            moa_value: self.moa_value.clone(),
+            dct_value: self.dct_value.clone(),
             function: String::new(),
             arguments: Vec::new(),
             gas_limit: self.gas_limit.clone(),

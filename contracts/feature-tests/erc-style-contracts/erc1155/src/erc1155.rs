@@ -1,12 +1,12 @@
 #![no_std]
 #![allow(clippy::type_complexity)]
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 pub mod erc1155_user_proxy;
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait Erc1155 {
     #[init]
     fn init(&self) {}

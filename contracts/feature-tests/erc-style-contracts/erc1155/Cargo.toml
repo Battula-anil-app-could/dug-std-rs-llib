@@ -1,19 +1,19 @@
 [package]
 name = "erc1155"
 version = "0.0.0"
-authors = ["Dorin Iancu <dorin.iancu@dharithri.com>"]
+authors = ["Dorin Iancu <dorin.iancu@dharitri.com>"]
 edition = "2021"
 publish = false
 
 [lib]
 path = "src/erc1155.rs"
 
-[dependencies.dharithri-sc]
+[dependencies.dharitri-sc]
 version = "0.43.3"
 path = "../../../../framework/base"
 features = ["alloc"]
 
-[dev-dependencies.dharithri-sc-scenario]
+[dev-dependencies.dharitri-sc-scenario]
 version = "0.43.3"
 path = "../../../../framework/scenario"
 

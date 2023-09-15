@@ -1,16 +1,16 @@
 #![allow(deprecated)] // TODO: migrate tests
 
-use dharithri_sc::{
+use dharitri_sc::{
     arrayvec::ArrayVec,
     codec::Empty,
     contract_base::ContractBase,
     storage::mappers::StorageTokenWrapper,
-    types::{EsdtLocalRole, EsdtTokenPayment, ManagedVec},
+    types::{DctLocalRole, DctTokenPayment, ManagedVec},
 };
-use dharithri_sc_modules::token_merge::{
+use dharitri_sc_modules::token_merge::{
     merged_token_instances::MergedTokenInstances, merged_token_setup::MergedTokenSetupModule,
 };
-use dharithri_sc_scenario::{
+use dharitri_sc_scenario::{
     managed_address, managed_biguint, managed_token_id, rust_biguint,
     testing_framework::{BlockchainStateWrapper, TxTokenTransfer},
 };
@@ -58,13 +58,13 @@ fn test_token_merge() {
                 .insert(managed_token_id!(FUNGIBLE_TOKEN_ID));
         })
         .assert_ok();
-    b_mock.set_esdt_local_roles(
+    b_mock.set_dct_local_roles(
         merging_sc.address_ref(),
         MERGED_TOKEN_ID,
-        &[EsdtLocalRole::NftCreate, EsdtLocalRole::NftBurn],
+        &[DctLocalRole::NftCreate, DctLocalRole::NftBurn],
     );
 
-    b_mock.set_esdt_balance(&user, FUNGIBLE_TOKEN_ID, &rust_biguint!(FUNGIBLE_AMOUNT));
+    b_mock.set_dct_balance(&user, FUNGIBLE_TOKEN_ID, &rust_biguint!(FUNGIBLE_AMOUNT));
     b_mock.set_nft_balance_all_properties(
         &user,
         NFT_TOKEN_ID,
@@ -104,7 +104,7 @@ fn test_token_merge() {
         },
     ];
     b_mock
-        .execute_esdt_multi_transfer(&user, &merging_sc, &nft_transfers, |sc| {
+        .execute_dct_multi_transfer(&user, &merging_sc, &nft_transfers, |sc| {
             let merged_token = sc.merge_tokens_endpoint();
             assert_eq!(
                 merged_token.token_identifier,
@@ -113,18 +113,18 @@ fn test_token_merge() {
             assert_eq!(merged_token.token_nonce, 1);
             assert_eq!(merged_token.amount, managed_biguint!(NFT_AMOUNT));
 
-            let merged_token_data = sc.blockchain().get_esdt_token_data(
+            let merged_token_data = sc.blockchain().get_dct_token_data(
                 &managed_address!(&user),
                 &managed_token_id!(MERGED_TOKEN_ID),
                 1,
             );
             let mut expected_uri = ArrayVec::new();
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 FIRST_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),
             ));
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 SECOND_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),
@@ -164,7 +164,7 @@ fn test_token_merge() {
 
     // split nfts
     b_mock
-        .execute_esdt_transfer(
+        .execute_dct_transfer(
             &user,
             &merging_sc,
             MERGED_TOKEN_ID,
@@ -173,12 +173,12 @@ fn test_token_merge() {
             |sc| {
                 let output_tokens = sc.split_tokens_endpoint();
                 let mut expected_output_tokens = ManagedVec::new();
-                expected_output_tokens.push(EsdtTokenPayment::new(
+                expected_output_tokens.push(DctTokenPayment::new(
                     managed_token_id!(NFT_TOKEN_ID),
                     FIRST_NFT_NONCE,
                     managed_biguint!(NFT_AMOUNT),
                 ));
-                expected_output_tokens.push(EsdtTokenPayment::new(
+                expected_output_tokens.push(DctTokenPayment::new(
                     managed_token_id!(NFT_TOKEN_ID),
                     SECOND_NFT_NONCE,
                     managed_biguint!(NFT_AMOUNT),
@@ -204,7 +204,7 @@ fn test_token_merge() {
     );
 
     // merge the NFT with fungible
-    let esdt_transfers = vec![
+    let dct_transfers = vec![
         TxTokenTransfer {
             token_identifier: NFT_TOKEN_ID.to_vec(),
             nonce: FIRST_NFT_NONCE,
@@ -217,7 +217,7 @@ fn test_token_merge() {
         },
     ];
     b_mock
-        .execute_esdt_multi_transfer(&user, &merging_sc, &esdt_transfers, |sc| {
+        .execute_dct_multi_transfer(&user, &merging_sc, &dct_transfers, |sc| {
             let merged_token = sc.merge_tokens_endpoint();
             assert_eq!(
                 merged_token.token_identifier,
@@ -226,18 +226,18 @@ fn test_token_merge() {
             assert_eq!(merged_token.token_nonce, 2);
             assert_eq!(merged_token.amount, managed_biguint!(NFT_AMOUNT));
 
-            let merged_token_data = sc.blockchain().get_esdt_token_data(
+            let merged_token_data = sc.blockchain().get_dct_token_data(
                 &managed_address!(&user),
                 &managed_token_id!(MERGED_TOKEN_ID),
                 2,
             );
             let mut expected_uri = ArrayVec::new();
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 FIRST_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),
             ));
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(FUNGIBLE_TOKEN_ID),
                 0,
                 managed_biguint!(FUNGIBLE_AMOUNT),
@@ -275,7 +275,7 @@ fn test_token_merge() {
         },
     ];
     b_mock
-        .execute_esdt_multi_transfer(&user, &merging_sc, &combined_transfers, |sc| {
+        .execute_dct_multi_transfer(&user, &merging_sc, &combined_transfers, |sc| {
             let merged_token = sc.merge_tokens_endpoint();
             assert_eq!(
                 merged_token.token_identifier,
@@ -284,23 +284,23 @@ fn test_token_merge() {
             assert_eq!(merged_token.token_nonce, 3);
             assert_eq!(merged_token.amount, managed_biguint!(NFT_AMOUNT));
 
-            let merged_token_data = sc.blockchain().get_esdt_token_data(
+            let merged_token_data = sc.blockchain().get_dct_token_data(
                 &managed_address!(&user),
                 &managed_token_id!(MERGED_TOKEN_ID),
                 3,
             );
             let mut expected_uri = ArrayVec::new();
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 FIRST_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),
             ));
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(FUNGIBLE_TOKEN_ID),
                 0,
                 managed_biguint!(FUNGIBLE_AMOUNT),
             ));
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 SECOND_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),
@@ -326,7 +326,7 @@ fn test_token_merge() {
 
     // split the 3 merged tokens
     b_mock
-        .execute_esdt_transfer(
+        .execute_dct_transfer(
             &user,
             &merging_sc,
             MERGED_TOKEN_ID,
@@ -335,17 +335,17 @@ fn test_token_merge() {
             |sc| {
                 let output_tokens = sc.split_tokens_endpoint();
                 let mut expected_output_tokens = ManagedVec::new();
-                expected_output_tokens.push(EsdtTokenPayment::new(
+                expected_output_tokens.push(DctTokenPayment::new(
                     managed_token_id!(NFT_TOKEN_ID),
                     FIRST_NFT_NONCE,
                     managed_biguint!(NFT_AMOUNT),
                 ));
-                expected_output_tokens.push(EsdtTokenPayment::new(
+                expected_output_tokens.push(DctTokenPayment::new(
                     managed_token_id!(FUNGIBLE_TOKEN_ID),
                     0,
                     managed_biguint!(FUNGIBLE_AMOUNT),
                 ));
-                expected_output_tokens.push(EsdtTokenPayment::new(
+                expected_output_tokens.push(DctTokenPayment::new(
                     managed_token_id!(NFT_TOKEN_ID),
                     SECOND_NFT_NONCE,
                     managed_biguint!(NFT_AMOUNT),
@@ -370,7 +370,7 @@ fn test_token_merge() {
         &rust_biguint!(NFT_AMOUNT),
         Option::<&Empty>::None,
     );
-    b_mock.check_esdt_balance(&user, FUNGIBLE_TOKEN_ID, &rust_biguint!(FUNGIBLE_AMOUNT));
+    b_mock.check_dct_balance(&user, FUNGIBLE_TOKEN_ID, &rust_biguint!(FUNGIBLE_AMOUNT));
 }
 
 #[test]
@@ -398,13 +398,13 @@ fn partial_split_test() {
                 .insert(managed_token_id!(FUNGIBLE_TOKEN_ID));
         })
         .assert_ok();
-    b_mock.set_esdt_local_roles(
+    b_mock.set_dct_local_roles(
         merging_sc.address_ref(),
         MERGED_TOKEN_ID,
-        &[EsdtLocalRole::NftCreate, EsdtLocalRole::NftBurn],
+        &[DctLocalRole::NftCreate, DctLocalRole::NftBurn],
     );
 
-    b_mock.set_esdt_balance(&user, FUNGIBLE_TOKEN_ID, &rust_biguint!(FUNGIBLE_AMOUNT));
+    b_mock.set_dct_balance(&user, FUNGIBLE_TOKEN_ID, &rust_biguint!(FUNGIBLE_AMOUNT));
     b_mock.set_nft_balance_all_properties(
         &user,
         NFT_TOKEN_ID,
@@ -431,7 +431,7 @@ fn partial_split_test() {
     );
 
     // merge 2 NFTs and a fungible token
-    let esdt_transfers = vec![
+    let dct_transfers = vec![
         TxTokenTransfer {
             token_identifier: NFT_TOKEN_ID.to_vec(),
             nonce: FIRST_NFT_NONCE,
@@ -449,7 +449,7 @@ fn partial_split_test() {
         },
     ];
     b_mock
-        .execute_esdt_multi_transfer(&user, &merging_sc, &esdt_transfers, |sc| {
+        .execute_dct_multi_transfer(&user, &merging_sc, &dct_transfers, |sc| {
             let merged_token = sc.merge_tokens_endpoint();
             assert_eq!(
                 merged_token.token_identifier,
@@ -458,23 +458,23 @@ fn partial_split_test() {
             assert_eq!(merged_token.token_nonce, 1);
             assert_eq!(merged_token.amount, managed_biguint!(NFT_AMOUNT));
 
-            let merged_token_data = sc.blockchain().get_esdt_token_data(
+            let merged_token_data = sc.blockchain().get_dct_token_data(
                 &managed_address!(&user),
                 &managed_token_id!(MERGED_TOKEN_ID),
                 1,
             );
             let mut expected_uri = ArrayVec::new();
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 FIRST_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),
             ));
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 SECOND_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),
             ));
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(FUNGIBLE_TOKEN_ID),
                 0,
                 managed_biguint!(FUNGIBLE_AMOUNT),
@@ -487,7 +487,7 @@ fn partial_split_test() {
 
     // split part of the fungible token
     b_mock
-        .execute_esdt_transfer(
+        .execute_dct_transfer(
             &user,
             &merging_sc,
             MERGED_TOKEN_ID,
@@ -495,7 +495,7 @@ fn partial_split_test() {
             &rust_biguint!(NFT_AMOUNT),
             |sc| {
                 let mut tokens_to_remove = ManagedVec::new();
-                tokens_to_remove.push(EsdtTokenPayment::new(
+                tokens_to_remove.push(DctTokenPayment::new(
                     managed_token_id!(FUNGIBLE_TOKEN_ID),
                     0,
                     managed_biguint!(40),
@@ -503,12 +503,12 @@ fn partial_split_test() {
                 let output_payments = sc.split_token_partial_endpoint(tokens_to_remove);
 
                 let mut expected_output_payments = ManagedVec::new();
-                expected_output_payments.push(EsdtTokenPayment::new(
+                expected_output_payments.push(DctTokenPayment::new(
                     managed_token_id!(FUNGIBLE_TOKEN_ID),
                     0,
                     managed_biguint!(40),
                 ));
-                expected_output_payments.push(EsdtTokenPayment::new(
+                expected_output_payments.push(DctTokenPayment::new(
                     managed_token_id!(MERGED_TOKEN_ID),
                     2,
                     managed_biguint!(NFT_AMOUNT),
@@ -520,7 +520,7 @@ fn partial_split_test() {
 
     // fully remove instance
     b_mock
-        .execute_esdt_transfer(
+        .execute_dct_transfer(
             &user,
             &merging_sc,
             MERGED_TOKEN_ID,
@@ -528,7 +528,7 @@ fn partial_split_test() {
             &rust_biguint!(NFT_AMOUNT),
             |sc| {
                 let mut tokens_to_remove = ManagedVec::new();
-                tokens_to_remove.push(EsdtTokenPayment::new(
+                tokens_to_remove.push(DctTokenPayment::new(
                     managed_token_id!(NFT_TOKEN_ID),
                     FIRST_NFT_NONCE,
                     managed_biguint!(NFT_AMOUNT),
@@ -536,12 +536,12 @@ fn partial_split_test() {
                 let output_payments = sc.split_token_partial_endpoint(tokens_to_remove);
 
                 let mut expected_output_payments = ManagedVec::new();
-                expected_output_payments.push(EsdtTokenPayment::new(
+                expected_output_payments.push(DctTokenPayment::new(
                     managed_token_id!(NFT_TOKEN_ID),
                     FIRST_NFT_NONCE,
                     managed_biguint!(NFT_AMOUNT),
                 ));
-                expected_output_payments.push(EsdtTokenPayment::new(
+                expected_output_payments.push(DctTokenPayment::new(
                     managed_token_id!(MERGED_TOKEN_ID),
                     3,
                     managed_biguint!(NFT_AMOUNT),
@@ -549,18 +549,18 @@ fn partial_split_test() {
                 assert_eq!(output_payments, expected_output_payments);
 
                 // check newest token attributes
-                let merged_token_data = sc.blockchain().get_esdt_token_data(
+                let merged_token_data = sc.blockchain().get_dct_token_data(
                     &managed_address!(&user),
                     &managed_token_id!(MERGED_TOKEN_ID),
                     3,
                 );
                 let mut expected_uri = ArrayVec::new();
-                expected_uri.push(EsdtTokenPayment::new(
+                expected_uri.push(DctTokenPayment::new(
                     managed_token_id!(NFT_TOKEN_ID),
                     SECOND_NFT_NONCE,
                     managed_biguint!(NFT_AMOUNT),
                 ));
-                expected_uri.push(EsdtTokenPayment::new(
+                expected_uri.push(DctTokenPayment::new(
                     managed_token_id!(FUNGIBLE_TOKEN_ID),
                     0,
                     managed_biguint!(FUNGIBLE_AMOUNT - 40),
@@ -604,13 +604,13 @@ fn custom_attributes_test() {
                 .insert(managed_token_id!(FUNGIBLE_TOKEN_ID));
         })
         .assert_ok();
-    b_mock.set_esdt_local_roles(
+    b_mock.set_dct_local_roles(
         merging_sc.address_ref(),
         MERGED_TOKEN_ID,
-        &[EsdtLocalRole::NftCreate, EsdtLocalRole::NftBurn],
+        &[DctLocalRole::NftCreate, DctLocalRole::NftBurn],
     );
 
-    b_mock.set_esdt_balance(&user, FUNGIBLE_TOKEN_ID, &rust_biguint!(FUNGIBLE_AMOUNT));
+    b_mock.set_dct_balance(&user, FUNGIBLE_TOKEN_ID, &rust_biguint!(FUNGIBLE_AMOUNT));
     b_mock.set_nft_balance_all_properties(
         &user,
         NFT_TOKEN_ID,
@@ -650,7 +650,7 @@ fn custom_attributes_test() {
         },
     ];
     b_mock
-        .execute_esdt_multi_transfer(&user, &merging_sc, &nft_transfers, |sc| {
+        .execute_dct_multi_transfer(&user, &merging_sc, &nft_transfers, |sc| {
             let merged_token = sc.merge_tokens_custom_attributes_endpoint();
             assert_eq!(
                 merged_token.token_identifier,
@@ -659,18 +659,18 @@ fn custom_attributes_test() {
             assert_eq!(merged_token.token_nonce, 1);
             assert_eq!(merged_token.amount, managed_biguint!(NFT_AMOUNT));
 
-            let merged_token_data = sc.blockchain().get_esdt_token_data(
+            let merged_token_data = sc.blockchain().get_dct_token_data(
                 &managed_address!(&user),
                 &managed_token_id!(MERGED_TOKEN_ID),
                 1,
             );
             let mut expected_uri = ArrayVec::new();
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 FIRST_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),
             ));
-            expected_uri.push(EsdtTokenPayment::new(
+            expected_uri.push(DctTokenPayment::new(
                 managed_token_id!(NFT_TOKEN_ID),
                 SECOND_NFT_NONCE,
                 managed_biguint!(NFT_AMOUNT),

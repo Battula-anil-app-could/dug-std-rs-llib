@@ -1,9 +1,9 @@
-use dharithri_sc::{
+use dharitri_sc::{
     api::ManagedTypeApi,
     types::{BigUint, ManagedBuffer},
 };
 
-dharithri_sc::derive_imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(
     NestedEncode, NestedDecode, TopEncode, TopDecode, TypeAbi, PartialEq, Eq, Debug, Clone,

@@ -1,9 +1,9 @@
 use bech32::FromBase32;
-use dharithri_sc::types::heap::Address;
+use dharitri_sc::types::heap::Address;
 
 use crate::constants::*;
 
-pub type EsdtTransferTuple = (String, u64, num_bigint::BigUint);
+pub type DctTransferTuple = (String, u64, num_bigint::BigUint);
 const ADDRESS_LEN: usize = 32;
 
 pub enum WalletType {
@@ -51,7 +51,7 @@ pub enum TransactionType {
         sender_address_bech32: String,
         dest_address_bech32: String,
         function: String,
-        esdt_transfers: Vec<EsdtTransferTuple>,
+        dct_transfers: Vec<DctTransferTuple>,
     },
     Query {
         dest_address_bech32: String,
@@ -60,7 +60,7 @@ pub enum TransactionType {
 }
 
 impl TransactionType {
-    pub fn add_esdt_transfer(
+    pub fn add_dct_transfer(
         &mut self,
         token_id: String,
         token_nonce: u64,
@@ -70,10 +70,10 @@ impl TransactionType {
             sender_address_bech32: _,
             dest_address_bech32: _,
             function: _,
-            esdt_transfers,
+            dct_transfers,
         } = self
         {
-            esdt_transfers.push((token_id, token_nonce, amount));
+            dct_transfers.push((token_id, token_nonce, amount));
         }
     }
 }

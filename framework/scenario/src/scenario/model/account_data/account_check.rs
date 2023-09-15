@@ -1,7 +1,7 @@
 use crate::{
     scenario::model::{
-        BigUintValue, BytesKey, BytesValue, CheckEsdt, CheckEsdtInstances, CheckEsdtMap,
-        CheckEsdtMapContents, CheckStorage, CheckStorageDetails, CheckValue, U64Value,
+        BigUintValue, BytesKey, BytesValue, CheckDct, CheckDctInstances, CheckDctMap,
+        CheckDctMapContents, CheckStorage, CheckStorageDetails, CheckValue, U64Value,
     },
     scenario_format::{
         interpret_trait::{InterpretableFrom, InterpreterContext, IntoRaw},
@@ -15,7 +15,7 @@ pub struct CheckAccount {
     pub comment: Option<String>,
     pub nonce: CheckValue<U64Value>,
     pub balance: CheckValue<BigUintValue>,
-    pub esdt: CheckEsdtMap,
+    pub dct: CheckDctMap,
     pub username: CheckValue<BytesValue>,
     pub storage: CheckStorage,
     pub code: CheckValue<BytesValue>,
@@ -62,7 +62,7 @@ impl CheckAccount {
         self
     }
 
-    pub fn esdt_balance<K, V>(mut self, token_id_expr: K, balance_expr: V) -> Self
+    pub fn dct_balance<K, V>(mut self, token_id_expr: K, balance_expr: V) -> Self
     where
         BytesKey: From<K>,
         BigUintValue: From<V>,
@@ -70,26 +70,26 @@ impl CheckAccount {
         let token_id = BytesKey::from(token_id_expr);
         let balance = BigUintValue::from(balance_expr);
 
-        match &mut self.esdt {
-            CheckEsdtMap::Unspecified | CheckEsdtMap::Star => {
-                let mut new_esdt_map = BTreeMap::new();
-                let _ = new_esdt_map.insert(token_id, CheckEsdt::Short(balance));
+        match &mut self.dct {
+            CheckDctMap::Unspecified | CheckDctMap::Star => {
+                let mut new_dct_map = BTreeMap::new();
+                let _ = new_dct_map.insert(token_id, CheckDct::Short(balance));
 
-                let new_check_esdt_map = CheckEsdtMapContents {
-                    contents: new_esdt_map,
-                    other_esdts_allowed: true,
+                let new_check_dct_map = CheckDctMapContents {
+                    contents: new_dct_map,
+                    other_dcts_allowed: true,
                 };
 
-                self.esdt = CheckEsdtMap::Equal(new_check_esdt_map);
+                self.dct = CheckDctMap::Equal(new_check_dct_map);
             },
-            CheckEsdtMap::Equal(check_esdt_map) => {
-                if check_esdt_map.contents.contains_key(&token_id) {
-                    let prev_entry = check_esdt_map.contents.get_mut(&token_id).unwrap();
+            CheckDctMap::Equal(check_dct_map) => {
+                if check_dct_map.contents.contains_key(&token_id) {
+                    let prev_entry = check_dct_map.contents.get_mut(&token_id).unwrap();
                     match prev_entry {
-                        CheckEsdt::Short(prev_balance_check) => *prev_balance_check = balance,
-                        CheckEsdt::Full(prev_esdt_check) => match prev_esdt_check.instances {
-                            CheckEsdtInstances::Star => todo!(),
-                            CheckEsdtInstances::Equal(_) => todo!(),
+                        CheckDct::Short(prev_balance_check) => *prev_balance_check = balance,
+                        CheckDct::Full(prev_dct_check) => match prev_dct_check.instances {
+                            CheckDctInstances::Star => todo!(),
+                            CheckDctInstances::Equal(_) => todo!(),
                         },
                     }
                 }
@@ -122,7 +122,7 @@ impl InterpretableFrom<Box<CheckAccountRaw>> for CheckAccount {
             comment: from.comment,
             nonce: CheckValue::<U64Value>::interpret_from(from.nonce, context),
             balance: CheckValue::<BigUintValue>::interpret_from(from.balance, context),
-            esdt: CheckEsdtMap::interpret_from(from.esdt, context),
+            dct: CheckDctMap::interpret_from(from.dct, context),
             username: CheckValue::<BytesValue>::interpret_from(from.username, context),
             storage: CheckStorage::interpret_from(from.storage, context),
             code: CheckValue::<BytesValue>::interpret_from(from.code, context),
@@ -145,7 +145,7 @@ impl IntoRaw<CheckAccountRaw> for CheckAccount {
             comment: self.comment,
             nonce: self.nonce.into_raw(),
             balance: self.balance.into_raw(),
-            esdt: self.esdt.into_raw(),
+            dct: self.dct.into_raw(),
             username: self.username.into_raw(),
             storage: self.storage.into_raw(),
             code: self.code.into_raw_explicit(), // TODO: convert back to into_raw after VM CI upgrade

@@ -1,7 +1,7 @@
 #![no_std]
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(TypeAbi, TopEncode, TopDecode, NestedEncode, NestedDecode, Clone)]
 pub enum SampleEnum {
@@ -15,7 +15,7 @@ pub struct Structure<M: ManagedTypeApi> {
     pub field3: ManagedBuffer<M>,
 }
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait LargeStorageBenchmark {
     #[init]
     fn init(&self) {}

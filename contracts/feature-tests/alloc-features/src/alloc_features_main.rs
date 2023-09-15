@@ -1,7 +1,7 @@
 #![no_std]
 #![feature(never_type)]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 pub mod echo_alloc;
 pub mod echo_managed_alloc;
@@ -20,7 +20,7 @@ pub mod types;
 /// Also some legacy/deprecated features still preserved here:
 /// - some will be removed,
 /// - some will be kept to provide test coverage for otherwise unused VM endpoints.
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait AllocFeatures:
     echo_alloc::EchoAllocTypes
     + echo_managed_alloc::EchoManagedTypesWithAlloc

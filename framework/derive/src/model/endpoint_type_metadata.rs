@@ -10,13 +10,13 @@ impl EndpointTypeMetadata {
     pub fn to_tokens(&self) -> proc_macro2::TokenStream {
         match self {
             EndpointTypeMetadata::Init => {
-                quote! { dharithri_sc::abi::EndpointTypeAbi::Init }
+                quote! { dharitri_sc::abi::EndpointTypeAbi::Init }
             },
             EndpointTypeMetadata::Endpoint => {
-                quote! { dharithri_sc::abi::EndpointTypeAbi::Endpoint }
+                quote! { dharitri_sc::abi::EndpointTypeAbi::Endpoint }
             },
             EndpointTypeMetadata::PromisesCallback => {
-                quote! { dharithri_sc::abi::EndpointTypeAbi::PromisesCallback }
+                quote! { dharitri_sc::abi::EndpointTypeAbi::PromisesCallback }
             },
         }
     }

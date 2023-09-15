@@ -1,7 +1,7 @@
 use core::ops::Deref;
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 pub const MAX_MERGED_TOKENS: usize = 25;
 
@@ -9,7 +9,7 @@ pub static TOO_MANY_TOKENS_ERR_MSG: &[u8] = b"Too many tokens to merge";
 pub static INSUFFICIENT_BALANCE_IN_MERGED_INST_ERR_MSG: &[u8] =
     b"Insufficient token balance to deduct from merged instance";
 
-pub type InstanceArray<M> = ArrayVec<EsdtTokenPayment<M>, MAX_MERGED_TOKENS>;
+pub type InstanceArray<M> = ArrayVec<DctTokenPayment<M>, MAX_MERGED_TOKENS>;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MergedTokenInstances<M: ManagedTypeApi> {
@@ -52,7 +52,7 @@ impl<M: ManagedTypeApi> MergedTokenInstances<M> {
         &self.instances
     }
 
-    pub fn add_or_update_instance(&mut self, new_instance: EsdtTokenPayment<M>) {
+    pub fn add_or_update_instance(&mut self, new_instance: DctTokenPayment<M>) {
         let search_result =
             self.find_instance(&new_instance.token_identifier, new_instance.token_nonce);
         match search_result {
@@ -77,7 +77,7 @@ impl<M: ManagedTypeApi> MergedTokenInstances<M> {
         }
     }
 
-    pub fn deduct_balance_for_instance(&mut self, tokens_to_deduct: &EsdtTokenPayment<M>) {
+    pub fn deduct_balance_for_instance(&mut self, tokens_to_deduct: &DctTokenPayment<M>) {
         let search_result = self.find_instance(
             &tokens_to_deduct.token_identifier,
             tokens_to_deduct.token_nonce,

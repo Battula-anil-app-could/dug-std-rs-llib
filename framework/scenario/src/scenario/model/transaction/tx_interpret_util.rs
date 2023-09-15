@@ -6,17 +6,17 @@ use crate::{
     },
 };
 
-pub fn interpret_egld_value(
+pub fn interpret_moa_value(
     opt_legacy_value: Option<ValueSubTree>,
-    opt_egld_value: Option<ValueSubTree>,
+    opt_moa_value: Option<ValueSubTree>,
     context: &InterpreterContext,
 ) -> BigUintValue {
-    let mut egld_value = BigUintValue::default();
+    let mut moa_value = BigUintValue::default();
     if let Some(parsed_legacy_value) = opt_legacy_value {
-        egld_value = BigUintValue::interpret_from(parsed_legacy_value, context);
+        moa_value = BigUintValue::interpret_from(parsed_legacy_value, context);
     }
-    if let Some(parsed_egld_value) = opt_egld_value {
-        egld_value = BigUintValue::interpret_from(parsed_egld_value, context);
+    if let Some(parsed_moa_value) = opt_moa_value {
+        moa_value = BigUintValue::interpret_from(parsed_moa_value, context);
     }
-    egld_value
+    moa_value
 }

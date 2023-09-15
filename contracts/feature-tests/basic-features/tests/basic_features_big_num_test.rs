@@ -1,5 +1,5 @@
-use dharithri_sc::types::{BigInt, BigUint, ManagedBuffer};
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc::types::{BigInt, BigUint, ManagedBuffer};
+use dharitri_sc_scenario::api::StaticApi;
 
 use basic_features::{big_num_methods::BigIntMethods, big_num_operators::BigIntOperators};
 

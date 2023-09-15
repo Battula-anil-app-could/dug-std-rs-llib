@@ -1,7 +1,7 @@
 use crate::{
     tx_execution::BlockchainVMRef,
     types::VMAddress,
-    world_mock::{AccountData, AccountEsdt, BlockchainState, FailingExecutor},
+    world_mock::{AccountData, AccountDct, BlockchainState, FailingExecutor},
 };
 use num_bigint::BigUint;
 use num_traits::Zero;
@@ -40,9 +40,9 @@ impl TxContext {
         tx_cache.insert_account(AccountData {
             address: contract_address.clone(),
             nonce: 0,
-            egld_balance: BigUint::zero(),
+            moa_balance: BigUint::zero(),
             storage: HashMap::new(),
-            esdt: AccountEsdt::default(),
+            dct: AccountDct::default(),
             username: Vec::new(),
             contract_path: None,
             contract_owner: None,
@@ -141,9 +141,9 @@ impl TxContext {
         self.tx_cache.insert_account(AccountData {
             address: new_address.clone(),
             nonce: 0,
-            egld_balance: BigUint::zero(),
+            moa_balance: BigUint::zero(),
             storage: HashMap::new(),
-            esdt: AccountEsdt::default(),
+            dct: AccountDct::default(),
             username: Vec::new(),
             contract_path: Some(contract_path),
             contract_owner: Some(contract_owner),

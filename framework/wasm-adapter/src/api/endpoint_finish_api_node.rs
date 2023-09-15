@@ -1,5 +1,5 @@
 use super::VmApiImpl;
-use dharithri_sc::api::{EndpointFinishApi, EndpointFinishApiImpl};
+use dharitri_sc::api::{EndpointFinishApi, EndpointFinishApiImpl};
 
 extern "C" {
     fn finish(dataOffset: *const u8, length: i32);

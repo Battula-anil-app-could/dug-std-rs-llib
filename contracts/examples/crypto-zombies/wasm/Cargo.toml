@@ -1,7 +1,7 @@
 [package]
 name = "crypto-zombies-wasm"
 version = "0.0.0"
-authors = ["Alin Cruceat <alin.cruceat@dharithri.com>"]
+authors = ["Alin Cruceat <alin.cruceat@dharitri.com>"]
 edition = "2021"
 publish = false
 
@@ -17,7 +17,7 @@ panic = "abort"
 [dependencies.crypto-zombies]
 path = ".."
 
-[dependencies.dharithri-sc-wasm-adapter]
+[dependencies.dharitri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../framework/wasm-adapter"
 

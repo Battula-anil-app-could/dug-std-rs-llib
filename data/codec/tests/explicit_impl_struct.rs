@@ -1,4 +1,4 @@
-use dharithri_sc_codec as codec;
+use dharitri_sc_codec as codec;
 
 // Some structures with explicit encode/decode, for testing.
 use codec::{

@@ -1,20 +1,20 @@
 [package]
-name = "dharithri-sc-codec-derive"
+name = "dharitri-sc-codec-derive"
 version = "0.18.1"
 edition = "2021"
 
-authors = ["dorin.iancu <dorin.iancu@dharithri.com>", "viswanath <contact@dharithri.org>", "dharithri <contact@dharithri.com>"]
+authors = ["dorin.iancu <dorin.iancu@dharitri.com>", "viswanath <contact@dharitri.org>", "dharitri <contact@dharitri.com>"]
 license = "GPL-3.0-only"
 readme = "README.md"
-repository = "https://github.com/dharithri/mx-sdk-rs"
-homepage = "https://dharithri.com/"
-documentation = "https://docs.dharithri.com/"
-description = "Macro implementations of dharithri-sc-codec #[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]"
-keywords = ["dharithri", "wasm", "webassembly", "blockchain", "contract"]
+repository = "https://github.com/dharitri/mx-sdk-rs"
+homepage = "https://dharitri.com/"
+documentation = "https://docs.dharitri.com/"
+description = "Macro implementations of dharitri-sc-codec #[derive(NestedEncode, NestedDecode, TopEncode, TopDecode)]"
+keywords = ["dharitri", "wasm", "webassembly", "blockchain", "contract"]
 categories = ["no-std", "wasm", "cryptography::cryptocurrencies", "development-tools"]
 
 [lib]
-name = "dharithri_sc_codec_derive"
+name = "dharitri_sc_codec_derive"
 proc-macro = true
 
 [features]

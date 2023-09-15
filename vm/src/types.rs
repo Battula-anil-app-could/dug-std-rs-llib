@@ -1,7 +1,7 @@
 mod vm_address;
 mod vm_code_metadata;
-mod vm_esdt_local_role;
-mod vm_esdt_local_role_flags;
+mod vm_dct_local_role;
+mod vm_dct_local_role_flags;
 mod vm_h256;
 mod vm_token_type;
 
@@ -9,8 +9,8 @@ use num_bigint::BigUint;
 use num_traits::Zero;
 pub use vm_address::VMAddress;
 pub use vm_code_metadata::VMCodeMetadata;
-pub use vm_esdt_local_role::EsdtLocalRole;
-pub use vm_esdt_local_role_flags::EsdtLocalRoleFlags;
+pub use vm_dct_local_role::DctLocalRole;
+pub use vm_dct_local_role_flags::DctLocalRoleFlags;
 pub use vm_h256::H256;
 pub use vm_token_type::VMTokenType;
 

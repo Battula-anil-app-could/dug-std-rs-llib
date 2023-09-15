@@ -1,13 +1,13 @@
-# dharithri SDK for Rust
+# dharitri SDK for Rust
 
-[![Crates.io](https://img.shields.io/crates/v/dharithri-sdk)](https://crates.io/crates/dharithri-sdk)
+[![Crates.io](https://img.shields.io/crates/v/dharitri-sdk)](https://crates.io/crates/dharitri-sdk)
 
-General purpose collection of tools & SDKs to interact with the dharithri blockchain from Rust projects.
+General purpose collection of tools & SDKs to interact with the dharitri blockchain from Rust projects.
 
 ## Example
 
 ```rust
-use dharithri_sdk::blockchain::rpc::{CommunicationProxy, DEVNET_GATEWAY};
+use dharitri_sdk::blockchain::rpc::{CommunicationProxy, DEVNET_GATEWAY};
 
 #[tokio::test]
 async fn get_network_config() {
@@ -22,4 +22,4 @@ More examples in `./examples`.
 
 ## Acknowledgements
 
-Project originally started by [Bicarus labs](https://github.com/bicarus-labs/elrond-sdk-erdrs), later integrated into the dharithri official codebase.
+Project originally started by [Bicarus labs](https://github.com/bicarus-labs/dharitri-sdk-erdrs), later integrated into the dharitri official codebase.

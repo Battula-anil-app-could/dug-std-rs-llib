@@ -1,6 +1,6 @@
 use log::debug;
-use dharithri_sc_scenario::dharithri_sc::types::Address;
-use dharithri_sdk::{data::transaction::Transaction, wallet::Wallet};
+use dharitri_sc_scenario::dharitri_sc::types::Address;
+use dharitri_sdk::{data::transaction::Transaction, wallet::Wallet};
 
 use crate::{address_h256_to_erdrs, Interactor};
 

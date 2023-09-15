@@ -1,7 +1,7 @@
 #![no_std]
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(TopEncode, TopDecode, PartialEq, Eq, TypeAbi, Clone, Copy)]
 pub enum Status {
@@ -10,7 +10,7 @@ pub enum Status {
     Failed,
 }
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait Crowdfunding {
     #[init]
     fn init(&self, target: BigUint, deadline: u64, erc20_contract_address: ManagedAddress) {
@@ -46,7 +46,7 @@ pub trait Crowdfunding {
             Status::FundingPeriod
         } else if self
             .blockchain()
-            .get_sc_balance(&EgldOrEsdtTokenIdentifier::egld(), 0)
+            .get_sc_balance(&MoaOrDctTokenIdentifier::moa(), 0)
             >= self.target().get()
         {
             Status::Successful

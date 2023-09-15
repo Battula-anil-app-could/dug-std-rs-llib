@@ -1,4 +1,4 @@
-use dharithri_sc::api::{CallTypeApi, StorageMapperApi, VMApi};
+use dharitri_sc::api::{CallTypeApi, StorageMapperApi, VMApi};
 
 use crate::api::{VMHooksApi, VMHooksApiBackend};
 

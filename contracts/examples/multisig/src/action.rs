@@ -1,14 +1,14 @@
-use dharithri_sc::{
+use dharitri_sc::{
     api::ManagedTypeApi,
     types::{BigUint, CodeMetadata, ManagedAddress, ManagedBuffer, ManagedVec},
 };
 
-dharithri_sc::derive_imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(NestedEncode, NestedDecode, TypeAbi, Clone)]
 pub struct CallActionData<M: ManagedTypeApi> {
     pub to: ManagedAddress<M>,
-    pub egld_amount: BigUint<M>,
+    pub moa_amount: BigUint<M>,
     pub endpoint_name: ManagedBuffer<M>,
     pub arguments: ManagedVec<M, ManagedBuffer<M>>,
 }
@@ -56,7 +56,7 @@ pub struct ActionFullInfo<M: ManagedTypeApi> {
 
 #[cfg(test)]
 mod test {
-    use dharithri_sc_scenario::api::StaticApi;
+    use dharitri_sc_scenario::api::StaticApi;
 
     use super::Action;
 

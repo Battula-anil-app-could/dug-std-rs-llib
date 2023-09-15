@@ -1,9 +1,9 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 use crate::zombie::Zombie;
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait Storage {
     #[view]
     #[storage_mapper("dna_digits")]

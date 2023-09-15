@@ -1,15 +1,15 @@
-use crate::dharithri_sc::{
+use crate::dharitri_sc::{
     codec::{top_encode_to_vec_u8_or_panic, TopEncode},
     types::heap::Address,
 };
-use dharithri_chain_vm::tx_mock::TxTokenTransfer;
+use dharitri_chain_vm::tx_mock::TxTokenTransfer;
 use num_traits::Zero;
 
 pub struct ScCallMandos {
     pub(crate) from: Address,
     pub(crate) to: Address,
-    pub(crate) egld_value: num_bigint::BigUint,
-    pub(crate) esdt: Vec<TxTokenTransfer>,
+    pub(crate) moa_value: num_bigint::BigUint,
+    pub(crate) dct: Vec<TxTokenTransfer>,
     pub(crate) function: String,
     pub(crate) arguments: Vec<Vec<u8>>,
     pub(crate) gas_limit: u64,
@@ -21,8 +21,8 @@ impl ScCallMandos {
         ScCallMandos {
             from: from.clone(),
             to: to.clone(),
-            egld_value: num_bigint::BigUint::zero(),
-            esdt: Vec::new(),
+            moa_value: num_bigint::BigUint::zero(),
+            dct: Vec::new(),
             function: function.to_owned(),
             arguments: Vec::new(),
             gas_limit: u64::MAX,
@@ -30,20 +30,20 @@ impl ScCallMandos {
         }
     }
 
-    pub fn add_egld_value(&mut self, egld_value: &num_bigint::BigUint) {
-        self.egld_value = egld_value.clone();
+    pub fn add_moa_value(&mut self, moa_value: &num_bigint::BigUint) {
+        self.moa_value = moa_value.clone();
     }
 
-    pub fn add_esdt_transfer(
+    pub fn add_dct_transfer(
         &mut self,
         token_id: &[u8],
         nonce: u64,
-        esdt_value: &num_bigint::BigUint,
+        dct_value: &num_bigint::BigUint,
     ) {
-        self.esdt.push(TxTokenTransfer {
+        self.dct.push(TxTokenTransfer {
             token_identifier: token_id.to_vec(),
             nonce,
-            value: esdt_value.clone(),
+            value: dct_value.clone(),
         });
     }
 

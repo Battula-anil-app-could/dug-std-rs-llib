@@ -1,5 +1,5 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 pub mod custom_merged_token_attributes;
 pub mod merged_token_instances;
@@ -13,7 +13,7 @@ static SC_DOES_NOT_OWN_NFT_PARTS_ERR_MSG: &[u8] = b"NFT parts belong to another 
 
 const MIN_MERGE_PAYMENTS: usize = 2;
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait TokenMergeModule:
     merged_token_setup::MergedTokenSetupModule
     + crate::default_issue_callbacks::DefaultIssueCallbacksModule
@@ -21,9 +21,9 @@ pub trait TokenMergeModule:
 {
     fn merge_tokens<AttributesCreator: MergedTokenAttributesCreator<ScType = Self>>(
         &self,
-        payments: &ManagedVec<EsdtTokenPayment>,
+        payments: &ManagedVec<DctTokenPayment>,
         attr_creator: &AttributesCreator,
-    ) -> EsdtTokenPayment {
+    ) -> DctTokenPayment {
         self.require_not_paused();
         require!(
             payments.len() >= MIN_MERGE_PAYMENTS,
@@ -38,7 +38,7 @@ pub trait TokenMergeModule:
         let mut single_tokens = ArrayVec::<_, MAX_MERGED_TOKENS>::new();
         for token in payments {
             if token.token_identifier == merged_token_id {
-                let token_data = self.blockchain().get_esdt_token_data(
+                let token_data = self.blockchain().get_dct_token_data(
                     &sc_address,
                     &token.token_identifier,
                     token.token_nonce,
@@ -76,15 +76,15 @@ pub trait TokenMergeModule:
             self.create_merged_token(merged_token_id, &all_merged_instances, attr_creator);
         let caller = self.blockchain().get_caller();
         self.send()
-            .direct_non_zero_esdt_payment(&caller, &merged_token_payment);
+            .direct_non_zero_dct_payment(&caller, &merged_token_payment);
 
         merged_token_payment
     }
 
     fn split_tokens(
         &self,
-        payments: &ManagedVec<EsdtTokenPayment>,
-    ) -> ManagedVec<EsdtTokenPayment> {
+        payments: &ManagedVec<DctTokenPayment>,
+    ) -> ManagedVec<DctTokenPayment> {
         self.require_not_paused();
         require!(!payments.is_empty(), "No payments");
 
@@ -98,7 +98,7 @@ pub trait TokenMergeModule:
                 "Invalid token to split"
             );
 
-            let token_data = self.blockchain().get_esdt_token_data(
+            let token_data = self.blockchain().get_dct_token_data(
                 &sc_address,
                 &token.token_identifier,
                 token.token_nonce,
@@ -115,7 +115,7 @@ pub trait TokenMergeModule:
             }
 
             self.send()
-                .esdt_local_burn(&token.token_identifier, token.token_nonce, &token.amount);
+                .dct_local_burn(&token.token_identifier, token.token_nonce, &token.amount);
         }
 
         let caller = self.blockchain().get_caller();
@@ -126,16 +126,16 @@ pub trait TokenMergeModule:
 
     fn split_token_partial<AttributesCreator: MergedTokenAttributesCreator<ScType = Self>>(
         &self,
-        merged_token: EsdtTokenPayment,
-        mut tokens_to_remove: ManagedVec<EsdtTokenPayment>,
+        merged_token: DctTokenPayment,
+        mut tokens_to_remove: ManagedVec<DctTokenPayment>,
         attr_creator: &AttributesCreator,
-    ) -> ManagedVec<EsdtTokenPayment> {
+    ) -> ManagedVec<DctTokenPayment> {
         self.require_not_paused();
         self.merged_token()
             .require_same_token(&merged_token.token_identifier);
 
         let sc_address = self.blockchain().get_sc_address();
-        let merged_token_data = self.blockchain().get_esdt_token_data(
+        let merged_token_data = self.blockchain().get_dct_token_data(
             &sc_address,
             &merged_token.token_identifier,
             merged_token.token_nonce,
@@ -151,7 +151,7 @@ pub trait TokenMergeModule:
             merged_attributes.deduct_balance_for_instance(&token);
         }
 
-        self.send().esdt_local_burn(
+        self.send().dct_local_burn(
             &merged_token.token_identifier,
             merged_token.token_nonce,
             &merged_token.amount,

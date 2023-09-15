@@ -1,5 +1,5 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct RgbColor {
@@ -8,16 +8,16 @@ pub struct RgbColor {
     b: u8,
 }
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait NonFungibleTokenMapperFeatures:
-    dharithri_sc_modules::default_issue_callbacks::DefaultIssueCallbacksModule
+    dharitri_sc_modules::default_issue_callbacks::DefaultIssueCallbacksModule
 {
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint]
     fn issue_and_set_all_roles_meta(&self, token_ticker: ManagedBuffer) {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
         self.non_fungible_token_mapper().issue_and_set_all_roles(
-            EsdtTokenType::Meta,
+            DctTokenType::Meta,
             payment.clone_value(),
             ManagedBuffer::new(),
             token_ticker,
@@ -36,7 +36,7 @@ pub trait NonFungibleTokenMapperFeatures:
         &self,
         amount: BigUint,
         attributes: RgbColor,
-    ) -> EsdtTokenPayment<Self::Api> {
+    ) -> DctTokenPayment<Self::Api> {
         self.non_fungible_token_mapper()
             .nft_create(amount, &attributes)
     }
@@ -47,7 +47,7 @@ pub trait NonFungibleTokenMapperFeatures:
         to: ManagedAddress,
         amount: BigUint,
         attributes: RgbColor,
-    ) -> EsdtTokenPayment<Self::Api> {
+    ) -> DctTokenPayment<Self::Api> {
         self.non_fungible_token_mapper()
             .nft_create_and_send(&to, amount, &attributes)
     }
@@ -57,7 +57,7 @@ pub trait NonFungibleTokenMapperFeatures:
         &self,
         token_nonce: u64,
         amount: BigUint,
-    ) -> EsdtTokenPayment<Self::Api> {
+    ) -> DctTokenPayment<Self::Api> {
         self.non_fungible_token_mapper()
             .nft_add_quantity(token_nonce, amount)
     }
@@ -68,7 +68,7 @@ pub trait NonFungibleTokenMapperFeatures:
         to: ManagedAddress,
         token_nonce: u64,
         amount: BigUint,
-    ) -> EsdtTokenPayment<Self::Api> {
+    ) -> DctTokenPayment<Self::Api> {
         self.non_fungible_token_mapper()
             .nft_add_quantity_and_send(&to, token_nonce, amount)
     }

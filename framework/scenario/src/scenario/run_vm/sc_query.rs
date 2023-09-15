@@ -1,5 +1,5 @@
 use crate::{num_bigint::BigUint, scenario::model::ScQueryStep, scenario_model::TxResponse};
-use dharithri_chain_vm::{
+use dharitri_chain_vm::{
     tx_execution::execute_current_tx_context_input,
     tx_mock::{TxInput, TxResult},
 };
@@ -50,8 +50,8 @@ fn tx_input_from_query(sc_query_step: &ScQueryStep) -> TxInput {
     TxInput {
         from: sc_query_step.tx.to.to_vm_address(),
         to: sc_query_step.tx.to.to_vm_address(),
-        egld_value: BigUint::from(0u32),
-        esdt_values: Vec::new(),
+        moa_value: BigUint::from(0u32),
+        dct_values: Vec::new(),
         func_name: sc_query_step.tx.function.clone().into(),
         args: sc_query_step
             .tx

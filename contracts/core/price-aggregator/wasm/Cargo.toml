@@ -1,7 +1,7 @@
 [package]
-name = "dharithri-price-aggregator-sc-wasm"
+name = "dharitri-price-aggregator-sc-wasm"
 version = "0.0.0"
-authors = [ "kasi <contact@dharithri.org>",]
+authors = [ "kasi <contact@dharitri.org>",]
 edition = "2021"
 publish = false
 
@@ -15,10 +15,10 @@ lto = true
 debug = false
 panic = "abort"
 
-[dependencies.dharithri-price-aggregator-sc]
+[dependencies.dharitri-price-aggregator-sc]
 path = ".."
 
-[dependencies.dharithri-sc-wasm-adapter]
+[dependencies.dharitri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../framework/wasm-adapter"
 

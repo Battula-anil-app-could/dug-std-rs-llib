@@ -1,29 +1,29 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 const NFT_AMOUNT: u32 = 1;
 const ROYALTIES_MAX: u32 = 10_000;
 
 #[derive(TypeAbi, TopEncode, TopDecode)]
 pub struct PriceTag<M: ManagedTypeApi> {
-    pub token: EgldOrEsdtTokenIdentifier<M>,
+    pub token: MoaOrDctTokenIdentifier<M>,
     pub nonce: u64,
     pub amount: BigUint<M>,
 }
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait NftModule {
     // endpoints - owner-only
 
     #[only_owner]
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint(issueToken)]
     fn issue_token(&self, token_name: ManagedBuffer, token_ticker: ManagedBuffer) {
         require!(self.nft_token_id().is_empty(), "Token already issued");
 
-        let payment_amount = self.call_value().egld_value();
+        let payment_amount = self.call_value().moa_value();
         self.send()
-            .esdt_system_sc_proxy()
+            .dct_system_sc_proxy()
             .issue_non_fungible(
                 payment_amount.clone_value(),
                 &token_name,
@@ -49,11 +49,11 @@ pub trait NftModule {
         self.require_token_issued();
 
         self.send()
-            .esdt_system_sc_proxy()
+            .dct_system_sc_proxy()
             .set_special_roles(
                 &self.blockchain().get_sc_address(),
                 &self.nft_token_id().get(),
-                [EsdtLocalRole::NftCreate][..].iter().cloned(),
+                [DctLocalRole::NftCreate][..].iter().cloned(),
             )
             .async_call()
             .call_and_exit()
@@ -64,7 +64,7 @@ pub trait NftModule {
     #[payable("*")]
     #[endpoint(buyNft)]
     fn buy_nft(&self, nft_nonce: u64) {
-        let payment = self.call_value().egld_or_single_esdt();
+        let payment = self.call_value().moa_or_single_dct();
 
         self.require_token_issued();
         require!(
@@ -90,7 +90,7 @@ pub trait NftModule {
 
         let nft_token_id = self.nft_token_id().get();
         let caller = self.blockchain().get_caller();
-        self.send().direct_esdt(
+        self.send().direct_dct(
             &caller,
             &nft_token_id,
             nft_nonce,
@@ -113,7 +113,7 @@ pub trait NftModule {
     fn get_nft_price(
         &self,
         nft_nonce: u64,
-    ) -> OptionalValue<MultiValue3<EgldOrEsdtTokenIdentifier, u64, BigUint>> {
+    ) -> OptionalValue<MultiValue3<MoaOrDctTokenIdentifier, u64, BigUint>> {
         if self.price_tag(nft_nonce).is_empty() {
             // NFT was already sold
             OptionalValue::None
@@ -129,16 +129,16 @@ pub trait NftModule {
     #[callback]
     fn issue_callback(
         &self,
-        #[call_result] result: ManagedAsyncCallResult<EgldOrEsdtTokenIdentifier>,
+        #[call_result] result: ManagedAsyncCallResult<MoaOrDctTokenIdentifier>,
     ) {
         match result {
             ManagedAsyncCallResult::Ok(token_id) => {
-                self.nft_token_id().set(&token_id.unwrap_esdt());
+                self.nft_token_id().set(&token_id.unwrap_dct());
             },
             ManagedAsyncCallResult::Err(_) => {
                 let caller = self.blockchain().get_owner_address();
-                let returned = self.call_value().egld_or_single_esdt();
-                if returned.token_identifier.is_egld() && returned.amount > 0 {
+                let returned = self.call_value().moa_or_single_dct();
+                if returned.token_identifier.is_moa() && returned.amount > 0 {
                     self.send()
                         .direct(&caller, &returned.token_identifier, 0, &returned.amount);
                 }
@@ -156,7 +156,7 @@ pub trait NftModule {
         attributes: T,
         uri: ManagedBuffer,
         selling_price: BigUint,
-        token_used_as_payment: EgldOrEsdtTokenIdentifier,
+        token_used_as_payment: MoaOrDctTokenIdentifier,
         token_used_as_payment_nonce: u64,
     ) -> u64 {
         self.require_token_issued();
@@ -172,7 +172,7 @@ pub trait NftModule {
         let attributes_sha256 = self.crypto().sha256(&serialized_attributes);
         let attributes_hash = attributes_sha256.as_managed_buffer();
         let uris = ManagedVec::from_single_item(uri);
-        let nft_nonce = self.send().esdt_nft_create(
+        let nft_nonce = self.send().dct_nft_create(
             &nft_token_id,
             &BigUint::from(NFT_AMOUNT),
             &name,

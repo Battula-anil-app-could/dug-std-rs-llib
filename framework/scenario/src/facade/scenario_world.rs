@@ -1,10 +1,10 @@
-use dharithri_chain_scenario_format::interpret_trait::InterpretableFrom;
-use dharithri_chain_vm::world_mock::BlockchainState;
+use dharitri_chain_scenario_format::interpret_trait::InterpretableFrom;
+use dharitri_chain_vm::world_mock::BlockchainState;
 
 use crate::{
     api::DebugApi,
     debug_executor::ContractContainer,
-    dharithri_sc::{
+    dharitri_sc::{
         api,
         contract_base::{CallableContractBuilder, ContractAbiProvider},
     },
@@ -185,7 +185,7 @@ impl ScenarioWorld {
         Abi: ContractAbiProvider,
         B: CallableContractBuilder,
     {
-        let multi_contract_config = dharithri_sc_meta::multi_contract_config::<Abi>(
+        let multi_contract_config = dharitri_sc_meta::multi_contract_config::<Abi>(
             self.current_dir
                 .join("multicontract.toml")
                 .to_str()

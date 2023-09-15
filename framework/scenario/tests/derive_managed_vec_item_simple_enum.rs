@@ -1,4 +1,4 @@
-use dharithri_sc::{
+use dharitri_sc::{
     codec,
     codec::derive::{NestedDecode, NestedEncode, TopDecode, TopEncode},
     derive::ManagedVecItem,
@@ -19,15 +19,15 @@ enum SimpleEnum {
 #[allow(clippy::assertions_on_constants)]
 fn enum_static() {
     assert_eq!(
-        <SimpleEnum as dharithri_sc::types::ManagedVecItem>::PAYLOAD_SIZE,
+        <SimpleEnum as dharitri_sc::types::ManagedVecItem>::PAYLOAD_SIZE,
         1
     );
-    assert!(<SimpleEnum as dharithri_sc::types::ManagedVecItem>::SKIPS_RESERIALIZATION);
+    assert!(<SimpleEnum as dharitri_sc::types::ManagedVecItem>::SKIPS_RESERIALIZATION);
 }
 
 #[test]
 fn enum_to_bytes_writer() {
-    <SimpleEnum as dharithri_sc::types::ManagedVecItem>::to_byte_writer(
+    <SimpleEnum as dharitri_sc::types::ManagedVecItem>::to_byte_writer(
         &SimpleEnum::Variant1,
         |bytes| {
             assert_eq!(bytes.len(), 1);
@@ -39,7 +39,7 @@ fn enum_to_bytes_writer() {
 #[test]
 fn enum_from_bytes_reader() {
     let enum_from_bytes =
-        <SimpleEnum as dharithri_sc::types::ManagedVecItem>::from_byte_reader(|bytes| {
+        <SimpleEnum as dharitri_sc::types::ManagedVecItem>::from_byte_reader(|bytes| {
             assert_eq!(bytes.len(), 1);
             bytes[0] = 1;
         });

@@ -75,8 +75,8 @@ fn validate_payment_args(m: &Method) {
     }
     if let PublicRole::Init(init_metadata) = &m.public_role {
         assert!(
-            init_metadata.payable.no_esdt(),
-            "only EGLD payments currently allowed in constructors"
+            init_metadata.payable.no_dct(),
+            "only MOA payments currently allowed in constructors"
         );
     }
     validate_payment_args_not_reference(m);

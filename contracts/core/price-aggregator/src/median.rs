@@ -1,5 +1,5 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 /// Returns the sorted middle, or the average of the two middle indexed items if the
 /// vector has an even number of elements.

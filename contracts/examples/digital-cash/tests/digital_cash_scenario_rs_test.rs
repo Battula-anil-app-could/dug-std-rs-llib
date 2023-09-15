@@ -1,4 +1,4 @@
-use dharithri_sc_scenario::*;
+use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
@@ -12,13 +12,13 @@ fn world() -> ScenarioWorld {
 }
 
 #[test]
-fn claim_egld_rs() {
-    world().run("scenarios/claim-egld.scen.json");
+fn claim_moa_rs() {
+    world().run("scenarios/claim-moa.scen.json");
 }
 
 #[test]
-fn claim_esdt_rs() {
-    world().run("scenarios/claim-esdt.scen.json");
+fn claim_dct_rs() {
+    world().run("scenarios/claim-dct.scen.json");
 }
 
 #[test]
@@ -27,8 +27,8 @@ fn claim_fees_rs() {
 }
 
 #[test]
-fn claim_multi_esdt_rs() {
-    world().run("scenarios/claim-multi-esdt.scen.json");
+fn claim_multi_dct_rs() {
+    world().run("scenarios/claim-multi-dct.scen.json");
 }
 
 #[test]
@@ -37,8 +37,8 @@ fn forward_rs() {
 }
 
 #[test]
-fn fund_egld_and_esdt_rs() {
-    world().run("scenarios/fund-egld-and-esdt.scen.json");
+fn fund_moa_and_dct_rs() {
+    world().run("scenarios/fund-moa-and-dct.scen.json");
 }
 
 #[test]
@@ -47,16 +47,16 @@ fn set_accounts_rs() {
 }
 
 #[test]
-fn withdraw_egld_rs() {
-    world().run("scenarios/withdraw-egld.scen.json");
+fn withdraw_moa_rs() {
+    world().run("scenarios/withdraw-moa.scen.json");
 }
 
 #[test]
-fn withdraw_esdt_rs() {
-    world().run("scenarios/withdraw-esdt.scen.json");
+fn withdraw_dct_rs() {
+    world().run("scenarios/withdraw-dct.scen.json");
 }
 
 #[test]
-fn withdraw_multi_esdt_rs() {
-    world().run("scenarios/withdraw-multi-esdt.scen.json");
+fn withdraw_multi_dct_rs() {
+    world().run("scenarios/withdraw-multi-dct.scen.json");
 }

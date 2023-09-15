@@ -1,7 +1,7 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Storage mapper test.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait SetMapperFeatures {
     #[view]
     #[storage_mapper("set_mapper")]

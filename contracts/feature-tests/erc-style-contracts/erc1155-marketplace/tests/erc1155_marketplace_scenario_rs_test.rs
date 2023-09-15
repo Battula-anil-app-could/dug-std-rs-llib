@@ -1,4 +1,4 @@
-use dharithri_sc_scenario::*;
+use dharitri_sc_scenario::*;
 
 fn world() -> ScenarioWorld {
     let mut blockchain = ScenarioWorld::new();
@@ -20,23 +20,23 @@ fn auction_batch_rs() {
 }
 
 #[test]
-fn auction_single_token_egld_rs() {
-    world().run("scenarios/auction_single_token_egld.scen.json");
+fn auction_single_token_moa_rs() {
+    world().run("scenarios/auction_single_token_moa.scen.json");
 }
 
 #[test]
-fn bid_first_egld_rs() {
-    world().run("scenarios/bid_first_egld.scen.json");
+fn bid_first_moa_rs() {
+    world().run("scenarios/bid_first_moa.scen.json");
 }
 
 #[test]
-fn bid_second_egld_rs() {
-    world().run("scenarios/bid_second_egld.scen.json");
+fn bid_second_moa_rs() {
+    world().run("scenarios/bid_second_moa.scen.json");
 }
 
 #[test]
-fn bid_third_egld_rs() {
-    world().run("scenarios/bid_third_egld.scen.json");
+fn bid_third_moa_rs() {
+    world().run("scenarios/bid_third_moa.scen.json");
 }
 
 #[test]

@@ -1,16 +1,16 @@
 [package]
-name = "dharithri-sc-snippets"
+name = "dharitri-sc-snippets"
 version = "0.43.3"
 edition = "2021"
 
-authors = ["dharithri <contact@dharithri.com>"]
+authors = ["dharitri <contact@dharitri.com>"]
 license = "GPL-3.0-only"
 readme = "README.md"
-repository = "https://github.com/dharithri/mx-sdk-rs"
-homepage = "https://dharithri.com/"
-documentation = "https://docs.dharithri.com/"
-description = "dharithri framework for building smart contract interaction snippets"
-keywords = ["dharithri", "blockchain", "contract", "snippets"]
+repository = "https://github.com/dharitri/mx-sdk-rs"
+homepage = "https://dharitri.com/"
+documentation = "https://docs.dharitri.com/"
+description = "dharitri framework for building smart contract interaction snippets"
+keywords = ["dharitri", "blockchain", "contract", "snippets"]
 categories = ["cryptography::cryptocurrencies"]
 
 [dependencies]
@@ -21,10 +21,10 @@ log = "0.4.17"
 env_logger = "0.8.4"
 futures = "0.3"
 
-[dependencies.dharithri-sc-scenario]
+[dependencies.dharitri-sc-scenario]
 version = "=0.43.3"
 path = "../scenario"
 
-[dependencies.dharithri-sdk]
+[dependencies.dharitri-sdk]
 version = "=0.2.0"
 path = "../../sdk/core"

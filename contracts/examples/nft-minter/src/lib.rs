@@ -1,7 +1,7 @@
 #![no_std]
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 mod nft_module;
 
@@ -10,7 +10,7 @@ pub struct ExampleAttributes {
     pub creation_timestamp: u64,
 }
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait NftMinter: nft_module::NftModule {
     #[init]
     fn init(&self) {}
@@ -29,15 +29,15 @@ pub trait NftMinter: nft_module::NftModule {
         opt_token_used_as_payment_nonce: OptionalValue<u64>,
     ) {
         let token_used_as_payment = match opt_token_used_as_payment {
-            OptionalValue::Some(token) => EgldOrEsdtTokenIdentifier::esdt(token),
-            OptionalValue::None => EgldOrEsdtTokenIdentifier::egld(),
+            OptionalValue::Some(token) => MoaOrDctTokenIdentifier::dct(token),
+            OptionalValue::None => MoaOrDctTokenIdentifier::moa(),
         };
         require!(
             token_used_as_payment.is_valid(),
             "Invalid token_used_as_payment arg, not a valid token ID"
         );
 
-        let token_used_as_payment_nonce = if token_used_as_payment.is_egld() {
+        let token_used_as_payment_nonce = if token_used_as_payment.is_moa() {
             0
         } else {
             match opt_token_used_as_payment_nonce {
@@ -86,9 +86,9 @@ pub trait NftMinter: nft_module::NftModule {
 }
 
 mod nft_marketplace_proxy {
-    dharithri_sc::imports!();
+    dharitri_sc::imports!();
 
-    #[dharithri_sc::proxy]
+    #[dharitri_sc::proxy]
     pub trait NftMarketplace {
         #[endpoint(claimTokens)]
         fn claim_tokens(

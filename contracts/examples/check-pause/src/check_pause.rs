@@ -1,10 +1,10 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-use dharithri_sc_modules::pause;
+use dharitri_sc_modules::pause;
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait CheckPauseContract: pause::PauseModule {
     #[init]
     fn init(&self) {}

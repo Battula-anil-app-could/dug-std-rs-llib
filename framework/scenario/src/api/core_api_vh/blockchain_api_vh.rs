@@ -1,6 +1,6 @@
-use dharithri_sc::{
+use dharitri_sc::{
     api::{BlockchainApi, BlockchainApiImpl, HandleConstraints, ManagedBufferApiImpl, RawHandle},
-    types::{Address, EsdtLocalRoleFlags, H256},
+    types::{Address, DctLocalRoleFlags, H256},
 };
 
 use crate::api::{i32_to_bool, VMHooksApi, VMHooksApiBackend};
@@ -138,7 +138,7 @@ impl<VHB: VMHooksApiBackend> BlockchainApiImpl for VMHooksApi<VHB> {
         });
     }
 
-    fn get_current_esdt_nft_nonce(
+    fn get_current_dct_nft_nonce(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
@@ -149,14 +149,14 @@ impl<VHB: VMHooksApiBackend> BlockchainApiImpl for VMHooksApi<VHB> {
         let result = self.with_temp_address_ptr(address_handle, |address_ptr| {
             self.with_temp_buffer_ptr(token_id_handle, token_id_len, |token_id_ptr| {
                 self.with_vm_hooks(|vh| {
-                    vh.get_current_esdt_nft_nonce(address_ptr, token_id_ptr, token_id_len as isize)
+                    vh.get_current_dct_nft_nonce(address_ptr, token_id_ptr, token_id_len as isize)
                 })
             })
         });
         result as u64
     }
 
-    fn load_esdt_balance(
+    fn load_dct_balance(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
@@ -169,7 +169,7 @@ impl<VHB: VMHooksApiBackend> BlockchainApiImpl for VMHooksApi<VHB> {
         self.with_temp_address_ptr(address_handle, |address_ptr| {
             self.with_temp_buffer_ptr(token_id_handle, token_id_len, |token_id_ptr| {
                 self.with_vm_hooks(|vh| {
-                    vh.big_int_get_esdt_external_balance(
+                    vh.big_int_get_dct_external_balance(
                         address_ptr,
                         token_id_ptr,
                         token_id_len as isize,
@@ -181,7 +181,7 @@ impl<VHB: VMHooksApiBackend> BlockchainApiImpl for VMHooksApi<VHB> {
         });
     }
 
-    fn managed_get_esdt_token_data(
+    fn managed_get_dct_token_data(
         &self,
         address_handle: RawHandle,
         token_id_handle: RawHandle,
@@ -196,7 +196,7 @@ impl<VHB: VMHooksApiBackend> BlockchainApiImpl for VMHooksApi<VHB> {
         uris_handle: RawHandle,
     ) {
         self.with_vm_hooks(|vh| {
-            vh.managed_get_esdt_token_data(
+            vh.managed_get_dct_token_data(
                 address_handle,
                 token_id_handle,
                 nonce as i64,
@@ -212,7 +212,7 @@ impl<VHB: VMHooksApiBackend> BlockchainApiImpl for VMHooksApi<VHB> {
         });
     }
 
-    fn check_esdt_frozen(
+    fn check_dct_frozen(
         &self,
         address_handle: Self::ManagedBufferHandle,
         token_id_handle: Self::ManagedBufferHandle,
@@ -221,7 +221,7 @@ impl<VHB: VMHooksApiBackend> BlockchainApiImpl for VMHooksApi<VHB> {
         self.assert_live_handle(&address_handle);
         self.assert_live_handle(&token_id_handle);
         let result = self.with_vm_hooks(|vh| {
-            vh.managed_is_esdt_frozen(
+            vh.managed_is_dct_frozen(
                 address_handle.get_raw_handle_unchecked(),
                 token_id_handle.get_raw_handle_unchecked(),
                 nonce as i64,
@@ -230,30 +230,30 @@ impl<VHB: VMHooksApiBackend> BlockchainApiImpl for VMHooksApi<VHB> {
         i32_to_bool(result)
     }
 
-    fn check_esdt_paused(&self, token_id_handle: Self::ManagedBufferHandle) -> bool {
+    fn check_dct_paused(&self, token_id_handle: Self::ManagedBufferHandle) -> bool {
         self.assert_live_handle(&token_id_handle);
         let result = self.with_vm_hooks(|vh| {
-            vh.managed_is_esdt_paused(token_id_handle.get_raw_handle_unchecked())
+            vh.managed_is_dct_paused(token_id_handle.get_raw_handle_unchecked())
         });
         i32_to_bool(result)
     }
 
-    fn check_esdt_limited_transfer(&self, token_id_handle: Self::ManagedBufferHandle) -> bool {
+    fn check_dct_limited_transfer(&self, token_id_handle: Self::ManagedBufferHandle) -> bool {
         self.assert_live_handle(&token_id_handle);
         let result = self.with_vm_hooks(|vh| {
-            vh.managed_is_esdt_limited_transfer(token_id_handle.get_raw_handle_unchecked())
+            vh.managed_is_dct_limited_transfer(token_id_handle.get_raw_handle_unchecked())
         });
         i32_to_bool(result)
     }
 
-    fn load_esdt_local_roles(
+    fn load_dct_local_roles(
         &self,
         token_id_handle: Self::ManagedBufferHandle,
-    ) -> EsdtLocalRoleFlags {
+    ) -> DctLocalRoleFlags {
         self.assert_live_handle(&token_id_handle);
         let result = self.with_vm_hooks(|vh| {
-            vh.get_esdt_local_roles(token_id_handle.get_raw_handle_unchecked())
+            vh.get_dct_local_roles(token_id_handle.get_raw_handle_unchecked())
         });
-        unsafe { EsdtLocalRoleFlags::from_bits_unchecked(result as u64) }
+        unsafe { DctLocalRoleFlags::from_bits_unchecked(result as u64) }
     }
 }

@@ -9,13 +9,13 @@ impl EndpointMutabilityMetadata {
     pub fn to_tokens(&self) -> proc_macro2::TokenStream {
         match self {
             EndpointMutabilityMetadata::Mutable => {
-                quote! { dharithri_sc::abi::EndpointMutabilityAbi::Mutable }
+                quote! { dharitri_sc::abi::EndpointMutabilityAbi::Mutable }
             },
             EndpointMutabilityMetadata::Readonly => {
-                quote! { dharithri_sc::abi::EndpointMutabilityAbi::Readonly }
+                quote! { dharitri_sc::abi::EndpointMutabilityAbi::Readonly }
             },
             EndpointMutabilityMetadata::_Pure => {
-                quote! { dharithri_sc::abi::EndpointMutabilityAbi::Pure }
+                quote! { dharitri_sc::abi::EndpointMutabilityAbi::Pure }
             },
         }
     }

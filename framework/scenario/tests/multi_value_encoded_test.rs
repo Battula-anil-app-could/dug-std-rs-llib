@@ -1,8 +1,8 @@
-use dharithri_sc::{
+use dharitri_sc::{
     codec::multi_types::MultiValue5,
     types::{BigUint, MultiValueEncoded},
 };
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc_scenario::api::StaticApi;
 
 #[test]
 fn test_multi_value_encoded_1() {

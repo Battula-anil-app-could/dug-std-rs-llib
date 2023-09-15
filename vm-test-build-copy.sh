@@ -38,10 +38,10 @@ build_and_copy_with_scenarios() {
 
 build_and_copy_with_scenarios ./contracts/core/wegld-swap $VM_REPO_PATH/test/wegld-swap
 build_and_copy_with_scenarios ./contracts/examples/adder $VM_REPO_PATH/test/adder
-build_and_copy_with_scenarios ./contracts/examples/crowdfunding-esdt $VM_REPO_PATH/test/crowdfunding-esdt
+build_and_copy_with_scenarios ./contracts/examples/crowdfunding-dct $VM_REPO_PATH/test/crowdfunding-dct
 build_and_copy_with_scenarios ./contracts/examples/digital-cash $VM_REPO_PATH/test/digital-cash
 build_and_copy_with_scenarios ./contracts/examples/factorial $VM_REPO_PATH/test/factorial
-build_and_copy_with_scenarios ./contracts/examples/ping-pong-egld $VM_REPO_PATH/test/ping-pong-egld
+build_and_copy_with_scenarios ./contracts/examples/ping-pong-moa $VM_REPO_PATH/test/ping-pong-moa
 build_and_copy_with_scenarios ./contracts/examples/multisig $VM_REPO_PATH/test/multisig
 build_and_copy_with_scenarios ./contracts/feature-tests/alloc-features $VM_REPO_PATH/test/features/alloc-features
 build_and_copy_with_scenarios ./contracts/feature-tests/basic-features $VM_REPO_PATH/test/features/basic-features
@@ -49,7 +49,7 @@ build_and_copy_with_scenarios ./contracts/feature-tests/big-float-features $VM_R
 build_and_copy_with_scenarios ./contracts/feature-tests/erc-style-contracts/erc20 $VM_REPO_PATH/test/erc20-rust
 build_and_copy_with_scenarios ./contracts/feature-tests/formatted-message-features $VM_REPO_PATH/test/features/formatted-message-features
 build_and_copy_with_scenarios ./contracts/feature-tests/payable-features $VM_REPO_PATH/test/features/payable-features
-build_and_copy_with_scenarios ./contracts/feature-tests/esdt-system-sc-mock $VM_REPO_PATH/test/features/esdt-system-sc-mock
+build_and_copy_with_scenarios ./contracts/feature-tests/dct-system-sc-mock $VM_REPO_PATH/test/features/dct-system-sc-mock
 
 build_and_copy_composability() {
    contract=$1

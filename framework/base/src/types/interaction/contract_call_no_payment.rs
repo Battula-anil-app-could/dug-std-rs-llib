@@ -5,15 +5,15 @@ use crate::codec::TopEncodeMulti;
 use crate::{
     api::CallTypeApi,
     types::{
-        BigUint, EgldOrEsdtTokenIdentifier, EgldOrEsdtTokenPayment, EgldOrMultiEsdtPayment,
-        EsdtTokenPayment, ManagedAddress, ManagedBuffer, ManagedVec, TokenIdentifier,
+        BigUint, MoaOrDctTokenIdentifier, MoaOrDctTokenPayment, MoaOrMultiDctPayment,
+        DctTokenPayment, ManagedAddress, ManagedBuffer, ManagedVec, TokenIdentifier,
     },
 };
 
 use super::{
-    contract_call_exec::UNSPECIFIED_GAS_LIMIT, contract_call_with_egld::ContractCallWithEgld,
-    contract_call_with_multi_esdt::ContractCallWithMultiEsdt, ContractCall,
-    ContractCallWithAnyPayment, ContractCallWithEgldOrSingleEsdt, ManagedArgBuffer,
+    contract_call_exec::UNSPECIFIED_GAS_LIMIT, contract_call_with_moa::ContractCallWithMoa,
+    contract_call_with_multi_dct::ContractCallWithMultiDct, ContractCall,
+    ContractCallWithAnyPayment, ContractCallWithMoaOrSingleDct, ManagedArgBuffer,
 };
 
 /// Holds metadata for calling another contract, without payments.
@@ -43,10 +43,10 @@ where
     type OriginalResult = OriginalResult;
 
     #[inline]
-    fn into_normalized(self) -> ContractCallWithEgld<SA, Self::OriginalResult> {
-        ContractCallWithEgld {
+    fn into_normalized(self) -> ContractCallWithMoa<SA, Self::OriginalResult> {
+        ContractCallWithMoa {
             basic: self,
-            egld_payment: BigUint::zero(),
+            moa_payment: BigUint::zero(),
         }
     }
 
@@ -56,7 +56,7 @@ where
     }
 
     fn transfer_execute(self) {
-        self.transfer_execute_egld(BigUint::zero());
+        self.transfer_execute_moa(BigUint::zero());
     }
 }
 
@@ -75,54 +75,54 @@ where
         }
     }
 
-    /// Sets payment to be EGLD transfer.
-    pub fn with_egld_transfer(
+    /// Sets payment to be MOA transfer.
+    pub fn with_moa_transfer(
         self,
-        egld_amount: BigUint<SA>,
-    ) -> ContractCallWithEgld<SA, OriginalResult> {
-        ContractCallWithEgld {
+        moa_amount: BigUint<SA>,
+    ) -> ContractCallWithMoa<SA, OriginalResult> {
+        ContractCallWithMoa {
             basic: self,
-            egld_payment: egld_amount,
+            moa_payment: moa_amount,
         }
     }
 
-    /// Adds a single ESDT token transfer to a contract call.
+    /// Adds a single DCT token transfer to a contract call.
     ///
     /// Can be called multiple times on the same call.
-    pub fn with_esdt_transfer<P: Into<EsdtTokenPayment<SA>>>(
+    pub fn with_dct_transfer<P: Into<DctTokenPayment<SA>>>(
         self,
         payment: P,
-    ) -> ContractCallWithMultiEsdt<SA, OriginalResult> {
-        let result = ContractCallWithMultiEsdt {
+    ) -> ContractCallWithMultiDct<SA, OriginalResult> {
+        let result = ContractCallWithMultiDct {
             basic: self,
-            esdt_payments: ManagedVec::new(),
+            dct_payments: ManagedVec::new(),
         };
-        result.with_esdt_transfer(payment)
+        result.with_dct_transfer(payment)
     }
 
     #[deprecated(
         since = "0.39.0",
-        note = "Replace by `contract_call.with_esdt_transfer((payment_token, payment_nonce, payment_amount))`. 
-        The tuple argument will get automatically converted to EsdtTokenPayment."
+        note = "Replace by `contract_call.with_dct_transfer((payment_token, payment_nonce, payment_amount))`. 
+        The tuple argument will get automatically converted to DctTokenPayment."
     )]
-    pub fn add_esdt_token_transfer(
+    pub fn add_dct_token_transfer(
         self,
         payment_token: TokenIdentifier<SA>,
         payment_nonce: u64,
         payment_amount: BigUint<SA>,
-    ) -> ContractCallWithMultiEsdt<SA, OriginalResult> {
-        self.with_esdt_transfer((payment_token, payment_nonce, payment_amount))
+    ) -> ContractCallWithMultiDct<SA, OriginalResult> {
+        self.with_dct_transfer((payment_token, payment_nonce, payment_amount))
     }
 
     /// Sets payment to be a (potentially) multi-token transfer.
     #[inline]
     pub fn with_multi_token_transfer(
         self,
-        payments: ManagedVec<SA, EsdtTokenPayment<SA>>,
-    ) -> ContractCallWithMultiEsdt<SA, OriginalResult> {
-        ContractCallWithMultiEsdt {
+        payments: ManagedVec<SA, DctTokenPayment<SA>>,
+    ) -> ContractCallWithMultiDct<SA, OriginalResult> {
+        ContractCallWithMultiDct {
             basic: self,
-            esdt_payments: payments,
+            dct_payments: payments,
         }
     }
 
@@ -130,7 +130,7 @@ where
     #[inline]
     pub fn with_any_payment(
         self,
-        payment: EgldOrMultiEsdtPayment<SA>,
+        payment: MoaOrMultiDctPayment<SA>,
     ) -> ContractCallWithAnyPayment<SA, OriginalResult> {
         ContractCallWithAnyPayment {
             basic: self,
@@ -138,12 +138,12 @@ where
         }
     }
 
-    /// Sets payment to be either EGLD or a single ESDT transfer, as determined at runtime.
-    pub fn with_egld_or_single_esdt_transfer<P: Into<EgldOrEsdtTokenPayment<SA>>>(
+    /// Sets payment to be either MOA or a single DCT transfer, as determined at runtime.
+    pub fn with_moa_or_single_dct_transfer<P: Into<MoaOrDctTokenPayment<SA>>>(
         self,
         payment: P,
-    ) -> ContractCallWithEgldOrSingleEsdt<SA, OriginalResult> {
-        ContractCallWithEgldOrSingleEsdt {
+    ) -> ContractCallWithMoaOrSingleDct<SA, OriginalResult> {
+        ContractCallWithMoaOrSingleDct {
             basic: self,
             payment: payment.into(),
         }
@@ -151,14 +151,14 @@ where
 
     #[deprecated(
         since = "0.39.0",
-        note = "Replace by `contract_call.with_egld_or_single_esdt_transfer((payment_token, payment_nonce, payment_amount))`. "
+        note = "Replace by `contract_call.with_moa_or_single_dct_transfer((payment_token, payment_nonce, payment_amount))`. "
     )]
-    pub fn with_egld_or_single_esdt_token_transfer(
+    pub fn with_moa_or_single_dct_token_transfer(
         self,
-        payment_token: EgldOrEsdtTokenIdentifier<SA>,
+        payment_token: MoaOrDctTokenIdentifier<SA>,
         payment_nonce: u64,
         payment_amount: BigUint<SA>,
-    ) -> ContractCallWithEgldOrSingleEsdt<SA, OriginalResult> {
-        self.with_egld_or_single_esdt_transfer((payment_token, payment_nonce, payment_amount))
+    ) -> ContractCallWithMoaOrSingleDct<SA, OriginalResult> {
+        self.with_moa_or_single_dct_transfer((payment_token, payment_nonce, payment_amount))
     }
 }

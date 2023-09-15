@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 import struct
 
-DEBUG_API_TYPE = "dharithri_sc_scenario::api::impl_vh::vm_hooks_api::VMHooksApi<dharithri_sc_scenario::api::impl_vh::debug_api::DebugApiBackend>"
+DEBUG_API_TYPE = "dharitri_sc_scenario::api::impl_vh::vm_hooks_api::VMHooksApi<dharitri_sc_scenario::api::impl_vh::debug_api::DebugApiBackend>"
 ANY_NUMBER = "[0-9]+"
 ANY_TYPE = ".*"
 SOME_OR_NONE = "(Some|None)"
@@ -16,7 +16,7 @@ NUM_BIG_INT_TYPE = "num_bigint::bigint::BigInt"
 NUM_BIG_UINT_TYPE = "num_bigint::biguint::BigUint"
 
 # 2. SC wasm - Managed basic types
-MOD_PATH = "dharithri_sc::types::managed::basic"
+MOD_PATH = "dharitri_sc::types::managed::basic"
 
 BIG_INT_TYPE = f"{MOD_PATH}::big_int::BigInt<{DEBUG_API_TYPE}>"
 BIG_UINT_TYPE = f"{MOD_PATH}::big_uint::BigUint<{DEBUG_API_TYPE}>"
@@ -24,7 +24,7 @@ BIG_FLOAT_TYPE = f"{MOD_PATH}::big_float::BigFloat<{DEBUG_API_TYPE}>"
 MANAGED_BUFFER_TYPE = f"{MOD_PATH}::managed_buffer::ManagedBuffer<{DEBUG_API_TYPE}>"
 
 # 3. SC wasm - Managed wrapped types
-MOD_PATH = "dharithri_sc::types::managed::wrapped"
+MOD_PATH = "dharitri_sc::types::managed::wrapped"
 
 TOKEN_IDENTIFIER_TYPE = f"{MOD_PATH}::token_identifier::TokenIdentifier<{DEBUG_API_TYPE}>"
 MANAGED_ADDRESS_TYPE = f"{MOD_PATH}::managed_address::ManagedAddress<{DEBUG_API_TYPE}>"
@@ -35,8 +35,8 @@ MANAGED_OPTION_INNER_TYPE_INDEX = 1
 MANAGED_OPTION_NONE_HANDLE = 2147483646  # i32::MAX - 1
 MANAGED_OPTION_TYPE = f"{MOD_PATH}::managed_option::ManagedOption<{DEBUG_API_TYPE}, {ANY_TYPE}>"
 
-ESDT_TOKEN_PAYMENT_TYPE = f"{MOD_PATH}::esdt_token_payment::EsdtTokenPayment<{DEBUG_API_TYPE}>"
-EGLD_OR_ESDT_TOKEN_IDENTIFIER_TYPE = f"{MOD_PATH}::egld_or_esdt_token_identifier::EgldOrEsdtTokenIdentifier<{DEBUG_API_TYPE}>"
+DCT_TOKEN_PAYMENT_TYPE = f"{MOD_PATH}::dct_token_payment::DctTokenPayment<{DEBUG_API_TYPE}>"
+MOA_OR_DCT_TOKEN_IDENTIFIER_TYPE = f"{MOD_PATH}::moa_or_dct_token_identifier::MoaOrDctTokenIdentifier<{DEBUG_API_TYPE}>"
 
 # ManagedVec
 MANAGED_VEC_INNER_TYPE_INDEX = 1
@@ -45,13 +45,13 @@ MANAGED_VEC_TYPE = f"{MOD_PATH}::managed_vec::ManagedVec<{DEBUG_API_TYPE}, {ANY_
 # 4. SC wasm - Managed multi value types
 
 # 5. SC wasm - heap
-MOD_PATH = "dharithri_sc::types::heap"
+MOD_PATH = "dharitri_sc::types::heap"
 
 HEAP_ADDRESS_TYPE = f"{MOD_PATH}::h256_address::Address"
 BOXED_BYTES_TYPE = f"{MOD_PATH}::boxed_bytes::BoxedBytes"
 
-# 6. dharithri codec - Multi-types
-MOD_PATH = "dharithri_sc_codec::multi_types"
+# 6. dharitri codec - Multi-types
+MOD_PATH = "dharitri_sc_codec::multi_types"
 
 OPTIONAL_VALUE_TYPE = f"{MOD_PATH}::multi_value_optional::OptionalValue<{ANY_TYPE}>::{SOME_OR_NONE}"
 
@@ -383,7 +383,7 @@ def split_bytes_fixed_size(bytes: List[int], size: int) -> List[List[int]]:
     return chunks
 
 
-class EsdtTokenPayment(ManagedVecItem, ManagedType):
+class DctTokenPayment(ManagedVecItem, ManagedType):
     COMPONENT_SIZES = [4, 8, 4]
 
     def summary(self, payment: lldb.value) -> str:
@@ -406,16 +406,16 @@ class EsdtTokenPayment(ManagedVecItem, ManagedType):
         return f"{{ token_identifier: {token_id}, nonce: {nonce}, amount: {amount} }}"
 
 
-class EgldOrEsdtTokenIdentifier(PlainManagedVecItem, ManagedType):
-    def lookup(self, egld_or_esdt_token_identifier: lldb.value) -> lldb.value:
-        return egld_or_esdt_token_identifier.data
+class MoaOrDctTokenIdentifier(PlainManagedVecItem, ManagedType):
+    def lookup(self, moa_or_dct_token_identifier: lldb.value) -> lldb.value:
+        return moa_or_dct_token_identifier.data
 
     @check_invalid_handle
     def summary_from_raw_handle(self, raw_handle: int, context: lldb.value, type_info: lldb.SBType) -> str:
         if raw_handle == MANAGED_OPTION_NONE_HANDLE:
-            return "EgldOrEsdtTokenIdentifier::egld()"
+            return "MoaOrDctTokenIdentifier::moa()"
         token_summary = TokenIdentifier().summary_from_raw_handle(raw_handle, context, None)
-        return f"EgldOrEsdtTokenIdentifier::esdt({token_summary})"
+        return f"MoaOrDctTokenIdentifier::dct({token_summary})"
 
 
 class ManagedVec(PlainManagedVecItem, ManagedType):
@@ -456,7 +456,7 @@ class OptionalValue(Handler):
         return "OptionalValue::None"
 
 
-ELROND_WASM_TYPE_HANDLERS = [
+DHARITRI_WASM_TYPE_HANDLERS = [
     # 1. num_bigint library
     (NUM_BIG_INT_TYPE, NumBigInt),
     (NUM_BIG_UINT_TYPE, NumBigUint),
@@ -470,14 +470,14 @@ ELROND_WASM_TYPE_HANDLERS = [
     (MANAGED_ADDRESS_TYPE, ManagedAddress),
     (MANAGED_BYTE_ARRAY_TYPE, ManagedByteArray),
     (MANAGED_OPTION_TYPE, ManagedOption),
-    (ESDT_TOKEN_PAYMENT_TYPE, EsdtTokenPayment),
-    (EGLD_OR_ESDT_TOKEN_IDENTIFIER_TYPE, EgldOrEsdtTokenIdentifier),
+    (DCT_TOKEN_PAYMENT_TYPE, DctTokenPayment),
+    (MOA_OR_DCT_TOKEN_IDENTIFIER_TYPE, MoaOrDctTokenIdentifier),
     (MANAGED_VEC_TYPE, ManagedVec),
     # 4. SC wasm - Managed multi value types
     # 5. SC wasm - heap
     (HEAP_ADDRESS_TYPE, HeapAddress),
     (BOXED_BYTES_TYPE, BoxedBytes),
-    # 6. dharithri codec - Multi-types
+    # 6. dharitri codec - Multi-types
     (OPTIONAL_VALUE_TYPE, OptionalValue),
 ]
 
@@ -494,7 +494,7 @@ def get_inner_type_handler(type_info: lldb.SBType, inner_type_index: int) -> Tup
 
 
 def get_handler(type_name: str) -> Handler:
-    for rust_type, handler_class in ELROND_WASM_TYPE_HANDLERS:
+    for rust_type, handler_class in DHARITRI_WASM_TYPE_HANDLERS:
         if re.fullmatch(rust_type, type_name) is not None:
             return handler_class()
     raise UnknownType(type_name)
@@ -509,14 +509,14 @@ def summarize_handler(handler_type: Type[Handler], valobj: SBValue, dictionary) 
 def __lldb_init_module(debugger: SBDebugger, dict):
     python_module_name = Path(__file__).with_suffix('').name
 
-    for rust_type, handler_class in ELROND_WASM_TYPE_HANDLERS:
+    for rust_type, handler_class in DHARITRI_WASM_TYPE_HANDLERS:
         # Add summary binding
         summary_function_name = f"handle{handler_class.__name__}"
         globals()[summary_function_name] = partial(summarize_handler, handler_class)
 
-        summary_command = f'type summary add -x "^{rust_type}$" -F {python_module_name}.{summary_function_name} --category dharithri-sc'
+        summary_command = f'type summary add -x "^{rust_type}$" -F {python_module_name}.{summary_function_name} --category dharitri-sc'
         debugger.HandleCommand(summary_command)
         # print(f"Registered: {summary_command}")
 
     # Enable categories
-    debugger.HandleCommand('type category enable dharithri-sc')
+    debugger.HandleCommand('type category enable dharitri-sc')

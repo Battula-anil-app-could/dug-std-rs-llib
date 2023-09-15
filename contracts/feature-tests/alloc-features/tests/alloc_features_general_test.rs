@@ -1,5 +1,5 @@
-use dharithri_sc::types::{SCResult, StaticSCError};
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc::types::{SCResult, StaticSCError};
+use dharitri_sc_scenario::api::StaticApi;
 
 use alloc_features::macro_features_legacy::MacroFeaturesLegacy;
 

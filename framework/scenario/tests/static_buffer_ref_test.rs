@@ -1,5 +1,5 @@
-use dharithri_sc::types::{LockableStaticBuffer, StaticBufferRef};
-use dharithri_sc_scenario::api::StaticApi;
+use dharitri_sc::types::{LockableStaticBuffer, StaticBufferRef};
+use dharitri_sc_scenario::api::StaticApi;
 
 #[test]
 fn test_try_extend_from_slice() {

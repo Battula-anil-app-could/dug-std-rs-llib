@@ -1,7 +1,7 @@
 #![no_std]
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 // contract to help with snippet generation tests
 // contains endpoints with various types combinations
@@ -12,7 +12,7 @@ dharithri_sc::derive_imports!();
 // Add --overwrite if you want to overwrite existing snippets
 
 // Additionally, we also have to update the interact-rs snippets manually to add relative paths:
-// [dependencies.dharithri-sc-snippets]
+// [dependencies.dharitri-sc-snippets]
 // version = "0.43.3"
 // path = "../../../../framework/snippets"
 
@@ -23,7 +23,7 @@ pub struct MyCoolStruct<M: ManagedTypeApi> {
     pub awesome: BigUint<M>,
 }
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait PayableFeatures {
     #[init]
     fn init(&self) {}
@@ -72,16 +72,16 @@ pub trait PayableFeatures {
     }
 
     #[endpoint]
-    fn esdt_token_payment(&self, _arg: OptionalValue<EsdtTokenPayment>) -> EsdtTokenPayment {
-        EsdtTokenPayment::new(
-            TokenIdentifier::from_esdt_bytes(b"COOL-123456"),
+    fn dct_token_payment(&self, _arg: OptionalValue<DctTokenPayment>) -> DctTokenPayment {
+        DctTokenPayment::new(
+            TokenIdentifier::from_dct_bytes(b"COOL-123456"),
             0,
             BigUint::from(1_000u64),
         )
     }
 
     #[endpoint]
-    fn egld_or_esdt_payment(&self, arg: EgldOrEsdtTokenPayment) -> EgldOrEsdtTokenIdentifier {
+    fn moa_or_dct_payment(&self, arg: MoaOrDctTokenPayment) -> MoaOrDctTokenIdentifier {
         arg.token_identifier
     }
 

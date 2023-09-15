@@ -11,7 +11,7 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -63,7 +63,7 @@
                     },
                     {
                         "address": "sc:vault",
-                        "endpoint": "str:ESDTNFTTransfer",
+                        "endpoint": "str:DCTNFTTransfer",
                         "topics": [
                             "str:NFT-000001",
                             "5",
@@ -95,7 +95,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {

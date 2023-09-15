@@ -1,17 +1,17 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait FungibleTokenMapperFeatures:
-    dharithri_sc_modules::default_issue_callbacks::DefaultIssueCallbacksModule
+    dharitri_sc_modules::default_issue_callbacks::DefaultIssueCallbacksModule
 {
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint]
     fn issue_fungible_default_callback(
         &self,
         token_ticker: ManagedBuffer,
         initial_supply: BigUint,
     ) {
-        let payment_amount = self.call_value().egld_value();
+        let payment_amount = self.call_value().moa_value();
         self.fungible_token_mapper().issue(
             payment_amount.clone_value(),
             ManagedBuffer::new(),
@@ -22,10 +22,10 @@ pub trait FungibleTokenMapperFeatures:
         );
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint]
     fn issue_fungible_custom_callback(&self, token_ticker: ManagedBuffer, initial_supply: BigUint) {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
         let cb = if initial_supply > 0 {
             FungibleTokenMapperFeatures::callbacks(self).custom_issue_non_zero_supply_cb()
         } else {
@@ -61,7 +61,7 @@ pub trait FungibleTokenMapperFeatures:
     fn custom_issue_non_zero_supply_cb(&self, #[call_result] result: ManagedAsyncCallResult<()>) {
         match result {
             ManagedAsyncCallResult::Ok(()) => {
-                let token_identifier = self.call_value().single_esdt().token_identifier;
+                let token_identifier = self.call_value().single_dct().token_identifier;
                 self.fungible_token_mapper().set_token_id(token_identifier);
             },
             ManagedAsyncCallResult::Err(_) => {
@@ -70,10 +70,10 @@ pub trait FungibleTokenMapperFeatures:
         }
     }
 
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[endpoint]
     fn issue_and_set_all_roles_fungible(&self, token_ticker: ManagedBuffer) {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
         self.fungible_token_mapper().issue_and_set_all_roles(
             payment.clone_value(),
             ManagedBuffer::new(),
@@ -85,7 +85,7 @@ pub trait FungibleTokenMapperFeatures:
 
     #[endpoint]
     fn set_local_roles_fungible(&self) {
-        let roles = [EsdtLocalRole::Mint, EsdtLocalRole::Burn];
+        let roles = [DctLocalRole::Mint, DctLocalRole::Burn];
         let cb = FungibleTokenMapperFeatures::callbacks(self).set_roles_callback();
         self.fungible_token_mapper()
             .set_local_roles(&roles[..], Some(cb));
@@ -102,7 +102,7 @@ pub trait FungibleTokenMapperFeatures:
     }
 
     #[endpoint]
-    fn mint_fungible(&self, amount: BigUint) -> EsdtTokenPayment<Self::Api> {
+    fn mint_fungible(&self, amount: BigUint) -> DctTokenPayment<Self::Api> {
         self.fungible_token_mapper().mint(amount)
     }
 
@@ -111,7 +111,7 @@ pub trait FungibleTokenMapperFeatures:
         &self,
         to: ManagedAddress,
         amount: BigUint,
-    ) -> EsdtTokenPayment<Self::Api> {
+    ) -> DctTokenPayment<Self::Api> {
         self.fungible_token_mapper().mint_and_send(&to, amount)
     }
 
@@ -128,7 +128,7 @@ pub trait FungibleTokenMapperFeatures:
     #[payable("*")]
     #[endpoint]
     fn require_same_token_fungible(&self) {
-        let payment_token = self.call_value().single_esdt().token_identifier;
+        let payment_token = self.call_value().single_dct().token_identifier;
         self.fungible_token_mapper()
             .require_same_token(&payment_token);
     }
@@ -136,7 +136,7 @@ pub trait FungibleTokenMapperFeatures:
     #[payable("*")]
     #[endpoint]
     fn require_all_same_token_fungible(&self) {
-        let payments = self.call_value().all_esdt_transfers();
+        let payments = self.call_value().all_dct_transfers();
         self.fungible_token_mapper()
             .require_all_same_token(&payments);
     }

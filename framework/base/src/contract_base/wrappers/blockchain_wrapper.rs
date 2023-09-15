@@ -10,7 +10,7 @@ use crate::{
     err_msg::{ONLY_OWNER_CALLER, ONLY_USER_ACCOUNT_CALLER},
     storage::{self},
     types::{
-        BigUint, EgldOrEsdtTokenIdentifier, EsdtLocalRoleFlags, EsdtTokenData, EsdtTokenType,
+        BigUint, MoaOrDctTokenIdentifier, DctLocalRoleFlags, DctTokenData, DctTokenType,
         ManagedAddress, ManagedBuffer, ManagedByteArray, ManagedType, ManagedVec, TokenIdentifier,
     },
 };
@@ -135,11 +135,11 @@ where
     }
 
     #[inline]
-    pub fn get_sc_balance(&self, token: &EgldOrEsdtTokenIdentifier<A>, nonce: u64) -> BigUint<A> {
+    pub fn get_sc_balance(&self, token: &MoaOrDctTokenIdentifier<A>, nonce: u64) -> BigUint<A> {
         token.map_ref_or_else(
             || self.get_balance(&self.get_sc_address()),
             |token_identifier| {
-                self.get_esdt_balance(&self.get_sc_address(), token_identifier, nonce)
+                self.get_dct_balance(&self.get_sc_address(), token_identifier, nonce)
             },
         )
     }
@@ -255,24 +255,24 @@ where
     }
 
     #[inline]
-    pub fn get_current_esdt_nft_nonce(
+    pub fn get_current_dct_nft_nonce(
         &self,
         address: &ManagedAddress<A>,
         token_id: &TokenIdentifier<A>,
     ) -> u64 {
         A::blockchain_api_impl()
-            .get_current_esdt_nft_nonce(address.get_handle(), token_id.get_handle())
+            .get_current_dct_nft_nonce(address.get_handle(), token_id.get_handle())
     }
 
     #[inline]
-    pub fn get_esdt_balance(
+    pub fn get_dct_balance(
         &self,
         address: &ManagedAddress<A>,
         token_id: &TokenIdentifier<A>,
         nonce: u64,
     ) -> BigUint<A> {
         let result_handle: A::BigIntHandle = use_raw_handle(A::static_var_api_impl().next_handle());
-        A::blockchain_api_impl().load_esdt_balance(
+        A::blockchain_api_impl().load_dct_balance(
             address.get_handle(),
             token_id.get_handle(),
             nonce,
@@ -281,12 +281,12 @@ where
         BigUint::from_handle(result_handle)
     }
 
-    pub fn get_esdt_token_data(
+    pub fn get_dct_token_data(
         &self,
         address: &ManagedAddress<A>,
         token_id: &TokenIdentifier<A>,
         nonce: u64,
-    ) -> EsdtTokenData<A> {
+    ) -> DctTokenData<A> {
         // initializing outputs
         // the current version of VM does not set/overwrite them if the token is missing,
         // which is why we need to initialize them explicitly
@@ -300,7 +300,7 @@ where
         let royalties_handle = managed_api_impl.bi_new_zero();
         let uris_handle = managed_api_impl.mb_new_empty();
 
-        A::blockchain_api_impl().managed_get_esdt_token_data(
+        A::blockchain_api_impl().managed_get_dct_token_data(
             address.get_handle().get_raw_handle(),
             token_id.get_handle().get_raw_handle(),
             nonce,
@@ -315,9 +315,9 @@ where
         );
 
         let token_type = if nonce == 0 {
-            EsdtTokenType::Fungible
+            DctTokenType::Fungible
         } else {
-            EsdtTokenType::NonFungible
+            DctTokenType::NonFungible
         };
 
         if managed_api_impl.mb_len(creator_handle.clone()) == 0 {
@@ -327,9 +327,9 @@ where
         // here we trust Arwen that it always gives us a properties buffer of length 2
         let mut properties_bytes = [0u8; 2];
         let _ = managed_api_impl.mb_load_slice(properties_handle, 0, &mut properties_bytes[..]);
-        let frozen = esdt_is_frozen(&properties_bytes);
+        let frozen = dct_is_frozen(&properties_bytes);
 
-        EsdtTokenData {
+        DctTokenData {
             token_type,
             amount: BigUint::from_raw_handle(value_handle.get_raw_handle()),
             frozen,
@@ -349,18 +349,18 @@ where
         token_nonce: u64,
     ) -> T {
         let own_sc_address = self.get_sc_address();
-        let token_data = self.get_esdt_token_data(&own_sc_address, token_id, token_nonce);
+        let token_data = self.get_dct_token_data(&own_sc_address, token_id, token_nonce);
         token_data.decode_attributes()
     }
 
     #[inline]
-    pub fn is_esdt_frozen(
+    pub fn is_dct_frozen(
         &self,
         address: &ManagedAddress<A>,
         token_id: &TokenIdentifier<A>,
         nonce: u64,
     ) -> bool {
-        A::blockchain_api_impl().check_esdt_frozen(
+        A::blockchain_api_impl().check_dct_frozen(
             address.get_handle(),
             token_id.get_handle(),
             nonce,
@@ -368,18 +368,18 @@ where
     }
 
     #[inline]
-    pub fn is_esdt_paused(&self, token_id: &TokenIdentifier<A>) -> bool {
-        A::blockchain_api_impl().check_esdt_paused(token_id.get_handle())
+    pub fn is_dct_paused(&self, token_id: &TokenIdentifier<A>) -> bool {
+        A::blockchain_api_impl().check_dct_paused(token_id.get_handle())
     }
 
     #[inline]
-    pub fn is_esdt_limited_transfer(&self, token_id: &TokenIdentifier<A>) -> bool {
-        A::blockchain_api_impl().check_esdt_limited_transfer(token_id.get_handle())
+    pub fn is_dct_limited_transfer(&self, token_id: &TokenIdentifier<A>) -> bool {
+        A::blockchain_api_impl().check_dct_limited_transfer(token_id.get_handle())
     }
 
     #[inline]
-    pub fn get_esdt_local_roles(&self, token_id: &TokenIdentifier<A>) -> EsdtLocalRoleFlags {
-        A::blockchain_api_impl().load_esdt_local_roles(token_id.get_handle())
+    pub fn get_dct_local_roles(&self, token_id: &TokenIdentifier<A>) -> DctLocalRoleFlags {
+        A::blockchain_api_impl().load_dct_local_roles(token_id.get_handle())
     }
 }
 
@@ -396,7 +396,7 @@ where
         // prepare key
         A::managed_type_impl().mb_overwrite(
             temp_handle_1.clone(),
-            storage::protected_keys::ELROND_REWARD_KEY,
+            storage::protected_keys::DHARITRI_REWARD_KEY,
         );
 
         // load value
@@ -412,6 +412,6 @@ where
     }
 }
 
-fn esdt_is_frozen(properties_bytes: &[u8; 2]) -> bool {
+fn dct_is_frozen(properties_bytes: &[u8; 2]) -> bool {
     properties_bytes[0] > 0 // token is frozen if the first byte is 1
 }

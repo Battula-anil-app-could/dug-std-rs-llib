@@ -1,11 +1,11 @@
 use std::time::Duration;
 
-use dharithri_sc_scenario::dharithri_sc::codec::multi_types::IgnoreValue;
-use dharithri_sc_snippets::dharithri_sc::codec::test_util::top_encode_to_vec_u8_or_panic;
+use dharitri_sc_scenario::dharitri_sc::codec::multi_types::IgnoreValue;
+use dharitri_sc_snippets::dharitri_sc::codec::test_util::top_encode_to_vec_u8_or_panic;
 
 use super::*;
 
-const ISSUE_COST: u64 = 50000000000000000; // 0.05 EGLD
+const ISSUE_COST: u64 = 50000000000000000; // 0.05 MOA
 
 const COLLECTION_NAME: &str = "TestCollection1";
 const COLLECTION_TICKER: &str = "TESTCOLL1";
@@ -18,7 +18,7 @@ const METADATA: &str = "tags:test,rust-interactor";
 impl MultisigInteract {
     pub async fn issue_multisig_and_collection_full(&mut self) {
         self.deploy().await;
-        self.feed_contract_egld().await;
+        self.feed_contract_moa().await;
         self.issue_collection().await;
         self.set_special_role().await;
         self.interactor.sleep(Duration::from_secs(15)).await;
@@ -27,7 +27,7 @@ impl MultisigInteract {
 
     pub async fn issue_multisig_and_collection_with_all_roles_full(&mut self) {
         self.deploy().await;
-        self.feed_contract_egld().await;
+        self.feed_contract_moa().await;
         self.issue_collection_with_all_roles().await;
         self.interactor.sleep(Duration::from_secs(15)).await;
         self.create_items().await;
@@ -165,7 +165,7 @@ impl MultisigInteract {
                         MultiValueVec::from([
                             self.collection_token_identifier.as_bytes(),
                             multisig_address.as_bytes(),
-                            "ESDTRoleNFTCreate".as_bytes(),
+                            "DCTRoleNFTCreate".as_bytes(),
                         ]),
                     ))
                     .from(&self.wallet_address)
@@ -203,7 +203,7 @@ impl MultisigInteract {
                 .call(self.state.multisig().propose_async_call(
                     &multisig_address,
                     0u64,
-                    "ESDTNFTCreate".to_string(),
+                    "DCTNFTCreate".to_string(),
                     MultiValueVec::from([
                         self.collection_token_identifier.as_bytes(),
                         top_encode_to_vec_u8_or_panic(&1u32).as_slice(),
@@ -229,14 +229,14 @@ impl MultisigInteract {
             let result = step.result();
             if result.is_err() {
                 println!(
-                    "propose ESDTNFTCreate failed with: {}",
+                    "propose DCTNFTCreate failed with: {}",
                     result.err().unwrap()
                 );
                 return;
             }
 
             let action_id = result.unwrap();
-            println!("successfully proposed ESDTNFTCreate action `{action_id}`");
+            println!("successfully proposed DCTNFTCreate action `{action_id}`");
             actions.push(action_id);
         }
 

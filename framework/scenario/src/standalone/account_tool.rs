@@ -1,10 +1,10 @@
 use super::scenario_cli::AccountArgs;
-use dharithri_chain_scenario_format::serde_raw::{
-    AccountRaw, EsdtFullRaw, EsdtInstanceRaw, EsdtRaw, ScenarioRaw, StepRaw, ValueSubTree,
+use dharitri_chain_scenario_format::serde_raw::{
+    AccountRaw, DctFullRaw, DctInstanceRaw, DctRaw, ScenarioRaw, StepRaw, ValueSubTree,
 };
-use dharithri_sdk::{
+use dharitri_sdk::{
     blockchain::CommunicationProxy,
-    data::{address::Address, esdt::EsdtBalance},
+    data::{address::Address, dct::DctBalance},
 };
 use std::collections::{BTreeMap, HashMap};
 
@@ -23,14 +23,14 @@ pub async fn retrieve_account_as_scenario_set_state(
     let blockchain = CommunicationProxy::new(api);
     let account = blockchain.get_account(&address).await.unwrap();
 
-    let account_esdt = blockchain
-        .get_account_esdt_tokens(&address)
+    let account_dct = blockchain
+        .get_account_dct_tokens(&address)
         .await
-        .unwrap_or_else(|err| panic!("failed to retrieve ESDT tokens for address {addr}: {err}"));
-    let account_esdt_roles = blockchain
-        .get_account_esdt_roles(&address)
+        .unwrap_or_else(|err| panic!("failed to retrieve DCT tokens for address {addr}: {err}"));
+    let account_dct_roles = blockchain
+        .get_account_dct_roles(&address)
         .await
-        .unwrap_or_else(|err| panic!("failed to retrieve ESDT roles for address {addr}: {err}"));
+        .unwrap_or_else(|err| panic!("failed to retrieve DCT roles for address {addr}: {err}"));
     let account_storage = blockchain
         .get_account_storage_keys(&address)
         .await
@@ -52,7 +52,7 @@ pub async fn retrieve_account_as_scenario_set_state(
         AccountRaw {
             nonce: Some(ValueSubTree::Str(account.nonce.to_string())),
             balance: Some(ValueSubTree::Str(account.balance.to_string())),
-            esdt: convert_esdt(account_esdt, account_esdt_roles),
+            dct: convert_dct(account_dct, account_dct_roles),
             username: Some(ValueSubTree::Str(account.username.to_string())),
             storage: convert_storage(account_storage),
             comment: None,
@@ -95,18 +95,18 @@ fn convert_storage(account_storage: HashMap<String, String>) -> BTreeMap<String,
         .collect()
 }
 
-fn convert_esdt(
-    sdk_esdt: HashMap<String, EsdtBalance>,
-    sdk_esdt_roles: HashMap<String, Vec<String>>,
-) -> BTreeMap<String, EsdtRaw> {
+fn convert_dct(
+    sdk_dct: HashMap<String, DctBalance>,
+    sdk_dct_roles: HashMap<String, Vec<String>>,
+) -> BTreeMap<String, DctRaw> {
     let mut result = BTreeMap::new();
-    for (key, value) in sdk_esdt.into_iter() {
+    for (key, value) in sdk_dct.into_iter() {
         let (token_identifier, nonce) = split_token_identifer_nonce(key);
-        let esdt_raw = result
+        let dct_raw = result
             .entry(format!("str:{}", token_identifier.clone()))
-            .or_insert(EsdtRaw::Full(EsdtFullRaw::default()));
-        if let EsdtRaw::Full(esdt_full_raw) = esdt_raw {
-            esdt_full_raw.instances.push(EsdtInstanceRaw {
+            .or_insert(DctRaw::Full(DctFullRaw::default()));
+        if let DctRaw::Full(dct_full_raw) = dct_raw {
+            dct_full_raw.instances.push(DctInstanceRaw {
                 nonce: Some(ValueSubTree::Str(nonce.to_string())),
                 balance: Some(ValueSubTree::Str(value.balance)),
                 // TODO: add creator, royalties, etc ...
@@ -115,13 +115,13 @@ fn convert_esdt(
         }
     }
 
-    for (key, roles) in sdk_esdt_roles.into_iter() {
+    for (key, roles) in sdk_dct_roles.into_iter() {
         let (token_identifier, _) = split_token_identifer_nonce(key);
-        let esdt_raw = result
+        let dct_raw = result
             .entry(format!("str:{}", token_identifier.clone()))
-            .or_insert(EsdtRaw::Full(EsdtFullRaw::default()));
-        if let EsdtRaw::Full(esdt_full_raw) = esdt_raw {
-            esdt_full_raw.roles = roles;
+            .or_insert(DctRaw::Full(DctFullRaw::default()));
+        if let DctRaw::Full(dct_full_raw) = dct_raw {
+            dct_full_raw.roles = roles;
         }
     }
 

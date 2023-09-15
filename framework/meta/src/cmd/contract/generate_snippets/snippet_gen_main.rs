@@ -1,6 +1,6 @@
 use std::fs::File;
 
-use dharithri_sc::abi::ContractAbi;
+use dharitri_sc::abi::ContractAbi;
 
 use crate::cli_args::GenerateSnippetsArgs;
 

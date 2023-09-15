@@ -1,7 +1,7 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Various features of heap-allocated types.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait AllocTypeFeatures {
     // H256
 

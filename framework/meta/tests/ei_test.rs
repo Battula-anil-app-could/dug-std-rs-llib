@@ -1,4 +1,4 @@
-use dharithri_sc_meta::ei;
+use dharitri_sc_meta::ei;
 
 use std::collections::HashSet;
 
@@ -9,7 +9,7 @@ pub const EI_1_1_ADDED_NAMES: &[&str] = &[
     "managedKeccak256",
     "mBufferStorageLoadFromAddress",
     "validateTokenIdentifier",
-    "getESDTLocalRoles",
+    "getDCTLocalRoles",
     "cleanReturnData",
     "deleteFromReturnData",
 ];
@@ -59,10 +59,10 @@ pub const EI_1_2_ADDED_NAMES: &[&str] = &[
     "bigFloatSetBigInt",
     "bigFloatGetConstPi",
     "bigFloatGetConstE",
-    // more ESDT utilities
-    "managedIsESDTFrozen",
-    "managedIsESDTPaused",
-    "managedIsESDTLimitedTransfer",
+    // more DCT utilities
+    "managedIsDCTFrozen",
+    "managedIsDCTPaused",
+    "managedIsDCTLimitedTransfer",
 ];
 
 /// Planned to be released with VM 1.5.

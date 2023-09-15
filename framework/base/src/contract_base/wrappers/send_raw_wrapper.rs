@@ -6,7 +6,7 @@ use crate::{
         HandleConstraints, ManagedBufferApiImpl, RawHandle, SendApiImpl, StaticVarApiImpl,
     },
     types::{
-        BigUint, CodeMetadata, EsdtTokenPayment, ManagedAddress, ManagedArgBuffer, ManagedBuffer,
+        BigUint, CodeMetadata, DctTokenPayment, ManagedAddress, ManagedArgBuffer, ManagedBuffer,
         ManagedType, ManagedVec, TokenIdentifier,
     },
 };
@@ -41,7 +41,7 @@ where
         );
     }
 
-    pub fn direct_egld<D>(&self, to: &ManagedAddress<A>, egld_value: &BigUint<A>, data: D)
+    pub fn direct_moa<D>(&self, to: &ManagedAddress<A>, moa_value: &BigUint<A>, data: D)
     where
         D: Into<ManagedBuffer<A>>,
     {
@@ -51,44 +51,44 @@ where
 
         let _ = A::send_api_impl().transfer_value_execute(
             to.get_handle().get_raw_handle(),
-            egld_value.get_handle().get_raw_handle(),
+            moa_value.get_handle().get_raw_handle(),
             0,
             data.into().get_handle().get_raw_handle(),
             empty_mb_handle.get_raw_handle(),
         );
     }
 
-    pub fn direct_egld_execute(
+    pub fn direct_moa_execute(
         &self,
         to: &ManagedAddress<A>,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         gas_limit: u64,
         endpoint_name: &ManagedBuffer<A>,
         arg_buffer: &ManagedArgBuffer<A>,
     ) -> Result<(), &'static [u8]> {
         A::send_api_impl().transfer_value_execute(
             to.get_handle().get_raw_handle(),
-            egld_value.get_handle().get_raw_handle(),
+            moa_value.get_handle().get_raw_handle(),
             gas_limit,
             endpoint_name.get_handle().get_raw_handle(),
             arg_buffer.get_handle().get_raw_handle(),
         )
     }
 
-    pub fn transfer_esdt_execute(
+    pub fn transfer_dct_execute(
         &self,
         to: &ManagedAddress<A>,
         token: &TokenIdentifier<A>,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         gas_limit: u64,
         endpoint_name: &ManagedBuffer<A>,
         arg_buffer: &ManagedArgBuffer<A>,
     ) -> Result<(), &'static [u8]> {
-        self.transfer_esdt_nft_execute(
+        self.transfer_dct_nft_execute(
             to,
             token,
             0,
-            egld_value,
+            moa_value,
             gas_limit,
             endpoint_name,
             arg_buffer,
@@ -96,34 +96,34 @@ where
     }
 
     #[allow(clippy::too_many_arguments)]
-    pub fn transfer_esdt_nft_execute(
+    pub fn transfer_dct_nft_execute(
         &self,
         to: &ManagedAddress<A>,
         token: &TokenIdentifier<A>,
         nonce: u64,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         gas_limit: u64,
         endpoint_name: &ManagedBuffer<A>,
         arg_buffer: &ManagedArgBuffer<A>,
     ) -> Result<(), &'static [u8]> {
-        let mut payments: ManagedVec<A, EsdtTokenPayment<A>> = ManagedVec::new();
-        payments.push(EsdtTokenPayment::new(
+        let mut payments: ManagedVec<A, DctTokenPayment<A>> = ManagedVec::new();
+        payments.push(DctTokenPayment::new(
             token.clone(),
             nonce,
-            egld_value.clone(),
+            moa_value.clone(),
         ));
-        self.multi_esdt_transfer_execute(to, &payments, gas_limit, endpoint_name, arg_buffer)
+        self.multi_dct_transfer_execute(to, &payments, gas_limit, endpoint_name, arg_buffer)
     }
 
-    pub fn multi_esdt_transfer_execute(
+    pub fn multi_dct_transfer_execute(
         &self,
         to: &ManagedAddress<A>,
-        payments: &ManagedVec<A, EsdtTokenPayment<A>>,
+        payments: &ManagedVec<A, DctTokenPayment<A>>,
         gas_limit: u64,
         endpoint_name: &ManagedBuffer<A>,
         arg_buffer: &ManagedArgBuffer<A>,
     ) -> Result<(), &'static [u8]> {
-        A::send_api_impl().multi_transfer_esdt_nft_execute(
+        A::send_api_impl().multi_transfer_dct_nft_execute(
             to.get_handle().get_raw_handle(),
             payments.get_handle().get_raw_handle(),
             gas_limit,
@@ -135,13 +135,13 @@ where
     pub fn async_call_raw(
         &self,
         to: &ManagedAddress<A>,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         endpoint_name: &ManagedBuffer<A>,
         arg_buffer: &ManagedArgBuffer<A>,
     ) -> ! {
         A::send_api_impl().async_call_raw(
             to.get_handle().get_raw_handle(),
-            egld_value.get_handle().get_raw_handle(),
+            moa_value.get_handle().get_raw_handle(),
             endpoint_name.get_handle().get_raw_handle(),
             arg_buffer.get_handle().get_raw_handle(),
         )
@@ -151,7 +151,7 @@ where
     pub fn create_async_call_raw(
         &self,
         to: &ManagedAddress<A>,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         endpoint_name: &ManagedBuffer<A>,
         arg_buffer: &ManagedArgBuffer<A>,
         success_callback: &'static str,
@@ -162,7 +162,7 @@ where
     ) {
         A::send_api_impl().create_async_call_raw(
             to.get_handle().get_raw_handle(),
-            egld_value.get_handle().get_raw_handle(),
+            moa_value.get_handle().get_raw_handle(),
             endpoint_name.get_handle().get_raw_handle(),
             arg_buffer.get_handle().get_raw_handle(),
             success_callback,
@@ -182,7 +182,7 @@ where
     pub fn deploy_contract(
         &self,
         gas: u64,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         code: &ManagedBuffer<A>,
         code_metadata: CodeMetadata,
         arg_buffer: &ManagedArgBuffer<A>,
@@ -193,7 +193,7 @@ where
         let result_handle = A::static_var_api_impl().next_handle();
         A::send_api_impl().deploy_contract(
             gas,
-            egld_value.get_handle().get_raw_handle(),
+            moa_value.get_handle().get_raw_handle(),
             code.get_handle().get_raw_handle(),
             code_metadata_handle,
             arg_buffer.get_handle().get_raw_handle(),
@@ -212,7 +212,7 @@ where
     pub fn deploy_from_source_contract(
         &self,
         gas: u64,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         source_contract_address: &ManagedAddress<A>,
         code_metadata: CodeMetadata,
         arg_buffer: &ManagedArgBuffer<A>,
@@ -223,7 +223,7 @@ where
         let result_handle = A::static_var_api_impl().next_handle();
         A::send_api_impl().deploy_from_source_contract(
             gas,
-            egld_value.get_handle().get_raw_handle(),
+            moa_value.get_handle().get_raw_handle(),
             source_contract_address.get_handle().get_raw_handle(),
             code_metadata_handle,
             arg_buffer.get_handle().get_raw_handle(),
@@ -240,7 +240,7 @@ where
         &self,
         sc_address: &ManagedAddress<A>,
         gas: u64,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         source_contract_address: &ManagedAddress<A>,
         code_metadata: CodeMetadata,
         arg_buffer: &ManagedArgBuffer<A>,
@@ -250,7 +250,7 @@ where
         A::send_api_impl().upgrade_from_source_contract(
             sc_address.get_handle().get_raw_handle(),
             gas,
-            egld_value.get_handle().get_raw_handle(),
+            moa_value.get_handle().get_raw_handle(),
             source_contract_address.get_handle().get_raw_handle(),
             code_metadata_handle,
             arg_buffer.get_handle().get_raw_handle(),
@@ -264,7 +264,7 @@ where
         &self,
         sc_address: &ManagedAddress<A>,
         gas: u64,
-        egld_value: &BigUint<A>,
+        moa_value: &BigUint<A>,
         code: &ManagedBuffer<A>,
         code_metadata: CodeMetadata,
         arg_buffer: &ManagedArgBuffer<A>,
@@ -274,7 +274,7 @@ where
         A::send_api_impl().upgrade_contract(
             sc_address.get_handle().get_raw_handle(),
             gas,
-            egld_value.get_handle().get_raw_handle(),
+            moa_value.get_handle().get_raw_handle(),
             code.get_handle().get_raw_handle(),
             code_metadata_handle,
             arg_buffer.get_handle().get_raw_handle(),
@@ -342,7 +342,7 @@ where
     }
 
     /// Allows synchronously calling a local function by name. Execution is resumed afterwards.
-    pub fn call_local_esdt_built_in_function(
+    pub fn call_local_dct_built_in_function(
         &self,
         gas: u64,
         function_name: &ManagedBuffer<A>,
@@ -352,13 +352,13 @@ where
         let own_address_handle: A::ManagedBufferHandle =
             use_raw_handle(const_handles::MBUF_TEMPORARY_1);
         A::blockchain_api_impl().load_sc_address_managed(own_address_handle.clone());
-        let egld_value_handle = A::managed_type_impl().bi_new_zero();
+        let moa_value_handle = A::managed_type_impl().bi_new_zero();
 
         let result_handle = A::static_var_api_impl().next_handle();
         A::send_api_impl().execute_on_dest_context_raw(
             gas,
             own_address_handle.get_raw_handle(),
-            egld_value_handle.get_raw_handle(),
+            moa_value_handle.get_raw_handle(),
             function_name.get_handle().get_raw_handle(),
             arg_buffer.get_handle().get_raw_handle(),
             result_handle,

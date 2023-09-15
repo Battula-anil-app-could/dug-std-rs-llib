@@ -1,16 +1,16 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 #[derive(TopEncode, TopDecode, TypeAbi)]
 pub struct CallbackData<M: ManagedTypeApi> {
     callback_name: ManagedBuffer<M>,
-    token_identifier: EgldOrEsdtTokenIdentifier<M>,
+    token_identifier: MoaOrDctTokenIdentifier<M>,
     token_nonce: u64,
     token_amount: BigUint<M>,
     args: ManagedVec<M, ManagedBuffer<M>>,
 }
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait CallPromisesModule {
     #[proxy]
     fn vault_proxy(&self) -> vault::Proxy<Self::Api>;
@@ -18,12 +18,12 @@ pub trait CallPromisesModule {
     #[endpoint]
     #[payable("*")]
     fn forward_promise_accept_funds(&self, to: ManagedAddress) {
-        let payment = self.call_value().egld_or_single_esdt();
+        let payment = self.call_value().moa_or_single_dct();
         let gas_limit = self.blockchain().get_gas_left() / 2;
         self.vault_proxy()
             .contract(to)
             .accept_funds()
-            .with_egld_or_single_esdt_transfer(payment)
+            .with_moa_or_single_dct_transfer(payment)
             .with_gas_limit(gas_limit)
             .async_call_promise()
             .register_promise()
@@ -33,7 +33,7 @@ pub trait CallPromisesModule {
     fn forward_promise_retrieve_funds(
         &self,
         to: ManagedAddress,
-        token: EgldOrEsdtTokenIdentifier,
+        token: MoaOrDctTokenIdentifier,
         token_nonce: u64,
         amount: BigUint,
     ) {
@@ -50,7 +50,7 @@ pub trait CallPromisesModule {
 
     #[promises_callback]
     fn retrieve_funds_callback(&self) {
-        let (token, nonce, payment) = self.call_value().egld_or_single_esdt().into_tuple();
+        let (token, nonce, payment) = self.call_value().moa_or_single_dct().into_tuple();
         self.retrieve_funds_callback_event(&token, nonce, &payment);
 
         let _ = self.callback_data().push(&CallbackData {
@@ -65,7 +65,7 @@ pub trait CallPromisesModule {
     #[event("retrieve_funds_callback")]
     fn retrieve_funds_callback_event(
         &self,
-        #[indexed] token: &EgldOrEsdtTokenIdentifier,
+        #[indexed] token: &MoaOrDctTokenIdentifier,
         #[indexed] nonce: u64,
         #[indexed] payment: &BigUint,
     );
@@ -80,7 +80,7 @@ pub trait CallPromisesModule {
         index: usize,
     ) -> MultiValue5<
         ManagedBuffer,
-        EgldOrEsdtTokenIdentifier,
+        MoaOrDctTokenIdentifier,
         u64,
         BigUint,
         MultiValueManagedVec<Self::Api, ManagedBuffer>,

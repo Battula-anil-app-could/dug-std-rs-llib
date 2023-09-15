@@ -91,7 +91,7 @@ impl BlockchainApiImpl for UncallableApi {
         unreachable!()
     }
 
-    fn get_current_esdt_nft_nonce(
+    fn get_current_dct_nft_nonce(
         &self,
         _address_handle: Self::ManagedBufferHandle,
         _token_id_handle: Self::ManagedBufferHandle,
@@ -99,7 +99,7 @@ impl BlockchainApiImpl for UncallableApi {
         unreachable!()
     }
 
-    fn load_esdt_balance(
+    fn load_dct_balance(
         &self,
         _address_handle: Self::ManagedBufferHandle,
         _token_id_handle: Self::ManagedBufferHandle,
@@ -109,7 +109,7 @@ impl BlockchainApiImpl for UncallableApi {
         unreachable!()
     }
 
-    fn managed_get_esdt_token_data(
+    fn managed_get_dct_token_data(
         &self,
         _address_handle: RawHandle,
         _token_id_handle: RawHandle,
@@ -126,7 +126,7 @@ impl BlockchainApiImpl for UncallableApi {
         unreachable!()
     }
 
-    fn check_esdt_frozen(
+    fn check_dct_frozen(
         &self,
         _address_handle: Self::ManagedBufferHandle,
         _token_id_handle: Self::ManagedBufferHandle,
@@ -135,18 +135,18 @@ impl BlockchainApiImpl for UncallableApi {
         unreachable!()
     }
 
-    fn check_esdt_paused(&self, _token_id_handle: Self::ManagedBufferHandle) -> bool {
+    fn check_dct_paused(&self, _token_id_handle: Self::ManagedBufferHandle) -> bool {
         unreachable!()
     }
 
-    fn check_esdt_limited_transfer(&self, _token_id_handle: Self::ManagedBufferHandle) -> bool {
+    fn check_dct_limited_transfer(&self, _token_id_handle: Self::ManagedBufferHandle) -> bool {
         unreachable!()
     }
 
-    fn load_esdt_local_roles(
+    fn load_dct_local_roles(
         &self,
         _token_id_handle: Self::ManagedBufferHandle,
-    ) -> crate::types::EsdtLocalRoleFlags {
+    ) -> crate::types::DctLocalRoleFlags {
         unreachable!()
     }
 }

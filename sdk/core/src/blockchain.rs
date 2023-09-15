@@ -4,7 +4,7 @@ use crate::data::{
     account::{Account, AccountResponse},
     account_storage::AccountStorageResponse,
     address::Address,
-    esdt::{EsdtBalance, EsdtBalanceResponse, EsdtRolesResponse},
+    dct::{DctBalance, DctBalanceResponse, DctRolesResponse},
     hyperblock::{HyperBlock, HyperBlockResponse},
     network_config::{NetworkConfig, NetworkConfigResponse},
     network_economics::{NetworkEconomics, NetworkEconomicsResponse},
@@ -19,9 +19,9 @@ use anyhow::{anyhow, Result};
 use itertools::Itertools;
 use reqwest::Client;
 
-pub const MAINNET_GATEWAY: &str = "https://gateway.dharithri.com";
-pub const TESTNET_GATEWAY: &str = "https://testnet-gateway.dharithri.com";
-pub const DEVNET_GATEWAY: &str = "https://devnet-gateway.dharithri.com";
+pub const MAINNET_GATEWAY: &str = "https://gateway.dharitri.com";
+pub const TESTNET_GATEWAY: &str = "https://testnet-gateway.dharitri.com";
+pub const DEVNET_GATEWAY: &str = "https://devnet-gateway.dharitri.com";
 
 // MetachainShardId will be used to identify a shard ID as metachain
 pub const METACHAIN_SHARD_ID: u32 = 0xFFFFFFFF;
@@ -184,8 +184,8 @@ impl CommunicationProxy {
         }
     }
 
-    // get_account_esdt_roles retrieves an all esdt roles of an account from the network
-    pub async fn get_account_esdt_roles(
+    // get_account_dct_roles retrieves an all dct roles of an account from the network
+    pub async fn get_account_dct_roles(
         &self,
         address: &Address,
     ) -> Result<HashMap<String, Vec<String>>> {
@@ -193,14 +193,14 @@ impl CommunicationProxy {
             return Err(anyhow!("invalid address"));
         }
 
-        let endpoint = ACCOUNT_ENDPOINT.to_string() + address.to_string().as_str() + "/esdts/roles";
+        let endpoint = ACCOUNT_ENDPOINT.to_string() + address.to_string().as_str() + "/dcts/roles";
         let endpoint = self.get_endpoint(endpoint.as_str());
         let resp = self
             .client
             .get(endpoint)
             .send()
             .await?
-            .json::<EsdtRolesResponse>()
+            .json::<DctRolesResponse>()
             .await?;
 
         match resp.data {
@@ -209,32 +209,32 @@ impl CommunicationProxy {
         }
     }
 
-    // get_account_esdt_tokens retrieves an all esdt token of an account from the network
-    pub async fn get_account_esdt_tokens(
+    // get_account_dct_tokens retrieves an all dct token of an account from the network
+    pub async fn get_account_dct_tokens(
         &self,
         address: &Address,
-    ) -> Result<HashMap<String, EsdtBalance>> {
+    ) -> Result<HashMap<String, DctBalance>> {
         if !address.is_valid() {
             return Err(anyhow!("invalid address"));
         }
 
-        let endpoint = ACCOUNT_ENDPOINT.to_string() + address.to_string().as_str() + "/esdt";
+        let endpoint = ACCOUNT_ENDPOINT.to_string() + address.to_string().as_str() + "/dct";
         let endpoint = self.get_endpoint(endpoint.as_str());
         let resp = self
             .client
             .get(endpoint)
             .send()
             .await?
-            .json::<EsdtBalanceResponse>()
+            .json::<DctBalanceResponse>()
             .await?;
 
         match resp.data {
             None => Err(anyhow!("{}", resp.error)),
-            Some(b) => Ok(b.esdts),
+            Some(b) => Ok(b.dcts),
         }
     }
 
-    // get_account_esdt_tokens retrieves an all esdt token of an account from the network
+    // get_account_dct_tokens retrieves an all dct token of an account from the network
     pub async fn get_account_storage_keys(
         &self,
         address: &Address,

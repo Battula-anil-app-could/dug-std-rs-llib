@@ -68,7 +68,7 @@ path = "src/{SNIPPETS_SOURCE_FILE_NAME}"
 [dependencies.{contract_crate_name}]
 path = ".."
 
-[dependencies.dharithri-sc-snippets]
+[dependencies.dharitri-sc-snippets]
 version = "0.43.3"
 
 # [workspace]

@@ -29,8 +29,8 @@ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 name = "basic-features"
 version = "0.0.0"
 dependencies = [
- "dharithri-sc",
- "dharithri-sc-modules",
+ "dharitri-sc",
+ "dharitri-sc-modules",
 ]
 
 [[package]]
@@ -38,7 +38,7 @@ name = "basic-features-wasm"
 version = "0.0.0"
 dependencies = [
  "basic-features",
- "dharithri-sc-wasm-adapter",
+ "dharitri-sc-wasm-adapter",
 ]
 
 [[package]]
@@ -52,6 +52,61 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+
+[[package]]
+name = "dharitri-sc"
+version = "0.43.3"
+dependencies = [
+ "bitflags",
+ "dharitri-sc-codec",
+ "dharitri-sc-derive",
+ "hashbrown",
+ "hex-literal",
+ "num-traits",
+]
+
+[[package]]
+name = "dharitri-sc-codec"
+version = "0.18.1"
+dependencies = [
+ "arrayvec",
+ "dharitri-sc-codec-derive",
+]
+
+[[package]]
+name = "dharitri-sc-codec-derive"
+version = "0.18.1"
+dependencies = [
+ "hex",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "dharitri-sc-derive"
+version = "0.43.3"
+dependencies = [
+ "hex",
+ "proc-macro2",
+ "quote",
+ "radix_trie",
+ "syn",
+]
+
+[[package]]
+name = "dharitri-sc-modules"
+version = "0.43.3"
+dependencies = [
+ "dharitri-sc",
+]
+
+[[package]]
+name = "dharitri-sc-wasm-adapter"
+version = "0.43.3"
+dependencies = [
+ "dharitri-sc",
+]
 
 [[package]]
 name = "endian-type"
@@ -79,61 +134,6 @@ name = "hex-literal"
 version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7ebdb29d2ea9ed0083cd8cece49bbd968021bd99b0849edb4a9a7ee0fdf6a4e0"
-
-[[package]]
-name = "dharithri-sc"
-version = "0.43.3"
-dependencies = [
- "bitflags",
- "hashbrown",
- "hex-literal",
- "dharithri-sc-codec",
- "dharithri-sc-derive",
- "num-traits",
-]
-
-[[package]]
-name = "dharithri-sc-codec"
-version = "0.18.1"
-dependencies = [
- "arrayvec",
- "dharithri-sc-codec-derive",
-]
-
-[[package]]
-name = "dharithri-sc-codec-derive"
-version = "0.18.1"
-dependencies = [
- "hex",
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
-name = "dharithri-sc-derive"
-version = "0.43.3"
-dependencies = [
- "hex",
- "proc-macro2",
- "quote",
- "radix_trie",
- "syn",
-]
-
-[[package]]
-name = "dharithri-sc-modules"
-version = "0.43.3"
-dependencies = [
- "dharithri-sc",
-]
-
-[[package]]
-name = "dharithri-sc-wasm-adapter"
-version = "0.43.3"
-dependencies = [
- "dharithri-sc",
-]
 
 [[package]]
 name = "nibble_vec"

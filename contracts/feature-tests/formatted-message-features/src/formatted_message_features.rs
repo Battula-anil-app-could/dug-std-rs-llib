@@ -1,8 +1,8 @@
 #![no_std]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait FormattedMessageFeatures {
     #[init]
     fn init(&self) {}
@@ -25,9 +25,9 @@ pub trait FormattedMessageFeatures {
     #[payable("*")]
     #[endpoint]
     fn dynamic_message_multiple(&self) {
-        let (token_id, nonce, amount) = self.call_value().egld_or_single_esdt().into_tuple();
+        let (token_id, nonce, amount) = self.call_value().moa_or_single_dct().into_tuple();
         sc_panic!(
-            "Got token {}, with nonce {}, amount {}. I prefer EGLD. ERROR!",
+            "Got token {}, with nonce {}, amount {}. I prefer MOA. ERROR!",
             &&token_id, // references are accepted
             nonce,
             &amount
@@ -37,9 +37,9 @@ pub trait FormattedMessageFeatures {
     #[payable("*")]
     #[endpoint]
     fn dynamic_message_ascii(&self) {
-        let (token_id, nonce, amount) = self.call_value().egld_or_single_esdt().into_tuple();
+        let (token_id, nonce, amount) = self.call_value().moa_or_single_dct().into_tuple();
         sc_panic!(
-            "Got token {}, with nonce {}, amount {}. I prefer EGLD. ERROR!",
+            "Got token {}, with nonce {}, amount {}. I prefer MOA. ERROR!",
             token_id,
             nonce,
             amount, // trailing comma allowed

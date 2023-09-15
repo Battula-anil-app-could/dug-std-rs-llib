@@ -1,4 +1,4 @@
-use dharithri_sc::abi::{BuildInfoAbi, ContractCrateBuildAbi, FrameworkBuildAbi};
+use dharitri_sc::abi::{BuildInfoAbi, ContractCrateBuildAbi, FrameworkBuildAbi};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]

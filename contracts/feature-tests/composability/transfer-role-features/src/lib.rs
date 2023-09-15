@@ -1,11 +1,11 @@
 #![no_std]
 #![allow(clippy::type_complexity)]
 
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait TransferRoleFeatures:
-    dharithri_sc_modules::transfer_role_proxy::TransferRoleProxyModule
+    dharitri_sc_modules::transfer_role_proxy::TransferRoleProxyModule
 {
     #[init]
     fn init(&self, whitelist: MultiValueEncoded<ManagedAddress>) {
@@ -24,7 +24,7 @@ pub trait TransferRoleFeatures:
         args: MultiValueEncoded<ManagedBuffer>,
     ) {
         let original_caller = self.blockchain().get_caller();
-        let payments = self.call_value().all_esdt_transfers();
+        let payments = self.call_value().all_dct_transfers();
         if payments.is_empty() {
             return;
         }

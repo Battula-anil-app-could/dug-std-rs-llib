@@ -1,8 +1,8 @@
-use dharithri_sc::storage::{
+use dharitri_sc::storage::{
     mappers::{LinkedListMapper, StorageClearable, StorageMapper},
     StorageKey,
 };
-use dharithri_sc_scenario::api::SingleTxApi;
+use dharitri_sc_scenario::api::SingleTxApi;
 
 fn create_list() -> LinkedListMapper<SingleTxApi, u64> {
     let base_key = StorageKey::new(&b"my_list"[..]);

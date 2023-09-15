@@ -1,5 +1,5 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 pub const MAX_GOVERNANCE_PROPOSAL_ACTIONS: usize = 4;
 pub type ProposalId = usize;
@@ -35,7 +35,7 @@ pub struct ProposalFees<M: ManagedTypeApi> {
 #[derive(TopEncode, TopDecode, NestedEncode, NestedDecode, ManagedVecItem, TypeAbi)]
 pub struct FeeEntry<M: ManagedTypeApi> {
     pub depositor_addr: ManagedAddress<M>,
-    pub tokens: EsdtTokenPayment<M>,
+    pub tokens: DctTokenPayment<M>,
 }
 
 #[derive(TypeAbi, TopEncode, TopDecode, NestedEncode, NestedDecode)]

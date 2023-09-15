@@ -1,6 +1,6 @@
 use std::{cell::RefCell, rc::Rc};
 
-use dharithri_sc::types::LockableStaticBuffer;
+use dharitri_sc::types::LockableStaticBuffer;
 
 use super::TxStaticVars;
 

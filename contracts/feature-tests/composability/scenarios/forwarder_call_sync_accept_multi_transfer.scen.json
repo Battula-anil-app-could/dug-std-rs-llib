@@ -11,7 +11,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FWD-TOKEN": "1000",
                         "str:NFT-123456": {
                             "instances": [
@@ -75,7 +75,7 @@
                 "logs": [
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:MultiESDTNFTTransfer",
+                        "endpoint": "str:MultiDCTNFTTransfer",
                         "topics": [
                             "str:FWD-TOKEN",
                             "0",
@@ -86,7 +86,7 @@
                     },
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:MultiESDTNFTTransfer",
+                        "endpoint": "str:MultiDCTNFTTransfer",
                         "topics": [
                             "str:FWD-TOKEN",
                             "0",
@@ -97,7 +97,7 @@
                     },
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:MultiESDTNFTTransfer",
+                        "endpoint": "str:MultiDCTNFTTransfer",
                         "topics": [
                             "str:NFT-123456",
                             "1",
@@ -108,7 +108,7 @@
                     },
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:MultiESDTNFTTransfer",
+                        "endpoint": "str:MultiDCTNFTTransfer",
                         "topics": [
                             "str:SFT-456789",
                             "3",
@@ -119,7 +119,7 @@
                     },
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:MultiESDTNFTTransfer",
+                        "endpoint": "str:MultiDCTNFTTransfer",
                         "topics": [
                             "str:SFT-456789",
                             "3",
@@ -169,7 +169,7 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FWD-TOKEN": "300",
                         "str:NFT-123456": {
                             "instances": [
@@ -196,7 +196,7 @@
                 "sc:forwarder": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:FWD-TOKEN": "700",
                         "str:SFT-456789": {
                             "instances": [

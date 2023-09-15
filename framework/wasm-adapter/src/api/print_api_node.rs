@@ -1,5 +1,5 @@
 use crate::api::VmApiImpl;
-use dharithri_sc::{
+use dharitri_sc::{
     api::{PrintApi, PrintApiImpl},
     formatter::FormatBufferIgnore,
 };

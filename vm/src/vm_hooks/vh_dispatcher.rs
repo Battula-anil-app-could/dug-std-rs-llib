@@ -1,6 +1,6 @@
 use std::ffi::c_void;
 
-use multiversx_chain_vm_executor::{MemLength, MemPtr, VMHooks};
+use dharithri_chain_vm_executor::{MemLength, MemPtr, VMHooks};
 
 use crate::mem_conv;
 
@@ -74,7 +74,7 @@ impl VMHooks for VMHooksDispatcher {
         panic!("Unavailable: get_block_hash")
     }
 
-    fn get_esdt_balance(
+    fn get_dct_balance(
         &self,
         address_offset: MemPtr,
         token_id_offset: MemPtr,
@@ -82,40 +82,40 @@ impl VMHooks for VMHooksDispatcher {
         nonce: i64,
         result_offset: MemPtr,
     ) -> i32 {
-        panic!("Unavailable: get_esdt_balance")
+        panic!("Unavailable: get_dct_balance")
     }
 
-    fn get_esdt_nft_name_length(
+    fn get_dct_nft_name_length(
         &self,
         address_offset: MemPtr,
         token_id_offset: MemPtr,
         token_id_len: MemLength,
         nonce: i64,
     ) -> i32 {
-        panic!("Unavailable: get_esdt_nft_name_length")
+        panic!("Unavailable: get_dct_nft_name_length")
     }
 
-    fn get_esdt_nft_attribute_length(
+    fn get_dct_nft_attribute_length(
         &self,
         address_offset: MemPtr,
         token_id_offset: MemPtr,
         token_id_len: MemLength,
         nonce: i64,
     ) -> i32 {
-        panic!("Unavailable: get_esdt_nft_attribute_length")
+        panic!("Unavailable: get_dct_nft_attribute_length")
     }
 
-    fn get_esdt_nft_uri_length(
+    fn get_dct_nft_uri_length(
         &self,
         address_offset: MemPtr,
         token_id_offset: MemPtr,
         token_id_len: MemLength,
         nonce: i64,
     ) -> i32 {
-        panic!("Unavailable: get_esdt_nft_uri_length")
+        panic!("Unavailable: get_dct_nft_uri_length")
     }
 
-    fn get_esdt_token_data(
+    fn get_dct_token_data(
         &self,
         address_offset: MemPtr,
         token_id_offset: MemPtr,
@@ -130,11 +130,11 @@ impl VMHooks for VMHooksDispatcher {
         royalties_handle: i32,
         uris_offset: MemPtr,
     ) -> i32 {
-        panic!("Unavailable: get_esdt_token_data")
+        panic!("Unavailable: get_dct_token_data")
     }
 
-    fn get_esdt_local_roles(&self, token_id_handle: i32) -> i64 {
-        self.handler.get_esdt_local_roles_bits(token_id_handle) as i64
+    fn get_dct_local_roles(&self, token_id_handle: i32) -> i64 {
+        self.handler.get_dct_local_roles_bits(token_id_handle) as i64
     }
 
     fn validate_token_identifier(&self, token_id_handle: i32) -> i32 {
@@ -165,7 +165,7 @@ impl VMHooks for VMHooksDispatcher {
         panic!("Unavailable: transfer_value_execute")
     }
 
-    fn transfer_esdt_execute(
+    fn transfer_dct_execute(
         &self,
         dest_offset: MemPtr,
         token_id_offset: MemPtr,
@@ -178,10 +178,10 @@ impl VMHooks for VMHooksDispatcher {
         arguments_length_offset: MemPtr,
         data_offset: MemPtr,
     ) -> i32 {
-        panic!("Unavailable: transfer_esdt_execute")
+        panic!("Unavailable: transfer_dct_execute")
     }
 
-    fn transfer_esdt_nft_execute(
+    fn transfer_dct_nft_execute(
         &self,
         dest_offset: MemPtr,
         token_id_offset: MemPtr,
@@ -195,10 +195,10 @@ impl VMHooks for VMHooksDispatcher {
         arguments_length_offset: MemPtr,
         data_offset: MemPtr,
     ) -> i32 {
-        panic!("Unavailable: transfer_esdt_nft_execute")
+        panic!("Unavailable: transfer_dct_nft_execute")
     }
 
-    fn multi_transfer_esdt_nft_execute(
+    fn multi_transfer_dct_nft_execute(
         &self,
         dest_offset: MemPtr,
         num_token_transfers: i32,
@@ -211,7 +211,7 @@ impl VMHooks for VMHooksDispatcher {
         arguments_length_offset: MemPtr,
         data_offset: MemPtr,
     ) -> i32 {
-        panic!("Unavailable: multi_transfer_esdt_nft_execute")
+        panic!("Unavailable: multi_transfer_dct_nft_execute")
     }
 
     fn create_async_call(
@@ -368,31 +368,31 @@ impl VMHooks for VMHooksDispatcher {
         panic!("Unavailable: get_call_value")
     }
 
-    fn get_esdt_value(&self, result_offset: MemPtr) -> i32 {
-        panic!("Unavailable: get_esdt_value")
+    fn get_dct_value(&self, result_offset: MemPtr) -> i32 {
+        panic!("Unavailable: get_dct_value")
     }
 
-    fn get_esdt_value_by_index(&self, result_offset: MemPtr, index: i32) -> i32 {
-        panic!("Unavailable: get_esdt_value_by_index")
+    fn get_dct_value_by_index(&self, result_offset: MemPtr, index: i32) -> i32 {
+        panic!("Unavailable: get_dct_value_by_index")
     }
 
-    fn get_esdt_token_name(&self, result_offset: MemPtr) -> i32 {
-        panic!("Unavailable: get_esdt_token_name")
+    fn get_dct_token_name(&self, result_offset: MemPtr) -> i32 {
+        panic!("Unavailable: get_dct_token_name")
     }
 
-    fn get_esdt_token_name_by_index(&self, result_offset: MemPtr, index: i32) -> i32 {
-        panic!("Unavailable: get_esdt_token_name_by_index")
+    fn get_dct_token_name_by_index(&self, result_offset: MemPtr, index: i32) -> i32 {
+        panic!("Unavailable: get_dct_token_name_by_index")
     }
 
-    fn get_esdt_token_nonce(&self) -> i64 {
-        panic!("Unavailable: get_esdt_token_nonce")
+    fn get_dct_token_nonce(&self) -> i64 {
+        panic!("Unavailable: get_dct_token_nonce")
     }
 
-    fn get_esdt_token_nonce_by_index(&self, index: i32) -> i64 {
-        panic!("Unavailable: get_esdt_token_nonce_by_index")
+    fn get_dct_token_nonce_by_index(&self, index: i32) -> i64 {
+        panic!("Unavailable: get_dct_token_nonce_by_index")
     }
 
-    fn get_current_esdt_nft_nonce(
+    fn get_current_dct_nft_nonce(
         &self,
         address_offset: MemPtr,
         token_id_offset: MemPtr,
@@ -402,23 +402,23 @@ impl VMHooks for VMHooksDispatcher {
             mem_conv::with_bytes(address_offset, 32, |address_bytes| {
                 mem_conv::with_bytes(token_id_offset, token_id_len, |token_id_bytes| {
                     self.handler
-                        .get_current_esdt_nft_nonce(address_bytes, token_id_bytes)
+                        .get_current_dct_nft_nonce(address_bytes, token_id_bytes)
                         as i64
                 })
             })
         }
     }
 
-    fn get_esdt_token_type(&self) -> i32 {
-        panic!("Unavailable: get_esdt_token_type")
+    fn get_dct_token_type(&self) -> i32 {
+        panic!("Unavailable: get_dct_token_type")
     }
 
-    fn get_esdt_token_type_by_index(&self, index: i32) -> i32 {
-        panic!("Unavailable: get_esdt_token_type_by_index")
+    fn get_dct_token_type_by_index(&self, index: i32) -> i32 {
+        panic!("Unavailable: get_dct_token_type_by_index")
     }
 
-    fn get_num_esdt_transfers(&self) -> i32 {
-        self.handler.esdt_num_transfers() as i32
+    fn get_num_dct_transfers(&self) -> i32 {
+        self.handler.dct_num_transfers() as i32
     }
 
     fn get_call_value_token_name(
@@ -653,22 +653,22 @@ impl VMHooks for VMHooksDispatcher {
         panic!("Unavailable: managed_get_return_data");
     }
 
-    fn managed_get_multi_esdt_call_value(&self, multi_call_value_handle: i32) {
+    fn managed_get_multi_dct_call_value(&self, multi_call_value_handle: i32) {
         self.handler
-            .load_all_esdt_transfers(multi_call_value_handle)
+            .load_all_dct_transfers(multi_call_value_handle)
     }
 
-    fn managed_get_esdt_balance(
+    fn managed_get_dct_balance(
         &self,
         address_handle: i32,
         token_id_handle: i32,
         nonce: i64,
         value_handle: i32,
     ) {
-        panic!("Unavailable: managed_get_esdt_balance");
+        panic!("Unavailable: managed_get_dct_balance");
     }
 
-    fn managed_get_esdt_token_data(
+    fn managed_get_dct_token_data(
         &self,
         address_handle: i32,
         token_id_handle: i32,
@@ -682,7 +682,7 @@ impl VMHooks for VMHooksDispatcher {
         royalties_handle: i32,
         uris_handle: i32,
     ) {
-        self.handler.managed_get_esdt_token_data(
+        self.handler.managed_get_dct_token_data(
             address_handle,
             token_id_handle,
             nonce as u64,
@@ -878,7 +878,7 @@ impl VMHooks for VMHooksDispatcher {
         0
     }
 
-    fn managed_multi_transfer_esdt_nft_execute(
+    fn managed_multi_transfer_dct_nft_execute(
         &self,
         dst_handle: i32,
         token_transfers_handle: i32,
@@ -886,7 +886,7 @@ impl VMHooks for VMHooksDispatcher {
         function_handle: i32,
         arguments_handle: i32,
     ) -> i32 {
-        self.handler.multi_transfer_esdt_nft_execute(
+        self.handler.multi_transfer_dct_nft_execute(
             dst_handle,
             token_transfers_handle,
             gas_limit as u64,
@@ -914,18 +914,18 @@ impl VMHooks for VMHooksDispatcher {
         0
     }
 
-    fn managed_is_esdt_frozen(&self, address_handle: i32, token_id_handle: i32, nonce: i64) -> i32 {
+    fn managed_is_dct_frozen(&self, address_handle: i32, token_id_handle: i32, nonce: i64) -> i32 {
         bool_to_i32(
             self.handler
-                .check_esdt_frozen(address_handle, token_id_handle, nonce as u64),
+                .check_dct_frozen(address_handle, token_id_handle, nonce as u64),
         )
     }
 
-    fn managed_is_esdt_limited_transfer(&self, _token_id_handle: i32) -> i32 {
+    fn managed_is_dct_limited_transfer(&self, _token_id_handle: i32) -> i32 {
         bool_to_i32(false)
     }
 
-    fn managed_is_esdt_paused(&self, _token_id_handle: i32) -> i32 {
+    fn managed_is_dct_paused(&self, _token_id_handle: i32) -> i32 {
         bool_to_i32(false)
     }
 
@@ -1066,15 +1066,15 @@ impl VMHooks for VMHooksDispatcher {
     }
 
     fn big_int_get_call_value(&self, destination_handle: i32) {
-        self.handler.load_egld_value(destination_handle);
+        self.handler.load_moa_value(destination_handle);
     }
 
-    fn big_int_get_esdt_call_value(&self, destination: i32) {
-        panic!("Unavailable: big_int_get_esdt_call_value");
+    fn big_int_get_dct_call_value(&self, destination: i32) {
+        panic!("Unavailable: big_int_get_dct_call_value");
     }
 
-    fn big_int_get_esdt_call_value_by_index(&self, destination_handle: i32, index: i32) {
-        panic!("Unavailable: big_int_get_esdt_call_value_by_index");
+    fn big_int_get_dct_call_value_by_index(&self, destination_handle: i32, index: i32) {
+        panic!("Unavailable: big_int_get_dct_call_value_by_index");
     }
 
     fn big_int_get_external_balance(&self, address_offset: MemPtr, result: i32) {
@@ -1085,7 +1085,7 @@ impl VMHooks for VMHooksDispatcher {
         }
     }
 
-    fn big_int_get_esdt_external_balance(
+    fn big_int_get_dct_external_balance(
         &self,
         address_offset: MemPtr,
         token_id_offset: MemPtr,
@@ -1096,7 +1096,7 @@ impl VMHooks for VMHooksDispatcher {
         unsafe {
             mem_conv::with_bytes(address_offset, 32, |address_bytes| {
                 mem_conv::with_bytes(token_id_offset, token_id_len, |token_id_bytes| {
-                    self.handler.big_int_get_esdt_external_balance(
+                    self.handler.big_int_get_dct_external_balance(
                         address_bytes,
                         token_id_bytes,
                         nonce as u64,

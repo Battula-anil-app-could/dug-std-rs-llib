@@ -1,7 +1,7 @@
-use dharithri_sc::types::{
+use dharitri_sc::types::{
     BigInt, BigUint, BoxedBytes, ManagedAddress, ManagedBuffer, ManagedVec,
 };
-use dharithri_sc_scenario::{api::StaticApi, managed_test_util::check_managed_top_encode_decode};
+use dharitri_sc_scenario::{api::StaticApi, managed_test_util::check_managed_top_encode_decode};
 
 #[test]
 fn test_big_uint_serialization() {

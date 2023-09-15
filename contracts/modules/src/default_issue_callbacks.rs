@@ -1,10 +1,10 @@
-use dharithri_sc::{storage::StorageKey, storage_clear, storage_set};
+use dharitri_sc::{storage::StorageKey, storage_clear, storage_set};
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 // Always keep in sync with the token-related storage mappers. Only modify if really necessary.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait DefaultIssueCallbacksModule {
     #[callback]
     fn default_issue_cb(
@@ -35,7 +35,7 @@ pub trait DefaultIssueCallbacksModule {
         let key = StorageKey::from(storage_key);
         match result {
             ManagedAsyncCallResult::Ok(()) => {
-                let token_id = self.call_value().single_esdt().token_identifier;
+                let token_id = self.call_value().single_dct().token_identifier;
                 storage_set(key.as_ref(), &TokenMapperState::Token(token_id));
             },
             ManagedAsyncCallResult::Err(_) => {
@@ -46,9 +46,9 @@ pub trait DefaultIssueCallbacksModule {
     }
 
     fn return_failed_issue_funds(&self, initial_caller: ManagedAddress) {
-        let egld_returned = self.call_value().egld_value();
-        if *egld_returned > 0u32 {
-            self.send().direct_egld(&initial_caller, &egld_returned);
+        let moa_returned = self.call_value().moa_value();
+        if *moa_returned > 0u32 {
+            self.send().direct_moa(&initial_caller, &moa_returned);
         }
     }
 }

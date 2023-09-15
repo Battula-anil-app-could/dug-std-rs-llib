@@ -1,8 +1,8 @@
 use std::marker::PhantomData;
 
-use dharithri_sc::codec::PanicErrorHandler;
+use dharitri_sc::codec::PanicErrorHandler;
 
-use crate::dharithri_sc::codec::{CodecFrom, TopEncodeMulti};
+use crate::dharitri_sc::codec::{CodecFrom, TopEncodeMulti};
 
 use crate::{
     scenario::model::{AddressValue, U64Value},
@@ -47,15 +47,15 @@ impl<OriginalResult> TypedScCall<OriginalResult> {
         self
     }
 
-    pub fn egld_value<A>(mut self, amount: A) -> Self
+    pub fn moa_value<A>(mut self, amount: A) -> Self
     where
         BigUintValue: From<A>,
     {
-        self.sc_call_step = self.sc_call_step.egld_value(amount);
+        self.sc_call_step = self.sc_call_step.moa_value(amount);
         self
     }
 
-    pub fn esdt_transfer<T, N, A>(mut self, token_id: T, token_nonce: N, amount: A) -> Self
+    pub fn dct_transfer<T, N, A>(mut self, token_id: T, token_nonce: N, amount: A) -> Self
     where
         BytesValue: From<T>,
         U64Value: From<N>,
@@ -63,7 +63,7 @@ impl<OriginalResult> TypedScCall<OriginalResult> {
     {
         self.sc_call_step = self
             .sc_call_step
-            .esdt_transfer(token_id, token_nonce, amount);
+            .dct_transfer(token_id, token_nonce, amount);
 
         self
     }

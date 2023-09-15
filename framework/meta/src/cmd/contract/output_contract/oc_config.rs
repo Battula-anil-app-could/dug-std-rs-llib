@@ -2,7 +2,7 @@ use std::path::PathBuf;
 
 use super::OutputContractSettings;
 use crate::cli_args::BuildArgs;
-use dharithri_sc::abi::ContractAbi;
+use dharitri_sc::abi::ContractAbi;
 
 /// Represents a contract created by the framework when building.
 ///

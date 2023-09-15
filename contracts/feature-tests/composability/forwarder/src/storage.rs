@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ForwarderStorageModule {
     #[view(lastIssuedToken)]
     #[storage_mapper("lastIssuedToken")]

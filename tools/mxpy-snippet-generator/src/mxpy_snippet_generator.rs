@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use dharithri_sc::codec::{top_encode_to_vec_u8_or_panic, TopEncode};
+use dharitri_sc::codec::{top_encode_to_vec_u8_or_panic, TopEncode};
 use num_traits::Zero;
 
 mod cmd_builder;
@@ -23,7 +23,7 @@ pub struct MxpySnippetGenerator {
     sender_nonce: Option<u64>,
     tx: TransactionType,
     gas_limit: u64,
-    egld_value: num_bigint::BigUint,
+    moa_value: num_bigint::BigUint,
     arguments: Vec<Vec<u8>>,
     proxy: String,
     chain_id: String,
@@ -48,7 +48,7 @@ impl MxpySnippetGenerator {
                 opt_json_out_file,
             },
             gas_limit: bounded_gas_limit,
-            egld_value: num_bigint::BigUint::zero(),
+            moa_value: num_bigint::BigUint::zero(),
             arguments: Vec::new(),
             proxy,
             chain_id,
@@ -75,7 +75,7 @@ impl MxpySnippetGenerator {
                 opt_json_out_file,
             },
             gas_limit: bounded_gas_limit,
-            egld_value: num_bigint::BigUint::zero(),
+            moa_value: num_bigint::BigUint::zero(),
             arguments: Vec::new(),
             proxy,
             chain_id,
@@ -100,10 +100,10 @@ impl MxpySnippetGenerator {
                 sender_address_bech32,
                 dest_address_bech32,
                 function,
-                esdt_transfers: Vec::new(),
+                dct_transfers: Vec::new(),
             },
             gas_limit: bounded_gas_limit,
-            egld_value: num_bigint::BigUint::zero(),
+            moa_value: num_bigint::BigUint::zero(),
             arguments: Vec::new(),
             proxy,
             chain_id,
@@ -125,24 +125,24 @@ impl MxpySnippetGenerator {
                 function,
             },
             gas_limit: 0,
-            egld_value: num_bigint::BigUint::zero(),
+            moa_value: num_bigint::BigUint::zero(),
             arguments: Vec::new(),
             proxy,
             chain_id,
         }
     }
 
-    pub fn set_egld_value(&mut self, egld_value: &num_bigint::BigUint) {
-        self.egld_value = egld_value.clone();
+    pub fn set_moa_value(&mut self, moa_value: &num_bigint::BigUint) {
+        self.moa_value = moa_value.clone();
     }
 
-    pub fn add_esdt_transfer(
+    pub fn add_dct_transfer(
         &mut self,
         token_id: String,
         token_nonce: u64,
         amount: num_bigint::BigUint,
     ) {
-        self.tx.add_esdt_transfer(token_id, token_nonce, amount);
+        self.tx.add_dct_transfer(token_id, token_nonce, amount);
     }
 
     pub fn set_sender_nonce(&mut self, nonce: u64) {
@@ -215,30 +215,30 @@ impl MxpySnippetGenerator {
                 sender_address_bech32,
                 dest_address_bech32,
                 function,
-                esdt_transfers,
+                dct_transfers,
             } => {
                 cmd_builder.add_command(CALL_COMMAND_NAME);
 
-                match esdt_transfers.len() {
+                match dct_transfers.len() {
                     0 => {
                         let dest_clone = dest_address_bech32.clone();
                         let function_clone = function.clone();
 
                         function_name = Some(function.clone());
-                        self.contract_call_no_esdt(&mut cmd_builder, dest_clone, function_clone);
+                        self.contract_call_no_dct(&mut cmd_builder, dest_clone, function_clone);
                     },
                     1 => {
                         let sender_clone = sender_address_bech32.clone();
                         let dest_clone = dest_address_bech32.clone();
                         let function_clone = function.clone();
-                        let esdt_transfer_clone = esdt_transfers[0].clone();
+                        let dct_transfer_clone = dct_transfers[0].clone();
 
-                        let transfer_func_name = self.contract_call_one_esdt(
+                        let transfer_func_name = self.contract_call_one_dct(
                             &mut cmd_builder,
                             sender_clone,
                             dest_clone,
                             function_clone,
-                            esdt_transfer_clone,
+                            dct_transfer_clone,
                         );
                         function_name = Some(transfer_func_name);
                     },
@@ -246,7 +246,7 @@ impl MxpySnippetGenerator {
                         let sender_clone = sender_address_bech32.clone();
                         let dest_clone = dest_address_bech32.clone();
                         let function_clone = function.clone();
-                        let transfers_clone = esdt_transfers.clone();
+                        let transfers_clone = dct_transfers.clone();
 
                         self.contract_call_multi_transfer(
                             &mut cmd_builder,
@@ -271,7 +271,7 @@ impl MxpySnippetGenerator {
                 let function_clone = function.clone();
 
                 function_name = Some(function.clone());
-                self.contract_call_no_esdt(&mut cmd_builder, dest_clone, function_clone);
+                self.contract_call_no_dct(&mut cmd_builder, dest_clone, function_clone);
             },
         }
 
@@ -337,8 +337,8 @@ impl MxpySnippetGenerator {
             },
         }
 
-        if self.egld_value > num_bigint::BigUint::zero() {
-            cmd_builder.add_numerical_argument(EGLD_VALUE_ARG_NAME, &self.egld_value);
+        if self.moa_value > num_bigint::BigUint::zero() {
+            cmd_builder.add_numerical_argument(MOA_VALUE_ARG_NAME, &self.moa_value);
         }
 
         cmd_builder.add_numerical_argument(
@@ -347,7 +347,7 @@ impl MxpySnippetGenerator {
         );
     }
 
-    fn contract_call_no_esdt(
+    fn contract_call_no_dct(
         &mut self,
         cmd_builder: &mut CmdBuilder,
         dest_address_bech32: String,
@@ -357,18 +357,18 @@ impl MxpySnippetGenerator {
         cmd_builder.add_raw_named_argument(FUNCTION_ARG_NAME, &function);
     }
 
-    fn contract_call_one_esdt(
+    fn contract_call_one_dct(
         &mut self,
         cmd_builder: &mut CmdBuilder,
         sender_address_bech32: String,
         dest_address_bech32: String,
         function: String,
-        esdt_transfer: EsdtTransferTuple,
+        dct_transfer: DctTransferTuple,
     ) -> String {
-        let (token_id, token_nonce, amount) = esdt_transfer;
+        let (token_id, token_nonce, amount) = dct_transfer;
         if token_nonce == 0 {
             cmd_builder.append_string_no_quotes(&dest_address_bech32);
-            cmd_builder.add_raw_named_argument(FUNCTION_ARG_NAME, ESDT_TRANSFER_FUNC_NAME);
+            cmd_builder.add_raw_named_argument(FUNCTION_ARG_NAME, DCT_TRANSFER_FUNC_NAME);
 
             let mut args = Vec::new();
             let token_id_encoded = self.encode_arg(&token_id);
@@ -382,7 +382,7 @@ impl MxpySnippetGenerator {
 
             self.arguments = args;
 
-            ESDT_TRANSFER_FUNC_NAME.to_owned()
+            DCT_TRANSFER_FUNC_NAME.to_owned()
         } else {
             cmd_builder.append_string_no_quotes(&sender_address_bech32);
             cmd_builder.add_raw_named_argument(FUNCTION_ARG_NAME, NFT_TRANSFER_FUNC_NAME);
@@ -415,7 +415,7 @@ impl MxpySnippetGenerator {
         sender_address_bech32: String,
         dest_address_bech32: String,
         function: String,
-        esdt_transfers: Vec<EsdtTransferTuple>,
+        dct_transfers: Vec<DctTransferTuple>,
     ) {
         cmd_builder.append_string_no_quotes(&sender_address_bech32);
         cmd_builder.add_raw_named_argument(FUNCTION_ARG_NAME, MULTI_TRANSFER_FUNC_NAME);
@@ -424,13 +424,13 @@ impl MxpySnippetGenerator {
 
         let mut args = Vec::new();
         let dest_encoded = self.encode_arg(&dest_addr);
-        let nr_transfers_encoded = self.encode_arg(&esdt_transfers.len());
+        let nr_transfers_encoded = self.encode_arg(&dct_transfers.len());
         let function_encoded = self.encode_arg(&function);
 
         args.push(dest_encoded);
         args.push(nr_transfers_encoded);
 
-        for (token_id, token_nonce, amount) in esdt_transfers {
+        for (token_id, token_nonce, amount) in dct_transfers {
             let token_id_encoded = self.encode_arg(&token_id);
             let token_nonce_encoded = self.encode_arg(&token_nonce);
             let amount_encoded = self.encode_arg(&amount.to_bytes_be());
@@ -502,7 +502,7 @@ fn main() {
     println!();
     println!();
 
-    // sc call with EGLD
+    // sc call with MOA
 
     generator = MxpySnippetGenerator::new_sc_call(
         ChainConfig::Devnet,
@@ -515,14 +515,14 @@ fn main() {
     generator.add_argument(&my_val);
     generator.add_argument(&other_arg);
 
-    generator.set_egld_value(&num_bigint::BigUint::from_str("10_000_000_000_000_000_000").unwrap());
+    generator.set_moa_value(&num_bigint::BigUint::from_str("10_000_000_000_000_000_000").unwrap());
 
-    println!("SC Call with EGLD transfer:");
+    println!("SC Call with MOA transfer:");
     generator.print(PrintOption::Both);
     println!();
     println!();
 
-    // sc call with one ESDT transfer
+    // sc call with one DCT transfer
 
     generator = MxpySnippetGenerator::new_sc_call(
         ChainConfig::Devnet,
@@ -536,9 +536,9 @@ fn main() {
     generator.add_argument(&other_arg);
 
     let amount = num_bigint::BigUint::from_str("10_000_000_000_000_000_000").unwrap();
-    generator.add_esdt_transfer("MYTOKEN-abcdef".to_owned(), 0, amount);
+    generator.add_dct_transfer("MYTOKEN-abcdef".to_owned(), 0, amount);
 
-    println!("SC Call with one ESDT transfer:");
+    println!("SC Call with one DCT transfer:");
     generator.print(PrintOption::Both);
     println!();
     println!();
@@ -557,14 +557,14 @@ fn main() {
     generator.add_argument(&other_arg);
 
     let amount = num_bigint::BigUint::from_str("10_000_000_000_000_000_000").unwrap();
-    generator.add_esdt_transfer("MYTOKEN-abcdef".to_owned(), 5, amount);
+    generator.add_dct_transfer("MYTOKEN-abcdef".to_owned(), 5, amount);
 
     println!("SC Call with one NFT transfer:");
     generator.print(PrintOption::Both);
     println!();
     println!();
 
-    // sc call with multiple ESDT transfers
+    // sc call with multiple DCT transfers
 
     generator = MxpySnippetGenerator::new_sc_call(
         ChainConfig::Devnet,
@@ -578,11 +578,11 @@ fn main() {
     generator.add_argument(&other_arg);
 
     let amount = num_bigint::BigUint::from_str("10_000_000_000_000_000_000").unwrap();
-    generator.add_esdt_transfer("MYTOKEN-abcdef".to_owned(), 5, amount.clone());
+    generator.add_dct_transfer("MYTOKEN-abcdef".to_owned(), 5, amount.clone());
 
-    generator.add_esdt_transfer("OTHERTOK-123456".to_owned(), 0, amount);
+    generator.add_dct_transfer("OTHERTOK-123456".to_owned(), 0, amount);
 
-    println!("SC Call multiple ESDT transfers:");
+    println!("SC Call multiple DCT transfers:");
     generator.print(PrintOption::Both);
     println!();
     println!();

@@ -1,6 +1,6 @@
 use adder::*;
-use dharithri_sc::types::BigUint;
-use dharithri_sc_scenario::api::SingleTxApi;
+use dharitri_sc::types::BigUint;
+use dharitri_sc_scenario::api::SingleTxApi;
 
 #[test]
 fn adder_unit_test() {

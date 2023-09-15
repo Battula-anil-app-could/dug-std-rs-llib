@@ -1,5 +1,5 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 use crate::common::{FEE_PENALTY_INCREASE_EPOCHS, FEE_PENALTY_INCREASE_PERCENT};
 
@@ -10,7 +10,7 @@ use super::common::{
     PERCENT_BASE_POINTS,
 };
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait OrdersModule:
     events::EventsModule + common::CommonModule + validation::ValidationModule
 {
@@ -354,7 +354,7 @@ pub trait OrdersModule:
     fn execute_transfers(&self, transfers: ManagedVec<Transfer<Self::Api>>) {
         for transfer in &transfers {
             if transfer.payment.amount > 0 {
-                self.send().direct_esdt(
+                self.send().direct_dct(
                     &transfer.to,
                     &transfer.payment.token_id,
                     0,

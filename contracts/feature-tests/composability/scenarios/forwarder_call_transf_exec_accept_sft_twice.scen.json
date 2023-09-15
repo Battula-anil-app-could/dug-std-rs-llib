@@ -7,7 +7,7 @@
                 "address:a_user": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {
@@ -36,7 +36,7 @@
             "tx": {
                 "from": "address:a_user",
                 "to": "sc:forwarder",
-                "esdtValue": [
+                "dctValue": [
                     {
                         "tokenIdentifier": "str:NFT-000001",
                         "nonce": "5",
@@ -56,7 +56,7 @@
                 "logs": [
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:ESDTNFTTransfer",
+                        "endpoint": "str:DCTNFTTransfer",
                         "topics": [
                             "str:NFT-000001",
                             "5",
@@ -79,7 +79,7 @@
                     },
                     {
                         "address": "sc:forwarder",
-                        "endpoint": "str:ESDTNFTTransfer",
+                        "endpoint": "str:DCTNFTTransfer",
                         "topics": [
                             "str:NFT-000001",
                             "5",
@@ -114,7 +114,7 @@
                 "sc:vault": {
                     "nonce": "0",
                     "balance": "0",
-                    "esdt": {
+                    "dct": {
                         "str:NFT-000001": {
                             "instances": [
                                 {

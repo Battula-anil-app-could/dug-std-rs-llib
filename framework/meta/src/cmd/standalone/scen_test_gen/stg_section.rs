@@ -139,12 +139,12 @@ fn another_func() {
 
 #[test]
 fn test_1() {
-    dharithri_sc_scenario::run_rs("scenarios/test1.scen.json");
+    dharitri_sc_scenario::run_rs("scenarios/test1.scen.json");
 }
   
 #[test]
 fn test_2() {
-    dharithri_sc_scenario::run_rs("scenarios/test2.scen.json");
+    dharitri_sc_scenario::run_rs("scenarios/test2.scen.json");
 }
 
 "#;

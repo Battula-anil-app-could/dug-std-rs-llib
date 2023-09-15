@@ -1,5 +1,5 @@
-use dharithri_chain_vm::tx_mock::{TxContext, TxContextStack};
-use dharithri_sc::{
+use dharitri_chain_vm::tx_mock::{TxContext, TxContextStack};
+use dharitri_sc::{
     api::{use_raw_handle, HandleConstraints, RawHandle},
     codec::TryStaticCast,
     types::ManagedVecItem,
@@ -36,7 +36,7 @@ impl core::fmt::Debug for DebugHandle {
 }
 
 impl HandleConstraints for DebugHandle {
-    fn new(handle: dharithri_sc::api::RawHandle) -> Self {
+    fn new(handle: dharitri_sc::api::RawHandle) -> Self {
         Self {
             context: TxContextStack::static_peek(),
             raw_handle: handle,

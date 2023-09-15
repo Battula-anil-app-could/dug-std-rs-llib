@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ContractBaseTestModule: ContractBase {
     #[endpoint]
     fn call_contract_base_endpoint(&self) {}

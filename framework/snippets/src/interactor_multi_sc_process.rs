@@ -1,6 +1,6 @@
-use crate::{dharithri_sc::types::Address, Interactor, Sender};
+use crate::{dharitri_sc::types::Address, Interactor, Sender};
 use futures::future::join_all;
-use dharithri_sdk::data::transaction::{Transaction, TransactionOnNetwork};
+use dharitri_sdk::data::transaction::{Transaction, TransactionOnNetwork};
 use std::collections::HashSet;
 
 pub(crate) type Txs = Vec<Transaction>;

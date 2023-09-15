@@ -1,5 +1,5 @@
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 use crate::bonding_curve::utils::structs::CurveArguments;
 pub trait CurveFunction<M: ManagedTypeApi> {

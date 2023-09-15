@@ -1,10 +1,10 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
 /// Several alternative constructors, used for testing.
 ///
 /// We are using the multi-contract build system, to avoid having too many SC crates.
 /// We need to generate a separate contract for each of these constructors.
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ForwarderRawAlterativeInit: super::forwarder_raw_common::ForwarderRawCommon {
     /// Will not work, only written for VM testing.
     ///
@@ -40,11 +40,11 @@ pub trait ForwarderRawAlterativeInit: super::forwarder_raw_common::ForwarderRawC
         self.init_async_call(to, endpoint_name, args)
     }
 
-    /// Works, but without forwarding EGLD.
+    /// Works, but without forwarding MOA.
     ///
-    /// Forwarding EGLD only shows up in a VM test.
+    /// Forwarding MOA only shows up in a VM test.
     #[init]
-    #[payable("EGLD")]
+    #[payable("MOA")]
     #[label("init-sync-call")]
     fn init_sync_call(
         &self,
@@ -52,7 +52,7 @@ pub trait ForwarderRawAlterativeInit: super::forwarder_raw_common::ForwarderRawC
         endpoint_name: ManagedBuffer,
         args: MultiValueEncoded<ManagedBuffer>,
     ) {
-        let payment = self.call_value().egld_value();
+        let payment = self.call_value().moa_value();
         let half_gas = self.blockchain().get_gas_left() / 2;
         let result = self.send_raw().execute_on_dest_context_raw(
             half_gas,

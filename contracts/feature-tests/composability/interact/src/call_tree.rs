@@ -1,6 +1,6 @@
 use std::{cell::RefCell, rc::Rc};
 
-use dharithri_sc_snippets::dharithri_sc::types::Address;
+use dharitri_sc_snippets::dharitri_sc::types::Address;
 
 #[derive(Default, Clone)]
 pub struct CallState {

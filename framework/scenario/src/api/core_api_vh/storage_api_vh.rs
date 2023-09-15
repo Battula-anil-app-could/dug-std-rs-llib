@@ -1,4 +1,4 @@
-use dharithri_sc::api::{
+use dharitri_sc::api::{
     HandleConstraints, StorageReadApi, StorageReadApiImpl, StorageWriteApi, StorageWriteApiImpl,
 };
 

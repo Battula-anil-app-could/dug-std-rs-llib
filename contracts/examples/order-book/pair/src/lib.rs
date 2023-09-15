@@ -1,7 +1,7 @@
 #![no_std]
 
-dharithri_sc::imports!();
-dharithri_sc::derive_imports!();
+dharitri_sc::imports!();
+dharitri_sc::derive_imports!();
 
 mod common;
 mod events;
@@ -11,7 +11,7 @@ mod validation;
 
 use common::OrderInputParams;
 
-#[dharithri_sc::contract]
+#[dharitri_sc::contract]
 pub trait Pair:
     global::GlobalOperationModule
     + orders::OrdersModule

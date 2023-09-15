@@ -1,18 +1,18 @@
 use super::{
     builtin_func_trait::BuiltinFunction,
     builtin_function_names::*,
-    esdt_nft::{
-        ESDTLocalBurn, ESDTLocalMint, ESDTNftAddQuantity, ESDTNftAddUri, ESDTNftBurn,
-        ESDTNftCreate, ESDTNftUpdateAttributes,
+    dct_nft::{
+        DCTLocalBurn, DCTLocalMint, DCTNftAddQuantity, DCTNftAddUri, DCTNftBurn,
+        DCTNftCreate, DCTNftUpdateAttributes,
     },
     general::{ChangeOwner, ClaimDeveloperRewards, DeleteUsername, SetUsername, UpgradeContract},
-    transfer::{ESDTMultiTransfer, ESDTNftTransfer, ESDTTransfer},
-    BuiltinFunctionEsdtTransferInfo,
+    transfer::{DCTMultiTransfer, DCTNftTransfer, DCTTransfer},
+    BuiltinFunctionDctTransferInfo,
 };
 use crate::{
     tx_execution::BlockchainVMRef,
     tx_mock::{BlockchainUpdate, TxCache, TxInput, TxResult},
-    types::EsdtLocalRole,
+    types::DctLocalRole,
 };
 
 /// Container for builtin function logic.
@@ -39,22 +39,22 @@ impl BuiltinFunctionContainer {
         BuiltinFunctionCall::new(vm, tx_input, tx_cache).execute_or_else(f, or_else)
     }
 
-    /// Provides data on the builtin functions that perform ESDT token transfers.
-    pub fn extract_token_transfers(&self, tx_input: &TxInput) -> BuiltinFunctionEsdtTransferInfo {
+    /// Provides data on the builtin functions that perform DCT token transfers.
+    pub fn extract_token_transfers(&self, tx_input: &TxInput) -> BuiltinFunctionDctTransferInfo {
         match tx_input.func_name.as_str() {
-            ESDT_MULTI_TRANSFER_FUNC_NAME => bf_extract_transfers(ESDTMultiTransfer, tx_input),
-            ESDT_NFT_TRANSFER_FUNC_NAME => bf_extract_transfers(ESDTNftTransfer, tx_input),
-            ESDT_TRANSFER_FUNC_NAME => bf_extract_transfers(ESDTTransfer, tx_input),
-            _ => BuiltinFunctionEsdtTransferInfo::empty(tx_input),
+            DCT_MULTI_TRANSFER_FUNC_NAME => bf_extract_transfers(DCTMultiTransfer, tx_input),
+            DCT_NFT_TRANSFER_FUNC_NAME => bf_extract_transfers(DCTNftTransfer, tx_input),
+            DCT_TRANSFER_FUNC_NAME => bf_extract_transfers(DCTTransfer, tx_input),
+            _ => BuiltinFunctionDctTransferInfo::empty(tx_input),
         }
     }
 }
 
-fn bf_extract_transfers<B>(builtin_func: B, tx_input: &TxInput) -> BuiltinFunctionEsdtTransferInfo
+fn bf_extract_transfers<B>(builtin_func: B, tx_input: &TxInput) -> BuiltinFunctionDctTransferInfo
 where
     B: BuiltinFunction,
 {
-    builtin_func.extract_esdt_transfers(tx_input)
+    builtin_func.extract_dct_transfers(tx_input)
 }
 
 /// Syntax helper for the big builtin function match in `execute_or_else`.
@@ -80,33 +80,33 @@ impl<'a> BuiltinFunctionCall<'a> {
         Else: FnOnce(TxInput, TxCache, F) -> (TxResult, BlockchainUpdate),
     {
         match self.tx_input.func_name.as_str() {
-            ESDT_LOCAL_MINT_FUNC_NAME => {
-                self.check_role_and_execute(EsdtLocalRole::Mint, ESDTLocalMint, f)
+            DCT_LOCAL_MINT_FUNC_NAME => {
+                self.check_role_and_execute(DctLocalRole::Mint, DCTLocalMint, f)
             },
-            ESDT_LOCAL_BURN_FUNC_NAME => {
-                self.check_role_and_execute(EsdtLocalRole::Burn, ESDTLocalBurn, f)
+            DCT_LOCAL_BURN_FUNC_NAME => {
+                self.check_role_and_execute(DctLocalRole::Burn, DCTLocalBurn, f)
             },
-            ESDT_NFT_CREATE_FUNC_NAME => {
-                self.check_role_and_execute(EsdtLocalRole::NftCreate, ESDTNftCreate, f)
+            DCT_NFT_CREATE_FUNC_NAME => {
+                self.check_role_and_execute(DctLocalRole::NftCreate, DCTNftCreate, f)
             },
-            ESDT_NFT_BURN_FUNC_NAME => {
-                self.check_role_and_execute(EsdtLocalRole::NftBurn, ESDTNftBurn, f)
+            DCT_NFT_BURN_FUNC_NAME => {
+                self.check_role_and_execute(DctLocalRole::NftBurn, DCTNftBurn, f)
             },
-            ESDT_NFT_ADD_QUANTITY_FUNC_NAME => {
-                self.check_role_and_execute(EsdtLocalRole::NftAddQuantity, ESDTNftAddQuantity, f)
+            DCT_NFT_ADD_QUANTITY_FUNC_NAME => {
+                self.check_role_and_execute(DctLocalRole::NftAddQuantity, DCTNftAddQuantity, f)
             },
-            ESDT_NFT_ADD_URI_FUNC_NAME => {
-                self.check_role_and_execute(EsdtLocalRole::NftAddUri, ESDTNftAddUri, f)
+            DCT_NFT_ADD_URI_FUNC_NAME => {
+                self.check_role_and_execute(DctLocalRole::NftAddUri, DCTNftAddUri, f)
             },
-            ESDT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME => self.check_role_and_execute(
-                EsdtLocalRole::NftUpdateAttributes,
-                ESDTNftUpdateAttributes,
+            DCT_NFT_UPDATE_ATTRIBUTES_FUNC_NAME => self.check_role_and_execute(
+                DctLocalRole::NftUpdateAttributes,
+                DCTNftUpdateAttributes,
                 f,
             ),
 
-            ESDT_MULTI_TRANSFER_FUNC_NAME => self.execute_bf(ESDTMultiTransfer, f),
-            ESDT_NFT_TRANSFER_FUNC_NAME => self.execute_bf(ESDTNftTransfer, f),
-            ESDT_TRANSFER_FUNC_NAME => self.execute_bf(ESDTTransfer, f),
+            DCT_MULTI_TRANSFER_FUNC_NAME => self.execute_bf(DCTMultiTransfer, f),
+            DCT_NFT_TRANSFER_FUNC_NAME => self.execute_bf(DCTNftTransfer, f),
+            DCT_TRANSFER_FUNC_NAME => self.execute_bf(DCTTransfer, f),
             CHANGE_OWNER_BUILTIN_FUNC_NAME => self.execute_bf(ChangeOwner, f),
             CLAIM_DEVELOPER_REWARDS_FUNC_NAME => self.execute_bf(ClaimDeveloperRewards, f),
             SET_USERNAME_FUNC_NAME => self.execute_bf(SetUsername, f),
@@ -129,7 +129,7 @@ impl<'a> BuiltinFunctionCall<'a> {
 
     fn check_role_and_execute<B, F>(
         self,
-        role: EsdtLocalRole,
+        role: DctLocalRole,
         builtin_func: B,
         f: F,
     ) -> (TxResult, BlockchainUpdate)
@@ -148,10 +148,10 @@ impl<'a> BuiltinFunctionCall<'a> {
     }
 }
 
-fn check_allowed_to_execute(role: EsdtLocalRole, tx_input: &TxInput, tx_cache: &TxCache) -> bool {
+fn check_allowed_to_execute(role: DctLocalRole, tx_input: &TxInput, tx_cache: &TxCache) -> bool {
     let token_identifier = tx_input.args[0].clone();
     let available_roles = tx_cache.with_account_mut(&tx_input.to, |account| {
-        account.esdt.get_roles(&token_identifier)
+        account.dct.get_roles(&token_identifier)
     });
     available_roles
         .iter()

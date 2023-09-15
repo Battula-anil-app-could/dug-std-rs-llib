@@ -6,7 +6,7 @@ use crate::{
     contract_base::CallValueWrapper,
     err_msg,
     types::{
-        BigUint, EgldOrEsdtTokenIdentifier, EsdtTokenPayment, ManagedRef, ManagedType, ManagedVec,
+        BigUint, MoaOrDctTokenIdentifier, DctTokenPayment, ManagedRef, ManagedType, ManagedVec,
     },
 };
 
@@ -25,13 +25,13 @@ where
 {
 }
 
-/// Called initially in the generated code whenever `#[payable("EGLD")]` annotation is provided.
-pub fn payable_egld<A>()
+/// Called initially in the generated code whenever `#[payable("MOA")]` annotation is provided.
+pub fn payable_moa<A>()
 where
     A: CallValueApi + ErrorApi,
 {
-    if A::call_value_api_impl().esdt_num_transfers() > 0 {
-        A::error_api_impl().signal_error(err_msg::NON_PAYABLE_FUNC_ESDT.as_bytes());
+    if A::call_value_api_impl().dct_num_transfers() > 0 {
+        A::error_api_impl().signal_error(err_msg::NON_PAYABLE_FUNC_DCT.as_bytes());
     }
 }
 
@@ -42,9 +42,9 @@ pub fn payable_single_specific_token<A>(expected_tokend_identifier: &str)
 where
     A: CallValueApi + ManagedTypeApi + ErrorApi,
 {
-    let transfers = CallValueWrapper::<A>::new().all_esdt_transfers();
+    let transfers = CallValueWrapper::<A>::new().all_dct_transfers();
     if transfers.len() != 1 {
-        A::error_api_impl().signal_error(err_msg::SINGLE_ESDT_EXPECTED.as_bytes());
+        A::error_api_impl().signal_error(err_msg::SINGLE_DCT_EXPECTED.as_bytes());
     }
     let expected_token_handle: A::ManagedBufferHandle =
         use_raw_handle(const_handles::MBUF_TEMPORARY_1);
@@ -66,16 +66,16 @@ pub fn arg_payment_amount<A>() -> BigUint<A>
 where
     A: CallValueApi + ManagedTypeApi,
 {
-    CallValueWrapper::<A>::new().egld_or_single_esdt().amount
+    CallValueWrapper::<A>::new().moa_or_single_dct().amount
 }
 
 /// Initializes an argument annotated with `#[payment_token]`.
-pub fn arg_payment_token<A>() -> EgldOrEsdtTokenIdentifier<A>
+pub fn arg_payment_token<A>() -> MoaOrDctTokenIdentifier<A>
 where
     A: CallValueApi + ManagedTypeApi,
 {
     CallValueWrapper::<A>::new()
-        .egld_or_single_esdt()
+        .moa_or_single_dct()
         .token_identifier
 }
 
@@ -85,14 +85,14 @@ where
     A: CallValueApi + ManagedTypeApi,
 {
     CallValueWrapper::<A>::new()
-        .egld_or_single_esdt()
+        .moa_or_single_dct()
         .token_nonce
 }
 
 /// Initializes an argument annotated with `#[payment_multi]`.
-pub fn arg_payment_multi<A>() -> ManagedRef<'static, A, ManagedVec<A, EsdtTokenPayment<A>>>
+pub fn arg_payment_multi<A>() -> ManagedRef<'static, A, ManagedVec<A, DctTokenPayment<A>>>
 where
     A: CallValueApi + ManagedTypeApi,
 {
-    CallValueWrapper::<A>::new().all_esdt_transfers()
+    CallValueWrapper::<A>::new().all_dct_transfers()
 }

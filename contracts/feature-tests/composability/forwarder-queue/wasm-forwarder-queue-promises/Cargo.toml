@@ -1,7 +1,7 @@
 [package]
 name = "forwarder-queue-promises-wasm"
 version = "0.0.0"
-authors = ["Costin Carabas <costin.carabas@dharithri.com>"]
+authors = ["Costin Carabas <costin.carabas@dharitri.com>"]
 edition = "2021"
 publish = false
 
@@ -17,7 +17,7 @@ panic = "abort"
 path = ".."
 features = ["promises"]
 
-[dependencies.dharithri-sc-wasm-adapter]
+[dependencies.dharitri-sc-wasm-adapter]
 version = "0.43.3"
 path = "../../../../../framework/wasm-adapter"
 

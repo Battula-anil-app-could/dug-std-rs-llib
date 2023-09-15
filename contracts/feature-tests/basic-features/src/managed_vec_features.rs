@@ -1,6 +1,6 @@
-dharithri_sc::imports!();
+dharitri_sc::imports!();
 
-#[dharithri_sc::module]
+#[dharitri_sc::module]
 pub trait ManagedVecFeatures {
     #[endpoint]
     fn managed_vec_new(&self) -> ManagedVec<BigUint> {
