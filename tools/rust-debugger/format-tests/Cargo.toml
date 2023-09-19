@@ -17,7 +17,7 @@ version = "0.43.3"
 path = "../../../framework/scenario"
 
 [dependencies.dharitri-chain-vm]
-version = "0.5.2"
+version = "0.0.1"
 path = "../../../vm"
 
 [dev-dependencies]

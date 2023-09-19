@@ -28,6 +28,10 @@ fn bool_to_i32(b: bool) -> i32 {
 
 #[allow(unused)]
 impl VMHooks for VMHooksDispatcher {
+    fn managed_get_back_transfers(&self, param1: i32, param2: i32) {
+        // Implementation code here
+    }
+
     fn set_vm_hooks_ptr(&mut self, _vm_hooks_ptr: *mut c_void) {}
 
     fn get_gas_left(&self) -> i64 {
