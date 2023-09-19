@@ -52,7 +52,7 @@ version = "0.20.0"
 path = "../../sdk/scenario-format"
 
 [dependencies.dharitri-chain-vm-executor]
-version = "0.1.0"
+version = "0.0.1"
 
 [dependencies.dharitri-chain-vm]
 version = "=0.5.2"
