@@ -1,6 +1,6 @@
 use std::ffi::c_void;
 
-use dharithri_chain_vm_executor::{MemLength, MemPtr, VMHooks};
+use dharitri_chain_vm_executor::{MemLength, MemPtr, VMHooks};
 
 use crate::mem_conv;
 

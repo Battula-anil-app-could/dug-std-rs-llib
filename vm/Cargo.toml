@@ -29,5 +29,5 @@ itertools = "0.10.3"
 hex-literal = "0.3.1"
 bitflags = "1.3.2"
 
-[dependencies.dharithri-chain-vm-executor]
+[dependencies.dharitri-chain-vm-executor]
 version = "0.1.0"

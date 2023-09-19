@@ -51,7 +51,7 @@ path = "../meta"
 version = "0.20.0"
 path = "../../sdk/scenario-format"
 
-[dependencies.dharithri-chain-vm-executor]
+[dependencies.dharitri-chain-vm-executor]
 version = "0.1.0"
 
 [dependencies.dharitri-chain-vm]

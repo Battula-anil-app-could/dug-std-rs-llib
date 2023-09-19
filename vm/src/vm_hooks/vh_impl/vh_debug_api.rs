@@ -1,6 +1,6 @@
 use std::sync::{Arc, MutexGuard};
 
-use dharithri_chain_vm_executor::BreakpointValue;
+use dharitri_chain_vm_executor::BreakpointValue;
 
 use crate::{
     tx_execution::execute_current_tx_context_input,

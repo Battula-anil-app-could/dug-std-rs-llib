@@ -1,6 +1,6 @@
 use super::*;
 
-use dharithri_chain_vm_executor::{
+use dharitri_chain_vm_executor::{
     CompilationOptions, Executor, ExecutorError, Instance, OpcodeCost,
 };
 use std::{

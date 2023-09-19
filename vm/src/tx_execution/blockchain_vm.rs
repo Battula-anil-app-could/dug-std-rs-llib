@@ -1,6 +1,6 @@
 use std::{ops::Deref, sync::Arc};
 
-use dharithri_chain_vm_executor::Executor;
+use dharitri_chain_vm_executor::Executor;
 
 use super::BuiltinFunctionContainer;
 

@@ -870,7 +870,7 @@ dependencies = [
  "hex",
  "hex-literal",
  "itertools",
- "dharithri-chain-vm-executor",
+ "dharitri-chain-vm-executor",
  "num-bigint",
  "num-traits",
  "rand",
@@ -988,7 +988,7 @@ dependencies = [
  "hex",
  "itertools",
  "log",
- "dharithri-chain-vm-executor",
+ "dharitri-chain-vm-executor",
  "num-bigint",
  "num-traits",
  "pathdiff",
@@ -2219,7 +2219,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dharithri-chain-vm-executor"
+name = "dharitri-chain-vm-executor"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7e14f14947682eb69459676336dd8b678e2317aa9844724220ce73411bc947c3"

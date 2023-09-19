@@ -12,7 +12,7 @@ pub mod world_mock;
 pub use world_mock::BlockchainMock;
 
 // Re-exporting the executor, for convenience.
-pub use dharithri_chain_vm_executor as executor;
+pub use dharitri_chain_vm_executor as executor;
 
 #[macro_use]
 extern crate alloc;

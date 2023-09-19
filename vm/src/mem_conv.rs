@@ -1,4 +1,4 @@
-use dharithri_chain_vm_executor::{MemLength, MemPtr};
+use dharitri_chain_vm_executor::{MemLength, MemPtr};
 
 pub fn with_mem_ptr<F, R>(bytes: &[u8], f: F) -> R
 where
